@@ -113,19 +113,21 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
               children: [
                 SizedBox(
                   width: (screenWidth / 2) - 32,
-                  height: 64,
+                  height: 51,
                   child: context.secondaryButton(
                     onPressed: () {},
                     text: "Skip",
+                    borderRadius: 8,
                   ),
                 ),
                 const SizedBox(width: 8),
                 SizedBox(
                   width: (screenWidth / 2) - 32,
-                  height: 64,
+                  height: 51,
                   child: context.primaryButton(
                     onPressed: () {},
                     text: "Continue",
+                    borderRadius: 8,
                   ),
                 ),
               ],
