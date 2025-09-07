@@ -5,7 +5,7 @@ class AgreementController extends GetxController {
   var isChecked = false.obs;
 }
 
-// Reusable Agreement Dialog Widget
+
 class AgreementDialog extends StatelessWidget {
   final AgreementController controller;
 
