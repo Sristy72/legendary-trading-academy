@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/core/demo/screen.dart';
 import 'package:flutter_ladydenily/core/theme/app_theme.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: AppTheme.light,
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Screen()
     );
   }
 }
