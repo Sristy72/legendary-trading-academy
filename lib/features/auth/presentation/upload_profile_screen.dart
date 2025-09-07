@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadProfileScreen extends StatefulWidget {
@@ -50,6 +51,7 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            Text("To create your new account, provide one of your photos."),
             Expanded(
               child: Center(
                 child: Column(
@@ -86,22 +88,15 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
                       children: [
                         TextButton.icon(
                           onPressed: () => _pickImage(ImageSource.camera),
-                          icon: const Icon(
-                            Icons.camera_alt,
-                            color: Color(0xFF1A3E74),
-                          ),
                           label: const Text(
                             'Camera',
                             style: TextStyle(color: Color(0xFF1A3E74)),
                           ),
                         ),
                         const SizedBox(width: 16),
+
                         TextButton.icon(
                           onPressed: () => _pickImage(ImageSource.gallery),
-                          icon: const Icon(
-                            Icons.photo_album,
-                            color: Color(0xFF1A3E74),
-                          ),
                           label: const Text(
                             'Photos',
                             style: TextStyle(color: Color(0xFF1A3E74)),
@@ -119,42 +114,18 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
                 SizedBox(
                   width: (screenWidth / 2) - 32,
                   height: 64,
-                  child: ElevatedButton(
+                  child: context.secondaryButton(
                     onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      side: const BorderSide(
-                        color: Color(0xFFEFC227),
-                        width: 2,
-                      ),
-                      backgroundColor: Colors.transparent,
-                      shadowColor: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text(
-                      'Skip',
-                      style: TextStyle(color: Colors.black),
-                    ),
+                    text: "Skip",
                   ),
                 ),
                 const SizedBox(width: 8),
                 SizedBox(
                   width: (screenWidth / 2) - 32,
                   height: 64,
-                  child: ElevatedButton(
+                  child: context.primaryButton(
                     onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFEFC227),
-                      shadowColor: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(color: Colors.black),
-                    ),
+                    text: "Continue",
                   ),
                 ),
               ],
