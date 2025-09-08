@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../presentation/controllers/module_details_controller.dart';
+import '../controllers/module_details_controller.dart';
 
 Widget buildModuleCard(Module module, int index, ModulesDetailsController controller) {
   return Card(
     margin: const EdgeInsets.only(bottom: 16),
     elevation: 2,
-    color: Color(0XFFB8C3D4),
+    color: Color(0XFFE8ECF1),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     child: Padding(
       padding: const EdgeInsets.all(16),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../controllers/module_details_controller.dart';
 import '../widgets/module_details_card_widget.dart';
-import 'controllers/module_details_controller.dart';
 
 class ModulesDetailsScreen extends StatelessWidget {
   const ModulesDetailsScreen({super.key});

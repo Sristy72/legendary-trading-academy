@@ -24,7 +24,7 @@ class ItemWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
         margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
-          color: Color(0XFFB8C3D4),//isSelected ? Colors.blue[50] : Color(0XFFB8C3D4),,
+          color: Color(0XFFE8ECF1),//isSelected ? Colors.blue[50] : Color(0XFFB8C3D4),,
           borderRadius: BorderRadius.circular(8),
           // border: isSelected
           //     ? Border.all(color: Colors.blue, width: 1)

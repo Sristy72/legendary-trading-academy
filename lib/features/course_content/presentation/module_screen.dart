@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/features/course_content/presentation/module_details_screen.dart';
 import 'package:get/get.dart';
 import '../state/module_state.dart';
 import '../widgets/items_widgets.dart';
@@ -41,7 +42,10 @@ class ModuleScreen extends StatelessWidget {
                     title: 'Modules',
                     ImagePath: "assets/images/periodic-table_2183917.png",
                     isSelected: controller.selectedIndex.value == 0,
-                    onTap: () => controller.selectItem(0),
+                    onTap: (){
+                      controller.selectItem(0);
+                      Get.to(() => const ModulesDetailsScreen());
+                    },
                   ),
                   const SizedBox(height: 12,),
                   ItemWidget(
