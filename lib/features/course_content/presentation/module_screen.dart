@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../state/module_controller.dart';
+import '../state/module_state.dart';
 import '../widgets/items_widgets.dart';
 
 class ModuleScreen extends StatelessWidget {

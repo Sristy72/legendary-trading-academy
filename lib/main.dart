@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_theme.dart';
+import 'package:flutter_ladydenily/features/course_content/presentation/module_details_screen.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/module_screen.dart';
 
 void main() {

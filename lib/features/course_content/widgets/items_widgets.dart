@@ -24,7 +24,7 @@ class ItemWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
         margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.blue[50] : Color(0XFFB8C3D4),
+          color: Color(0XFFB8C3D4),//isSelected ? Colors.blue[50] : Color(0XFFB8C3D4),,
           borderRadius: BorderRadius.circular(8),
           // border: isSelected
           //     ? Border.all(color: Colors.blue, width: 1)
@@ -33,19 +33,17 @@ class ItemWidget extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: 24, // Fixed size for image container
-              height: 24, // Fixed size for image container
+              width: 24,
+              height: 24,
               decoration: BoxDecoration(
                 color: isSelected ? Colors.blue[100] : Colors.grey[200],
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Center(
-                // Using a placeholder container for the image
-                // Replace with Image.asset(imagePath) when you have actual images
                 child: Image.asset(
                   ImagePath,
-                  width: 24,
-                  height: 24,
+                  width: 26,
+                  height: 26,
                   fit: BoxFit.contain,
                 ),
               ),
