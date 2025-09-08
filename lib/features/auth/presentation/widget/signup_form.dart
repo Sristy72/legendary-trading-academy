@@ -5,24 +5,25 @@ import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.d
 import 'package:flutx_core/core/validation/validators.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_colors.dart';
 
-
-class TLoginForm extends StatefulWidget {
-  const TLoginForm({
+class SignupForm extends StatefulWidget {
+  const SignupForm({
     super.key,
   });
   @override
-  State<TLoginForm> createState() => _TLoginFormState();
+  State<SignupForm> createState() => _SignupFormState();
 }
 
-class _TLoginFormState extends State<TLoginForm> {
+class _SignupFormState extends State<SignupForm> {
 
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
+  final FocusNode _confirmPasswordFocus = FocusNode();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   final ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
 
@@ -41,7 +42,7 @@ class _TLoginFormState extends State<TLoginForm> {
               focusNode: _emailFocus,
               keyboardType: TextInputType.emailAddress,
               decoration: context.primaryInputDecoration.copyWith(
-                hintText: TTexts.email,
+                  hintText: TTexts.email,
                   prefixIcon: Icon(Icons.email_outlined, color: Color(0xFF666666),)
               ),
               validator: Validators.email,
@@ -50,7 +51,7 @@ class _TLoginFormState extends State<TLoginForm> {
               autofillHints: const [AutofillHints.email],
             ),
 
-            SizedBox(height: 24),
+            SizedBox(height: 15),
 
             ///Password
             ValueListenableBuilder<bool>(
@@ -65,7 +66,7 @@ class _TLoginFormState extends State<TLoginForm> {
                   decoration: context.primaryInputDecoration.copyWith(
                     hintText: TTexts.password,
                     prefixIcon: Icon(Iconsax.lock, color: Color(0xFF666666),),
-                    
+
                   ),
 
                   validator: Validators.password,
@@ -74,23 +75,33 @@ class _TLoginFormState extends State<TLoginForm> {
               },
             ),
 
-            SizedBox(height: 8),
+            SizedBox(height: 15,),
 
-            ///forget password
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  child: Text(TTexts.forgetPassword, style: TextStyle(color: Color(0xFF1A3E74), fontSize: 14),),
-                ),
-              ],
+            ValueListenableBuilder<bool>(
+              valueListenable: _obscurePassword,
+              builder: (context, obscure, _) {
+                return TextFormField(
+                  controller: _confirmPasswordController,
+                  focusNode: _confirmPasswordFocus,
+                  obscureText: obscure,
+                  textInputAction: TextInputAction.done,
+                  style: TextStyle(color: AppColors.text),
+                  decoration: context.primaryInputDecoration.copyWith(
+                    hintText: TTexts.password,
+                    prefixIcon: Icon(Iconsax.lock, color: Color(0xFF666666),),
+
+                  ),
+
+                  validator: Validators.password,
+                  autofillHints: const [AutofillHints.password],
+                );
+              },
             ),
 
             SizedBox(height: 16),
 
             ///Sign in
-            context.primaryButton(onPressed: () {  }, text: 'Login'),
+            context.primaryButton(onPressed: () {  }, text: 'Sign up'),
             SizedBox(height: 32),
           ],
         ),

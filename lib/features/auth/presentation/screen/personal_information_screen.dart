@@ -5,7 +5,7 @@ import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.d
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutx_core/core/validation/validators.dart';
 
-import '../../../core/common/texts/texts.dart';
+import '../../../../core/common/texts/texts.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
   const PersonalInformationScreen({super.key});
@@ -58,11 +58,22 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
             CustomText('To create your new account, provide your information.'),
             SizedBox(height: 16),
 
-
-            Row(children: [
-              CustomText('Name', style: TextStyle(fontWeight: FontWeight.w400 , fontSize: 16)),
-              CustomText('*', style: TextStyle(color: Color(0xFFEF1A26),fontWeight: FontWeight.w400 , fontSize: 16))
-            ],),
+            Row(
+              children: [
+                CustomText(
+                  'Name',
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+                ),
+                CustomText(
+                  '*',
+                  style: TextStyle(
+                    color: Color(0xFFEF1A26),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
             //CustomText('Name*', style: TextStyle(fontWeight: FontWeight.w400 , fontSize: 16)),
             SizedBox(height: 8),
             TextFormField(
@@ -80,11 +91,22 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
 
             SizedBox(height: 14),
 
-
-            Row(children: [
-              CustomText('Age', style: TextStyle(fontWeight: FontWeight.w400 , fontSize: 16)),
-              CustomText('*', style: TextStyle(color: Color(0xFFEF1A26),fontWeight: FontWeight.w400 , fontSize: 16))
-            ],),
+            Row(
+              children: [
+                CustomText(
+                  'Age',
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+                ),
+                CustomText(
+                  '*',
+                  style: TextStyle(
+                    color: Color(0xFFEF1A26),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
             SizedBox(height: 8),
             TextFormField(
               controller: _personalAgeController,
@@ -100,10 +122,22 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
             ),
 
             SizedBox(height: 14),
-            Row(children: [
-              CustomText('Gender', style: TextStyle(fontWeight: FontWeight.w400 , fontSize: 16)),
-              CustomText('*', style: TextStyle(color: Color(0xFFEF1A26),fontWeight: FontWeight.w400 , fontSize: 16))
-            ],),
+            Row(
+              children: [
+                CustomText(
+                  'Gender',
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+                ),
+                CustomText(
+                  '*',
+                  style: TextStyle(
+                    color: Color(0xFFEF1A26),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
             SizedBox(height: 8),
             TextFormField(
               controller: _genderController,
@@ -111,7 +145,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               keyboardType: TextInputType.emailAddress,
               decoration: context.primaryInputDecoration.copyWith(
                 hintText: TTexts.gender,
-                suffixIcon: Icon(Icons.keyboard_arrow_down)
+                suffixIcon: Icon(Icons.keyboard_arrow_down),
               ),
               validator: Validators.email,
               onFieldSubmitted: (_) =>
@@ -119,12 +153,23 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               autofillHints: const [AutofillHints.email],
             ),
 
-
             SizedBox(height: 14),
-            Row(children: [
-              CustomText('Nationality', style: TextStyle(fontWeight: FontWeight.w400 , fontSize: 16)),
-              CustomText('*', style: TextStyle(color: Color(0xFFEF1A26),fontWeight: FontWeight.w400 , fontSize: 16))
-            ],),
+            Row(
+              children: [
+                CustomText(
+                  'Nationality',
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+                ),
+                CustomText(
+                  '*',
+                  style: TextStyle(
+                    color: Color(0xFFEF1A26),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
             SizedBox(height: 8),
             TextFormField(
               controller: _nationalityController,
@@ -132,7 +177,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               keyboardType: TextInputType.emailAddress,
               decoration: context.primaryInputDecoration.copyWith(
                 hintText: TTexts.nationality,
-                suffixIcon: Icon(Icons.keyboard_arrow_down)
+                suffixIcon: Icon(Icons.keyboard_arrow_down),
               ),
               validator: Validators.email,
               onFieldSubmitted: (_) =>
@@ -141,10 +186,22 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
             ),
 
             SizedBox(height: 14),
-            Row(children: [
-              CustomText('Address', style: TextStyle(fontWeight: FontWeight.w400 , fontSize: 16)),
-              CustomText('*', style: TextStyle(color: Color(0xFFEF1A26),fontWeight: FontWeight.w400 , fontSize: 16))
-            ],),
+            Row(
+              children: [
+                CustomText(
+                  'Address',
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+                ),
+                CustomText(
+                  '*',
+                  style: TextStyle(
+                    color: Color(0xFFEF1A26),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
             SizedBox(height: 8),
             TextFormField(
               controller: _addressController,
@@ -159,8 +216,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               autofillHints: const [AutofillHints.email],
             ),
 
-            SizedBox(height: 205,),
-            context.primaryButton(onPressed: (){}, text: 'Continue')
+            SizedBox(height: 205),
+            context.primaryButton(onPressed: () {}, text: 'Continue'),
           ],
         ),
       ),

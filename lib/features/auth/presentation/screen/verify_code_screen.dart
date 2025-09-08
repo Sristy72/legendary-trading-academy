@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
-import '../../../core/widgets/pin_code.dart';
-import '../../../core/widgets/texts.dart';
+
+import '../../../../core/widgets/pin_code.dart';
+import '../../../../core/widgets/texts.dart';
 
 class VerifyCodeScreen extends StatelessWidget{
   const VerifyCodeScreen({super.key});

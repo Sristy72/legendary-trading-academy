@@ -6,7 +6,7 @@ import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import '../../../../core/common/images/images.dart';
 import '../../../../core/common/widgets/signin_signup_header.dart';
 import '../../../../core/widgets/social_button.dart';
-import 'widget/login_form.dart';
+import '../widget/login_form.dart';
 
 
 class LoginScreen extends StatelessWidget {

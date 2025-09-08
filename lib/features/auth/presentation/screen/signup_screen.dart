@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/auth/screen/login/widget/login_header.dart';
-import 'package:flutter_ladydenily/auth/screen/signup_screen/widget/signup_form.dart';
 import 'package:flutter_ladydenily/core/common/images/images.dart';
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 
-import '../../../core/common/widgets/signin_signup_header.dart';
-import '../../../core/widgets/social_button.dart';
+import '../../../../core/common/widgets/signin_signup_header.dart';
+import '../../../../core/widgets/social_button.dart';
+import '../widget/signup_form.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
