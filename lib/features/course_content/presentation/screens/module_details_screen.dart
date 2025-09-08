@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/module_details_controller.dart';
+import '../../controllers/module_details_controller.dart';
 import '../widgets/module_details_card_widget.dart';
 
 class ModulesDetailsScreen extends StatelessWidget {

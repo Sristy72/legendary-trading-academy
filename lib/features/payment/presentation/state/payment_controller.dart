@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import '../presentation/payment_screen.dart';
+
+import '../screens/payment_screen.dart';
 class PaymentController extends GetxController {
 
   void processPayment() {

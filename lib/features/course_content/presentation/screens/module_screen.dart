@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/features/course_content/presentation/module_details_screen.dart';
+import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_details_screen.dart';
 import 'package:get/get.dart';
 import '../state/module_state.dart';
 import '../widgets/items_widgets.dart';

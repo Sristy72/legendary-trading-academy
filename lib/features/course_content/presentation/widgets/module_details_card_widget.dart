@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../controllers/module_details_controller.dart';
+import '../../controllers/module_details_controller.dart';
 
 Widget buildModuleCard(Module module, int index, ModulesDetailsController controller) {
   return Card(
