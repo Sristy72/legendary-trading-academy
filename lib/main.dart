@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/auth/screen/forgot_password/create_new_password_screen.dart';
+import 'package:flutter_ladydenily/auth/screen/forgot_password/forgot_password_screen.dart';
+import 'package:flutter_ladydenily/auth/screen/login/login_screen.dart';
+import 'package:flutter_ladydenily/auth/screen/personal_information/personal_information_screen.dart';
+import 'package:flutter_ladydenily/auth/screen/signup_screen/signup_screen.dart';
 import 'package:flutter_ladydenily/core/demo/screen.dart';
 import 'package:flutter_ladydenily/core/theme/app_theme.dart';
+import 'package:flutter_ladydenily/auth/screen/forgot_password/verify_code_screen.dart';
+
+import 'core/verify_code_screen/dialog.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +23,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: AppTheme.light,
-      home: Screen()
+      home: CreateNewPasswordScreen()
+
+      //VerifyCodeScreen()
+
+      //Screen()
     );
   }
 }

@@ -7,27 +7,27 @@ extension InputDecorationExtensions on BuildContext {
   InputDecoration get primaryInputDecoration => InputDecoration(
     filled: true,
     suffixIconColor: AppColors.hintText,
-    fillColor: Colors.white,
+    fillColor: Color(0xFFE8ECF1),
     contentPadding: AppSizes.paddingMd.all,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSizes.paddingSm.size),
-      borderSide: BorderSide(color: AppColors.hintText),
+      borderSide: BorderSide(color: Colors.transparent),
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSizes.paddingSm.size),
-      borderSide: BorderSide(color: AppColors.hintText),
+      borderSide: BorderSide(color: Colors.transparent),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSizes.paddingSm.size),
-      borderSide: BorderSide(color: AppColors.hintText, width: 1.5),
+      borderSide: BorderSide(color: Colors.transparent, width: 1.5),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSizes.paddingSm.size),
-      borderSide: BorderSide(color: AppColors.errorRed, width: 1.5),
+      borderSide: BorderSide(color: Colors.transparent, width: 1.5),
     ),
     focusedErrorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(AppSizes.paddingSm.size),
-      borderSide: BorderSide(color: AppColors.errorRed, width: 1.5),
+      borderSide: BorderSide(color: Colors.transparent, width: 1.5),
     ),
     hintStyle: TextStyle(
       color: AppColors.hintText,
