@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/images/images.dart';
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
-import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/common/widgets/signin_signup_header.dart';
 import '../../../../core/widgets/social_button.dart';
@@ -30,7 +30,7 @@ class SignupScreen extends StatelessWidget {
               ///Footer
               TSocialButton(),
 
-              SizedBox(height: 50,),
+              SizedBox(height: 50),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -38,10 +38,13 @@ class SignupScreen extends StatelessWidget {
                 children: [
                   CustomText('Already have an account?'),
                   TextButton(
-                    onPressed: () {}, child: Text('Sign in', style: TextStyle(
-                    color: AppColors.titleTextColor,
-                    fontSize: 15,
-                  ),),
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: Text(
+                      'Sign in',
+                      style: TextStyle(color: Color(0xFF1A3E74), fontSize: 15),
+                    ),
                   ),
                 ],
               ),
