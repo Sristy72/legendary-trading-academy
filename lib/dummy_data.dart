@@ -14,6 +14,7 @@ final List<Trainer> dummyTrainers = [
 final List<MarketItem> dummyMarketplace = [
   MarketItem(title: 'Legendary Book', price: '\$99.99', image: 'assets/images/book1.jpg'),
   MarketItem(title: 'Forex Toolkit', price: '\$49.99', image: 'assets/images/toolkit.jpg'),
+  MarketItem(title: 'Forex Toolkit', price: '\$49.99', image: 'assets/images/toolkit.jpg'),
 ];
 
 final List<Course> dummyMyCourses = [

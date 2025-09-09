@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/course_details.dart';
+import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_screen.dart';
+import 'package:get/get.dart';
+import '../../models/course_details.dart';
 
 class CourseDetailsCard extends StatelessWidget {
   final CourseDetails courseDetails;
@@ -9,9 +11,7 @@ class CourseDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 2,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,11 +48,7 @@ class CourseDetailsCard extends StatelessWidget {
           ),
         ),
         // Badge positioned on top left
-        Positioned(
-          top: 12,
-          left: 12,
-          child: _Badge(text: "Freshman"),
-        ),
+        Positioned(top: 12, left: 12, child: _Badge(text: "Freshman")),
       ],
     );
   }
@@ -62,10 +58,7 @@ class CourseDetailsCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Text(
         courseDetails.title,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -75,10 +68,7 @@ class CourseDetailsCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Text(
         courseDetails.subtitle,
-        style: const TextStyle(
-          fontSize: 14,
-          color: Colors.grey,
-        ),
+        style: const TextStyle(fontSize: 14, color: Colors.grey),
       ),
     );
   }
@@ -94,7 +84,10 @@ class CourseDetailsCard extends StatelessWidget {
           const SizedBox(width: 16),
           Icon(Icons.menu_book, size: 16, color: Colors.grey[600]),
           const SizedBox(width: 4),
-          Text(courseDetails.modules, style: TextStyle(color: Colors.grey[600])),
+          Text(
+            courseDetails.modules,
+            style: TextStyle(color: Colors.grey[600]),
+          ),
         ],
       ),
     );
@@ -108,10 +101,7 @@ class CourseDetailsCard extends StatelessWidget {
         children: [
           Text(
             courseDetails.price.isEmpty ? "" : courseDetails.price,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -120,9 +110,12 @@ class CourseDetailsCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              /// [Note : Need to modifye this part]
+              Get.to(ModuleScreen());
+            },
             child: Text(courseDetails.status),
-          )
+          ),
         ],
       ),
     );
@@ -144,10 +137,7 @@ class _Badge extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 12,
-        ),
+        style: const TextStyle(color: Colors.white, fontSize: 12),
       ),
     );
   }

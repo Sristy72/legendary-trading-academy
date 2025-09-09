@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/trainer.dart';
+import '../../models/trainer.dart';
 
 class TrainerCard extends StatelessWidget {
   final Trainer trainer;

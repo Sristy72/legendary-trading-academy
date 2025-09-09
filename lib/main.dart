@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/core/demo/screen.dart';
+
 import 'package:flutter_ladydenily/core/theme/app_theme.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/upload_profile_screen.dart';
 import 'package:flutter_ladydenily/features/course/presentation/coure_details_screen.dart';
@@ -7,7 +7,7 @@ import 'package:flutter_ladydenily/features/course/presentation/course_all_scree
 import 'package:flutter_ladydenily/features/home/presentation/home_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -15,7 +15,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: AppTheme.light,
       home: CourseDetailsScreen(),

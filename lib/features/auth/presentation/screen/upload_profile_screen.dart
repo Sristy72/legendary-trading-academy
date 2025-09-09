@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
+import 'package:flutter_ladydenily/features/home/presentation/screens/home_screen.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadProfileScreen extends StatefulWidget {
@@ -26,6 +28,10 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
     }
   }
 
+  void _submit() {
+    Get.offAll(HomeScreen());
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -33,12 +39,6 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1A3E74)),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         title: const Text(
           'Upload Profile',
           style: TextStyle(
@@ -126,7 +126,9 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
                     width: (screenWidth / 2) - 32,
                     height: 51,
                     child: context.primaryButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _submit();
+                      },
                       text: "Continue",
                       borderRadius: 8,
                     ),
