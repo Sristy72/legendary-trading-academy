@@ -85,6 +85,7 @@ class ProfileScreen extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
+                  //Personal Info..
                   ProfileOptionTile(
 
                     iconPath: "assets/icons/personal info.png",
@@ -96,6 +97,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //Change pass..
                   ProfileOptionTile(
                     iconPath: "assets/icons/change pass.png",
                     title: "Change Password",
@@ -106,6 +108,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //Notification Settings..
 
                   ProfileOptionTile(
                     iconPath: "assets/icons/notification.png",
@@ -118,9 +121,10 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
 
+                  //About app..
                   ProfileOptionTile(
-                    iconPath: "assets/icons/change pass.png",
-                    title: "Change Password",
+                    iconPath: "assets/icons/about app.png",
+                    title: "About App",
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -129,9 +133,59 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
 
+                  //Privacy Policy..
                   ProfileOptionTile(
                     iconPath: "assets/icons/change pass.png",
-                    title: "Change Password",
+                    title: "Privacy Policy",
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const ChangePasswordScreen(),
+                      ),
+                    ),
+                  ),
+
+                  //Term & Condition..
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/change pass.png",
+                    title: "Term & Condition",
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const ChangePasswordScreen(),
+                      ),
+                    ),
+                  ),
+
+                  //video copyright..
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/change pass.png",
+                    title: "video copyright",
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const ChangePasswordScreen(),
+                      ),
+                    ),
+                  ),
+
+                  //Refund Policy..
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/change pass.png",
+                    title: "Refund Policy",
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const ChangePasswordScreen(),
+                      ),
+                    ),
+                  ),
+
+
+                  //Logout...
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/logout.png",
+                    title: "Logout",
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
