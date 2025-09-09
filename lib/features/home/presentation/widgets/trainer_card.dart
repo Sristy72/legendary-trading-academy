@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import '../../models/trainer.dart';
 
 class TrainerCard extends StatelessWidget {
@@ -14,7 +15,7 @@ class TrainerCard extends StatelessWidget {
       width: screenWidth, // Full width
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackgroundColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 4)],
       ),
@@ -26,13 +27,31 @@ class TrainerCard extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min, // shrink height
+              mainAxisSize: MainAxisSize.min, 
               children: [
-                Text(trainer.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                Text(
+                  trainer.name, 
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold, 
+                    fontSize: 16
+                    )
+                  ),
                 const SizedBox(height: 4),
-                Text('${trainer.courses} Courses', style: const TextStyle(fontSize: 13, color: Colors.black54)),
-                const SizedBox(height: 2),
-                const Text('Success Rate: 100%', style: TextStyle(fontSize: 13, color: Colors.black54)),
+                Text(
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ", 
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold, 
+                    fontSize: 12
+                    )
+                  ),
+                  const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Text('${trainer.courses} Courses', style: const TextStyle(fontSize: 14, color: AppColors.textColorBlue)),
+                    const Spacer(),
+                    const Text('Success Rate: 100%', style: TextStyle(fontSize: 14, color: AppColors.textColorBlue)),
+                  ],
+                ),
               ],
             ),
           ),

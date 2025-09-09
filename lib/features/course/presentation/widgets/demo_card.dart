@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CourseDemoCard extends StatelessWidget {
-  final String imageUrl;
+  final String image;
   final VoidCallback onTap;
 
   const CourseDemoCard({
     super.key,
-    required this.imageUrl,
+    required this.image,
     required this.onTap,
   });
 
@@ -20,11 +20,9 @@ class CourseDemoCard extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             // Background image
-            Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: 200,
+            Image.asset(
+              image,
+              fit: BoxFit.cover, 
             ),
 
             // Semi-transparent top bar
@@ -32,11 +30,11 @@ class CourseDemoCard extends StatelessWidget {
               top: 0,
               left: 0,
               right: 0,
-              
+
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: .6),
+                  color: Colors.white.withValues(alpha: .4),
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12),
                     topRight: Radius.circular(12),

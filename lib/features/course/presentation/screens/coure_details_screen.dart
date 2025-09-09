@@ -1,12 +1,14 @@
 // lib/features/courses/screens/course_details_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/dummy_data.dart';
-import '../widgets/course_header.dart';
-import '../widgets/trainer_card.dart';
-import '../widgets/benefits_grid.dart';
-import '../widgets/enroll_button.dart';
-import '../widgets/demo_card.dart';
+import 'package:flutter_ladydenily/features/course/presentation/widgets/benefits_grid.dart';
+import 'package:flutter_ladydenily/features/course/presentation/widgets/course_header.dart';
+import 'package:flutter_ladydenily/features/course/presentation/widgets/demo_card.dart';
+import 'package:flutter_ladydenily/features/course/presentation/widgets/enroll_button.dart';
+import 'package:flutter_ladydenily/features/course/presentation/widgets/trainer_card.dart';
+
 
 class CourseDetailsScreen extends StatelessWidget {
   const CourseDetailsScreen({super.key});
@@ -28,6 +30,7 @@ class CourseDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CourseHeader(course: courses[0]),
+            
             const SizedBox(height: 16),
             
             GestureDetector(
@@ -41,9 +44,8 @@ class CourseDetailsScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     CourseDemoCard(
-                      imageUrl: "https://dummyimage.com/600x300/000/fff&text=Course+Demo",
+                      image: courses[0].image,
                       onTap: () {
-                        // Handle play button tap
                         print("Play demo video");
                       },
                     ),
@@ -55,17 +57,31 @@ class CourseDetailsScreen extends StatelessWidget {
             const SizedBox(height: 16),
             
             const Text("Trainer",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                  color: AppColors.textColorBlue,
+                  fontSize: 20, 
+                  fontWeight: FontWeight.bold
+                  )
+                ),
             TrainerCard(
               name: courses[0].trainerName,
-              imageUrl: courses[0].trainerImage,
+              image: courses[0].trainerImage,
               stats: courses[0].trainerStats,
             ),
             const SizedBox(height: 16),
             const Text("You will get",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                  color: AppColors.textColorBlue,
+                  fontSize: 20, 
+                  fontWeight: 
+                  FontWeight.bold
+                  ),
+                ),
             const SizedBox(height: 12),
-            BenefitsGrid(benefits: courses[0].benefits),
+            BenefitsGrid(
+              benefitsImages: courses[0].benefitImages,
+              benefits:courses[0].benefits,
+            ),
           ],
         ),
       ),

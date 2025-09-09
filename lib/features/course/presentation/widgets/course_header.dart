@@ -1,7 +1,7 @@
 // lib/features/courses/widgets/course_header.dart
 
 import 'package:flutter/material.dart';
-import '../models/course_details.dart';
+import '../../models/course_details.dart';
 
 class CourseHeader extends StatelessWidget {
   final CourseDetails course;
