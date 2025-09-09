@@ -23,7 +23,7 @@ class ModuleScreen extends StatelessWidget {
               Row(
                 children: [
                   const SizedBox(height: 18),
-                  const Icon(Icons.arrow_back, color: Colors.black,),
+                  const Icon(Icons.arrow_back_ios, color: Colors.black,),
                   const SizedBox( width: 16,),
                   const Text(
                     'Technical Analysis Mastery',

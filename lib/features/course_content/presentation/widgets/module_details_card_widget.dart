@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../controllers/module_details_controller.dart';
 
-Widget buildModuleCard(Module module, int index, ModulesDetailsController controller) {
+Widget buildModuleCard(
+  Module module,
+  int index,
+  ModulesDetailsController controller,
+) {
   return Card(
     margin: const EdgeInsets.only(bottom: 16),
     elevation: 2,
@@ -16,7 +20,7 @@ Widget buildModuleCard(Module module, int index, ModulesDetailsController contro
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8,vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: Color(0XFF1A3E74),
                   borderRadius: BorderRadius.circular(8),
@@ -32,11 +36,28 @@ Widget buildModuleCard(Module module, int index, ModulesDetailsController contro
               ),
               Row(
                 children: [
-                  Text("Marked as Complete",style: TextStyle(
-                    color: Color(0XFF1A3E74)
-                  ),)
-                  ]
-              )
+                  // Functional checkbox
+                  Checkbox(
+                    value: module.isCompleted,
+                    onChanged: (value) {
+                      controller.toggleModuleCompletion(index);
+                    },
+                    activeColor: Color(0XFF1A3E74),
+                    checkColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  // const SizedBox(width: 8),
+                  Text(
+                    "Mark as Complete",
+                    style: TextStyle(
+                      color: Color(0XFF1A3E74),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -58,11 +79,12 @@ Widget buildModuleCard(Module module, int index, ModulesDetailsController contro
             padding: const EdgeInsets.only(left: 10),
             child: Row(
               children: [
-                Icon(
-                  Icons.video_camera_front_outlined,
-                  size: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xff4E4E4E),
+                Container(
+                  child: Image(
+                    image: AssetImage("assets/icons/video-recorder.png"),
+                    width: 18,
+                    height: 18,
+                  ),
                 ),
                 const SizedBox(width: 6),
                 Text(
