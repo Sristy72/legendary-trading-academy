@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 
-
-
 class PersonalInfoScreen extends StatefulWidget {
   const PersonalInfoScreen({super.key});
 
@@ -11,9 +9,15 @@ class PersonalInfoScreen extends StatefulWidget {
 }
 
 class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
-  final TextEditingController _firstNameController = TextEditingController(text: "Albert");
-  final TextEditingController _lastNameController = TextEditingController(text: "Flores");
-  final TextEditingController _ageController = TextEditingController(text: "24");
+  final TextEditingController _firstNameController = TextEditingController(
+    text: "Albert",
+  );
+  final TextEditingController _lastNameController = TextEditingController(
+    text: "Flores",
+  );
+  final TextEditingController _ageController = TextEditingController(
+    text: "24",
+  );
 
   String gender = "Male";
   String nationality = "United States";
@@ -21,31 +25,23 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Personal Information"),
-        // leading: IconButton(
-        //   icon: const Icon(Icons.arrow_back),
-        //   onPressed: () => Navigator.pop(context),
-        // ),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text("First Name"),
-                const SizedBox(height: 6),
-                TextField(
-                  controller: _firstNameController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey.shade200,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide.none,
-                    ),
+      appBar: AppBar(title: const Text("Personal Information")),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text("First Name"),
+              const SizedBox(height: 6),
+              TextField(
+                controller: _firstNameController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -104,45 +100,50 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 12),
-        
-                const Text("Nationality"),
-                const SizedBox(height: 6),
-                DropdownButtonFormField<String>(
-                  value: nationality,
-                  items: const [
-                    DropdownMenuItem(value: "United States", child: Text("United States")),
-                    DropdownMenuItem(value: "Bangladesh", child: Text("Bangladesh")),
-                    DropdownMenuItem(value: "India", child: Text("India")),
-                  ],
-                  onChanged: (value) {
-                    setState(() {
-                      nationality = value!;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey.shade200,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide.none,
-                    ),
+              ),
+              const SizedBox(height: 12),
+
+              const Text("Nationality"),
+              const SizedBox(height: 6),
+              DropdownButtonFormField<String>(
+                value: nationality,
+                items: const [
+                  DropdownMenuItem(
+                    value: "United States",
+                    child: Text("United States"),
+                  ),
+                  DropdownMenuItem(
+                    value: "Bangladesh",
+                    child: Text("Bangladesh"),
+                  ),
+                  DropdownMenuItem(value: "India", child: Text("India")),
+                ],
+                onChanged: (value) {
+                  setState(() {
+                    nationality = value!;
+                  });
+                },
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
                   ),
                 ),
-                const SizedBox(height: 181),
-        
-                // Custom Button use
-                context.primaryButton(
-                  onPressed: () {
-        
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Profile Saved!")),
-                    );
-                  },
-                  text: "Save",
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 181),
+
+              // Custom Button use
+              context.primaryButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Profile Saved!")),
+                  );
+                },
+                text: "Save",
+              ),
+            ],
           ),
         ),
       ),

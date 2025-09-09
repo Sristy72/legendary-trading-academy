@@ -19,38 +19,15 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Profile App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-
-      home: HomeScreen(),
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          child: Text('Go to Profile'),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ProfileScreen()),
-            );
-          },
-        ),
-      ),
+      title: 'Flutter Demo',
+      theme: AppTheme.light,
+      home: LoginScreen(),
     );
   }
 }

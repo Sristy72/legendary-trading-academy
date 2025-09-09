@@ -41,6 +41,7 @@ extension ButtonStyleExtensions on BuildContext {
                     text,
                     style: AppTextStyles.text16w400().copyWith(
                       color: textColor,
+                        fontWeight: FontWeight.bold
                     ),
                   ),
           ),
@@ -55,7 +56,7 @@ extension ButtonStyleExtensions on BuildContext {
     double? width,
     double? height,
     bool isLoading = false,
-    Color borderColor = AppColors.primaryBlue,
+    Color borderColor = Colors.black,
     Color textColor = AppColors.primaryBlue,
     Color? backgroundColor,
     double borderRadius = 12.0,
