@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
+import 'package:flutter_ladydenily/core/common/widgets/appbar.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutx_core/core/validation/validators.dart';
 
@@ -28,29 +30,11 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   final FocusNode _nationalityFocus = FocusNode();
   final FocusNode _addressFocus = FocusNode();
 
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back, color: Color(0xFF1A3E74), size: 24),
-        ),
-        title: Text(
-          'Personal Information',
-          style: TextStyle(
-            color: Color(0xFF1A3E74),
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
-        ),
-      ),
+      appBar: CustomAppBar(title: 'Personal Information'),
+
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +51,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 CustomText(
                   '*',
                   style: TextStyle(
-                    color: Color(0xFFEF1A26),
+                    color: AppColors.starColor,
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
                   ),
@@ -100,7 +84,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 CustomText(
                   '*',
                   style: TextStyle(
-                    color: Color(0xFFEF1A26),
+                    color: AppColors.starColor,
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
                   ),
@@ -131,7 +115,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 CustomText(
                   '*',
                   style: TextStyle(
-                    color: Color(0xFFEF1A26),
+                    color: AppColors.starColor,
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
                   ),
@@ -163,7 +147,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 CustomText(
                   '*',
                   style: TextStyle(
-                    color: Color(0xFFEF1A26),
+                    color: AppColors.starColor,
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
                   ),
@@ -195,7 +179,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 CustomText(
                   '*',
                   style: TextStyle(
-                    color: Color(0xFFEF1A26),
+                    color: AppColors.starColor,
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
                   ),

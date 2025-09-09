@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/images/images.dart';
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 
 import '../../../../core/common/widgets/signin_signup_header.dart';
@@ -19,7 +20,7 @@ class SignupScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 80),
-              TLoginHeader(image: TImages.loginLogo, title: 'Get Started', subTitle: 'by creating a free account.',),
+              TLoginHeader(image: ImagesString.loginLogo, title: 'Get Started', subTitle: 'by creating a free account.',),
 
               ///Form
               SignupForm(),
@@ -38,7 +39,7 @@ class SignupScreen extends StatelessWidget {
                   CustomText('Already have an account?'),
                   TextButton(
                     onPressed: () {}, child: Text('Sign in', style: TextStyle(
-                    color: Color(0xFF1A3E74),
+                    color: AppColors.titleTextColor,
                     fontSize: 15,
                   ),),
                   ),

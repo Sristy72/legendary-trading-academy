@@ -11,11 +11,11 @@ class TSocialButton extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        DifferentLoginApproach(text: 'Continue With Google', image: TImages.googleLogo,),
+        DifferentLoginApproach(text: 'Continue With Google', image: ImagesString.googleLogo,),
 
         SizedBox(height: 13),
 
-        DifferentLoginApproach(text: 'Continue With Apple', image: TImages.appleLogo,),
+        DifferentLoginApproach(text: 'Continue With Apple', image: ImagesString.appleLogo,),
         
       ],
     );

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
+import 'package:flutter_ladydenily/core/common/widgets/appbar.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutx_core/core/validation/validators.dart';
 
@@ -24,21 +26,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back, color: Color(0xFF1A3E74), size: 24),
-        ),
-        title: Text(
-          'Forgot Password',
-          style: TextStyle(
-            color: Color(0xFF1A3E74),
-            fontWeight: FontWeight.w700,
-            fontSize: 24,
-          ),
-        ),
-      ),
+      appBar: CustomAppBar(title: 'Forgot Password'),
       
       body: Column(
         children: [
@@ -52,7 +40,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             keyboardType: TextInputType.emailAddress,
             decoration: context.primaryInputDecoration.copyWith(
                 hintText: TTexts.email,
-                prefixIcon: Icon(Icons.email_outlined, color: Color(0xFF666666),)
+                prefixIcon: Icon(Icons.email_outlined, color: AppColors.emailIconColor,)
             ),
             validator: Validators.email,
             onFieldSubmitted: (_) =>
