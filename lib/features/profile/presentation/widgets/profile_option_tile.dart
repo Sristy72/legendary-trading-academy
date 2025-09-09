@@ -4,12 +4,18 @@ class ProfileOptionTile extends StatelessWidget {
   final String iconPath;
   final String title;
   final VoidCallback onTap;
+  final Color? iconColor;
+  final Color? textColor;
+  final Color? arrowColor;
 
   const ProfileOptionTile({
     Key? key,
     required this.iconPath,
     required this.title,
     required this.onTap,
+    this.iconColor,
+    this.textColor,
+    this.arrowColor,
   }) : super(key: key);
 
   @override
@@ -23,13 +29,20 @@ class ProfileOptionTile extends StatelessWidget {
           iconPath,
           width: 24,
           height: 24,
-          color: Colors.grey.shade700, // ✅ keeps same style as before
+          color: iconColor ?? Colors.grey.shade700,
         ),
         title: Text(
           title,
-          style: const TextStyle(fontSize: 16),
+          style: TextStyle(
+            fontSize: 16,
+            color: textColor ?? Colors.black,
+          ),
         ),
-        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+        trailing: Icon(
+          Icons.arrow_forward_ios,
+          size: 16,
+          color: arrowColor ?? Colors.grey.shade700,
+        ),
         onTap: onTap,
       ),
     );

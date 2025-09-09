@@ -186,6 +186,9 @@ class ProfileScreen extends StatelessWidget {
                   ProfileOptionTile(
                     iconPath: "assets/icons/logout.png",
                     title: "Logout",
+                    iconColor: const Color(0xFFEF1A26),
+                    textColor: const Color(0xFFEF1A26),
+                    arrowColor: const Color(0xFFEF1A26),
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(

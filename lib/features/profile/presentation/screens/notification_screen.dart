@@ -29,14 +29,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
         elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
             SwitchListTile(
               contentPadding: EdgeInsets.zero,
               title: const Text("Signal alerts from specific coaches only"),
               value: signalAlerts,
-              activeColor: Colors.amber, // yellow
+              activeColor: Color(0xFFEFC227),
               onChanged: (value) {
                 setState(() {
                   signalAlerts = value;
