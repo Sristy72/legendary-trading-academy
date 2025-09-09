@@ -23,77 +23,79 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-
-            // Current Password
-            TextField(
-              controller: _currentPasswordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: "Current Password",
-                filled: true,
-                fillColor: Colors.grey.shade200,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+        
+              // Current Password
+              TextField(
+                controller: _currentPasswordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: "Current Password",
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 12),
-
-            // New Password
-            TextField(
-              controller: _newPasswordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: "New Password",
-                filled: true,
-                fillColor: Colors.grey.shade200,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
+              const SizedBox(height: 12),
+        
+              // New Password
+              TextField(
+                controller: _newPasswordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: "New Password",
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 12),
-
-            // Confirm Password
-            TextField(
-              controller: _confirmPasswordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: "Confirm New Password",
-                filled: true,
-                fillColor: Colors.grey.shade200,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
+              const SizedBox(height: 12),
+        
+              // Confirm Password
+              TextField(
+                controller: _confirmPasswordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: "Confirm New Password",
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
               ),
-            ),
-
-            const Spacer(),
-
-            // Save Button
-            context.primaryButton(
-              onPressed: () {
-                if (_newPasswordController.text == _confirmPasswordController.text) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Password Updated!")),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Passwords do not match")),
-                  );
-                }
-              },
-              text: "Save",
-            ),
-          ],
+        
+              const Spacer(),
+        
+              // Save Button
+              context.primaryButton(
+                onPressed: () {
+                  if (_newPasswordController.text == _confirmPasswordController.text) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Password Updated!")),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Passwords do not match")),
+                    );
+                  }
+                },
+                text: "Save",
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -77,7 +77,7 @@ class ProfileScreen extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (_) => const ChangePasswordScreen())),
                   ),
-                  // You can uncomment and add other options later
+
                 ],
               ),
             ),

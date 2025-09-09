@@ -23,124 +23,126 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Personal Information"),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back),
+        //   onPressed: () => Navigator.pop(context),
+        // ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text("First Name"),
-              const SizedBox(height: 6),
-              TextField(
-                controller: _firstNameController,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade200,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("First Name"),
+                const SizedBox(height: 6),
+                TextField(
+                  controller: _firstNameController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 12),
-
-              const Text("Last Name"),
-              const SizedBox(height: 6),
-              TextField(
-                controller: _lastNameController,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade200,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
+                const SizedBox(height: 12),
+        
+                const Text("Last Name"),
+                const SizedBox(height: 6),
+                TextField(
+                  controller: _lastNameController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 12),
-
-              const Text("Age"),
-              const SizedBox(height: 6),
-              TextField(
-                controller: _ageController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade200,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
+                const SizedBox(height: 12),
+        
+                const Text("Age"),
+                const SizedBox(height: 6),
+                TextField(
+                  controller: _ageController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 12),
-
-              const Text("Gender"),
-              const SizedBox(height: 6),
-              DropdownButtonFormField<String>(
-                value: gender,
-                items: const [
-                  DropdownMenuItem(value: "Male", child: Text("Male")),
-                  DropdownMenuItem(value: "Female", child: Text("Female")),
-                  DropdownMenuItem(value: "Other", child: Text("Other")),
-                ],
-                onChanged: (value) {
-                  setState(() {
-                    gender = value!;
-                  });
-                },
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade200,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
+                const SizedBox(height: 12),
+        
+                const Text("Gender"),
+                const SizedBox(height: 6),
+                DropdownButtonFormField<String>(
+                  value: gender,
+                  items: const [
+                    DropdownMenuItem(value: "Male", child: Text("Male")),
+                    DropdownMenuItem(value: "Female", child: Text("Female")),
+                    DropdownMenuItem(value: "Other", child: Text("Other")),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      gender = value!;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 12),
-
-              const Text("Nationality"),
-              const SizedBox(height: 6),
-              DropdownButtonFormField<String>(
-                value: nationality,
-                items: const [
-                  DropdownMenuItem(value: "United States", child: Text("United States")),
-                  DropdownMenuItem(value: "Bangladesh", child: Text("Bangladesh")),
-                  DropdownMenuItem(value: "India", child: Text("India")),
-                ],
-                onChanged: (value) {
-                  setState(() {
-                    nationality = value!;
-                  });
-                },
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey.shade200,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
+                const SizedBox(height: 12),
+        
+                const Text("Nationality"),
+                const SizedBox(height: 6),
+                DropdownButtonFormField<String>(
+                  value: nationality,
+                  items: const [
+                    DropdownMenuItem(value: "United States", child: Text("United States")),
+                    DropdownMenuItem(value: "Bangladesh", child: Text("Bangladesh")),
+                    DropdownMenuItem(value: "India", child: Text("India")),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      nationality = value!;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 181),
-
-              // Custom Button use
-              context.primaryButton(
-                onPressed: () {
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Profile Saved!")),
-                  );
-                },
-                text: "Save",
-              ),
-            ],
+                const SizedBox(height: 181),
+        
+                // Custom Button use
+                context.primaryButton(
+                  onPressed: () {
+        
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Profile Saved!")),
+                    );
+                  },
+                  text: "Save",
+                ),
+              ],
+            ),
           ),
         ),
       ),
