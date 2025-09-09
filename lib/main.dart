@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'core/theme/app_theme.dart';
+import 'features/auth/presentation/screen/login_screen.dart';
 // Importing all the profile screens
+
 import 'features/profile/presentation/screens/profile_screen.dart';
 import '../features/profile/model/profile_model.dart';
 import 'features/profile/presentation/screens/personal_info_screen.dart';

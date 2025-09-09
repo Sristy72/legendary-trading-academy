@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_ladydenily/features/profile/presentation/screens/notification_screen.dart';
 
 import '../../model/profile_model.dart';
 import '../widgets/profile_option_tile.dart';
@@ -27,11 +27,33 @@ class ProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage(user.image),
+                  // Avatar + small overlay icon
+                  Stack(
+                    children: [
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundImage: AssetImage(user.image),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          padding: const EdgeInsets.all(4),
+                          child: Image.asset(
+                            "assets/icons/avater floating.png",
+                            width: 16,
+                            height: 16,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(width: 16),
+
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -46,7 +68,9 @@ class ProfileScreen extends StatelessWidget {
                       Text(
                         user.location,
                         style: const TextStyle(
-                          color: Colors.grey,
+                          color: Color(0xFF4E4E4E),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
                         ),
                       ),
                     ],
@@ -62,22 +86,59 @@ class ProfileScreen extends StatelessWidget {
               child: ListView(
                 children: [
                   ProfileOptionTile(
-                    icon: Icons.person,
+
+                    iconPath: "assets/icons/personal info.png",
                     title: "Personal Information",
                     onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const PersonalInfoScreen())),
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const PersonalInfoScreen(),
+                      ),
+                    ),
                   ),
                   ProfileOptionTile(
-                    icon: Icons.lock,
+                    iconPath: "assets/icons/change pass.png",
                     title: "Change Password",
                     onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const ChangePasswordScreen())),
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const ChangePasswordScreen(),
+                      ),
+                    ),
                   ),
 
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/notification.png",
+                    title: "Notification Settings",
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const NotificationScreen(),
+                      ),
+                    ),
+                  ),
+
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/change pass.png",
+                    title: "Change Password",
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const ChangePasswordScreen(),
+                      ),
+                    ),
+                  ),
+
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/change pass.png",
+                    title: "Change Password",
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const ChangePasswordScreen(),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
