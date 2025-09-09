@@ -17,7 +17,8 @@ class DayChipWidget extends StatelessWidget {
     const primary = Color(0xFF173B70);
 
     final text = TextStyle(
-      color: selected ? Colors.black87 : Colors.black87,
+      color: selected ? Color(0XFF1A3E74) : Color(0xffEFC227),
+      fontSize: 20,
       fontWeight: FontWeight.w700,
     );
 
@@ -25,7 +26,7 @@ class DayChipWidget extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(10),
       child: Container(
-        width: 64,
+        width: MediaQuery.of(context).size.width/7,
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           color: selected ? const Color(0xFFFFD54F) : Colors.white,

@@ -32,11 +32,11 @@ class EventCardWidget extends StatelessWidget {
                   style: const TextStyle(fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 4),
-                Text(event.time, style: const TextStyle(color: Colors.black54)),
+                Text(event.time, style: const TextStyle(color: Color(0xff1A3E74),fontSize: 16,fontWeight: FontWeight.w600)),
                 const SizedBox(height: 2),
                 Text(
                   event.coach,
-                  style: const TextStyle(color: Colors.black54),
+                  style: const TextStyle(color: Color(0xff1A3E74),fontSize: 14,fontWeight: FontWeight.w400),
                 ),
               ],
             ),

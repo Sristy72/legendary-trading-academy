@@ -28,6 +28,7 @@ class CalendarScreen extends GetView<CalendarController> {
 
         return ListView(
           padding: const EdgeInsets.symmetric(vertical: 12),
+
           children: [
             MonthYear(
               month: month,
@@ -36,7 +37,7 @@ class CalendarScreen extends GetView<CalendarController> {
             ),
             const SizedBox(height: 8),
             SizedBox(
-              height: 72,
+              height: 90 ,
               child: ListView.separated(
                 controller: controller.dayScroll.value,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
