@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_ladydenily/core/theme/app_theme.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/login_screen.dart';
+import 'package:flutter_ladydenily/features/others/congratulation_dialog_screen.dart';
 import 'package:flutter_ladydenily/features/others/disclaimer_dialog_screen.dart';
 import 'package:flutter_ladydenily/features/others/refund_policy_screen.dart';
 import 'package:flutter_ladydenily/features/others/video_copyright_screen.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: AppTheme.light,
-      home: TermsAndDisclaimerDialogScreen(),
+      home: CongratulationDialogScreen(),
     );
   }
 }
