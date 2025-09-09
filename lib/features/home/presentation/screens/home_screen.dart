@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/features/course/models/course_details.dart';
 import 'package:flutter_ladydenily/features/course/presentation/screens/course_all_screen.dart';
+import 'package:flutter_ladydenily/features/notification/presentation/screens/notification_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
 import 'package:get/get.dart';
 import '../../../calender/presentation/screens/calender_screen.dart';
@@ -56,6 +57,7 @@ class HomeScreen extends StatelessWidget {
             icon: const Icon(Icons.notifications_none),
             onPressed: () {
               // Notification function here
+              Get.to(NotificationScreen());
             },
           ),
           const SizedBox(width: 16),
