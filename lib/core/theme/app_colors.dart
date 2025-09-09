@@ -12,4 +12,5 @@ class AppColors {
   static const Color emailIconColor = Color(0xFF666666);
   static const Color starColor = Color(0xFFEF1A26);
   static const Color dialogBackgroundColor = Color(0xFFE8ECF1);
+  static const Color greenColor = Color(0xFF00A86B);
 }

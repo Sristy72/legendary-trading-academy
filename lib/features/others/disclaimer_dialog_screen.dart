@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
-
-import '../../core/widgets/cxfvxc.dart';
+import 'package:flutter_ladydenily/core/widgets/disclaimer_dialog.dart';
 
 class DisclaimerDialogScreen extends StatelessWidget {
   const DisclaimerDialogScreen({super.key});
@@ -9,7 +8,15 @@ class DisclaimerDialogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TermsDialog(onAgree: () {  }, title: 'By enrolling in this course, you acknowledge and agree to the following:', showCheckButton: false, style: TextStyle(color: AppColors.text),)
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Column(
+            children: [
+              DisclaimerDialog(title: 'By enrolling in this course, you acknowledge and agree to the following:', showCheckButton: false, style: TextStyle(color: AppColors.text), onAgree: () {  },),
+            ],
+          ),
+        ),
+      )
     );
   }
 }
