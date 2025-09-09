@@ -34,3 +34,9 @@ flutter:
   assets:
      - assets/images/
      - assets/icons/
+  fonts:
+     - family: Roboto
+       fonts:
+         - asset: Roboto-Italic-VariableFont_wdth,wght.ttf
+         - asset: Roboto-VariableFont_wdth,wght.ttf
+#
