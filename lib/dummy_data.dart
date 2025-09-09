@@ -27,6 +27,9 @@ final List<Course> dummyCourses = [
   Course(title: 'Crypto Trading', price: '\$149.99', lessons: 15, level: 'Intermediate', image: 'assets/images/courses_sample.jpg',),
 ];
 
+// courses.trainerName,
+//               imageUrl: courses.trainerImage,
+//               stats: courses.trainerStats,
 
 List<CourseDetails> dummyCoursesDetails = [
   CourseDetails(
@@ -38,6 +41,10 @@ List<CourseDetails> dummyCoursesDetails = [
     image: "assets/images/courses_sample.jpg",
     status: "Enroll Now",
     level: 'Freshman',
+    trainerName : "Trainer 1",
+    trainerImage: "assets/images/trainer1.jpg",
+    trainerStats: "Expert",
+    benefits: ['assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg']
   ),
   CourseDetails(
     title: "Technical Analysis Mastery",
@@ -48,6 +55,10 @@ List<CourseDetails> dummyCoursesDetails = [
     image:"assets/images/courses_sample.jpg",
     status: "Continue Learning",
     level: 'Beginner',
+    trainerName : "Trainer 1",
+    trainerImage: "assets/images/trainer1.jpg",
+    trainerStats: "Expert",
+    benefits: ['assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg']
   ),
   CourseDetails(
     title: "Technical Analysis Mastery",
@@ -58,5 +69,11 @@ List<CourseDetails> dummyCoursesDetails = [
     image: "assets/images/courses_sample.jpg",
     status: "Enroll Now",
     level: 'Intermediate',
+    trainerName : "Trainer 1",
+    trainerImage: "assets/images/trainer1.jpg",
+    trainerStats: "Expert",
+    benefits: ['assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg']
   ),
 ];
+
+// lib/features/courses/data/dummy_course.dart
