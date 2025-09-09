@@ -9,7 +9,7 @@ class AppTheme {
     primaryColor: AppColors.primaryBlue,
     colorScheme: ColorScheme.light(primary: AppColors.primaryBlue),
 
-    textTheme: GoogleFonts.interTextTheme(),
+    textTheme: GoogleFonts.robotoTextTheme(),
     appBarTheme: AppBarTheme(backgroundColor: Colors.white),
   );
 }
