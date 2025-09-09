@@ -18,7 +18,7 @@ class CustomTextForPrivacy extends StatelessWidget {
         SizedBox(height: 8,),
         CustomText(
           description,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: AppColors.emailIconColor),),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: AppColors.text),),
       ],
     );
   }
