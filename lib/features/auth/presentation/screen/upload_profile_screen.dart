@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
+import 'package:flutter_ladydenily/features/home/presentation/screens/home_screen.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadProfileScreen extends StatefulWidget {
@@ -27,7 +29,7 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
   }
 
   void _submit() {
-    // Get.to();
+    Get.offAll(HomeScreen());
   }
 
   @override
