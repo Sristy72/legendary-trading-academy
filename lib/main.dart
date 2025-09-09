@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_ladydenily/core/theme/app_theme.dart';
-
-
-import 'features/auth/presentation/screen/create_new_password_screen.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/screen/login_screen.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,14 +14,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: AppTheme.light,
-      home: CreateNewPasswordScreen()
-
-      //VerifyCodeScreen()
-
-      //Screen()
+      home: LoginScreen(),
     );
   }
 }
