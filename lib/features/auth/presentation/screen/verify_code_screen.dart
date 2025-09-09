@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/core/common/widgets/appbar.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 
 import '../../../../core/widgets/pin_code.dart';
 import '../../../../core/widgets/texts.dart';
@@ -13,11 +15,8 @@ class VerifyCodeScreen extends StatelessWidget{
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        leading: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back, color: Color(0xFF1A3E74),  size: 24)),
-        title: Text('Enter security code', style: TextStyle(color: Color(0xFF1A3E74),fontWeight: FontWeight.bold, fontSize: 24),),
-      ),
+      appBar: CustomAppBar(title: 'Enter security code'),
+
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
@@ -51,7 +50,7 @@ class VerifyCodeScreen extends StatelessWidget{
 
                   const SizedBox(height: 16),
 
-                  Center(child: Text('Resend code in 43s', style: TextStyle(color: Color(0xFF1A3E74), fontSize: 18),)),
+                  Center(child: Text('Resend code in 43s', style: TextStyle(color: AppColors.titleTextColor, fontSize: 18),)),
                   const SizedBox(height: 30),
 
                   // Continue Button

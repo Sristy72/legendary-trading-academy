@@ -4,7 +4,6 @@ import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_profile_screen.dart';
-import 'package:flutx_core/core/routes/services/go_next_navigation.dart';
 import 'package:flutx_core/flutx_core.dart';
 import 'package:get/get.dart';
 

@@ -3,7 +3,6 @@ import 'package:flutter_ladydenily/core/common/images/images.dart';
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:get/get.dart';
-import 'package:get/utils.dart';
 
 import '../../../../core/common/widgets/signin_signup_header.dart';
 import '../../../../core/widgets/social_button.dart';
@@ -21,11 +20,7 @@ class SignupScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 80),
-              TLoginHeader(
-                image: TImages.loginLogo,
-                title: 'Get Started',
-                subTitle: 'by creating a free account.',
-              ),
+              TLoginHeader(image: ImagesString.loginLogo, title: 'Get Started', subTitle: 'by creating a free account.',),
 
               ///Form
               SignupForm(),
