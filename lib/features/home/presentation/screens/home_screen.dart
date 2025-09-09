@@ -1,31 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/features/course/models/course_details.dart';
 import 'package:flutter_ladydenily/features/course/presentation/screens/course_all_screen.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
+import 'package:get/get.dart';
 import '../widgets/course_card.dart';
 import '../widgets/trainer_card.dart';
 import '../widgets/market_card.dart';
 import '../../../../dummy_data.dart';
 
-
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-void _navigateToCoursesDetails(BuildContext context) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => CourseAllScreen(),
-    ),
-  );
-}
+  void _navigateToCoursesDetails(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CourseAllScreen()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: const Text('Hello, User Name'),
+        title: Row(
+          children: [
+            GestureDetector(
+              onTap: () => Get.to(ProfileScreen()),
+              child: Container(
+                height: 32,
+                width: 32,
+                decoration: BoxDecoration(shape: BoxShape.circle),
+                clipBehavior:
+                    Clip.antiAlias, // ensures image stays inside the circle
+                child: Image.asset(
+                  "assets/images/profile.jpg",
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+
+            const Text('Hello, User Name'),
+          ],
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.calendar_today_outlined),
@@ -48,17 +65,28 @@ void _navigateToCoursesDetails(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSectionTitle('Courses', onViewAllTap: () => _navigateToCoursesDetails(context)),
-            _buildHorizontalList(dummyCourses.map((c) => CourseCard(course:c)).toList()),
+            _buildSectionTitle(
+              'Courses',
+              onViewAllTap: () => _navigateToCoursesDetails(context),
+            ),
+            _buildHorizontalList(
+              dummyCourses.map((c) => CourseCard(course: c)).toList(),
+            ),
 
             _buildSectionTitle('Top Trainer'),
-            _buildVerticalList(dummyTrainers.map((t) => TrainerCard(trainer: t)).toList()),
+            _buildVerticalList(
+              dummyTrainers.map((t) => TrainerCard(trainer: t)).toList(),
+            ),
 
             _buildSectionTitle('Marketplace'),
-            _buildHorizontalList(dummyMarketplace.map((m) => MarketCard(item: m)).toList()),
+            _buildHorizontalList(
+              dummyMarketplace.map((m) => MarketCard(item: m)).toList(),
+            ),
 
             _buildSectionTitle('My Courses'),
-            _buildHorizontalList(dummyMyCourses.map((c) => CourseCard(course: c)).toList()),
+            _buildHorizontalList(
+              dummyMyCourses.map((c) => CourseCard(course: c)).toList(),
+            ),
           ],
         ),
       ),
@@ -69,7 +97,10 @@ void _navigateToCoursesDetails(BuildContext context) {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Explore'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
         ],
       ),
     );
@@ -81,17 +112,20 @@ void _navigateToCoursesDetails(BuildContext context) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           InkWell(
             onTap: onViewAllTap,
             borderRadius: BorderRadius.circular(4),
             child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Text(
-                "View All", 
+                "View All",
                 style: TextStyle(
-                  color: Colors.blue[700], 
-                  fontWeight: FontWeight.w500
+                  color: Colors.blue[700],
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
@@ -112,16 +146,17 @@ void _navigateToCoursesDetails(BuildContext context) {
       ),
     );
   }
-  
+
   Widget _buildVerticalList(List<Widget> cards) {
-  return Column(
-    children: cards
-        .map((card) => Padding(
+    return Column(
+      children: cards
+          .map(
+            (card) => Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: card,
-            ))
-        .toList(),
-  );
-}
-
+            ),
+          )
+          .toList(),
+    );
+  }
 }
