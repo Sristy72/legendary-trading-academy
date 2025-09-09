@@ -10,45 +10,30 @@ class ModulesDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ModulesDetailsController controller = Get.put(ModulesDetailsController());
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(
-          children: [
-            const SizedBox(height: 30,),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back_ios),
-                    onPressed: () => Get.back(),
-                    color: Color(0xff1A3E74),
-                  ),
-                  const SizedBox(width: 10),
-                  const Text(
-                    'Modules',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff1A3E74),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Obx(() => ListView.builder(
-                padding: const EdgeInsets.all(16),
-                itemCount: controller.modules.length,
-                itemBuilder: (context, index) {
-                  final module = controller.modules[index];
-                  return buildModuleCard(module, index, controller);
-                },
-              )),
-            ),
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Modules',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff1A3E74),
+          ),
         ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Obx(() => ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: controller.modules.length,
+              itemBuilder: (context, index) {
+                final module = controller.modules[index];
+                return buildModuleCard(module, index, controller);
+              },
+            )),
+          ),
+        ],
       ),
     );
   }
