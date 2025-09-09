@@ -239,7 +239,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 autofillHints: const [AutofillHints.email],
               ),
 
-              SizedBox(height: 205),
+              SizedBox(height: 260),
               context.primaryButton(
                 onPressed: () {
                   _submit();

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/screen/login_screen.dart';
+import 'package:flutter_ladydenily/features/others/refund_policy_screen.dart';
+import 'package:flutter_ladydenily/features/others/terms_and_condition_screen.dart';
+import 'package:flutter_ladydenily/features/others/video_copyright_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/notification_screen.dart';
 
 import '../../model/profile_model.dart';
@@ -152,7 +156,7 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const ChangePasswordScreen(),
+                        builder: (_) => const TermsAndConditionScreen(),
                       ),
                     ),
                   ),
@@ -164,7 +168,7 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const ChangePasswordScreen(),
+                        builder: (_) => const VideoCopyrightScreen(),
                       ),
                     ),
                   ),
@@ -176,7 +180,7 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const ChangePasswordScreen(),
+                        builder: (_) => const RefundPolicyScreen(),
                       ),
                     ),
                   ),
@@ -192,7 +196,7 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const ChangePasswordScreen(),
+                        builder: (_) => const LoginScreen(),
                       ),
                     ),
                   ),
