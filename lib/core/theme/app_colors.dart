@@ -7,4 +7,5 @@ class AppColors {
 
   static const Color white = Colors.white;
   static const Color errorRed = Color(0xFFD94539);
+
 }
