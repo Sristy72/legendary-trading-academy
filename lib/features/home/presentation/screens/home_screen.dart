@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/features/course/models/course_details.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/course/presentation/screens/course_all_screen.dart';
 import 'package:flutter_ladydenily/features/notification/presentation/screens/notification_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-
+            SizedBox(width: 8,),
             const Text('Hello, User Name'),
           ],
         ),
@@ -65,14 +65,14 @@ class HomeScreen extends StatelessWidget {
       ),
 
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(top:4,bottom: 16, left: 16, right: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSectionTitle(
-              'Courses',
+            _buildSectionTitle('Courses',
               onViewAllTap: () => _navigateToCoursesDetails(context),
             ),
+            
             _buildHorizontalList(
               dummyCourses.map((c) => CourseCard(course: c)).toList(),
             ),
@@ -118,7 +118,10 @@ class HomeScreen extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              color: AppColors.textColorBlue,
+              fontSize: 20, 
+              fontWeight: FontWeight.bold),
           ),
           InkWell(
             onTap: onViewAllTap,
@@ -128,7 +131,7 @@ class HomeScreen extends StatelessWidget {
               child: Text(
                 "View All",
                 style: TextStyle(
-                  color: Colors.blue[700],
+                  color: Colors.yellow[700],
                   fontWeight: FontWeight.w500,
                 ),
               ),

@@ -13,4 +13,9 @@ class AppColors {
   static const Color starColor = Color(0xFFEF1A26);
   static const Color dialogBackgroundColor = Color(0xFFE8ECF1);
   static const Color greenColor = Color(0xFF00A86B);
+
+  static const Color white = Colors.white;
+  static const Color errorRed = Color(0xFFD94539);
+  static const Color textColorBlue = Color(0xFF1A3E74);
+  static const Color cardBackgroundColor = Color(0xFFE8ECF1);
 }

@@ -6,14 +6,13 @@ import 'package:flutter_ladydenily/features/course/models/course_details.dart';
 
 
 final List<Trainer> dummyTrainers = [
-  Trainer(name: 'Trainer 1', courses: 3, image: 'assets/images/trainer1.jpg'),
-  Trainer(name: 'Trainer 2', courses: 5, image: 'assets/images/trainer2.jpg'),
-  Trainer(name: 'Trainer 3', courses: 2, image: 'assets/images/trainer3.jpg'),
+  Trainer(name: 'Trainer 1', courses: 3, image: 'assets/images/trainer1.png'),
+  Trainer(name: 'Trainer 2', courses: 5, image: 'assets/images/trainer2.png'),
+  Trainer(name: 'Trainer 3', courses: 2, image: 'assets/images/trainer3.png'),
 ];
 
 final List<MarketItem> dummyMarketplace = [
   MarketItem(title: 'Legendary Book', price: '\$99.99', image: 'assets/images/book1.jpg'),
-  MarketItem(title: 'Forex Toolkit', price: '\$49.99', image: 'assets/images/toolkit.jpg'),
   MarketItem(title: 'Forex Toolkit', price: '\$49.99', image: 'assets/images/toolkit.jpg'),
 ];
 
@@ -39,6 +38,11 @@ List<CourseDetails> dummyCoursesDetails = [
     image: "assets/images/courses_sample.jpg",
     status: "Enroll Now",
     level: 'Freshman',
+    trainerName : "Trainer 1",
+    trainerImage: "assets/images/trainer1.png",
+    trainerStats: "Expert",
+    benefitImages: ['assets/images/appraisal_15210198.png','assets/images/community_12575799.png','assets/images/folder_12533516.png','assets/images/folder_15237642.png','assets/images/legal-document_1890467.png',],
+    benefits: ['assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg',]
   ),
   CourseDetails(
     title: "Technical Analysis Mastery",
@@ -49,6 +53,11 @@ List<CourseDetails> dummyCoursesDetails = [
     image:"assets/images/courses_sample.jpg",
     status: "Continue Learning",
     level: 'Beginner',
+    trainerName : "Trainer 1",
+    trainerImage: "assets/images/trainer1.png",
+    trainerStats: "Expert",
+    benefitImages: ['assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg'],
+    benefits: ['assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg']
   ),
   CourseDetails(
     title: "Technical Analysis Mastery",
@@ -59,5 +68,12 @@ List<CourseDetails> dummyCoursesDetails = [
     image: "assets/images/courses_sample.jpg",
     status: "Enroll Now",
     level: 'Intermediate',
+    trainerName : "Trainer 1",
+    trainerImage: "assets/images/trainer1.     ",
+    trainerStats: "Expert",
+    benefitImages: ['assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg'],
+    benefits: ['assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg']
   ),
 ];
+
+// lib/features/courses/data/dummy_course.dart

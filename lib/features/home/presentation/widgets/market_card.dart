@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import '../../models/market_item.dart';
 
 class MarketCard extends StatelessWidget {
@@ -11,7 +12,7 @@ class MarketCard extends StatelessWidget {
     return Container(
       width: 180,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackgroundColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 4)],
       ),
@@ -34,7 +35,7 @@ class MarketCard extends StatelessWidget {
           const SizedBox(height: 8),
 
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -53,8 +54,12 @@ class MarketCard extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.yellow.shade700,
+                        foregroundColor: AppColors.textColorBlue,
+                        shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),),
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
+                          horizontal: 12,
                           vertical: 6,
                         ),
                         textStyle: const TextStyle(fontSize: 12),

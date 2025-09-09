@@ -101,7 +101,7 @@ class _SignupFormState extends State<SignupForm> {
             SizedBox(height: 16),
 
             ///Sign in
-            context.primaryButton(onPressed: () {  }, text: 'Sign up'),
+            context.primaryButton(onPressed: () { }, text: 'Sign up'),
             SizedBox(height: 32),
           ],
         ),
