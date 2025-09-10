@@ -10,7 +10,8 @@ class VideoCopyrightScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: CustomAppBar(title: 'Video Copyright'),
+      appBar: AppBar(title: Text('Video Copyright'),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

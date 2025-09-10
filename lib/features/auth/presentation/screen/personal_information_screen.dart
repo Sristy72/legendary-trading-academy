@@ -239,12 +239,14 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 autofillHints: const [AutofillHints.email],
               ),
 
-              SizedBox(height: 205),
-              context.primaryButton(
-                onPressed: () {
-                  _submit();
-                },
-                text: 'Continue',
+              SizedBox(height: 18),
+              SafeArea(
+                child: context.primaryButton(
+                  onPressed: () {
+                    _submit();
+                  },
+                  text: 'Continue',
+                ),
               ),
 
               Gap.bottomBarGap,

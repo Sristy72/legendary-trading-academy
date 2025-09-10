@@ -1,36 +1,23 @@
 import 'package:flutter/material.dart';
-import 'profile_screen.dart';
+import 'package:get/get.dart';
+import '../../../auth/presentation/screen/login_screen.dart';
 
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    _navigateToHome();
-  }
-
-  void _navigateToHome() async {
-    await Future.delayed(const Duration(seconds: 3));
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => ProfileScreen()),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
+    // Navigate to LoginScreen after 3 seconds
+    Future.delayed(const Duration(seconds: 3), () {
+      Get.off(() => const LoginScreen());
+    });
+
     return Scaffold(
       body: Center(
         child: Image.asset(
-          'assets/images/.png',
-          width: 150, // adjust as needed
+          'assets/images/logo.png', // path to your logo
+          width: 150,
           height: 150,
         ),
       ),

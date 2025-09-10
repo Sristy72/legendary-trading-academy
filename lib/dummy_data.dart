@@ -2,6 +2,24 @@ import 'features/home/models/course.dart';
 import 'features/home/models/trainer.dart';
 import 'features/home/models/market_item.dart';
 import 'package:flutter_ladydenily/features/course/models/course_details.dart';
+import 'features/marketplace/models/market_item.dart' hide MarketItem;
+
+final List<MarketItem> dummyMarketItems = [
+  MarketItem(
+    title: "Legendary Book",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    price: "\$99.99",
+    image: "assets/images/book.png", // ekhane local asset use koro
+    tag: "Free",
+  ),
+  MarketItem(
+    title: "Legendary Software",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    price: "\$99.99",
+    image: "assets/images/software.png",
+    tag: "New",
+  ),
+];
 
 
 
@@ -12,8 +30,8 @@ final List<Trainer> dummyTrainers = [
 ];
 
 final List<MarketItem> dummyMarketplace = [
-  MarketItem(title: 'Legendary Book', price: '\$99.99', image: 'assets/images/book1.jpg'),
-  MarketItem(title: 'Forex Toolkit', price: '\$49.99', image: 'assets/images/toolkit.jpg'),
+  MarketItem(title: 'Legendary Book', price: '\$99.99', image: 'assets/images/book1.jpg', description: '', tag: ''),
+  MarketItem(title: 'Forex Toolkit', price: '\$49.99', image: 'assets/images/toolkit.jpg', description: '', tag: ''),
 ];
 
 final List<Course> dummyMyCourses = [
@@ -76,4 +94,3 @@ List<CourseDetails> dummyCoursesDetails = [
   ),
 ];
 
-// lib/features/courses/data/dummy_course.dart
