@@ -10,7 +10,8 @@ class AboutAppScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: CustomAppBar(title: 'About App'),
+      appBar: AppBar(title: Text('About App'),
+      ),
 
       body: SafeArea(
         child: CustomText(

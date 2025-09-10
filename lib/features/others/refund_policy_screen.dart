@@ -13,7 +13,9 @@ class RefundPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: CustomAppBar(title: 'Refund Policy'), body: SafeArea(
+      appBar: AppBar(title: Text('Refund Policy'),
+      ),
+      body: SafeArea(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

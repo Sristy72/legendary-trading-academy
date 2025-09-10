@@ -10,7 +10,8 @@ class TermsAndConditionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: CustomAppBar(title: 'Term & Condition'),
+      appBar: AppBar(title: Text('Term & Condition'),
+    ),
 
       body: SafeArea(
         child: SingleChildScrollView(
