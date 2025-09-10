@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
-import 'package:flutter_ladydenily/core/common/widgets/appbar.dart';
 import 'package:flutter_ladydenily/core/common/widgets/custom_text_for_refund_policy.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 

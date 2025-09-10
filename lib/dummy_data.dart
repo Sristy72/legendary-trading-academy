@@ -2,7 +2,6 @@ import 'features/home/models/course.dart';
 import 'features/home/models/trainer.dart';
 import 'features/home/models/market_item.dart';
 import 'package:flutter_ladydenily/features/course/models/course_details.dart';
-import 'features/marketplace/models/market_item.dart' hide MarketItem;
 
 final List<MarketItem> dummyMarketItems = [
   MarketItem(

@@ -10,7 +10,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../core/theme/app_colors.dart';
-import '../../../profile/presentation/screens/personal_info_screen.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({
