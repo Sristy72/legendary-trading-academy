@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 
 import '../../controller/calender_controller.dart';
 
@@ -13,7 +14,7 @@ class EventCardWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFFEFF4FB),
+        color: AppColors.cardBGColor,//0xFFEFF4FB
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

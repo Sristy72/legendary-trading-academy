@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../state/payment_controller.dart';
+import '../controller/payment_controller.dart';
 import '../widgets/payment_card.dart';
 
 class PaymentScreen extends GetView<PaymentController> {

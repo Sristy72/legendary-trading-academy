@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:get/get.dart';
 
 import '../../controller/calender_controller.dart';
@@ -18,7 +19,7 @@ class CalendarScreen extends GetView<CalendarController> {
         title: const Text('Calendar',style: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
-          color:Color(0xFF1A3E74)
+          color: AppColors.appBarTitle
         ),
         ),
       ),

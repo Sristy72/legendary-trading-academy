@@ -7,5 +7,8 @@ class AppColors {
 
   static const Color white = Colors.white;
   static const Color errorRed = Color(0xFFD94539);
+  
+  static const Color appBarTitle=Color(0xFF1A3E74);
+  static const Color cardBGColor=Color(0xFFEFF4FB);
 
 }
