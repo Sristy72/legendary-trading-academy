@@ -31,7 +31,6 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   String gender = "Male";
 
   void _submit() {
-    /// [Note: Form Key]
     Get.to(UploadProfileScreen());
   }
 
@@ -63,6 +62,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     ),
                     SizedBox(height: 16),
 
+                    // Name
                     Row(
                       children: [
                         CustomText(
@@ -86,19 +86,18 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     TextFormField(
                       controller: _personalNameController,
                       focusNode: _personalNameFocus,
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.text,
                       decoration: context.primaryInputDecoration.copyWith(
                         hintText: TTexts.personalName,
                       ),
-                      validator: Validators.email,
                       onFieldSubmitted: (_) => FocusScope.of(
                         context,
-                      ).requestFocus(_personalNameFocus),
-                      autofillHints: const [AutofillHints.email],
+                      ).requestFocus(_personalAgeFocus),
                     ),
 
                     SizedBox(height: 14),
 
+                    // Age
                     Row(
                       children: [
                         CustomText(
@@ -126,14 +125,14 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       decoration: context.primaryInputDecoration.copyWith(
                         hintText: TTexts.personalAge,
                       ),
-                      validator: Validators.email,
                       onFieldSubmitted: (_) => FocusScope.of(
                         context,
-                      ).requestFocus(_personalAgeFocus),
-                      autofillHints: const [AutofillHints.email],
+                      ).requestFocus(_nationalityFocus),
                     ),
 
                     SizedBox(height: 14),
+
+                    // Gender
                     Row(
                       children: [
                         CustomText(
@@ -156,13 +155,10 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     SizedBox(height: 8),
 
                     DropdownButtonFormField<String>(
-                      initialValue: gender,
+                      value: gender,
                       items: const [
                         DropdownMenuItem(value: "Male", child: Text("Male")),
-                        DropdownMenuItem(
-                          value: "Female",
-                          child: Text("Female"),
-                        ),
+                        DropdownMenuItem(value: "Female", child: Text("Female")),
                         DropdownMenuItem(value: "Other", child: Text("Other")),
                       ],
                       onChanged: (value) {
@@ -181,6 +177,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     ),
 
                     SizedBox(height: 14),
+
+                    // Nationality
                     Row(
                       children: [
                         CustomText(
@@ -204,57 +202,60 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     TextFormField(
                       controller: _nationalityController,
                       focusNode: _nationalityFocus,
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.text,
                       decoration: context.primaryInputDecoration.copyWith(
                         hintText: TTexts.nationality,
                         suffixIcon: Icon(Icons.keyboard_arrow_down),
                       ),
-                      validator: Validators.email,
                       onFieldSubmitted: (_) => FocusScope.of(
                         context,
-                      ).requestFocus(_nationalityFocus),
-                      autofillHints: const [AutofillHints.email],
+                      ).requestFocus(_addressFocus),
                     ),
 
-              SizedBox(height: 14),
-              Row(
-                children: [
-                  CustomText(
-                    'Address',
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
-                  ),
-                  CustomText(
-                    '*',
-                    style: TextStyle(
-                      color: Color(0xFFEF1A26),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              TextFormField(
-                controller: _addressController,
-                focusNode: _addressFocus,
-                keyboardType: TextInputType.emailAddress,
-                decoration: context.primaryInputDecoration.copyWith(
-                  hintText: TTexts.address,
-                ),
-                validator: Validators.email,
-                onFieldSubmitted: (_) =>
-                    FocusScope.of(context).requestFocus(_addressFocus),
-                autofillHints: const [AutofillHints.email],
-              ),
+                    SizedBox(height: 14),
 
-              SizedBox(height: 18),
-              SafeArea(
-                child: context.primaryButton(
-                  onPressed: () {
-                    _submit();
-                  },
-                  text: 'Continue',
+                    // Address
+                    Row(
+                      children: [
+                        CustomText(
+                          'Address',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                        CustomText(
+                          '*',
+                          style: TextStyle(
+                            color: Color(0xFFEF1A26),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    TextFormField(
+                      controller: _addressController,
+                      focusNode: _addressFocus,
+                      keyboardType: TextInputType.text,
+                      decoration: context.primaryInputDecoration.copyWith(
+                        hintText: TTexts.address,
+                      ),
+                      onFieldSubmitted: (_) =>
+                          FocusScope.of(context).unfocus(),
+                    ),
+                  ],
                 ),
+              ),
+            ),
+
+            // Continue Button
+            SizedBox(height: 18),
+            SafeArea(
+              child: context.primaryButton(
+                onPressed: _submit,
+                text: 'Continue',
               ),
             ),
           ],
