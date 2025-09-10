@@ -13,8 +13,7 @@ class RefundPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: AppBar(title: Text('Refund Policy'),
-      ),
+      appBar: AppBar(title: Text('Refund Policy')), 
       body: SafeArea(
       child: SingleChildScrollView(
         child: Column(

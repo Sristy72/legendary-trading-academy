@@ -44,27 +44,41 @@ class MarketCard extends StatelessWidget {
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 4),
-                Row(
+                Text(
+                  item.title,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 4),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       item.price,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.yellow.shade700,
-                        foregroundColor: AppColors.textColorBlue,
-                        shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 6,
-                        ),
-                        textStyle: const TextStyle(fontSize: 12),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textColorBlue,
                       ),
-                      child: const Text("Shop Now"),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.yellow.shade700,
+                          foregroundColor: AppColors.textColorBlue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          textStyle: const TextStyle(fontSize: 12),
+                        ),
+                        child: const Text("Shop Now"),
+                      ),
                     ),
                   ],
                 ),

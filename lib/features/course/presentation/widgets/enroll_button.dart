@@ -11,10 +11,9 @@ class EnrollButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth= MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return SafeArea(
-      
       child: Container(
         color: Colors.yellow[100],
         height: 95,
@@ -22,34 +21,41 @@ class EnrollButton extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(children: [
-              Text(
-                "Total:",
-                style: const TextStyle(
-                  fontSize: 16, 
-                  fontWeight: FontWeight.bold,
+            Row(
+              children: [
+                Text(
+                  "Total:",
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              Spacer(),
-              Text( "\$${price.toStringAsFixed(2)}",
-                style: const TextStyle(
-                  fontSize: 16, 
-                  fontWeight: FontWeight.bold),
+                Spacer(),
+                Text(
+                  "\$${price.toStringAsFixed(2)}",
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              ),
+                ),
+              ],
+            ),
             SizedBox(
-              width: screenWidth-32,
+              width: screenWidth - 32,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.yellow[700],
+                  backgroundColor: Colors.yellow.shade700,
                   foregroundColor: AppColors.textColorBlue,
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),)
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
                 onPressed: onTap,
-                child: const Text("Enroll Now",style: TextStyle(fontSize: 16),),
+                child: const Text("Enroll Now", style: TextStyle(fontSize: 16)),
               ),
             ),
           ],

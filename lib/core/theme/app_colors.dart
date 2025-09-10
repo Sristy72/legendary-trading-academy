@@ -23,5 +23,8 @@ class AppColors {
   static const Color paymentColor = Color(0xFFFDF9E9);
   static const Color appBarTitle=Color(0xFF1A3E74);
   static const Color cardBGColor=Color(0xFFEFF4FB);
+  static const Color searchBackgroundColor = Color(0xFFE0E0E0);
+  static const Color navBackgroundColor = Color(0xFFFDF9E9);
+  static const Color buttonColor = Color(0xFFEFC227);
 }
   

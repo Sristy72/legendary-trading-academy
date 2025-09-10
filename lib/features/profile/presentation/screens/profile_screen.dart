@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/login_screen.dart';
-import 'package:flutter_ladydenily/features/auth/presentation/screen/signup_screen.dart';
 import 'package:flutter_ladydenily/features/others/about_app_screen.dart';
 import 'package:flutter_ladydenily/features/others/privacy_policy_screen.dart';
 import 'package:flutter_ladydenily/features/others/refund_policy_screen.dart';
@@ -94,13 +93,12 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   //Personal Info..
                   ProfileOptionTile(
-
                     iconPath: "assets/icons/personal info.png",
                     title: "Personal Information",
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const PersonalInfoScreen(),
+                        builder: (context) => const PersonalInfoScreen(),
                       ),
                     ),
                   ),
@@ -111,19 +109,19 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const ChangePasswordScreen(),
+                        builder: (context) => const ChangePasswordScreen(),
                       ),
                     ),
                   ),
-                  //Notification Settings..
 
+                  //Notification Settings..
                   ProfileOptionTile(
                     iconPath: "assets/icons/notification.png",
                     title: "Notification Settings",
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const NotificationScreen(),
+                        builder: (context) => const NotificationScreen(),
                       ),
                     ),
                   ),
@@ -135,7 +133,7 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const AboutAppScreen(),
+                        builder: (context) => const AboutAppScreen(),
                       ),
                     ),
                   ),
@@ -147,7 +145,7 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const PrivacyPolicyScreen(),
+                        builder: (context) => const PrivacyPolicyScreen(),
                       ),
                     ),
                   ),
@@ -159,7 +157,7 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const TermsAndConditionScreen(),
+                        builder: (context) => const TermsAndConditionScreen(),
                       ),
                     ),
                   ),
@@ -171,7 +169,7 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const VideoCopyrightScreen(),
+                        builder: (context) => const VideoCopyrightScreen(),
                       ),
                     ),
                   ),
@@ -183,11 +181,10 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const RefundPolicyScreen(),
+                        builder: (context) => const RefundPolicyScreen(),
                       ),
                     ),
                   ),
-
 
                   //Logout...
                   ProfileOptionTile(
@@ -199,7 +196,7 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const LoginScreen(),
+                        builder: (context) => const LoginScreen(),
                       ),
                     ),
                   ),

@@ -32,19 +32,58 @@ final List<Trainer> dummyTrainers = [
 final List<MarketItem> dummyMarketplace = [
   MarketItem(title: 'Legendary Book', price: '\$99.99', image: 'assets/images/book1.jpg', description: '', tag: ''),
   MarketItem(title: 'Forex Toolkit', price: '\$49.99', image: 'assets/images/toolkit.jpg', description: '', tag: ''),
+  MarketItem(
+    title: 'Legendary Book',
+    price: '\$99.99',
+    image: 'assets/images/book1.jpg',
+  ),
+  MarketItem(
+    title: 'Forex Toolkit',
+    price: '\$49.99',
+    image: 'assets/images/toolkit.jpg',
+  ),
 ];
 
 final List<Course> dummyMyCourses = [
-  Course(title: 'Forex Fundamentals', price: '\$99.99', lessons: 12, level: 'Sophomore', image: 'assets/images/mycourses1.jpg'),
-  Course(title: 'Risk Management', price: '\$79.99', lessons: 10, level: 'Intermediate', image: 'assets/images/mycourses2.jpg'),
+  Course(
+    title: 'Forex Fundamentals',
+    price: '\$99.99',
+    lessons: 12,
+    level: 'Sophomore',
+    image: 'assets/images/mycourses1.jpg',
+  ),
+  Course(
+    title: 'Risk Management',
+    price: '\$79.99',
+    lessons: 10,
+    level: 'Intermediate',
+    image: 'assets/images/mycourses2.jpg',
+  ),
 ];
 
 final List<Course> dummyCourses = [
-  Course(title: 'Technical Analysis Mastery', price: '\$99.99', lessons: 12, level: 'Freshman', image: 'assets/images/courses_sample.jpg',),
-  Course(title: 'Stock Market Basics', price: '\$59.99', lessons: 8, level: 'Beginner', image: 'assets/images/courses_sample.jpg',),
-  Course(title: 'Crypto Trading', price: '\$149.99', lessons: 15, level: 'Intermediate', image: 'assets/images/courses_sample.jpg',),
+  Course(
+    title: 'Technical Analysis Mastery',
+    price: '\$99.99',
+    lessons: 12,
+    level: 'Freshman',
+    image: 'assets/images/courses_sample.jpg',
+  ),
+  Course(
+    title: 'Stock Market Basics',
+    price: '\$59.99',
+    lessons: 8,
+    level: 'Beginner',
+    image: 'assets/images/courses_sample.jpg',
+  ),
+  Course(
+    title: 'Crypto Trading',
+    price: '\$149.99',
+    lessons: 15,
+    level: 'Intermediate',
+    image: 'assets/images/courses_sample.jpg',
+  ),
 ];
-
 
 List<CourseDetails> dummyCoursesDetails = [
   CourseDetails(
@@ -56,11 +95,23 @@ List<CourseDetails> dummyCoursesDetails = [
     image: "assets/images/courses_sample.jpg",
     status: "Enroll Now",
     level: 'Freshman',
-    trainerName : "Trainer 1",
+    trainerName: "Trainer 1",
     trainerImage: "assets/images/trainer1.png",
     trainerStats: "Expert",
-    benefitImages: ['assets/images/appraisal_15210198.png','assets/images/community_12575799.png','assets/images/folder_12533516.png','assets/images/folder_15237642.png','assets/images/legal-document_1890467.png',],
-    benefits: ['assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg',]
+    benefitImages: [
+      'assets/images/appraisal_15210198.png',
+      'assets/images/community_12575799.png',
+      'assets/images/folder_12533516.png',
+      'assets/images/folder_15237642.png',
+      'assets/images/legal-document_1890467.png',
+    ],
+    benefits: [
+      '6-month guided journey',
+      'Community Support',
+      '12 Modules',
+      'Numerous Resources',
+      'Certificate',
+    ],
   ),
   CourseDetails(
     title: "Technical Analysis Mastery",
@@ -68,14 +119,26 @@ List<CourseDetails> dummyCoursesDetails = [
     weeks: "4 Weeks",
     modules: "12 Modules",
     price: "",
-    image:"assets/images/courses_sample.jpg",
+    image: "assets/images/courses_sample.jpg",
     status: "Continue Learning",
     level: 'Beginner',
-    trainerName : "Trainer 1",
+    trainerName: "Trainer 1",
     trainerImage: "assets/images/trainer1.png",
     trainerStats: "Expert",
-    benefitImages: ['assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg'],
-    benefits: ['assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg']
+    benefitImages: [
+      'assets/images/book1.jpg',
+      'assets/images/book1.jpg',
+      'assets/images/book1.jpg',
+      'assets/images/book1.jpg',
+      'assets/images/book1.jpg',
+    ],
+    benefits: [
+      '6-month guided journey',
+      'Community Support',
+      '12 Modules',
+      'Numerous Resources',
+      'Certificate',
+    ],
   ),
   CourseDetails(
     title: "Technical Analysis Mastery",
@@ -86,11 +149,25 @@ List<CourseDetails> dummyCoursesDetails = [
     image: "assets/images/courses_sample.jpg",
     status: "Enroll Now",
     level: 'Intermediate',
-    trainerName : "Trainer 1",
+    trainerName: "Trainer 1",
     trainerImage: "assets/images/trainer1.     ",
     trainerStats: "Expert",
-    benefitImages: ['assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg'],
-    benefits: ['assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg','assets/images/book1.jpg']
+    benefitImages: [
+      'assets/images/book1.jpg',
+      'assets/images/book1.jpg',
+      'assets/images/book1.jpg',
+      'assets/images/book1.jpg',
+      'assets/images/book1.jpg',
+    ],
+    benefits: [
+      '6-month guided journey',
+      'Community Support',
+      '12 Modules',
+      'Numerous Resources',
+      'Certificate',
+    ],
   ),
 ];
 
+
+// lib/features/courses/data/dummy_course.dart
