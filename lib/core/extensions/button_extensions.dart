@@ -89,6 +89,7 @@ extension ButtonStyleExtensions on BuildContext {
                 : Text(
                     text,
                     style: AppTextStyles.text16w400().copyWith(
+                      fontWeight: FontWeight.bold,
                       color: textColor,
                     ),
                   ),
