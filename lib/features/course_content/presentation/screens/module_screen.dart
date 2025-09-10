@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_details_screen.dart';
+import 'package:flutter_ladydenily/features/quiz/presentation/screens/quiz_screen.dart';
 import 'package:get/get.dart';
 import '../state/module_state.dart';
 import '../widgets/items_widgets.dart';
@@ -13,12 +14,12 @@ class ModuleScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Technical Analysis Mastery',
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Color(0xff1A3E74),
           ),
         ),
       ),
@@ -79,7 +80,10 @@ class ModuleScreen extends StatelessWidget {
                       title: 'Quiz',
                       ImagePath: "assets/images/quiz_8586995.png",
                       isSelected: controller.selectedIndex.value == 5,
-                      onTap: () => controller.selectItem(5),
+                      onTap: () {
+                        controller.selectItem(5);
+                        Get.to(QuizScreen());
+                      },
                     ),
                     const SizedBox(height: 12),
                     ItemWidget(
