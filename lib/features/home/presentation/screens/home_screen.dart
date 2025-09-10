@@ -4,6 +4,7 @@ import 'package:flutter_ladydenily/features/course/presentation/screens/coure_de
 import 'package:flutter_ladydenily/features/course/presentation/screens/course_all_screen.dart';
 import 'package:flutter_ladydenily/features/home/models/course.dart';
 import 'package:flutter_ladydenily/core/widgets/custom_bottom_navbar.dart';
+import 'package:flutter_ladydenily/features/marketplace/presentation/screens/marketplace_all_screen.dart';
 import 'package:flutter_ladydenily/features/notification/presentation/screens/notification_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
 import 'package:get/get.dart';
@@ -29,10 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _pages = [
-      const HomeContent(), 
-      const Center(child: Text("👥 Community Page")), 
-      CourseAllScreen(), 
-      ProfileScreen(), 
+      const HomeContent(),
+      const Center(child: Text("👥 Community Page")),
+      CourseAllScreen(),
+      ProfileScreen(),
     ];
   }
 
@@ -55,7 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// ---------------- HomeContent (scrollable home body) ---------------- //
 class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
 
@@ -73,10 +73,16 @@ class HomeContent extends StatelessWidget {
     );
   }
 
+  void _navgiateToAllMarketplace(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MarketplaceAllScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         title: Row(
           children: [
@@ -124,7 +130,7 @@ class HomeContent extends StatelessWidget {
           const SizedBox(width: 16),
         ],
       ),
-      
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 4, bottom: 16, left: 16, right: 16),
         child: Column(
@@ -147,7 +153,10 @@ class HomeContent extends StatelessWidget {
               dummyTrainers.map((t) => TrainerCard(trainer: t)).toList(),
             ),
 
-            _buildSectionTitle('Marketplace'),
+            _buildSectionTitle(
+              'Marketplace',
+              onViewAllTap: () => _navgiateToAllMarketplace(context),
+            ),
             _buildHorizontalList(
               dummyMarketplace.map((m) => MarketCard(item: m)).toList(),
             ),
@@ -240,12 +249,18 @@ class HomeContent extends StatelessWidget {
           BoxShadow(color: Colors.grey.withValues(alpha: 0.2), blurRadius: 4),
         ],
       ),
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: 'Search courses, trainers...',
-          border: InputBorder.none,
-          prefixIcon: Icon(Icons.search, color: AppColors.emailIconColor),
-          suffixIcon: Icon(Icons.filter_list, color: AppColors.emailIconColor),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: TextField(
+          decoration: InputDecoration(
+            hintText: 'Search courses, trainers...',
+            border: InputBorder.none,
+            prefixIcon: Icon(Icons.search, color: AppColors.emailIconColor),
+            suffixIcon: Icon(
+              Icons.filter_list,
+              color: AppColors.emailIconColor,
+            ),
+          ),
         ),
       ),
     );

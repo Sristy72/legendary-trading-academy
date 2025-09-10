@@ -4,6 +4,7 @@ import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_profile_screen.dart';
+import 'package:flutx_core/flutx_core.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/common/texts/texts.dart';
@@ -157,7 +158,10 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       value: gender,
                       items: const [
                         DropdownMenuItem(value: "Male", child: Text("Male")),
-                        DropdownMenuItem(value: "Female", child: Text("Female")),
+                        DropdownMenuItem(
+                          value: "Female",
+                          child: Text("Female"),
+                        ),
                         DropdownMenuItem(value: "Other", child: Text("Other")),
                       ],
                       onChanged: (value) {
@@ -206,9 +210,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         hintText: TTexts.nationality,
                         suffixIcon: Icon(Icons.keyboard_arrow_down),
                       ),
-                      onFieldSubmitted: (_) => FocusScope.of(
-                        context,
-                      ).requestFocus(_addressFocus),
+                      onFieldSubmitted: (_) =>
+                          FocusScope.of(context).requestFocus(_addressFocus),
                     ),
 
                     SizedBox(height: 14),
@@ -241,8 +244,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       decoration: context.primaryInputDecoration.copyWith(
                         hintText: TTexts.address,
                       ),
-                      onFieldSubmitted: (_) =>
-                          FocusScope.of(context).unfocus(),
+                      onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
                     ),
                   ],
                 ),
@@ -257,6 +259,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 text: 'Continue',
               ),
             ),
+            Gap.h16,
           ],
         ),
       ),

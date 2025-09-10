@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
+import 'package:flutx_core/flutx_core.dart';
 import '../../models/market_item.dart';
 
 class MarketCard extends StatelessWidget {
@@ -80,6 +81,7 @@ class MarketCard extends StatelessWidget {
                         child: const Text("Shop Now"),
                       ),
                     ),
+                    Gap.h8,
                   ],
                 ),
               ],

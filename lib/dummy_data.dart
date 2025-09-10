@@ -8,19 +8,17 @@ final List<MarketItem> dummyMarketItems = [
     title: "Legendary Book",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     price: "\$99.99",
-    image: "assets/images/book.png", // ekhane local asset use koro
+    image: "assets/images/book1.jpg", // ekhane local asset use koro
     tag: "Free",
   ),
   MarketItem(
     title: "Legendary Software",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     price: "\$99.99",
-    image: "assets/images/software.png",
+    image: "assets/images/toolkit.jpg",
     tag: "New",
   ),
 ];
-
-
 
 final List<Trainer> dummyTrainers = [
   Trainer(name: 'Trainer 1', courses: 3, image: 'assets/images/trainer1.png'),
@@ -29,18 +27,20 @@ final List<Trainer> dummyTrainers = [
 ];
 
 final List<MarketItem> dummyMarketplace = [
-  MarketItem(title: 'Legendary Book', price: '\$99.99', image: 'assets/images/book1.jpg', description: '', tag: ''),
-  MarketItem(title: 'Forex Toolkit', price: '\$49.99', image: 'assets/images/toolkit.jpg', description: '', tag: ''),
-  // MarketItem(
-  //   title: 'Legendary Book',
-  //   price: '\$99.99',
-  //   image: 'assets/images/book1.jpg',
-  // ),
-  // MarketItem(
-  //   title: 'Forex Toolkit',
-  //   price: '\$49.99',
-  //   image: 'assets/images/toolkit.jpg',
-  // ),
+  MarketItem(
+    title: 'Legendary Book',
+    price: '\$99.99',
+    image: 'assets/images/book1.jpg',
+    description: 'Lorem ipsum dolor sit ametLorem ipsum dolor sit amet',
+    tag: 'Tag1',
+  ),
+  MarketItem(
+    title: 'Forex Toolkit',
+    price: '\$49.99',
+    image: 'assets/images/toolkit.jpg',
+    description: 'Lorem ipsum dolor sit ametLorem ipsum dolor sit amet',
+    tag: 'Tag2',
+  ),
 ];
 
 final List<Course> dummyMyCourses = [
@@ -167,6 +167,5 @@ List<CourseDetails> dummyCoursesDetails = [
     ],
   ),
 ];
-
 
 // lib/features/courses/data/dummy_course.dart

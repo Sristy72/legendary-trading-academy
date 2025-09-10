@@ -165,7 +165,7 @@ class ProfileScreen extends StatelessWidget {
                   //video copyright..
                   ProfileOptionTile(
                     iconPath: "assets/icons/change pass.png",
-                    title: "video copyright",
+                    title: "Video Copyright",
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
