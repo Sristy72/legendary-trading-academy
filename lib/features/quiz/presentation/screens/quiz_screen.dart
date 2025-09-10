@@ -15,11 +15,14 @@ class QuizScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Get.back<void>(),
+        title: Text(
+          'Quiz',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff1A3E74),
+          ),
         ),
-        title: const Text('Quiz'),
       ),
       body: FutureBuilder<List<QuizQuestion>>(
         future: controller.questionsFuture,

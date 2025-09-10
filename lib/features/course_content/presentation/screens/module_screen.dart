@@ -14,12 +14,12 @@ class ModuleScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Technical Analysis Mastery',
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Color(0xff1A3E74),
           ),
         ),
       ),
