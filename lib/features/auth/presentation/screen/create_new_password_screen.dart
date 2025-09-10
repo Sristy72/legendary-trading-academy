@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
+import 'package:flutter_ladydenily/core/common/widgets/appbar.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
@@ -30,22 +31,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back, color: Color(0xFF1A3E74), size: 24),
-        ),
-        title: Text(
-          'Create new password',
-          style: TextStyle(
-            color: Color(0xFF1A3E74),
-            fontWeight: FontWeight.w700,
-            fontSize: 24,
-          ),
-        ),
-      ),
-
+      appBar: CustomAppBar(title: 'Create new password'),
       body: Column(
         children: [
           CustomText('Select which contact details should we use to reset your password', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),),

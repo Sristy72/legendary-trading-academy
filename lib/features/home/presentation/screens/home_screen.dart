@@ -1,15 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/features/course/models/course_details.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
+import 'package:flutter_ladydenily/features/course/presentation/screens/coure_details_screen.dart';
 import 'package:flutter_ladydenily/features/course/presentation/screens/course_all_screen.dart';
+import 'package:flutter_ladydenily/features/home/models/course.dart';
+import 'package:flutter_ladydenily/core/widgets/custom_bottom_navbar.dart';
+import 'package:flutter_ladydenily/features/notification/presentation/screens/notification_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
 import 'package:get/get.dart';
+import '../../../calender/presentation/screens/calender_screen.dart';
 import '../widgets/course_card.dart';
 import '../widgets/trainer_card.dart';
 import '../widgets/market_card.dart';
 import '../../../../dummy_data.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      const HomeContent(), 
+      const Center(child: Text("👥 Community Page")), 
+      CourseAllScreen(), 
+      ProfileScreen(), 
+    ];
+  }
+
+  void _onNavTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: CustomBottomNavBar(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onNavTapped,
+      ),
+    );
+  }
+}
+
+// ---------------- HomeContent (scrollable home body) ---------------- //
+class HomeContent extends StatelessWidget {
+  const HomeContent({super.key});
 
   void _navigateToCoursesDetails(BuildContext context) {
     Navigator.push(
@@ -18,59 +66,80 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  void _navigateToCourseDetail(BuildContext context, Course course) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CourseDetailsScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      
       appBar: AppBar(
         title: Row(
           children: [
             GestureDetector(
               onTap: () => Get.to(ProfileScreen()),
               child: Container(
-                height: 32,
-                width: 32,
-                decoration: BoxDecoration(shape: BoxShape.circle),
-                clipBehavior:
-                    Clip.antiAlias, // ensures image stays inside the circle
+                height: 48,
+                width: 48,
+                decoration: const BoxDecoration(shape: BoxShape.circle),
+                clipBehavior: Clip.antiAlias,
                 child: Image.asset(
                   "assets/images/profile.jpg",
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-
-            const Text('Hello, User Name'),
+            const SizedBox(width: 8),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  'Hello, User Name',
+                  style: TextStyle(
+                    color: AppColors.titleTextColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'New York, NY',
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ],
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.calendar_today_outlined),
-            onPressed: () {
-              // Calendar function here
-            },
+            onPressed: () => Get.to(CalendarScreen()),
           ),
           IconButton(
             icon: const Icon(Icons.notifications_none),
-            onPressed: () {
-              // Notification function here
-            },
+            onPressed: () => Get.to(NotificationScreen()),
           ),
           const SizedBox(width: 16),
         ],
       ),
-
+      
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(top: 4, bottom: 16, left: 16, right: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            _buildSearchBar(),
+
             _buildSectionTitle(
               'Courses',
               onViewAllTap: () => _navigateToCoursesDetails(context),
             ),
             _buildHorizontalList(
-              dummyCourses.map((c) => CourseCard(course: c)).toList(),
+              dummyCourses
+                  .map((c) => _buildClickableCourseCard(c, context))
+                  .toList(),
             ),
 
             _buildSectionTitle('Top Trainer'),
@@ -85,24 +154,20 @@ class HomeScreen extends StatelessWidget {
 
             _buildSectionTitle('My Courses'),
             _buildHorizontalList(
-              dummyMyCourses.map((c) => CourseCard(course: c)).toList(),
+              dummyMyCourses
+                  .map((c) => _buildClickableCourseCard(c, context))
+                  .toList(),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Explore'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-      ),
+    );
+  }
+
+  Widget _buildClickableCourseCard(Course course, BuildContext context) {
+    return GestureDetector(
+      onTap: () => _navigateToCourseDetail(context, course),
+      child: CourseCard(course: course),
     );
   }
 
@@ -114,7 +179,11 @@ class HomeScreen extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              color: AppColors.textColorBlue,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           InkWell(
             onTap: onViewAllTap,
@@ -124,7 +193,7 @@ class HomeScreen extends StatelessWidget {
               child: Text(
                 "View All",
                 style: TextStyle(
-                  color: Colors.blue[700],
+                  color: Colors.yellow[700],
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -157,6 +226,28 @@ class HomeScreen extends StatelessWidget {
             ),
           )
           .toList(),
+    );
+  }
+
+  Widget _buildSearchBar() {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 4, top: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: BoxDecoration(
+        color: AppColors.searchBackgroundColor,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(color: Colors.grey.withValues(alpha: 0.2), blurRadius: 4),
+        ],
+      ),
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: 'Search courses, trainers...',
+          border: InputBorder.none,
+          prefixIcon: Icon(Icons.search, color: AppColors.emailIconColor),
+          suffixIcon: Icon(Icons.filter_list, color: AppColors.emailIconColor),
+        ),
+      ),
     );
   }
 }

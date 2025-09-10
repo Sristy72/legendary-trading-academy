@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/signup_screen.dart';
 import 'package:get/get.dart';
@@ -22,11 +23,7 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 80),
-              TLoginHeader(
-                image: TImages.loginLogo,
-                title: 'Welcome back',
-                subTitle: 'sign in to access your account',
-              ),
+              TLoginHeader(image: ImagesString.loginLogo,title: 'Welcome back', subTitle: 'sign in to access your account',),
 
               ///Form
               TLoginForm(),

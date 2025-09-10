@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
 class ProfileOptionTile extends StatelessWidget {
-  final IconData icon;
+  final String iconPath;
   final String title;
   final VoidCallback onTap;
+  final Color? iconColor;
+  final Color? textColor;
+  final Color? arrowColor;
 
   const ProfileOptionTile({
     Key? key,
-    required this.icon,
+    required this.iconPath,
     required this.title,
     required this.onTap,
+    this.iconColor,
+    this.textColor,
+    this.arrowColor,
   }) : super(key: key);
 
   @override
@@ -19,9 +25,24 @@ class ProfileOptionTile extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: Colors.grey.shade100,
       child: ListTile(
-        leading: Icon(icon, color: Colors.grey.shade700),
-        title: Text(title, style: const TextStyle(fontSize: 16)),
-        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+        leading: Image.asset(
+          iconPath,
+          width: 24,
+          height: 24,
+          color: iconColor ?? Colors.grey.shade700,
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            fontSize: 16,
+            color: textColor ?? Colors.black,
+          ),
+        ),
+        trailing: Icon(
+          Icons.arrow_forward_ios,
+          size: 16,
+          color: arrowColor ?? Colors.grey.shade700,
+        ),
         onTap: onTap,
       ),
     );

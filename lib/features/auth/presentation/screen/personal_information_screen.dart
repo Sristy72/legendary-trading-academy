@@ -4,7 +4,6 @@ import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_profile_screen.dart';
-import 'package:flutx_core/core/routes/services/go_next_navigation.dart';
 import 'package:flutx_core/flutx_core.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +31,6 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   String gender = "Male";
 
   void _submit() {
-    /// [Note: Form Key]
     Get.to(UploadProfileScreen());
   }
 
@@ -51,206 +49,216 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomText(
-                'To create your new account, provide your information.',
-              ),
-              SizedBox(height: 16),
-
-              Row(
-                children: [
-                  CustomText(
-                    'Name',
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
-                  ),
-                  CustomText(
-                    '*',
-                    style: TextStyle(
-                      color: Color(0xFFEF1A26),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
+        child: Column(
+          children: [
+            // Scrollable content
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      'To create your new account, provide your information.',
                     ),
-                  ),
-                ],
-              ),
-              //CustomText('Name*', style: TextStyle(fontWeight: FontWeight.w400 , fontSize: 16)),
-              SizedBox(height: 8),
-              TextFormField(
-                controller: _personalNameController,
-                focusNode: _personalNameFocus,
-                keyboardType: TextInputType.emailAddress,
-                decoration: context.primaryInputDecoration.copyWith(
-                  hintText: TTexts.personalName,
-                ),
-                validator: Validators.email,
-                onFieldSubmitted: (_) =>
-                    FocusScope.of(context).requestFocus(_personalNameFocus),
-                autofillHints: const [AutofillHints.email],
-              ),
+                    SizedBox(height: 16),
 
-              SizedBox(height: 14),
-
-              Row(
-                children: [
-                  CustomText(
-                    'Age',
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
-                  ),
-                  CustomText(
-                    '*',
-                    style: TextStyle(
-                      color: Color(0xFFEF1A26),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
+                    // Name
+                    Row(
+                      children: [
+                        CustomText(
+                          'Name',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                        CustomText(
+                          '*',
+                          style: TextStyle(
+                            color: Color(0xFFEF1A26),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              TextFormField(
-                controller: _personalAgeController,
-                focusNode: _personalAgeFocus,
-                keyboardType: TextInputType.number,
-                decoration: context.primaryInputDecoration.copyWith(
-                  hintText: TTexts.personalAge,
-                ),
-                validator: Validators.email,
-                onFieldSubmitted: (_) =>
-                    FocusScope.of(context).requestFocus(_personalAgeFocus),
-                autofillHints: const [AutofillHints.email],
-              ),
-
-              SizedBox(height: 14),
-              Row(
-                children: [
-                  CustomText(
-                    'Gender',
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
-                  ),
-                  CustomText(
-                    '*',
-                    style: TextStyle(
-                      color: Color(0xFFEF1A26),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
+                    SizedBox(height: 8),
+                    TextFormField(
+                      controller: _personalNameController,
+                      focusNode: _personalNameFocus,
+                      keyboardType: TextInputType.text,
+                      decoration: context.primaryInputDecoration.copyWith(
+                        hintText: TTexts.personalName,
+                      ),
+                      onFieldSubmitted: (_) => FocusScope.of(
+                        context,
+                      ).requestFocus(_personalAgeFocus),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
 
-              // TextFormField(
-              //   controller: _genderController,
-              //   focusNode: _genderFocus,
-              //   keyboardType: TextInputType.emailAddress,
-              //   decoration: context.primaryInputDecoration.copyWith(
-              //     hintText: TTexts.gender,
-              //     suffixIcon: Icon(Icons.keyboard_arrow_down),
-              //   ),
-              //   validator: Validators.email,
-              //   onFieldSubmitted: (_) =>
-              //       FocusScope.of(context).requestFocus(_genderFocus),
-              //   autofillHints: const [AutofillHints.email],
-              // ),
-              DropdownButtonFormField<String>(
-                initialValue: gender,
-                items: const [
-                  DropdownMenuItem(value: "Male", child: Text("Male")),
-                  DropdownMenuItem(value: "Female", child: Text("Female")),
-                  DropdownMenuItem(value: "Other", child: Text("Other")),
-                ],
-                onChanged: (value) {
-                  setState(() {
-                    gender = value!;
-                  });
-                },
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Color(0xFFE8ECF1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
+                    SizedBox(height: 14),
 
-              SizedBox(height: 14),
-              Row(
-                children: [
-                  CustomText(
-                    'Nationality',
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
-                  ),
-                  CustomText(
-                    '*',
-                    style: TextStyle(
-                      color: Color(0xFFEF1A26),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
+                    // Age
+                    Row(
+                      children: [
+                        CustomText(
+                          'Age',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                        CustomText(
+                          '*',
+                          style: TextStyle(
+                            color: Color(0xFFEF1A26),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              TextFormField(
-                controller: _nationalityController,
-                focusNode: _nationalityFocus,
-                keyboardType: TextInputType.emailAddress,
-                decoration: context.primaryInputDecoration.copyWith(
-                  hintText: TTexts.nationality,
-                  suffixIcon: Icon(Icons.keyboard_arrow_down),
-                ),
-                validator: Validators.email,
-                onFieldSubmitted: (_) =>
-                    FocusScope.of(context).requestFocus(_nationalityFocus),
-                autofillHints: const [AutofillHints.email],
-              ),
-
-              SizedBox(height: 14),
-              Row(
-                children: [
-                  CustomText(
-                    'Address',
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
-                  ),
-                  CustomText(
-                    '*',
-                    style: TextStyle(
-                      color: Color(0xFFEF1A26),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
+                    SizedBox(height: 8),
+                    TextFormField(
+                      controller: _personalAgeController,
+                      focusNode: _personalAgeFocus,
+                      keyboardType: TextInputType.number,
+                      decoration: context.primaryInputDecoration.copyWith(
+                        hintText: TTexts.personalAge,
+                      ),
+                      onFieldSubmitted: (_) => FocusScope.of(
+                        context,
+                      ).requestFocus(_nationalityFocus),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              TextFormField(
-                controller: _addressController,
-                focusNode: _addressFocus,
-                keyboardType: TextInputType.emailAddress,
-                decoration: context.primaryInputDecoration.copyWith(
-                  hintText: TTexts.address,
-                ),
-                validator: Validators.email,
-                onFieldSubmitted: (_) =>
-                    FocusScope.of(context).requestFocus(_addressFocus),
-                autofillHints: const [AutofillHints.email],
-              ),
 
-              SizedBox(height: 205),
-              context.primaryButton(
-                onPressed: () {
-                  _submit();
-                },
+                    SizedBox(height: 14),
+
+                    // Gender
+                    Row(
+                      children: [
+                        CustomText(
+                          'Gender',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                        CustomText(
+                          '*',
+                          style: TextStyle(
+                            color: Color(0xFFEF1A26),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+
+                    DropdownButtonFormField<String>(
+                      value: gender,
+                      items: const [
+                        DropdownMenuItem(value: "Male", child: Text("Male")),
+                        DropdownMenuItem(value: "Female", child: Text("Female")),
+                        DropdownMenuItem(value: "Other", child: Text("Other")),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          gender = value!;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Color(0xFFE8ECF1),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(height: 14),
+
+                    // Nationality
+                    Row(
+                      children: [
+                        CustomText(
+                          'Nationality',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                        CustomText(
+                          '*',
+                          style: TextStyle(
+                            color: Color(0xFFEF1A26),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    TextFormField(
+                      controller: _nationalityController,
+                      focusNode: _nationalityFocus,
+                      keyboardType: TextInputType.text,
+                      decoration: context.primaryInputDecoration.copyWith(
+                        hintText: TTexts.nationality,
+                        suffixIcon: Icon(Icons.keyboard_arrow_down),
+                      ),
+                      onFieldSubmitted: (_) => FocusScope.of(
+                        context,
+                      ).requestFocus(_addressFocus),
+                    ),
+
+                    SizedBox(height: 14),
+
+                    // Address
+                    Row(
+                      children: [
+                        CustomText(
+                          'Address',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                        CustomText(
+                          '*',
+                          style: TextStyle(
+                            color: Color(0xFFEF1A26),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    TextFormField(
+                      controller: _addressController,
+                      focusNode: _addressFocus,
+                      keyboardType: TextInputType.text,
+                      decoration: context.primaryInputDecoration.copyWith(
+                        hintText: TTexts.address,
+                      ),
+                      onFieldSubmitted: (_) =>
+                          FocusScope.of(context).unfocus(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // Continue Button
+            SizedBox(height: 18),
+            SafeArea(
+              child: context.primaryButton(
+                onPressed: _submit,
                 text: 'Continue',
               ),
-
-              Gap.bottomBarGap,
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

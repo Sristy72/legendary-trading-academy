@@ -40,7 +40,7 @@ extension InputDecorationExtensions on BuildContext {
       fontWeight: FontWeight.w500,
     ),
     errorStyle: TextStyle(
-      color: AppColors.errorRed,
+      color: AppColors.errorRedColor,
       fontSize: 12,
       fontWeight: FontWeight.w400,
     ),

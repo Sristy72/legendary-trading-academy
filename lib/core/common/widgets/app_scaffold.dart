@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 
 class AppScaffold extends StatelessWidget {
+  final PreferredSizeWidget? appBar;
   final Widget body;
-  final AppBar? appBar;
+  //final AppBar? appBar;
   final Widget? drawer;
   final bool removePadding;
   final Widget? floatingActionButton;
 
   const AppScaffold({
     super.key,
-    this.appBar,
+    //this.appBar,
     this.drawer,
     required this.body,
     this.removePadding = false,
-    this.floatingActionButton,
+    this.floatingActionButton, this.appBar,
   });
 
   @override
