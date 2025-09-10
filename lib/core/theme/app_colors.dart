@@ -18,4 +18,7 @@ class AppColors {
   static const Color errorRed = Color(0xFFD94539);
   static const Color textColorBlue = Color(0xFF1A3E74);
   static const Color cardBackgroundColor = Color(0xFFE8ECF1);
+  static const Color searchBackgroundColor = Color(0xFFE0E0E0);
+  static const Color navBackgroundColor = Color(0xFFFDF9E9);
+  static const Color buttonColor = Color(0xFFEFC227);
 }

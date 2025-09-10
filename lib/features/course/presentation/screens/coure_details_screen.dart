@@ -9,7 +9,6 @@ import 'package:flutter_ladydenily/features/course/presentation/widgets/demo_car
 import 'package:flutter_ladydenily/features/course/presentation/widgets/enroll_button.dart';
 import 'package:flutter_ladydenily/features/course/presentation/widgets/trainer_card.dart';
 
-
 class CourseDetailsScreen extends StatelessWidget {
   const CourseDetailsScreen({super.key});
 
@@ -30,9 +29,9 @@ class CourseDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CourseHeader(course: courses[0]),
-            
+
             const SizedBox(height: 16),
-            
+
             GestureDetector(
               onTap: () {},
               child: Container(
@@ -49,44 +48,44 @@ class CourseDetailsScreen extends StatelessWidget {
                         print("Play demo video");
                       },
                     ),
-
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            
-            const Text("Trainer",
-                style: TextStyle(
-                  color: AppColors.textColorBlue,
-                  fontSize: 20, 
-                  fontWeight: FontWeight.bold
-                  )
-                ),
+
+            const Text(
+              "Trainer",
+              style: TextStyle(
+                color: AppColors.textColorBlue,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             TrainerCard(
               name: courses[0].trainerName,
               image: courses[0].trainerImage,
               stats: courses[0].trainerStats,
             ),
             const SizedBox(height: 16),
-            const Text("You will get",
-                style: TextStyle(
-                  color: AppColors.textColorBlue,
-                  fontSize: 20, 
-                  fontWeight: 
-                  FontWeight.bold
-                  ),
-                ),
+            const Text(
+              "You will get",
+              style: TextStyle(
+                color: AppColors.textColorBlue,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 12),
             BenefitsGrid(
               benefitsImages: courses[0].benefitImages,
-              benefits:courses[0].benefits,
+              benefits: courses[0].benefits,
             ),
           ],
         ),
       ),
       bottomNavigationBar: EnrollButton(
-        price: 99,
+        price: 120,
         onTap: () {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Enrolled Successfully!")),

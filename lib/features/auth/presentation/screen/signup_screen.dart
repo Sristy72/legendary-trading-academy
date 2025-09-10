@@ -20,7 +20,11 @@ class SignupScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 80),
-              TLoginHeader(image: ImagesString.loginLogo, title: 'Get Started', subTitle: 'by creating a free account.',),
+              TLoginHeader(
+                image: ImagesString.loginLogo,
+                title: 'Get Started',
+                subTitle: 'by creating a free account.',
+              ),
 
               ///Form
               SignupForm(),
