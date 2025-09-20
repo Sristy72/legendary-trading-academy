@@ -11,22 +11,21 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class SignupForm extends StatefulWidget {
-  const SignupForm({
-    super.key,
-  });
+  const SignupForm({super.key});
+
   @override
   State<SignupForm> createState() => _SignupFormState();
 }
 
 class _SignupFormState extends State<SignupForm> {
-
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
   final FocusNode _confirmPasswordFocus = FocusNode();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   final ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
 
@@ -34,9 +33,7 @@ class _SignupFormState extends State<SignupForm> {
   Widget build(BuildContext context) {
     return Form(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 24,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 24),
         child: Column(
           children: [
             ///Email
@@ -45,8 +42,11 @@ class _SignupFormState extends State<SignupForm> {
               focusNode: _emailFocus,
               keyboardType: TextInputType.emailAddress,
               decoration: context.primaryInputDecoration.copyWith(
-                  hintText: TTexts.email,
-                  prefixIcon: Icon(Icons.email_outlined, color: Color(0xFF666666),)
+                hintText: TTexts.email,
+                prefixIcon: Icon(
+                  Icons.email_outlined,
+                  color: Color(0xFF666666),
+                ),
               ),
               validator: Validators.email,
               onFieldSubmitted: (_) =>
@@ -68,7 +68,7 @@ class _SignupFormState extends State<SignupForm> {
                   style: TextStyle(color: AppColors.text),
                   decoration: context.primaryInputDecoration.copyWith(
                     hintText: TTexts.password,
-                    prefixIcon: Icon(Icons.lock_outline)
+                    prefixIcon: Icon(Icons.lock_outline),
                   ),
 
                   validator: Validators.password,
@@ -77,7 +77,7 @@ class _SignupFormState extends State<SignupForm> {
               },
             ),
 
-            SizedBox(height: 15,),
+            SizedBox(height: 15),
 
             ValueListenableBuilder<bool>(
               valueListenable: _obscurePassword,
@@ -90,7 +90,10 @@ class _SignupFormState extends State<SignupForm> {
                   style: TextStyle(color: AppColors.text),
                   decoration: context.primaryInputDecoration.copyWith(
                     hintText: TTexts.password,
-                    prefixIcon: Icon(Icons.lock_outline, color: Color(0xFF666666),)
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: Color(0xFF666666),
+                    ),
                   ),
 
                   validator: Validators.password,
@@ -102,7 +105,14 @@ class _SignupFormState extends State<SignupForm> {
             SizedBox(height: 16),
 
             ///Sign in
-            context.primaryButton(onPressed: () { Get.to(PersonalInformationScreen());}, text: 'Sign up'),
+            context.primaryButton(
+              onPressed: () {
+                Get.to(
+                  PersonalInformationScreen(),
+                );
+              },
+              text: 'Sign up',
+            ),
             SizedBox(height: 32),
           ],
         ),
