@@ -4,12 +4,16 @@ import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_profile_screen.dart';
+import 'package:flutter_ladydenily/features/others/terms_and_disclaimer_dialog_screen.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/common/texts/texts.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
-  const PersonalInformationScreen({super.key});
+  const PersonalInformationScreen({
+    super.key,
+  });
+
 
   @override
   State<PersonalInformationScreen> createState() =>
@@ -30,8 +34,12 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   String gender = "Male";
 
   void _submit() {
-    Get.to(UploadProfileScreen());
+    Get.dialog(
+      TermsAndDisclaimerDialogScreen(onAgree: () { Get. to(UploadProfileScreen()); },),
+      barrierDismissible: false, // user must press a button to close
+    );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +165,10 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       value: gender,
                       items: const [
                         DropdownMenuItem(value: "Male", child: Text("Male")),
-                        DropdownMenuItem(value: "Female", child: Text("Female")),
+                        DropdownMenuItem(
+                          value: "Female",
+                          child: Text("Female"),
+                        ),
                         DropdownMenuItem(value: "Other", child: Text("Other")),
                       ],
                       onChanged: (value) {
@@ -206,9 +217,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         hintText: TTexts.nationality,
                         suffixIcon: Icon(Icons.keyboard_arrow_down),
                       ),
-                      onFieldSubmitted: (_) => FocusScope.of(
-                        context,
-                      ).requestFocus(_addressFocus),
+                      onFieldSubmitted: (_) =>
+                          FocusScope.of(context).requestFocus(_addressFocus),
                     ),
 
                     SizedBox(height: 14),
@@ -241,8 +251,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       decoration: context.primaryInputDecoration.copyWith(
                         hintText: TTexts.address,
                       ),
-                      onFieldSubmitted: (_) =>
-                          FocusScope.of(context).unfocus(),
+                      onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
                     ),
                   ],
                 ),
