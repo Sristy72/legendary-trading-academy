@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import '../../model/notification_model.dart';
 import '../widgets/notification_widget.dart';
 
@@ -99,7 +100,7 @@ class NotificationScreen extends StatelessWidget {
         title: Text(
           "Notification",
           style: TextStyle(
-            color: Color(0xff1A3E74),
+            color:AppColors.appBarTitle,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),

@@ -21,7 +21,6 @@ class _ScreenState extends State<Screen> {
   final TextEditingController _passwordController = TextEditingController();
 
   final ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
-  final ValueNotifier<bool> _rememberMe = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {

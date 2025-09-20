@@ -110,9 +110,9 @@ class CalendarController extends GetxController {
 
   void _scrollToSelected() {
     final controllerRef = dayScroll.value;
-    final index = selectedDate.value.day - 1;
-    final itemExtent = 64.0 + 8.0; // width + spacing
-    final offset = (index * itemExtent) - 16; // account for left padding
+    final index = selectedDate.value.day-1.2;
+    final itemExtent = 64.0 + 7.0;
+    final offset = (index * itemExtent) - 16;
     if (controllerRef.hasClients) {
       controllerRef.animateTo(
         offset.clamp(0, controllerRef.position.maxScrollExtent),
