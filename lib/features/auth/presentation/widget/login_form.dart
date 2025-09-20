@@ -6,7 +6,6 @@ import 'package:flutter_ladydenily/features/auth/presentation/screen/personal_in
 import 'package:flutx_core/core/validation/validators.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
@@ -72,7 +71,7 @@ class _TLoginFormState extends State<TLoginForm> {
                   style: TextStyle(color: AppColors.text),
                   decoration: context.primaryInputDecoration.copyWith(
                     hintText: TTexts.password,
-                    prefixIcon: Icon(Iconsax.lock, color: Color(0xFF666666)),
+                    prefixIcon: Icon(Icons.lock_outline, color: Color(0xFF666666),),
                   ),
 
                   validator: Validators.password,

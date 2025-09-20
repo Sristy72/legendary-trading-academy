@@ -5,7 +5,7 @@ import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutx_core/core/validation/validators.dart';
-import 'package:iconsax/iconsax.dart';
+
 
 import '../../../../core/common/texts/texts.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -50,7 +50,6 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                 style: TextStyle(color: AppColors.text),
                 decoration: context.primaryInputDecoration.copyWith(
                   hintText: TTexts.newPassword,
-                  suffixIcon: Icon(Iconsax.eye_slash)
                 ),
 
                 validator: Validators.password,
@@ -72,7 +71,6 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                 style: TextStyle(color: AppColors.text),
                 decoration: context.primaryInputDecoration.copyWith(
                   hintText: TTexts.repeatNewPassword,
-                    suffixIcon: Icon(Iconsax.eye_slash)
                 ),
 
                 validator: Validators.password,
