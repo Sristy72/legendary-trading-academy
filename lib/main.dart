@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/core/init/app_initializer.dart';
 import 'package:flutter_ladydenily/core/theme/app_theme.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/login_screen.dart';
 import 'package:get/get.dart';
 
 
-void main() {
+void main() async{
+  await AppInitializer.initializeApp();
   runApp(MyApp());
 }
 

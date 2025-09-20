@@ -6,7 +6,10 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadProfileScreen extends StatefulWidget {
-  const UploadProfileScreen({super.key});
+  const UploadProfileScreen({
+    super.key,
+  });
+
 
   @override
   State<UploadProfileScreen> createState() => _UploadProfileScreenState();

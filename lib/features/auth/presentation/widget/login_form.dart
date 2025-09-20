@@ -8,9 +8,12 @@ import 'package:get/get.dart';
 import 'package:get/utils.dart';
 
 import '../../../../core/theme/app_colors.dart';
+import '../controller/auth_controller.dart';
 
 class TLoginForm extends StatefulWidget {
-  const TLoginForm({super.key});
+  TLoginForm({super.key});
+
+
   @override
   State<TLoginForm> createState() => _TLoginFormState();
 }
@@ -18,17 +21,19 @@ class TLoginForm extends StatefulWidget {
 class _TLoginFormState extends State<TLoginForm> {
   final _formKey = GlobalKey<FormState>();
 
-  final FocusNode _emailFocus = FocusNode();
-  final FocusNode _passwordFocus = FocusNode();
+  final _authController = Get.find<AuthController>();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final FocusNode _emailFocus = FocusNode();
+  final FocusNode _passwordFocus = FocusNode();
+
 
   final ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
 
   void _submit() {
     // if (!_formKey.currentState!.validate()) return;
-    Get.to(PersonalInformationScreen());
+    _authController.login(_emailController.text, _passwordController.text);
   }
 
   @override
@@ -100,9 +105,7 @@ class _TLoginFormState extends State<TLoginForm> {
 
             ///Sign in
             context.primaryButton(
-              onPressed: () {
-                _submit();
-              },
+              onPressed: _submit,
               text: 'Login',
             ),
             SizedBox(height: 32),
