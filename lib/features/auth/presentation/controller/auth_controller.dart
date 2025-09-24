@@ -1,10 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter_ladydenily/core/network/services/multiple_form_data_manager.dart';
-import 'package:flutter_ladydenily/features/auth/data/models/personal_info_request_form_model.dart';
-import 'package:flutter_ladydenily/features/auth/presentation/controller/remember_me_controller.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/create_new_password_screen.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/personal_information_screen.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_profile_screen.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/verify_otp_to_register.dart';
 import 'package:flutx_core/flutx_core.dart';
 import 'package:get/get.dart';
@@ -13,7 +12,6 @@ import '../../../../core/services/get_user_profile_service.dart';
 import '../../../home/presentation/screens/home_screen.dart';
 
 import '../../../../core/network/services/auth_storage_service.dart';
-import '../../../../core/network/services/secure_store_services.dart';
 import '../../data/models/login_request_model.dart';
 import '../../data/models/otp_request_model.dart';
 import '../../data/models/otp_request_model_register.dart';
@@ -133,13 +131,53 @@ class AuthController extends BaseController {
       (fail) {
         setError(fail.message);
         DPrint.log('Personal info: ${fail.message}');
+        isLoading(false);
       },
       (success) {
         DPrint.log('Personal info: ${success.message}');
+        Get.to(() => UploadProfileScreen());
+        isLoading(false);
         setError(success.message);
       },
     );
   }
+
+
+  Future<void> uploadPhoto(
+      String image
+      ) async {
+    setLoading(true);
+    setError('');
+
+    // final request = PersonalInfoRequestFormModel(
+    //   name: name,
+    //   age: age,
+    //   gender: gender,
+    //   nationality: nationality,
+    //   address: address,
+    // );
+
+    _multiFormDataManager.addImageFile(MultipartFile(data, filename: filename));
+
+    final formRequest = await _multiFormDataManager.toFormDataAsync();
+
+    final result = await _authRepository.personalInfo(formRequest);
+
+    result.fold(
+          (fail) {
+        setError(fail.message);
+        DPrint.log('Personal info: ${fail.message}');
+        isLoading(false);
+      },
+          (success) {
+        DPrint.log('Personal info: ${success.message}');
+        Get.to(() => UploadProfileScreen());
+        isLoading(false);
+        setError(success.message);
+      },
+    );
+  }
+
 
   Future resetPass(String email) async {
     setLoading(true);

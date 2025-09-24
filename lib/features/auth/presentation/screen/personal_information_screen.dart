@@ -262,10 +262,22 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
 
             // Continue Button
             SizedBox(height: 18),
+
+            // Obx(
+            //       () =>  context.primaryButton(
+            //     isLoading: _authController.isLoading.value,
+            //     onPressed: () {
+            //       _submit();
+            //     },
+            //     text: 'Sign up',
+            //   ),
+            // ),
             SafeArea(
-              child: context.primaryButton(
-                onPressed: _submit,
-                text: 'Continue',
+              child: Obx( () => context.primaryButton(
+                isLoading: _authController.isLoading.value,
+                  onPressed: _submit,
+                  text: 'Continue',
+                ),
               ),
             ),
           ],
