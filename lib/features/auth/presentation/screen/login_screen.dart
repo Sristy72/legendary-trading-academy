@@ -19,8 +19,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -30,7 +28,11 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 80),
-              TLoginHeader(image: ImagesString.loginLogo,title: 'Welcome back', subTitle: 'sign in to access your account',),
+              TLoginHeader(
+                image: ImagesString.loginLogo,
+                title: 'Welcome back',
+                subTitle: 'sign in to access your account',
+              ),
 
               ///Form
               TLoginForm(),
@@ -54,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       //   SignupScreen(),
                       //   transition: TransitionType.slideLeft,
                       // );
-                      Get.to(SignupScreen());
+                      Get.to(() => SignupScreen());
                     },
                     child: Text(
                       'Sign Up',

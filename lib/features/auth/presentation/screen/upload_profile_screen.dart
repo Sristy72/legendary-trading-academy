@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/screen/trading_profile_setup_screen.dart';
 import 'package:flutter_ladydenily/features/home/presentation/screens/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -32,7 +33,7 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
   }
 
   void _submit() {
-    Get.offAll(HomeScreen());
+    Get.offAll(TradingProfileSetupScreen());
   }
 
   @override

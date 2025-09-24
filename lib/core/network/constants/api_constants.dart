@@ -1,11 +1,10 @@
 class ApiConstants {
   /// [Base Configuration]
-  static const String baseDomain = 'https://backend-lady-denily-ysw0.onrender.com';
+  // static const String baseDomain = 'https://backend-lady-denily-ysw0.onrender.com';
+  static const String baseDomain = 'http://10.10.5.33:8001';
   static const String baseUrl = '$baseDomain/api/v1';
 
-  // /// soykot ip
-  //
-  // static const String soyDomain = 'http://10.10.5.91:5002';
+
 
   /// [Headers]
   static Map<String, String> get defaultHeaders => {
@@ -41,10 +40,11 @@ class AuthEndpoints {
 
   final String login = '$_base/login';
   final String register = '$_base/register';
-  final String resetPass = '$_base/send-reset-otp';
+  final String otpVerifyRegister = '$_base/verify';
+  final String resetPass = '$_base/forget';
   final String refreshToken = '$_base/refresh-token';
   final String otpVerify = '$_base/verify-reset-otp';
-  final String otpVerifyRegister = '$_base/verify-otp';
+
   final String setNewPass = '$_base/reset-password';
 }
 

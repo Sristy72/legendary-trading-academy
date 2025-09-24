@@ -3,6 +3,7 @@ import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_profile_screen.dart';
 import 'package:flutter_ladydenily/features/others/terms_and_disclaimer_dialog_screen.dart';
 import 'package:get/get.dart';
@@ -21,10 +22,14 @@ class PersonalInformationScreen extends StatefulWidget {
 }
 
 class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
+  final _authController = Get.find<AuthController>();
+
   final TextEditingController _personalNameController = TextEditingController();
   final TextEditingController _personalAgeController = TextEditingController();
   final TextEditingController _nationalityController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
+
+  late int age = int.tryParse(_personalAgeController.text) ?? 0;
 
   final FocusNode _personalNameFocus = FocusNode();
   final FocusNode _personalAgeFocus = FocusNode();
@@ -34,10 +39,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   String gender = "Male";
 
   void _submit() {
-    Get.dialog(
-      TermsAndDisclaimerDialogScreen(onAgree: () { Get. to(UploadProfileScreen()); },),
-      barrierDismissible: false, // user must press a button to close
-    );
+    _authController.personalInfo(_personalNameController.text, age, gender, _nationalityController.text, _addressController.text);
   }
 
 

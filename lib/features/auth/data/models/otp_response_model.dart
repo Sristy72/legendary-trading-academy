@@ -1,4 +1,4 @@
-class OtpVerificationResponseModel {
+class OtpVerificationResponseModel{
   final bool success;
   final String message;
 
