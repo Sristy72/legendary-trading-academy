@@ -157,7 +157,7 @@ class AuthController extends BaseController {
     //   address: address,
     // );
 
-    _multiFormDataManager.addImageFile(MultipartFile(data, filename: filename));
+    //_multiFormDataManager.addImageFile(MultipartFile(data, filename: filename));
 
     final formRequest = await _multiFormDataManager.toFormDataAsync();
 
