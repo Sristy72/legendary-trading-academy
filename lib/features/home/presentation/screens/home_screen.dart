@@ -253,13 +253,10 @@ class HomeContent extends StatelessWidget {
         padding: const EdgeInsets.only(top: 8.0),
         child: TextField(
           decoration: InputDecoration(
-            hintText: 'Search courses, trainers...',
+            hintText: 'Search courses or trainers...',
             border: InputBorder.none,
-            prefixIcon: Icon(Icons.search, color: AppColors.emailIconColor),
-            suffixIcon: Icon(
-              Icons.filter_list,
-              color: AppColors.emailIconColor,
-            ),
+            prefixIcon: Icon(Icons.search, color: AppColors.hintText),
+            suffixIcon: Icon(Icons.filter_list, color: AppColors.hintText),
           ),
         ),
       ),
