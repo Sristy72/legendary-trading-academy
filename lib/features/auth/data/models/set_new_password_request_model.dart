@@ -1,11 +1,11 @@
 class SetNewPasswordRequestModel {
   final String email;
-  final String newPassword;
+  final String password;
   final String otp;
 
   SetNewPasswordRequestModel({
     required this.email,
-    required this.newPassword,
+    required this.password,
     required this.otp,
   });
 
@@ -13,7 +13,7 @@ class SetNewPasswordRequestModel {
   Map<String, dynamic> toJson() {
     return {
       'email': email,
-      'newPassword': newPassword,
+      'password': password,
       'otp': otp,
     };
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
-import 'package:flutter_ladydenily/features/home/presentation/screens/home_screen.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
 import 'package:get/get.dart';
 import '../controller/survey_controller.dart';
 
@@ -9,25 +9,39 @@ class TradingProfileSetupScreen extends StatefulWidget {
   const TradingProfileSetupScreen({super.key});
 
   @override
-  State<TradingProfileSetupScreen> createState() => _TradingProfileSetupScreenState();
+  State<TradingProfileSetupScreen> createState() =>
+      _TradingProfileSetupScreenState();
 }
 
 class _TradingProfileSetupScreenState extends State<TradingProfileSetupScreen> {
   final SurveyController c = Get.put(SurveyController());
+
+  final _authController = Get.find<AuthController>();
+
+  _submit() {
+    _authController.tradingProfileSetup(
+        c.tradingExperience.toString(), c.assetOfInterest.toString(),
+        c.mainGoal.toString(), c.riskAppetite.toString(), c.learningModes);
+  }
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text('Trading Profile Setup Fields:', style: TextStyle(color: Color(0xFF1A3E74), fontSize: 24, fontWeight: FontWeight.w700),),
+        title: Text('Trading Profile Setup Fields:', style: TextStyle(
+            color: Color(0xFF1A3E74),
+            fontSize: 24,
+            fontWeight: FontWeight.w700),),
       ),
       body: SafeArea(child: SingleChildScrollView(
         child: Column(children: [
-          Text('Please answer the following to help us personalize your trading journey inside the app.', style: TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 16
-          ),),
+          Text(
+            'Please answer the following to help us personalize your trading journey inside the app.',
+            style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 16
+            ),),
 
 
           SizedBox(height: 12,),
@@ -57,28 +71,31 @@ class _TradingProfileSetupScreenState extends State<TradingProfileSetupScreen> {
             buildSingleCheckbox("Side hustle", c.mainGoal),
             buildSingleCheckbox("Funded account", c.mainGoal),
             buildSingleCheckbox("Build confidence/discipline", c.mainGoal),
-            ]),
+          ]),
 
-            SizedBox(height: 12,),
+          SizedBox(height: 12,),
 
-            sectionCard("4. Risk Appetite", [
-              buildSingleCheckbox("Low", c.riskAppetite),
-              buildSingleCheckbox("Moderate", c.riskAppetite),
-              buildSingleCheckbox("High", c.riskAppetite),
-            ]),
+          sectionCard("4. Risk Appetite", [
+            buildSingleCheckbox("Low", c.riskAppetite),
+            buildSingleCheckbox("Moderate", c.riskAppetite),
+            buildSingleCheckbox("High", c.riskAppetite),
+          ]),
 
-            SizedBox(height: 12,),
-            sectionCard("5. Preferred Learning Mode (Multiple choice)", [
-              buildMultiCheckbox("Face-to-Face Classes"),
-              buildMultiCheckbox("Online Zoom Classes"),
-              buildMultiCheckbox("1-on-1 Mentorship"),
-              buildMultiCheckbox("Self-Paced Video Courses"),
-            ]),
+          SizedBox(height: 12,),
+          sectionCard("5. Preferred Learning Mode (Multiple choice)", [
+            buildMultiCheckbox("Face-to-Face Classes"),
+            buildMultiCheckbox("Online Zoom Classes"),
+            buildMultiCheckbox("1-on-1 Mentorship"),
+            buildMultiCheckbox("Self-Paced Video Courses"),
+          ]),
 
           SizedBox(height: 20,),
 
-          context.primaryButton(onPressed: () {Get.to(HomeScreen());}, text: 'Continue')
-          ]),
+          Obx(() =>
+              context.primaryButton(onPressed: () {_submit();},
+                isLoading: _authController.isLoading.value,
+               text: 'Continue'))
+        ]),
       )),
     );
   }
@@ -98,8 +115,10 @@ class _TradingProfileSetupScreenState extends State<TradingProfileSetupScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          const SizedBox(height: 8)
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: 15)),
+          const SizedBox(height: 8),
+          ...children
         ],
       ),
     );
@@ -107,27 +126,29 @@ class _TradingProfileSetupScreenState extends State<TradingProfileSetupScreen> {
 
   // Single-choice checkbox row
   Widget buildSingleCheckbox(String label, RxString field) {
-    return Obx(() => Row(
-      children: [
-        SizedBox(
-          width: 16,
-          height: 16,
-          child: Checkbox(
-            side: BorderSide(
-              color: Color(0xFF4E4E4E), // border color when unchecked
-              width: 1,          // border width
+    return Obx(() =>
+        Row(
+          children: [
+            SizedBox(
+              width: 16,
+              height: 16,
+              child: Checkbox(
+                side: BorderSide(
+                  color: Color(0xFF4E4E4E), // border color when unchecked
+                  width: 1, // border width
+                ),
+                value: field.value == label,
+                onChanged: (_) => c.selectSingle(field, label),
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
             ),
-            value: field.value == label,
-            onChanged: (_) => c.selectSingle(field, label),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          ),
-        ),
-        const SizedBox(width: 8),
-        Text(label, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Color(0xFF4E4E4E)),),
-      ],
-    ));
+            const SizedBox(width: 8),
+            Text(label, style: TextStyle(fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFF4E4E4E)),),
+          ],
+        ));
   }
-
 
 
   // Multi-choice checkbox row

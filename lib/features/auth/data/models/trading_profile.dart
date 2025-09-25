@@ -1,21 +1,21 @@
-class TredingProfile {
-  final String tredingExperience;
+class TradingProfile {
+  final String tradingExperience;
   final String assetsOfInterest;
   final String mainGoal;
   final String riskAppetite;
   final List<String> preferredLearning;
 
-  TredingProfile({
-    required this.tredingExperience,
+  TradingProfile({
+    required this.tradingExperience,
     required this.assetsOfInterest,
     required this.mainGoal,
     required this.riskAppetite,
     required this.preferredLearning,
   });
 
-  factory TredingProfile.fromJson(Map<String, dynamic> json) {
-    return TredingProfile(
-      tredingExperience: json["treding_exprience"] ?? "",
+  factory TradingProfile.fromJson(Map<String, dynamic> json) {
+    return TradingProfile(
+      tradingExperience: json["treding_exprience"] ?? "",
       assetsOfInterest: json["assets_of_interest"] ?? "",
       mainGoal: json["main_goal"] ?? "",
       riskAppetite: json["risk_appetite"] ?? "",
@@ -25,7 +25,7 @@ class TredingProfile {
 
   Map<String, dynamic> toJson() {
     return {
-      "treding_exprience": tredingExperience,
+      "trading_exprience": tradingExperience,
       "assets_of_interest": assetsOfInterest,
       "main_goal": mainGoal,
       "risk_appetite": riskAppetite,

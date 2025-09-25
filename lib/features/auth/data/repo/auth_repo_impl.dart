@@ -1,7 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_ladydenily/features/auth/data/models/otp_response_model_register.dart'
-    hide OtpResponseModelRegister;
-
 import '../../../../core/network/api_client.dart';
 import '../../../../core/network/constants/api_constants.dart';
 import '../../../../core/network/network_result.dart';
@@ -10,16 +7,12 @@ import '../models/auth_response_model.dart';
 import '../models/login_request_model.dart';
 import '../models/otp_request_model.dart';
 import '../models/otp_request_model_register.dart';
-import '../models/otp_response_model.dart';
-import '../models/otp_response_model_register.dart'
-    hide OtpResponseModelRegister;
-import '../models/personal_info_request_form_model.dart';
+
 import '../models/refresh_token_request_model.dart';
 import '../models/refresh_token_response_model.dart';
 import '../models/register_request_model.dart';
 import '../models/register_response_model.dart';
 import '../models/reset_password_request_model.dart';
-import '../models/reset_password_response_model.dart';
 import '../models/set_new_password_request_model.dart';
 import '../models/set_new_password_response_model.dart';
 import '../models/upload_profile_personal_info_response_model.dart';
@@ -50,26 +43,29 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  NetworkResult<ResetPasswordResponseModel> resetPassword(
+  NetworkResult<void> resetPassword(
     ResetPasswordRequestModel request,
   ) {
     return _apiClient.post(
       ApiConstants.auth.resetPass,
       data: request.toJson(),
-      fromJsonT: (json) => ResetPasswordResponseModel.fromJson(json),
+      fromJsonT: (json) => [],
     );
   }
 
+
+
   @override
-  NetworkResult<OtpVerificationResponseModel> otpVerify(
-    OtpVerificationRequestModel request,
-  ) {
+  NetworkResult<void> resetOtpVerify(
+      OtpVerificationRequestModel request,
+      ) {
     return _apiClient.post(
       ApiConstants.auth.otpVerify,
       data: request.toJson(),
-      fromJsonT: (json) => OtpVerificationResponseModel.fromJson(json),
+      fromJsonT: (json) => [],
     );
   }
+
 
   @override
   NetworkResult<void> otpVerifyRegister(OtpRequestModelRegister request) {
@@ -77,7 +73,6 @@ class AuthRepositoryImpl implements AuthRepository {
       ApiConstants.auth.otpVerifyRegister,
       data: request.toJson(),
       fromJsonT: (json) => [],
-
     );
   }
 
@@ -91,14 +86,35 @@ class AuthRepositoryImpl implements AuthRepository {
     );
   }
 
+
   @override
-  NetworkResult<SetNewPasswordResponseModel> setNewPassword(
+  NetworkResult<UserResponse> uploadPhoto(FormData request) {
+    return _apiClient.patch(
+      ApiConstants.user.updateProfile,
+      formData: request,
+      fromJsonT: (json) => UserResponse.fromJson(json),
+      isFormData: true
+    );
+  }
+
+  @override
+  NetworkResult<UserResponse> tradingInfo(FormData request) {
+    return _apiClient.patch(
+      ApiConstants.user.updateProfile,
+      formData: request,
+      fromJsonT: (json) => UserResponse.fromJson(json),
+      isFormData: true
+    );
+  }
+
+  @override
+  NetworkResult<void> setNewPassword(
     SetNewPasswordRequestModel request,
   ) {
     return _apiClient.post(
       ApiConstants.auth.setNewPass,
       data: request.toJson(),
-      fromJsonT: (json) => SetNewPasswordResponseModel.fromJson(json),
+      fromJsonT: (json) => [],
     );
   }
 

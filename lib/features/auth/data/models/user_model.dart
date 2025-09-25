@@ -7,7 +7,7 @@ class UserModel {
   final Address address;
   final VerificationInfo verificationInfo;
   final UserRating userRating;
-  final TredingProfile tradingProfile;
+  final TradingProfile tradingProfile;
   final String id;
   final String name;
   final String email;
@@ -57,7 +57,7 @@ class UserModel {
       address: Address.fromJson(json["address"] ?? {}),
       verificationInfo: VerificationInfo.fromJson(json["verificationInfo"] ?? {}),
       userRating: UserRating.fromJson(json["userRating"] ?? {}),
-      tradingProfile: TredingProfile.fromJson(json["treding_profile"] ?? {}),
+      tradingProfile: TradingProfile.fromJson(json["treding_profile"] ?? {}),
       id: json["_id"] ?? "",
       name: json["name"] ?? "",
       email: json["email"] ?? "",

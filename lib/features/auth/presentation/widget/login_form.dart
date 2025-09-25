@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/texts/texts.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
-import 'package:flutter_ladydenily/features/auth/presentation/screen/personal_information_screen.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/screen/forgot_password_screen.dart';
 import 'package:flutx_core/core/validation/validators.dart';
 import 'package:get/get.dart';
-import 'package:get/utils.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../controller/auth_controller.dart';
 
 class TLoginForm extends StatefulWidget {
-  TLoginForm({super.key});
+  const TLoginForm({super.key});
 
 
   @override
@@ -92,7 +91,9 @@ class _TLoginFormState extends State<TLoginForm> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => ForgotPasswordScreen());
+                  },
                   child: Text(
                     TTexts.forgetPassword,
                     style: TextStyle(color: Color(0xFF1A3E74), fontSize: 14),

@@ -1,9 +1,6 @@
 import 'package:flutter_ladydenily/features/auth/data/models/trading_profile.dart';
-import 'package:flutter_ladydenily/features/auth/data/models/trading_request_model.dart';
 import 'package:get/get_connect/http/src/multipart/form_data.dart';
 import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
-
-import 'different_user_model.dart';
 
 class UploadImageRequestModel {
   final String? name;
@@ -12,7 +9,7 @@ class UploadImageRequestModel {
   final String? gender;
   final String? nationality;
   final String? address;
-  final TredingProfile? tradingProfile;
+  final TradingProfile? tradingProfile;
   final MultipartFile file; // in case you upload an image/file
 
   UploadImageRequestModel ({

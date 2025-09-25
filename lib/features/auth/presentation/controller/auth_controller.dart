@@ -1,28 +1,38 @@
-import 'dart:math';
-
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter_ladydenily/core/network/services/multiple_form_data_manager.dart';
+import 'package:flutter_ladydenily/features/auth/data/models/trading_profile.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/create_new_password_screen.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/personal_information_screen.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/screen/trading_profile_setup_screen.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_profile_screen.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/screen/verify_code_screen.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/verify_otp_to_register.dart';
+import 'package:flutter_ladydenily/features/others/terms_and_disclaimer_dialog_screen.dart';
 import 'package:flutx_core/flutx_core.dart';
 import 'package:get/get.dart';
 import '../../../../core/base/base_controller.dart';
+import '../../../../core/network/services/secure_store_services.dart';
 import '../../../../core/services/get_user_profile_service.dart';
-import '../../../home/presentation/screens/home_screen.dart';
 
 import '../../../../core/network/services/auth_storage_service.dart';
 import '../../data/models/login_request_model.dart';
 import '../../data/models/otp_request_model.dart';
 import '../../data/models/otp_request_model_register.dart';
+import '../../data/models/refresh_token_request_model.dart';
 import '../../data/models/register_request_model.dart';
 import '../../data/models/reset_password_request_model.dart';
+import '../../data/models/set_new_password_request_model.dart';
 import '../../domain/repo/auth_repo.dart';
+import '../screen/home_screen.dart';
+import '../screen/login_screen.dart';
 
 class AuthController extends BaseController {
   final AuthRepository _authRepository;
   final AuthStorageService _authStorageService;
   bool _isSuccess = false;
+  var isSkipLoading = false.obs;
+  var isContinueLoading = false.obs;
 
   AuthController(this._authRepository, this._authStorageService);
 
@@ -53,11 +63,11 @@ class AuthController extends BaseController {
       },
       (success) async {
         final user = success.data.user;
-        if (user.role == 'student') {
+        if (user?.role == 'student') {
           await _authStorageService.storeAuthData(
-            accessToken: success.data.accessToken,
-            refreshToken: success.data.refreshToken,
-            userId: success.data.user.id,
+            accessToken: success.data.accessToken!,
+            refreshToken: success.data.refreshToken!,
+            userId: success.data.user!.id!,
           );
           Get.to(() => HomeScreen());
         } else {
@@ -142,37 +152,68 @@ class AuthController extends BaseController {
     );
   }
 
-
-  Future<void> uploadPhoto(
-      String image
-      ) async {
+  Future<void> uploadPhoto(File image) async {
     setLoading(true);
     setError('');
 
-    // final request = PersonalInfoRequestFormModel(
-    //   name: name,
-    //   age: age,
-    //   gender: gender,
-    //   nationality: nationality,
-    //   address: address,
-    // );
-
-    //_multiFormDataManager.addImageFile(MultipartFile(data, filename: filename));
+    _multiFormDataManager.addImageFile(image, key: "avatar");
 
     final formRequest = await _multiFormDataManager.toFormDataAsync();
 
-    final result = await _authRepository.personalInfo(formRequest);
+    final result = await _authRepository.uploadPhoto(formRequest);
 
     result.fold(
-          (fail) {
+      (fail) {
         setError(fail.message);
-        DPrint.log('Personal info: ${fail.message}');
+        DPrint.log('Upload photo: ${fail.message}');
         isLoading(false);
       },
-          (success) {
-        DPrint.log('Personal info: ${success.message}');
-        Get.to(() => UploadProfileScreen());
+      (success) {
+        DPrint.log('Upload photo: ${success.message}');
+        Get.to(() => TradingProfileSetupScreen());
+        setError(success.message);
+        _multiFormDataManager.clear();
         isLoading(false);
+      },
+    );
+  }
+
+  Future<void> tradingProfileSetup(
+    final String tradingExperience,
+    final String assetsOfInterest,
+    final String mainGoal,
+    final String riskAppetite,
+    final List<String> preferredLearning,
+  ) async {
+    setLoading(true);
+    setError('');
+
+    final profile = TradingProfile(tradingExperience: tradingExperience, assetsOfInterest: assetsOfInterest, mainGoal: mainGoal, riskAppetite: riskAppetite, preferredLearning: preferredLearning);
+    final toJson = jsonEncode(profile.toJson());
+
+    // _multiFormDataManager.addTextData("tradingExperience", tradingExperience);
+    // _multiFormDataManager.addTextData("assetsOfInterest", assetsOfInterest);
+    // _multiFormDataManager.addTextData("mainGoal", mainGoal);
+    // _multiFormDataManager.addTextData("riskAppetite", riskAppetite);
+
+    _multiFormDataManager.addTextData("treding_profile", toJson);
+
+
+    final formRequest = await _multiFormDataManager.toFormDataAsync();
+
+    final result = await _authRepository.tradingInfo(formRequest);
+
+    result.fold(
+      (fail) {
+        setError(fail.message);
+        DPrint.log('Trading info: ${fail.message}');
+        isLoading(false);
+      },
+      (success) {
+        DPrint.log('Trading info: ${success.message}');
+        isLoading(false);
+        Get.to(() => HomeScreen());
+        _multiFormDataManager.clear();
         setError(success.message);
       },
     );
@@ -193,8 +234,8 @@ class AuthController extends BaseController {
         setLoading(false);
       },
       (success) {
-        DPrint.log("reset pass success result : ${success.data.message}");
-        Get.offAll(() => CreateNewPasswordScreen());
+        DPrint.log("reset pass success result : ${success.message}");
+        Get.offAll(() => VerifyCodeScreen(email: email,));
         setLoading(false);
       },
     );
@@ -226,7 +267,7 @@ class AuthController extends BaseController {
     setError("");
 
     final request = OtpVerificationRequestModel(email: email, otp: otp);
-    final result = await _authRepository.otpVerify(request);
+    final result = await _authRepository.resetOtpVerify(request);
 
     result.fold(
       (fail) {
@@ -235,8 +276,8 @@ class AuthController extends BaseController {
         setLoading(false);
       },
       (success) {
-        DPrint.log("verify otp success result : ${success.data.message}");
-        Get.to(CreateNewPasswordScreen());
+        DPrint.log("verify otp success result : ${success.message}");
+        Get.to(() => CreateNewPasswordScreen(email: email, otp: otp,));
         setLoading(false);
       },
     );
@@ -259,75 +300,70 @@ class AuthController extends BaseController {
       },
       (success) {
         DPrint.log("verify otp success result : ${success.message}");
-        Get.to(() => PersonalInformationScreen());
+        Get.to(()  => TermsAndDisclaimerDialogScreen(onAgree: (){Get.to(() => PersonalInformationScreen());}));
         setLoading(false);
       },
     );
   }
 
-  //
-  // Future setNewPass(String email, String otp, String newPassword) async {
-  //   setLoading(true);
-  //   setError("");
-  //
-  //   final request = SetNewPasswordRequestModel(
-  //     email: email,
-  //     otp: otp,
-  //     newPassword: newPassword,
-  //   );
-  //   final result = await _authRepository.setNewPassword(request);
-  //
-  //   result.fold(
-  //     (fail) {
-  //       setError(fail.message);
-  //       DPrint.log("New Password set failed result : ${fail.message}");
-  //       setLoading(false);
-  //     },
-  //     (success) {
-  //       DPrint.log(
-  //         "New Password set successfully result : ${success.data.message}",
-  //       );
-  //       Get.to(LoginScreen());
-  //       setLoading(false);
-  //     },
-  //   );
-  // }
-  //
-  // Future refreshToken() async {
-  //   setLoading(true);
-  //
-  //   final refreshToken = await _authStorageService.getRefreshToken();
-  //   DPrint.log("Got refresh token: $refreshToken");
-  //   final request = RefreshTokenRequestModel(refreshToken: refreshToken);
-  //
-  //   final result = await _authRepository.refreshToken(request);
-  //
-  //   final navi = result.fold(
-  //     (fail) {
-  //       DPrint.log("Refresh token failed: ${fail.message}");
-  //       setLoading(false);
-  //       return _isSuccess = false;
-  //     },
-  //     (success) async {
-  //       DPrint.log("Refresh token success: ${success.message}");
-  //       await _authStorageService.storeAccessToken(success.data.accessToken);
-  //       await _authStorageService.storeRefreshToken(success.data.refreshToken);
-  //       // _authStorageService.clearAuthData();
-  //       setLoading(false);
-  //       Get.to(() => JoinLeagueScreen(), transition: Transition.rightToLeft);
-  //       return _isSuccess = true;
-  //     },
-  //   );
-  //   return navi;
-  // }
-  //
-  // Future<void> logout() async {
-  //   await _authStorageService.clearAuthData();
-  //   final secureStore = SecureStoreServices();
-  //   await secureStore.deleteData('previewConfirmed'); // or storeData('previewConfirmed', 'false');
-  //   // await secureStore.deleteData('email');
-  //   // await secureStore.deleteData('password');
-  //
-  //   Get.offAll(() => LoginScreen());
-  // }
+
+  Future setNewPass(String email, String otp, String newPassword) async {
+    setLoading(true);
+    setError("");
+
+    final request = SetNewPasswordRequestModel(
+      email: email,
+      otp: otp,
+      password: newPassword,
+    );
+    final result = await _authRepository.setNewPassword(request);
+
+    result.fold(
+      (fail) {
+        setError(fail.message);
+        DPrint.log("New Password set failed result : ${fail.message}");
+        setLoading(false);
+      },
+      (success) {
+        DPrint.log(
+          "New Password set successfully result : ${success.message}",
+        );
+        Get.to(() => LoginScreen());
+        setLoading(false);
+      },
+    );
+  }
+
+  Future refreshToken() async {
+    setLoading(true);
+
+    final refreshToken = await _authStorageService.getRefreshToken();
+    DPrint.log("Got refresh token: $refreshToken");
+    final request = RefreshTokenRequestModel(refreshToken: refreshToken);
+
+    final result = await _authRepository.refreshToken(request);
+
+    final navi = result.fold(
+      (fail) {
+        DPrint.log("Refresh token failed: ${fail.message}");
+        setLoading(false);
+        return _isSuccess = false;
+      },
+      (success) async {
+        DPrint.log("Refresh token success: ${success.message}");
+        await _authStorageService.storeAccessToken(success.data.accessToken);
+        await _authStorageService.storeRefreshToken(success.data.refreshToken);
+        // _authStorageService.clearAuthData();
+        setLoading(false);
+        return _isSuccess = true;
+      },
+    );
+    return navi;
+  }
+
+
+  Future<void> logout() async {
+    await _authStorageService.clearAuthData();
+    Get.offAll(() => LoginScreen());
+  }
 }

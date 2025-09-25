@@ -29,7 +29,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final TextEditingController _emailController = TextEditingController();
 
 
-  _submit(){
+  void _submit(){
     _authController.resetPass(_emailController.text);
   }
 
@@ -66,11 +66,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               onPressed: () {
                 _submit();
               },
-              text: 'Sign up',
+              text: 'Continue',
             ),
           ),
-          context.primaryButton(onPressed: () { _submit(); }, text: 'Continue'),
-
         ],
       ),
     );

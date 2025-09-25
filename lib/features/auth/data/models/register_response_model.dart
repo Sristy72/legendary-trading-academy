@@ -23,7 +23,7 @@ class RegisterResponseModel {
   final String refreshToken;
   final UserRating userRating;
   final bool tredingProfileComplete;
-  final TredingProfile tredingProfile;
+  final TradingProfile tredingProfile;
   final String id;
   final String uniqueId;
   final String createdAt;
@@ -84,7 +84,7 @@ class RegisterResponseModel {
       refreshToken: json["refreshToken"] ?? '',
       userRating: UserRating.fromJson(json["userRating"] ?? {}),
       tredingProfileComplete: json["treding_profile_Complete"] ?? false,
-      tredingProfile: TredingProfile.fromJson(json["treding_profile"] ?? {}),
+      tredingProfile: TradingProfile.fromJson(json["treding_profile"] ?? {}),
       id: json["_id"] ?? '',
       uniqueId: json["uniqueId"] ?? '',
       createdAt: json["createdAt"] ?? '',

@@ -12,7 +12,7 @@ class PersonalInfoRequestFormModel {
   final String gender;
   final String nationality;
   final String address;
-  final TredingProfile? tradingProfile;
+  final TradingProfile? tradingProfile;
   final MultipartFile? file; // in case you upload an image/file
 
   PersonalInfoRequestFormModel ({
@@ -29,7 +29,6 @@ class PersonalInfoRequestFormModel {
     return FormData({
       "name": name,
       "age": age.toString(),
-
       "gender": gender,
       "nationality": nationality,
       "address": address,

@@ -21,6 +21,10 @@ dependencies:
   iconsax: ^0.0.8
   image_picker: ^1.2.0
 
+
+#video_player:
+  video_player: ^2.10.0
+
   # Network checker
   connectivity_plus: ^6.1.5
 
@@ -53,3 +57,4 @@ flutter:
   assets:
      - assets/images/
      - assets/icons/
+     - assets/video/

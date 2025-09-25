@@ -12,7 +12,7 @@ class UploadImageRequestModel {
   final String? gender;
   final String? nationality;
   final String? address;
-  final TredingProfile tradingProfile;
+  final TradingProfile tradingProfile;
   final MultipartFile? file; // in case you upload an image/file
 
   UploadImageRequestModel ({
