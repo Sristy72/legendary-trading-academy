@@ -6,13 +6,20 @@ import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutter_ladydenily/features/others/widgets/stars.dart';
 
-class LegendaryBookScreen extends StatelessWidget {
-  const LegendaryBookScreen({super.key});
-
+class MarketplaceDetailsScreen extends StatelessWidget {
+  const MarketplaceDetailsScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Legendary Book'),
+      appBar: AppBar(
+        title: Text(
+          'Legendary Book',
+          style: TextStyle(
+            color: AppColors.appBarTitle,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
 
       body: SingleChildScrollView(
         child: SafeArea(
