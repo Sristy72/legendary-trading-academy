@@ -1,10 +1,9 @@
 class ApiConstants {
   /// [Base Configuration]
   //  static const String baseDomain = 'https://backend-lady-denily-ysw0.onrender.com';
-  static const String baseDomain = 'http://10.10.5.33:8001';
+  // static const String baseDomain = 'http://10.10.5.33:8001'; //
+  static const String baseDomain = 'http://10.10.5.88:8001'; // Abu jafon
   static const String baseUrl = '$baseDomain/api/v1';
-
-
 
   /// [Headers]
   static Map<String, String> get defaultHeaders => {
@@ -30,9 +29,7 @@ class ApiConstants {
 
   static TeamEndpointcs get team => TeamEndpointcs();
   static LeagueEndpoints get league => LeagueEndpoints();
-
 }
-
 
 /// [Authentication Endpoints]
 class AuthEndpoints {
