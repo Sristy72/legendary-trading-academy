@@ -6,6 +6,8 @@ import 'package:flutter_ladydenily/features/others/refund_policy_screen.dart';
 import 'package:flutter_ladydenily/features/others/terms_and_condition_screen.dart';
 import 'package:flutter_ladydenily/features/others/video_copyright_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/notification_screen.dart';
+import 'package:get/get.dart';
+import 'package:get/utils.dart';
 
 import '../../model/profile_model.dart';
 import '../widgets/profile_option_tile.dart';
@@ -95,95 +97,78 @@ class ProfileScreen extends StatelessWidget {
                   ProfileOptionTile(
                     iconPath: "assets/icons/personal info.png",
                     title: "Personal Information",
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const PersonalInfoScreen(),
-                      ),
-                    ),
+                    onTap: () {
+                      Get.to(() => const PersonalInfoScreen());
+                    },
                   ),
                   //Change pass..
                   ProfileOptionTile(
                     iconPath: "assets/icons/change pass.png",
                     title: "Change Password",
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ChangePasswordScreen(),
-                      ),
-                    ),
+                    onTap: () {
+                      Get.to(() => const ChangePasswordScreen());
+                    },
                   ),
 
                   //Notification Settings..
                   ProfileOptionTile(
                     iconPath: "assets/icons/notification.png",
                     title: "Notification Settings",
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const NotificationScreen(),
-                      ),
-                    ),
+                    onTap: () {
+                      Get.to(() => const NotificationScreen());
+                    },
                   ),
 
                   //About app..
                   ProfileOptionTile(
                     iconPath: "assets/icons/about app.png",
                     title: "About App",
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AboutAppScreen(),
-                      ),
-                    ),
+
+                    // onTap: () => Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (_) => const AboutAppScreen(),
+                    //   ),
+                    // ),
+                    onTap: () {
+                      Get.to(() => const AboutAppScreen());
+                    },
                   ),
 
                   //Privacy Policy..
                   ProfileOptionTile(
                     iconPath: "assets/icons/change pass.png",
                     title: "Privacy Policy",
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const PrivacyPolicyScreen(),
-                      ),
-                    ),
+                    onTap: () {
+                      Get.to(() => const PrivacyPolicyScreen());
+                    },
                   ),
 
                   //Term & Condition..
                   ProfileOptionTile(
                     iconPath: "assets/icons/change pass.png",
                     title: "Term & Condition",
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TermsAndConditionScreen(),
-                      ),
-                    ),
+                    onTap: () {
+                      Get.to(() => const TermsAndConditionScreen());
+                    },
                   ),
 
                   //video copyright..
                   ProfileOptionTile(
                     iconPath: "assets/icons/change pass.png",
-                    title: "Video Copyright",
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const VideoCopyrightScreen(),
-                      ),
-                    ),
+                    title: "video copyright",
+                    onTap: () {
+                      Get.to(() => const VideoCopyrightScreen());
+                    },
                   ),
 
                   //Refund Policy..
                   ProfileOptionTile(
                     iconPath: "assets/icons/change pass.png",
                     title: "Refund Policy",
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RefundPolicyScreen(),
-                      ),
-                    ),
+                    onTap: () {
+                      Get.to(() => const RefundPolicyScreen());
+                    },
                   ),
 
                   //Logout...
@@ -193,12 +178,9 @@ class ProfileScreen extends StatelessWidget {
                     iconColor: const Color(0xFFEF1A26),
                     textColor: const Color(0xFFEF1A26),
                     arrowColor: const Color(0xFFEF1A26),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
-                      ),
-                    ),
+                    onTap: () {
+                      Get.to(() => const LoginScreen());
+                    },
                   ),
                 ],
               ),
