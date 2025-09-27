@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
+import 'package:get/get.dart';
 import '../widgets/course_details_card.dart';
-import 'package:flutter_ladydenily/dummy_data.dart';
+import '../../presentation/controllers/course_controller.dart';
+import '../../models/api_course.dart';
 
-class CourseAllScreen extends StatelessWidget {
+class CourseAllScreen extends GetView<CourseController> {
   const CourseAllScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<CourseController>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Courses",
+          'Courses',
           style: TextStyle(
             color: AppColors.titleTextColor,
             fontWeight: FontWeight.w900,
@@ -22,16 +25,23 @@ class CourseAllScreen extends StatelessWidget {
         elevation: 0,
       ),
       backgroundColor: Colors.grey[100],
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: dummyCourses.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: CourseDetailsCard(courseDetails: dummyCoursesDetails[index]),
-          );
-        },
-      ),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (controller.courses.isEmpty) {
+          return const Center(child: Text('No courses found'));
+        }
+        return ListView.separated(
+          padding: const EdgeInsets.all(16),
+          itemBuilder: (context, index) {
+            final ApiCourse course = controller.courses[index];
+            return CourseDetailsCard(apiCourse: course);
+          },
+          separatorBuilder: (_, __) => const SizedBox(height: 16),
+          itemCount: controller.courses.length,
+        );
+      }),
     );
   }
 }

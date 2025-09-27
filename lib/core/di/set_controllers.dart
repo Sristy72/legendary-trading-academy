@@ -2,9 +2,14 @@ import 'package:flutter_ladydenily/features/profile/presentation/controller/prof
 import 'package:get/get.dart';
 
 import '../../features/auth/presentation/controller/auth_controller.dart';
+import 'package:flutter_ladydenily/features/course/presentation/controllers/course_controller.dart';
+import 'package:flutter_ladydenily/features/course/domain/course_repository.dart';
 
 void setupController() {
   // Auth Controller
   Get.lazyPut<AuthController>(() => AuthController(Get.find(), Get.find()));
   Get.lazyPut<ProfileController>(() => ProfileController(Get.find()));
+  Get.lazyPut<CourseController>(
+    () => CourseController(repository: Get.find<CourseRepository>()),
+  );
 }

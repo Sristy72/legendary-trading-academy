@@ -14,6 +14,7 @@ import 'package:flutx_core/flutx_core.dart';
 import 'package:get/get.dart';
 import '../../../../core/base/base_controller.dart';
 import '../../../../core/network/services/auth_storage_service.dart';
+import '../../../home/presentation/screens/home_screen.dart';
 import '../../data/models/login_request_model.dart';
 import '../../data/models/otp_request_model.dart';
 import '../../data/models/otp_request_model_register.dart';
@@ -22,7 +23,6 @@ import '../../data/models/register_request_model.dart';
 import '../../data/models/reset_password_request_model.dart';
 import '../../data/models/set_new_password_request_model.dart';
 import '../../domain/repo/auth_repo.dart';
-import '../screen/home_screen.dart';
 import '../screen/login_screen.dart';
 
 class AuthController extends BaseController {
@@ -35,7 +35,6 @@ class AuthController extends BaseController {
   AuthController(this._authRepository, this._authStorageService);
 
   final MultiFormDataManager _multiFormDataManager = MultiFormDataManager();
-
 
   // Login
   Future<void> login(String email, String password) async {
@@ -60,12 +59,12 @@ class AuthController extends BaseController {
       },
       (success) async {
         final user = success.data.user;
-          await _authStorageService.storeAuthData(
-            accessToken: success.data.accessToken!,
-            refreshToken: success.data.refreshToken!,
-            userId: success.data.user!.id!,
-          );
-          Get.to(() => ProfileScreen());
+        await _authStorageService.storeAuthData(
+          accessToken: success.data.accessToken!,
+          refreshToken: success.data.refreshToken!,
+          userId: success.data.user!.id!,
+        );
+        Get.to(() => HomeScreen());
         setLoading(false);
       },
     );
@@ -181,7 +180,13 @@ class AuthController extends BaseController {
     setLoading(true);
     setError('');
 
-    final profile = TradingProfile(tradingExperience: tradingExperience, assetsOfInterest: assetsOfInterest, mainGoal: mainGoal, riskAppetite: riskAppetite, preferredLearning: preferredLearning);
+    final profile = TradingProfile(
+      tradingExperience: tradingExperience,
+      assetsOfInterest: assetsOfInterest,
+      mainGoal: mainGoal,
+      riskAppetite: riskAppetite,
+      preferredLearning: preferredLearning,
+    );
     final toJson = jsonEncode(profile.toJson());
 
     // _multiFormDataManager.addTextData("tradingExperience", tradingExperience);
@@ -190,7 +195,6 @@ class AuthController extends BaseController {
     // _multiFormDataManager.addTextData("riskAppetite", riskAppetite);
 
     _multiFormDataManager.addTextData("treding_profile", toJson);
-
 
     final formRequest = await _multiFormDataManager.toFormDataAsync();
 
@@ -212,7 +216,6 @@ class AuthController extends BaseController {
     );
   }
 
-
   Future resetPass(String email) async {
     setLoading(true);
     setError('');
@@ -228,7 +231,7 @@ class AuthController extends BaseController {
       },
       (success) {
         DPrint.log("reset pass success result : ${success.message}");
-        Get.offAll(() => VerifyCodeScreen(email: email,));
+        Get.offAll(() => VerifyCodeScreen(email: email));
         setLoading(false);
       },
     );
@@ -270,7 +273,7 @@ class AuthController extends BaseController {
       },
       (success) {
         DPrint.log("verify otp success result : ${success.message}");
-        Get.to(() => CreateNewPasswordScreen(email: email, otp: otp,));
+        Get.to(() => CreateNewPasswordScreen(email: email, otp: otp));
         setLoading(false);
       },
     );
@@ -293,12 +296,17 @@ class AuthController extends BaseController {
       },
       (success) {
         DPrint.log("verify otp success result : ${success.message}");
-        Get.to(()  => TermsAndDisclaimerDialogScreen(onAgree: (){Get.to(() => PersonalInformationScreen());}));
+        Get.to(
+          () => TermsAndDisclaimerDialogScreen(
+            onAgree: () {
+              Get.to(() => PersonalInformationScreen());
+            },
+          ),
+        );
         setLoading(false);
       },
     );
   }
-
 
   Future setNewPass(String email, String otp, String newPassword) async {
     setLoading(true);
@@ -318,9 +326,7 @@ class AuthController extends BaseController {
         setLoading(false);
       },
       (success) {
-        DPrint.log(
-          "New Password set successfully result : ${success.message}",
-        );
+        DPrint.log("New Password set successfully result : ${success.message}");
         Get.to(() => LoginScreen());
         setLoading(false);
       },
@@ -353,7 +359,6 @@ class AuthController extends BaseController {
     );
     return navi;
   }
-
 
   Future<void> logout() async {
     await _authStorageService.clearAuthData();

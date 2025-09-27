@@ -4,11 +4,17 @@ import 'package:flutter_ladydenily/features/course/presentation/screens/coure_de
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_screen.dart';
 import 'package:get/get.dart';
 import '../../models/course_details.dart';
+import '../../models/api_course.dart';
 
 class CourseDetailsCard extends StatelessWidget {
-  final CourseDetails courseDetails;
+  final CourseDetails? courseDetails; // legacy dummy model
+  final ApiCourse? apiCourse; // API model
 
-  const CourseDetailsCard({super.key, required this.courseDetails});
+  const CourseDetailsCard({super.key, this.courseDetails, this.apiCourse})
+    : assert(
+        courseDetails != null || apiCourse != null,
+        'Provide either courseDetails or apiCourse',
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +55,7 @@ class CourseDetailsCard extends StatelessWidget {
             topRight: Radius.circular(16),
           ),
           child: Image.asset(
-            courseDetails.image,
+            _image,
             height: 180,
             width: double.infinity,
             fit: BoxFit.cover,
@@ -65,7 +71,7 @@ class CourseDetailsCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Text(
-        courseDetails.title,
+        _title,
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
     );
@@ -75,7 +81,7 @@ class CourseDetailsCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Text(
-        courseDetails.subtitle,
+        _subtitle,
         style: const TextStyle(
           fontSize: 14,
           color: Color.fromARGB(255, 97, 97, 97),
@@ -91,14 +97,11 @@ class CourseDetailsCard extends StatelessWidget {
         children: [
           Icon(Icons.schedule, size: 16, color: Colors.grey[700]),
           const SizedBox(width: 4),
-          Text(courseDetails.weeks, style: TextStyle(color: Colors.grey[700])),
+          Text(_weeks, style: TextStyle(color: Colors.grey[700])),
           const SizedBox(width: 16),
           Icon(Icons.menu_book, size: 16, color: Colors.grey[700]),
           const SizedBox(width: 4),
-          Text(
-            courseDetails.modules,
-            style: TextStyle(color: Colors.grey[700]),
-          ),
+          Text(_modulesLabel, style: TextStyle(color: Colors.grey[700])),
         ],
       ),
     );
@@ -111,7 +114,7 @@ class CourseDetailsCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            courseDetails.price.isEmpty ? "" : courseDetails.price,
+            _price,
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w900,
@@ -130,7 +133,7 @@ class CourseDetailsCard extends StatelessWidget {
               /// [Note : Need to modifye this part]
               Get.to(ModuleScreen());
             },
-            child: Text(courseDetails.status),
+            child: Text(_statusLabel),
           ),
         ],
       ),
@@ -156,5 +159,35 @@ class _Badge extends StatelessWidget {
         style: const TextStyle(color: AppColors.textColorBlue, fontSize: 12),
       ),
     );
+  }
+}
+
+extension on CourseDetailsCard {
+  String get _title => apiCourse?.name ?? courseDetails!.title;
+  String get _subtitle {
+    if (apiCourse != null) {
+      final desc = apiCourse!.description;
+      return desc.length > 60 ? desc.substring(0, 57) + '...' : desc;
+    }
+    return courseDetails!.subtitle;
+  }
+
+  String get _weeks =>
+      courseDetails?.weeks ?? '${apiCourse!.modules.length} Modules';
+  String get _modulesLabel =>
+      courseDetails?.modules ?? '${apiCourse!.modules.length} Mods';
+  String get _price => apiCourse != null
+      ? '\$${apiCourse!.offerPrice != 0 ? apiCourse!.offerPrice : apiCourse!.price}'
+      : (courseDetails!.price.isEmpty ? '' : courseDetails!.price);
+  String get _statusLabel => courseDetails?.status ?? 'Enroll Now';
+  String get _image {
+    if (apiCourse != null) {
+      final url = apiCourse!.photo?.url;
+      if (url != null && url.isNotEmpty) {
+        return url; // For now using Image.network not implemented here
+      }
+      return 'assets/images/courses_sample.jpg';
+    }
+    return courseDetails!.image;
   }
 }
