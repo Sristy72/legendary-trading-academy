@@ -5,6 +5,7 @@ import 'package:flutter_ladydenily/features/auth/presentation/screen/login_scree
 import 'package:flutter_ladydenily/features/auth/presentation/screen/splash_screen.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/each_modules_details_screen.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_screen.dart';
+import 'package:flutter_ladydenily/features/course_content/presentation/screens/recording_details_screen.dart';
 import 'package:get/get.dart';
 
 void main() async {
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: AppTheme.light,
-      home: EachModulesDetailsScreen(),
+      home: RecordingDetailsScreen(),
     );
   }
 }
