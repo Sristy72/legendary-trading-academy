@@ -3,13 +3,18 @@ import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_profile_screen.dart';
+import 'package:flutter_ladydenily/features/others/terms_and_disclaimer_dialog_screen.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/common/texts/texts.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
-  const PersonalInformationScreen({super.key});
+  const PersonalInformationScreen({
+    super.key,
+  });
+
 
   @override
   State<PersonalInformationScreen> createState() =>
@@ -17,10 +22,14 @@ class PersonalInformationScreen extends StatefulWidget {
 }
 
 class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
+  final _authController = Get.find<AuthController>();
+
   final TextEditingController _personalNameController = TextEditingController();
   final TextEditingController _personalAgeController = TextEditingController();
   final TextEditingController _nationalityController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
+
+  late int age = int.tryParse(_personalAgeController.text) ?? 0;
 
   final FocusNode _personalNameFocus = FocusNode();
   final FocusNode _personalAgeFocus = FocusNode();
@@ -30,8 +39,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   String gender = "Male";
 
   void _submit() {
-    Get.to(UploadProfileScreen());
+    _authController.personalInfo(_personalNameController.text, age, gender, _nationalityController.text, _addressController.text);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +167,10 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       value: gender,
                       items: const [
                         DropdownMenuItem(value: "Male", child: Text("Male")),
-                        DropdownMenuItem(value: "Female", child: Text("Female")),
+                        DropdownMenuItem(
+                          value: "Female",
+                          child: Text("Female"),
+                        ),
                         DropdownMenuItem(value: "Other", child: Text("Other")),
                       ],
                       onChanged: (value) {
@@ -206,9 +219,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         hintText: TTexts.nationality,
                         suffixIcon: Icon(Icons.keyboard_arrow_down),
                       ),
-                      onFieldSubmitted: (_) => FocusScope.of(
-                        context,
-                      ).requestFocus(_addressFocus),
+                      onFieldSubmitted: (_) =>
+                          FocusScope.of(context).requestFocus(_addressFocus),
                     ),
 
                     SizedBox(height: 14),
@@ -241,8 +253,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       decoration: context.primaryInputDecoration.copyWith(
                         hintText: TTexts.address,
                       ),
-                      onFieldSubmitted: (_) =>
-                          FocusScope.of(context).unfocus(),
+                      onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
                     ),
                   ],
                 ),
@@ -251,10 +262,22 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
 
             // Continue Button
             SizedBox(height: 18),
+
+            // Obx(
+            //       () =>  context.primaryButton(
+            //     isLoading: _authController.isLoading.value,
+            //     onPressed: () {
+            //       _submit();
+            //     },
+            //     text: 'Sign up',
+            //   ),
+            // ),
             SafeArea(
-              child: context.primaryButton(
-                onPressed: _submit,
-                text: 'Continue',
+              child: Obx( () => context.primaryButton(
+                isLoading: _authController.isLoading.value,
+                  onPressed: _submit,
+                  text: 'Continue',
+                ),
               ),
             ),
           ],

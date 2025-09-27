@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class PinCode extends StatelessWidget {
-  const PinCode({super.key});
+  const PinCode({super.key, required this.otpController});
+  final TextEditingController otpController;
 
   @override
   Widget build(BuildContext context) {
     return PinCodeTextField(
+      controller: otpController,
       appContext: context,
       length: 6,
       animationType: AnimationType.fade,

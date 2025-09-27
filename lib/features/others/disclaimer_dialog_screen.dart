@@ -11,7 +11,7 @@ class DisclaimerDialogScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
-            children: [
+            children: [ 
               DisclaimerDialog(title: 'By enrolling in this course, you acknowledge and agree to the following:', showCheckButton: false, style: TextStyle(color: AppColors.text), onAgree: () {  },),
             ],
           ),

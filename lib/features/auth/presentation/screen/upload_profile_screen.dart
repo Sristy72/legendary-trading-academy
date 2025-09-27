@@ -1,12 +1,17 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/screen/trading_profile_setup_screen.dart';
 import 'package:flutter_ladydenily/features/home/presentation/screens/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadProfileScreen extends StatefulWidget {
-  const UploadProfileScreen({super.key});
+  const UploadProfileScreen({
+    super.key,
+  });
+
 
   @override
   State<UploadProfileScreen> createState() => _UploadProfileScreenState();
@@ -15,6 +20,7 @@ class UploadProfileScreen extends StatefulWidget {
 class _UploadProfileScreenState extends State<UploadProfileScreen> {
   File? _pickedImage; // store picked image
   final ImagePicker _picker = ImagePicker();
+  final _authController = Get.find<AuthController>();
 
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(
@@ -29,7 +35,7 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
   }
 
   void _submit() {
-    Get.offAll(HomeScreen());
+    _authController.uploadPhoto(_pickedImage!);
   }
 
   @override
@@ -112,20 +118,27 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: (screenWidth / 2) - 32,
-                    height: 51,
-                    child: context.secondaryButton(
-                      onPressed: () {},
-                      text: "Skip",
-                      borderRadius: 8,
-                    ),
+                  Obx(
+                        () =>
+                        context.secondaryButton(
+                          isLoading: _authController.isSkipLoading.value,
+                          height: 51,
+                          width: (screenWidth / 2) - 32,
+                          onPressed: () {
+                            _authController.isSkipLoading.value = true;
+                            Get.to(() => TradingProfileSetupScreen());
+                          },
+                          text: "Skip",
+                          borderRadius: 8,
+                        ),
                   ),
                   const SizedBox(width: 8),
-                  SizedBox(
-                    width: (screenWidth / 2) - 32,
-                    height: 51,
-                    child: context.primaryButton(
+
+                  Obx(
+                    () => context.primaryButton(
+                      isLoading: _authController.isLoading.value,
+                      width: (screenWidth / 2) - 32,
+                      height: 51,
                       onPressed: () {
                         _submit();
                       },

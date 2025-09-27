@@ -10,9 +10,14 @@ import '../../../../core/common/widgets/signin_signup_header.dart';
 import '../../../../core/widgets/social_button.dart';
 import '../widget/login_form.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -22,7 +27,11 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 80),
-              TLoginHeader(image: ImagesString.loginLogo,title: 'Welcome back', subTitle: 'sign in to access your account',),
+              TLoginHeader(
+                image: ImagesString.loginLogo,
+                title: 'Welcome back',
+                subTitle: 'sign in to access your account',
+              ),
 
               ///Form
               TLoginForm(),
@@ -46,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                       //   SignupScreen(),
                       //   transition: TransitionType.slideLeft,
                       // );
-                      Get.to(SignupScreen());
+                      Get.to(() => SignupScreen());
                     },
                     child: Text(
                       'Sign Up',
