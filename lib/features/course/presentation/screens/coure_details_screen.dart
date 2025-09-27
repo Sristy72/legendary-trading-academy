@@ -8,15 +8,16 @@ import 'package:flutter_ladydenily/features/course/presentation/widgets/demo_car
 import 'package:flutter_ladydenily/features/course/presentation/widgets/enroll_button.dart';
 import 'package:flutter_ladydenily/features/course/presentation/widgets/trainer_card.dart';
 
-import '../../models/api_course.dart';
 import 'package:get/get.dart';
+
+import '../../models/course.dart';
 
 class CourseDetailsScreen extends StatelessWidget {
   const CourseDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ApiCourse? course = Get.arguments as ApiCourse?;
+    final Course? course = Get.arguments as Course?;
     if (course == null) {
       return Scaffold(
         appBar: AppBar(title: const Text('Course Details')),

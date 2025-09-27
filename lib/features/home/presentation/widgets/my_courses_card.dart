@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
-import '../../models/course.dart';
+import '../../models/course.dart'; // provides HomeCourse
 
 class MyCoursesCard extends StatelessWidget {
-  final Course course;
+  final HomeCourse course;
 
   const MyCoursesCard({super.key, required this.course});
 

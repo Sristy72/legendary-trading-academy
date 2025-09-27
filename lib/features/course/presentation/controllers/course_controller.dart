@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 import '../../domain/course_repository.dart';
-import '../../models/api_course.dart';
+import '../../models/course.dart';
 
 class CourseController extends GetxController {
   final CourseRepository repository;
   CourseController({required this.repository});
 
-  final courses = <ApiCourse>[].obs;
+  final courses = <Course>[].obs;
   final isLoading = false.obs;
 
   @override

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
+import 'package:flutter_ladydenily/features/course/models/course.dart';
+import 'package:flutter_ladydenily/features/course/presentation/controllers/course_controller.dart';
 import 'package:flutter_ladydenily/features/course/presentation/screens/coure_details_screen.dart';
 import 'package:flutter_ladydenily/features/course/presentation/screens/course_all_screen.dart';
-import 'package:flutter_ladydenily/features/home/models/course.dart';
+import 'package:flutter_ladydenily/features/course/presentation/widgets/course_details_card.dart';
 import 'package:flutter_ladydenily/core/widgets/custom_bottom_navbar.dart';
-import 'package:flutter_ladydenily/features/home/presentation/widgets/my_courses_card.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/screens/marketplace_all_screen.dart';
 import 'package:flutter_ladydenily/features/notification/presentation/screens/notification_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
 import 'package:get/get.dart';
 import '../../../calender/presentation/screens/calender_screen.dart';
-import '../widgets/course_card.dart';
 import '../widgets/trainer_card.dart';
 import '../widgets/market_card.dart';
 import '../../../../dummy_data.dart';
@@ -61,27 +62,28 @@ class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
 
   void _navigateToCoursesDetails(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CourseAllScreen()),
-    );
+    Get.to(() => CourseAllScreen());
   }
 
   void _navigateToCourseDetail(BuildContext context, Course course) {
-    Get.to(() => CourseDetailsScreen());
+    Get.to(() => CourseDetailsScreen(), arguments: course);
   }
 
   void _navgiateToAllMarketplace(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MarketplaceAllScreen()),
-    );
+    Get.to(() => const MarketplaceAllScreen());
   }
 
   @override
   Widget build(BuildContext context) {
+    final courseController = Get.find<CourseController>();
+    final profileController = Get.find<ProfileController>();
+    // Fetch profile if not already loaded
+    if (profileController.userInfo.value == null) {
+      profileController.fetchProfile();
+    }
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           children: [
             GestureDetector(
@@ -100,15 +102,19 @@ class HomeContent extends StatelessWidget {
             const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'Hello, User Name',
-                  style: TextStyle(
-                    color: AppColors.titleTextColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
+              children: [
+                Obx(() {
+                  final user = profileController.userInfo.value;
+                  final name = user?.name ?? user?.username ?? 'User';
+                  return Text(
+                    'Hello, $name',
+                    style: const TextStyle(
+                      color: AppColors.titleTextColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                }),
+                const Text(
                   'New York, NY',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
@@ -140,16 +146,20 @@ class HomeContent extends StatelessWidget {
               'Courses',
               onViewAllTap: () => _navigateToCoursesDetails(context),
             ),
-            _buildHorizontalList(
-              dummyCourses
-                  .map(
-                    (c) => GestureDetector(
-                      onTap: () => _navigateToCourseDetail(context, c),
-                      child: CourseCard(course: c),
+            Obx(
+              () => courseController.isLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : _buildHorizontalList(
+                      courseController.courses
+                          .map(
+                            (c) => GestureDetector(
+                              onTap: () => _navigateToCourseDetail(context, c),
+                              child: CourseDetailsCard(course: c),
+                            ),
+                          )
+                          .toList(),
+                      height: 250,
                     ),
-                  )
-                  .toList(),
-              height: 250,
             ),
 
             _buildSectionTitle('Top Trainer'),
@@ -167,15 +177,20 @@ class HomeContent extends StatelessWidget {
             ),
 
             _buildSectionTitle('My Courses'),
-            _buildVerticalList(
-              dummyMyCourses
-                  .map(
-                    (c) => GestureDetector(
-                      onTap: () => _navigateToCourseDetail(context, c),
-                      child: MyCoursesCard(course: c),
+            Obx(
+              () => courseController.isLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : _buildVerticalList(
+                      courseController.courses
+                          .where((c) => c.enrolled.isNotEmpty)
+                          .map(
+                            (c) => GestureDetector(
+                              onTap: () => _navigateToCourseDetail(context, c),
+                              child: CourseDetailsCard(course: c),
+                            ),
+                          )
+                          .toList(),
                     ),
-                  )
-                  .toList(),
             ),
           ],
         ),

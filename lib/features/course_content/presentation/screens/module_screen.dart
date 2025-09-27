@@ -6,7 +6,8 @@ import '../state/module_state.dart';
 import '../widgets/items_widgets.dart';
 
 class ModuleScreen extends StatelessWidget {
-  const ModuleScreen({super.key});
+  final String courseId;
+  const ModuleScreen({super.key, required this.courseId});
 
   @override
   Widget build(BuildContext context) {
