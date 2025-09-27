@@ -5,8 +5,7 @@ import 'package:flutter_ladydenily/features/auth/presentation/screen/login_scree
 import 'package:flutter_ladydenily/features/auth/presentation/screen/splash_screen.dart';
 import 'package:get/get.dart';
 
-
-void main() async{
+void main() async {
   await AppInitializer.initializeApp();
   runApp(MyApp());
 }
