@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
-import 'package:flutter_ladydenily/core/common/widgets/appbar.dart';
-
 import '../../core/common/widgets/custom_text.dart';
 
 class VideoCopyrightScreen extends StatelessWidget {
@@ -10,8 +8,7 @@ class VideoCopyrightScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: AppBar(title: Text('Video Copyright'),
-      ),
+      appBar: AppBar(title: Text('Video Copyright')),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -80,14 +77,26 @@ class VideoCopyrightScreen extends StatelessWidget {
               ),
 
               SizedBox(height: 8),
-              CustomTextForPrivacy(title: 'Waiver',description: 'The failure of Legendary Trading Academy to enforce any provision or right of this Agreement shall not constitute a waiver of such provision or right or any other provisions or rights under this Agreement.'),
-              
+              CustomTextForPrivacy(
+                title: 'Waiver',
+                description:
+                    'The failure of Legendary Trading Academy to enforce any provision or right of this Agreement shall not constitute a waiver of such provision or right or any other provisions or rights under this Agreement.',
+              ),
+
               SizedBox(height: 8),
-              CustomTextForPrivacy(title: 'Contact Us',description: 'If you have any questions about this Agreement or need further clarification, please reach out to our support team at admin@legendarytradingacademy.com. We are here to assist you and ensure that your experience with us is positive and fulfilling.'),
-              
-              SizedBox(height: 8,),
-              CustomTextForPrivacy(title: 'Contact Information',description: 'For questions or concerns regarding these terms and conditions, please contact Coach Lady Denily at +639179270854.\n \n'
-                  'By using the Platform, you acknowledge that you have read, understood, and agree to be bound by these terms and conditions.')
+              CustomTextForPrivacy(
+                title: 'Contact Us',
+                description:
+                    'If you have any questions about this Agreement or need further clarification, please reach out to our support team at admin@legendarytradingacademy.com. We are here to assist you and ensure that your experience with us is positive and fulfilling.',
+              ),
+
+              SizedBox(height: 8),
+              CustomTextForPrivacy(
+                title: 'Contact Information',
+                description:
+                    'For questions or concerns regarding these terms and conditions, please contact Coach Lady Denily at +639179270854.\n \n'
+                    'By using the Platform, you acknowledge that you have read, understood, and agree to be bound by these terms and conditions.',
+              ),
             ],
           ),
         ),

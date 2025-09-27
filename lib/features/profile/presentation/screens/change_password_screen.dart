@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -9,9 +10,11 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  final TextEditingController _currentPasswordController = TextEditingController();
+  final TextEditingController _currentPasswordController =
+      TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           child: Column(
             children: [
               const SizedBox(height: 10),
-        
+
               // Current Password
               TextField(
                 controller: _currentPasswordController,
@@ -45,7 +48,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-        
+
               // New Password
               TextField(
                 controller: _newPasswordController,
@@ -61,7 +64,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-        
+
               // Confirm Password
               TextField(
                 controller: _confirmPasswordController,
@@ -76,13 +79,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   ),
                 ),
               ),
-        
+
               const Spacer(),
-        
+
               // Save Button
               context.primaryButton(
                 onPressed: () {
-                  if (_newPasswordController.text == _confirmPasswordController.text) {
+                  if (_newPasswordController.text ==
+                      _confirmPasswordController.text) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Password Updated!")),
                     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
-import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/signup_screen.dart';
 import 'package:get/get.dart';
@@ -11,9 +10,14 @@ import '../../../../core/common/widgets/signin_signup_header.dart';
 import '../../../../core/widgets/social_button.dart';
 import '../widget/login_form.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -23,7 +27,11 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 80),
-              TLoginHeader(image: ImagesString.loginLogo,title: 'Welcome back', subTitle: 'sign in to access your account',),
+              TLoginHeader(
+                image: ImagesString.loginLogo,
+                title: 'Welcome back',
+                subTitle: 'sign in to access your account',
+              ),
 
               ///Form
               TLoginForm(),
@@ -47,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                       //   SignupScreen(),
                       //   transition: TransitionType.slideLeft,
                       // );
-                      Get.to(SignupScreen());
+                      Get.to(() => SignupScreen());
                     },
                     child: Text(
                       'Sign Up',

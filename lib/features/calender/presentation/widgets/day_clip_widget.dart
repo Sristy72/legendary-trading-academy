@@ -14,7 +14,6 @@ class DayChipWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const primary = Color(0xFF173B70);
 
     final text = TextStyle(
       color: selected ? Color(0XFF1A3E74) : Color(0xffEFC227),

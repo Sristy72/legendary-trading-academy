@@ -38,11 +38,7 @@ class CourseCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Padding(
-            padding: const EdgeInsets.only(
-              left: 8,
-              right: 8,
-              bottom: 8,
-              ),
+            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -57,9 +53,7 @@ class CourseCard extends StatelessWidget {
                       style: const TextStyle(fontSize: 12),
                     ),
                     Spacer(),
-                    Text(
-                      course.level,
-                      style: const TextStyle(fontSize: 12),),
+                    Text(course.level, style: const TextStyle(fontSize: 12)),
                     const SizedBox(height: 4),
                   ],
                 ),
@@ -69,8 +63,10 @@ class CourseCard extends StatelessWidget {
                     Text(
                       course.price,
                       style: const TextStyle(
+                        color: AppColors.textColorBlue,
                         fontSize: 24,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     ElevatedButton(
                       onPressed: () {},
@@ -78,16 +74,19 @@ class CourseCard extends StatelessWidget {
                         backgroundColor: Colors.yellow.shade700,
                         foregroundColor: AppColors.textColorBlue,
                         shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 12,
                           vertical: 6,
                         ),
-                        
+
                         textStyle: const TextStyle(fontSize: 12),
                       ),
-                      child: const Text("Enroll"),
+                      child: const Text(
+                        "Enroll",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ],
                 ),

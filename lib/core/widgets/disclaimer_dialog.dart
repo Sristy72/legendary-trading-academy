@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/core/common/widgets/custom_text_for_refund_policy.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/core/widgets/check_button_with_text_disclaimers.dart';
 import 'package:flutter_ladydenily/features/others/widgets/dialog_controller.dart';

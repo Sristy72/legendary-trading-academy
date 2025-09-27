@@ -13,7 +13,9 @@ class CourseDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){Get.to(CourseDetailsScreen());},
+      onTap: () {
+        Get.to(CourseDetailsScreen());
+      },
       child: Card(
         color: AppColors.cardBackgroundColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -74,7 +76,10 @@ class CourseDetailsCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Text(
         courseDetails.subtitle,
-        style: const TextStyle(fontSize: 14, color: Color.fromARGB(255, 97, 97, 97)),
+        style: const TextStyle(
+          fontSize: 14,
+          color: Color.fromARGB(255, 97, 97, 97),
+        ),
       ),
     );
   }
@@ -107,11 +112,15 @@ class CourseDetailsCard extends StatelessWidget {
         children: [
           Text(
             courseDetails.price.isEmpty ? "" : courseDetails.price,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w900,
+              color: AppColors.textColorBlue,
+            ),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.amber[700],
+              backgroundColor: Colors.yellow.shade700,
               foregroundColor: AppColors.textColorBlue,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import '../widgets/course_details_card.dart';
 import 'package:flutter_ladydenily/dummy_data.dart';
 
@@ -9,7 +10,13 @@ class CourseAllScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Courses"),
+        title: const Text(
+          "Courses",
+          style: TextStyle(
+            color: AppColors.titleTextColor,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
@@ -25,20 +32,6 @@ class CourseAllScreen extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(),
-    );
-  }
-
-  Widget _buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      selectedItemColor: Colors.amber[700],
-      unselectedItemColor: Colors.grey,
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: "Courses"),
-        BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
-      ],
     );
   }
 }
