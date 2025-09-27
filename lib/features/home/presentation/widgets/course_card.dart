@@ -77,7 +77,7 @@ class CourseCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
+                          horizontal: 32,
                           vertical: 6,
                         ),
 

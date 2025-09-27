@@ -16,7 +16,13 @@ class CourseDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ApiCourse course = Get.arguments as ApiCourse;
+    final ApiCourse? course = Get.arguments as ApiCourse?;
+    if (course == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Course Details')),
+        body: const Center(child: Text('No course selected')),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(

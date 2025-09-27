@@ -4,6 +4,7 @@ import 'package:flutter_ladydenily/features/course/presentation/screens/coure_de
 import 'package:flutter_ladydenily/features/course/presentation/screens/course_all_screen.dart';
 import 'package:flutter_ladydenily/features/home/models/course.dart';
 import 'package:flutter_ladydenily/core/widgets/custom_bottom_navbar.dart';
+import 'package:flutter_ladydenily/features/home/presentation/widgets/my_courses_card.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/screens/marketplace_all_screen.dart';
 import 'package:flutter_ladydenily/features/notification/presentation/screens/notification_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
@@ -67,10 +68,7 @@ class HomeContent extends StatelessWidget {
   }
 
   void _navigateToCourseDetail(BuildContext context, Course course) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CourseDetailsScreen()),
-    );
+    Get.to(() => CourseDetailsScreen());
   }
 
   void _navgiateToAllMarketplace(BuildContext context) {
@@ -144,8 +142,14 @@ class HomeContent extends StatelessWidget {
             ),
             _buildHorizontalList(
               dummyCourses
-                  .map((c) => _buildClickableCourseCard(c, context))
+                  .map(
+                    (c) => GestureDetector(
+                      onTap: () => _navigateToCourseDetail(context, c),
+                      child: CourseCard(course: c),
+                    ),
+                  )
                   .toList(),
+              height: 250,
             ),
 
             _buildSectionTitle('Top Trainer'),
@@ -159,24 +163,23 @@ class HomeContent extends StatelessWidget {
             ),
             _buildHorizontalList(
               dummyMarketplace.map((m) => MarketCard(item: m)).toList(),
+              height: 280,
             ),
 
             _buildSectionTitle('My Courses'),
-            _buildHorizontalList(
+            _buildVerticalList(
               dummyMyCourses
-                  .map((c) => _buildClickableCourseCard(c, context))
+                  .map(
+                    (c) => GestureDetector(
+                      onTap: () => _navigateToCourseDetail(context, c),
+                      child: MyCoursesCard(course: c),
+                    ),
+                  )
                   .toList(),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildClickableCourseCard(Course course, BuildContext context) {
-    return GestureDetector(
-      onTap: () => _navigateToCourseDetail(context, course),
-      child: CourseCard(course: course),
     );
   }
 
@@ -213,9 +216,9 @@ class HomeContent extends StatelessWidget {
     );
   }
 
-  Widget _buildHorizontalList(List<Widget> cards) {
+  Widget _buildHorizontalList(List<Widget> cards, {double height = 200}) {
     return SizedBox(
-      height: 200,
+      height: height,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: cards.length,
