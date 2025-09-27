@@ -29,6 +29,7 @@ class ApiConstants {
 
   static TeamEndpointcs get team => TeamEndpointcs();
   static LeagueEndpoints get league => LeagueEndpoints();
+  static CourseEndpoints get course => CourseEndpoints();
 }
 
 /// [Authentication Endpoints]
@@ -69,4 +70,13 @@ class LeagueEndpoints {
   static const String _base = '${ApiConstants.baseUrl}/league';
 
   final String getAllLeagues = '$_base/all-league';
+}
+
+/// [Course Endpoints] -- zafor
+class CourseEndpoints {
+  static const String _base = '${ApiConstants.baseUrl}/course';
+
+  final String getAllCourses = '$_base/all-courses';
+  final String getCourseDetails = '$_base/courses';
+  // final String getCourseModules = '$_base/modules'; // Add endpoint for modules
 }
