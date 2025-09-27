@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_ladydenily/features/auth/data/models/personal_info_request_form_model.dart';
 
 import '../../../../core/network/network_result.dart';
 import '../../data/models/auth_response_model.dart';

@@ -9,12 +9,10 @@ import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_prof
 import 'package:flutter_ladydenily/features/auth/presentation/screen/verify_code_screen.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/verify_otp_to_register.dart';
 import 'package:flutter_ladydenily/features/others/terms_and_disclaimer_dialog_screen.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
 import 'package:flutx_core/flutx_core.dart';
 import 'package:get/get.dart';
 import '../../../../core/base/base_controller.dart';
-import '../../../../core/network/services/secure_store_services.dart';
-import '../../../../core/services/get_user_profile_service.dart';
-
 import '../../../../core/network/services/auth_storage_service.dart';
 import '../../data/models/login_request_model.dart';
 import '../../data/models/otp_request_model.dart';
@@ -36,9 +34,8 @@ class AuthController extends BaseController {
 
   AuthController(this._authRepository, this._authStorageService);
 
-  final userProfileService = Get.find<GetUserProfileService>();
-
   final MultiFormDataManager _multiFormDataManager = MultiFormDataManager();
+
 
   // Login
   Future<void> login(String email, String password) async {
@@ -63,16 +60,12 @@ class AuthController extends BaseController {
       },
       (success) async {
         final user = success.data.user;
-        if (user?.role == 'student') {
           await _authStorageService.storeAuthData(
             accessToken: success.data.accessToken!,
             refreshToken: success.data.refreshToken!,
             userId: success.data.user!.id!,
           );
-          Get.to(() => HomeScreen());
-        } else {
-          setError("You are not authorized to login as Manager");
-        }
+          Get.to(() => ProfileScreen());
         setLoading(false);
       },
     );
