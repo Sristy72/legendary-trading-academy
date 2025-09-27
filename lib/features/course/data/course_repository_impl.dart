@@ -17,10 +17,8 @@ class CourseRepositoryImpl implements CourseRepository {
     return _apiClient.get<List<Course>>(
       '${ApiConstants.baseUrl}/course/all-courses',
       fromJsonT: (json) {
-        // `json` here is already the `data` payload from BaseResponse
         if (json == null) return <Course>[];
 
-        // common shape: { "course": [ ... ] }
         if (json is Map<String, dynamic> && json['course'] is List) {
           final list = json['course'] as List;
           return list
@@ -28,14 +26,12 @@ class CourseRepositoryImpl implements CourseRepository {
               .toList();
         }
 
-        // sometimes the API may return the list directly
         if (json is List) {
           return json
               .map((e) => Course.fromJson(e as Map<String, dynamic>))
               .toList();
         }
 
-        // fallback: nested { data: { course: [...] } }
         if (json is Map<String, dynamic> &&
             json['data'] is Map &&
             (json['data'] as Map)['course'] is List) {
