@@ -154,11 +154,14 @@ class HomeContent extends StatelessWidget {
                           .map(
                             (c) => GestureDetector(
                               onTap: () => _navigateToCourseDetail(context, c),
-                              child: CourseDetailsCard(course: c),
+                              child: SizedBox(
+                                width: 300,
+                                child: CourseDetailsCard(course: c),
+                              ),
                             ),
                           )
                           .toList(),
-                      height: 250,
+                      height: 340,
                     ),
             ),
 

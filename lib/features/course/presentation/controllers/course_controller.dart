@@ -18,13 +18,22 @@ class CourseController extends GetxController {
   Future<void> fetchCourses() async {
     try {
       isLoading.value = true;
+      print('[CourseController] calling repository.fetchAllCourses()');
       final result = await repository.fetchAllCourses();
+      print(
+        '[CourseController] repository returned type: ${result.runtimeType}',
+      );
+
+      // Either<NetworkFailure, NetworkSuccess<List<Course>>> expected
       result.fold(
         (failure) {
+          print('[CourseController] fetch failed: ${failure.message}');
           courses.clear();
         },
         (success) {
-          courses.assignAll(success.data);
+          final payload = success.data; // NetworkSuccess.data is non-nullable
+          courses.assignAll(payload);
+          print('>>>>>>> API COURSES loaded: ${courses.length}');
         },
       );
     } finally {
