@@ -24,7 +24,7 @@ class ModuleResourceItem extends StatelessWidget {
           height: 48,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: backgroundColor ?? Color(0xffE8ECF1),
+            color: Color(0xffE8ECF1),
           ),
           child: Row(
             children: [

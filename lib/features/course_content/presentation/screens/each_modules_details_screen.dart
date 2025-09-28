@@ -18,10 +18,27 @@ class EachModulesDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Accept either a Module object or a plain Map (module.toJson())
     final arg = Get.arguments;
     Module? module;
-    if (arg is Module) {
+    int? moduleIndex;
+
+    if (arg is Map && arg.containsKey('module')) {
+      final m = arg['module'];
+      final idx = arg['index'];
+      try {
+        if (m is Module) {
+          module = m;
+        } else if (m is Map) {
+          module = Module.fromJson(Map<String, dynamic>.from(m));
+        }
+      } catch (_) {
+        module = null;
+      }
+      if (idx is int)
+        moduleIndex = idx;
+      else if (idx is String)
+        moduleIndex = int.tryParse(idx);
+    } else if (arg is Module) {
       module = arg;
     } else if (arg is Map<String, dynamic>) {
       try {
@@ -30,7 +47,6 @@ class EachModulesDetailsScreen extends StatelessWidget {
         module = null;
       }
     } else if (arg is Map) {
-      // defensive: sometimes JSON map is dynamic typed
       try {
         module = Module.fromJson(Map<String, dynamic>.from(arg));
       } catch (_) {
@@ -52,16 +68,14 @@ class EachModulesDetailsScreen extends StatelessWidget {
       );
     }
 
-    final List<VideoItem> recordings = module.video ?? <VideoItem>[];
-    final List<ResourceItem> resources = module.resources ?? <ResourceItem>[];
-    final List<AssignmentItem> assignments =
-        module.assignment ?? <AssignmentItem>[];
+    final List<VideoItem> recordings = module.video;
+    final List<ResourceItem> resources = module.resources;
+    final List<AssignmentItem> assignments = module.assignment;
 
-    final String topTitle = module.name != null
-        ? 'Module - ${module.name}'
+    final String topTitle = (moduleIndex != null)
+        ? 'Module-${moduleIndex + 1}'
         : 'Module';
-    final String topDescription =
-        module.name ?? 'No description available';
+    final String topDescription = module.name ?? 'No description available';
 
     return AppScaffold(
       appBar: AppBar(
@@ -75,13 +89,13 @@ class EachModulesDetailsScreen extends StatelessWidget {
         ),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 8),
-          // Module description (same for all tabs)
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
             child: Text(
               topDescription,
+              textAlign: TextAlign.start,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w800,
@@ -91,7 +105,6 @@ class EachModulesDetailsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 12),
 
-          // Top count row updates reactively
           Obx(() {
             final idx = _selectedIndex.value;
             String topCountText = '';
@@ -125,7 +138,6 @@ class EachModulesDetailsScreen extends StatelessWidget {
             );
           }),
 
-          // ModuleTabBar with reactive selectedIndex
           Obx(
             () => ModuleTabBar(
               selectedIndex: _selectedIndex.value,
@@ -135,14 +147,11 @@ class EachModulesDetailsScreen extends StatelessWidget {
 
           const SizedBox(height: 12),
 
-          // Expanded list that swaps content based on selected tab reactively
           Expanded(
             child: Obx(() {
               final idx = _selectedIndex.value;
               if (idx == 0) {
-                // Recordings
                 return ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   itemCount: recordings.length,
                   itemBuilder: (context, index) {
                     final v = recordings[index];
@@ -154,9 +163,7 @@ class EachModulesDetailsScreen extends StatelessWidget {
                   },
                 );
               } else if (idx == 1) {
-                // Resources
                 return ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   itemCount: resources.length,
                   itemBuilder: (context, index) {
                     final r = resources[index];
@@ -170,9 +177,7 @@ class EachModulesDetailsScreen extends StatelessWidget {
                   },
                 );
               } else {
-                // Assignments
                 return ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   itemCount: assignments.length,
                   itemBuilder: (context, index) {
                     final a = assignments[index];

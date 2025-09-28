@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../data/modules/class_module_module.dart';
 import '../controllers/module_details_controller.dart';
-import '../screens/each_modules_details_screen.dart'; // ensures ModulesDetailsController is available
+import '../screens/each_modules_details_screen.dart';
 
 class ModuleDetailsCardWidget extends StatelessWidget {
   final int index;
   final Module module;
-  final ModulesDetailsController
-  controller; // match the controller type used in screen
+  final ModulesDetailsController controller;
 
   const ModuleDetailsCardWidget({
     Key? key,
@@ -21,11 +20,14 @@ class ModuleDetailsCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Pass plain json map to avoid runtime type mismatch across routes
-        Get.to(() => EachModulesDetailsScreen(), arguments: module.toJson());
+        // Pass plain json map + index to avoid runtime type mismatch across routes
+        Get.to(
+          () => EachModulesDetailsScreen(),
+          arguments: {'module': module.toJson(), 'index': index},
+        );
       },
       child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        color: Color(0xffE8ECF1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
@@ -90,7 +92,7 @@ class ModuleDetailsCardWidget extends StatelessWidget {
               Row(
                 children: [
                   const Icon(
-                    Icons.play_circle_outline,
+                    Icons.video_camera_front_outlined,
                     size: 18,
                     color: Colors.grey,
                   ),
