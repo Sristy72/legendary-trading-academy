@@ -28,8 +28,8 @@ class MyCourseCard extends StatelessWidget {
               final imageUrl = course.photo == null
                   ? ''
                   : course.photo is String
-                      ? course.photo as String
-                      : (course.photo as dynamic).url ?? '';
+                  ? course.photo as String
+                  : (course.photo as dynamic).url ?? '';
               if (imageUrl.isEmpty) {
                 return SizedBox(
                   width: 120,
@@ -72,26 +72,34 @@ class MyCourseCard extends StatelessWidget {
                     course.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  const SizedBox(height: 6),
-                  Row(
-                    children: [
-                      Text(
-                        '${course.modules.length} Lessons',
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                      const Spacer(),
-                      Text(course.enrolled as String, style: const TextStyle(fontSize: 12)),
-                    ],
+                  const SizedBox(height: 2),
+                  Text(
+                    '${course.modules.length} Lessons',
+                    style: const TextStyle(fontSize: 12),
                   ),
-                  const Spacer(),
+
+                  const SizedBox(height: 2),
                   Row(
                     children: [
                       // Price text should be flexible and ellipsize if needed
                       Flexible(
                         child: Text(
-                          course.offerPrice as String,
+                          // offerPrice is numeric in the model; format safely
+                          (() {
+                            try {
+                              final val = course.offerPrice.toDouble();
+                              return val == 0.0
+                                  ? 'Free'
+                                  : '\$${val.toStringAsFixed(2)}';
+                            } catch (_) {
+                              return course.offerPrice.toString();
+                            }
+                          })(),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -101,13 +109,15 @@ class MyCourseCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      // Constrain the button width so the row can't overflow
+                      const Spacer(),
+                      const Spacer(),
+
                       ConstrainedBox(
                         constraints: const BoxConstraints(
                           minWidth: 72,
                           maxWidth: 110,
                         ),
+
                         child: SizedBox(
                           height: 36,
                           child: ElevatedButton(

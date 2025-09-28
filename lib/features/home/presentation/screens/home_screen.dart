@@ -6,6 +6,8 @@ import 'package:flutter_ladydenily/features/course/presentation/screens/coure_de
 import 'package:flutter_ladydenily/features/course/presentation/screens/course_all_screen.dart';
 import 'package:flutter_ladydenily/features/course/presentation/widgets/course_details_card.dart';
 import 'package:flutter_ladydenily/core/widgets/custom_bottom_navbar.dart';
+import 'package:flutter_ladydenily/features/home/presentation/widgets/my_course_card.dart';
+import 'package:flutter_ladydenily/features/home/presentation/widgets/my_courses_card.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/screens/marketplace_all_screen.dart';
 import 'package:flutter_ladydenily/features/notification/presentation/screens/notification_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
@@ -209,11 +211,14 @@ class HomeContent extends StatelessWidget {
                   ? const Center(child: CircularProgressIndicator())
                   : _buildVerticalList(
                       courseController.courses
-                          .where((c) => c.enrolled.isNotEmpty)
+                          .where(
+                            //! isNotEmpty to isEmpty <<<< MUST CHANGE LATER >>>>
+                            (c) => c.enrolled.isEmpty,
+                          )
                           .map(
                             (c) => GestureDetector(
                               onTap: () => _navigateToCourseDetail(context, c),
-                              child: CourseDetailsCard(course: c),
+                              child: MyCourseCard(course: c),
                             ),
                           )
                           .toList(),
@@ -229,12 +234,11 @@ class HomeContent extends StatelessWidget {
     final trainers = trainerController.topTrainers.take(3).toList();
     final List<Widget> trainerWidgets = [];
 
-    // Add actual trainers
     for (var trainer in trainers) {
       trainerWidgets.add(TrainerApiCard(trainer: trainer));
     }
 
-    // Add placeholder cards to fill up to 3 total cards
+    //* Add placeholder cards to fill up to 3 total cards
     final remainingSlots = 3 - trainers.length;
     for (int i = 0; i < remainingSlots; i++) {
       trainerWidgets.add(const TrainerPlaceholderCard());
