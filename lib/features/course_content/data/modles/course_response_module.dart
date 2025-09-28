@@ -1,7 +1,5 @@
-
-
-import '../modles/class_module_module.dart';
-import '../modles/coordinator_model.dart';
+import 'class_module_module.dart';
+import 'coordinator_model.dart';
 
 class CourseResponse {
   final String id;

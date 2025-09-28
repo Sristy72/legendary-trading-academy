@@ -3,10 +3,10 @@ import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/widgets/tab_bar.dart';
 import 'package:get/get.dart';
-import '../../data/modules/assignment_module.dart';
-import '../../data/modules/class_module_module.dart';
-import '../../data/modules/resources_model.dart';
-import '../../data/modules/video_model.dart';
+import '../../data/modles/assignment_module.dart';
+import '../../data/modles/class_module_module.dart';
+import '../../data/modles/resources_model.dart';
+import '../../data/modles/video_model.dart';
 import '../widgets/module_resource_item.dart';
 import '../widgets/module_assignment_item.dart';
 

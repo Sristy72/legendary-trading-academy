@@ -5,7 +5,7 @@ import '../models/course.dart';
 
 // added imports for course_content APIs
 import 'package:flutter_ladydenily/core/network/network_result.dart';
-import '../../course_content/data/modules/course_response_module.dart';
+import '../../course_content/data/modles/course_response_module.dart';
 
 abstract class CourseRepository {
   // existing course feature API

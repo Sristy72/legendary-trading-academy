@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:get/get.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-
 import '../controllers/assignment_controller.dart';
 
 class AssignmentPage extends StatelessWidget {
