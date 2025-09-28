@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
+import 'package:get/get.dart';
 import '../../../course/models/course.dart';
+import '../../../course_content/presentation/screens/module_screen.dart';
 
 class MyCourseCard extends StatelessWidget {
   final Course course;
@@ -10,7 +12,7 @@ class MyCourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 96,
+      constraints: const BoxConstraints(minHeight: 96),
       // padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: AppColors.cardBackgroundColor,
@@ -52,89 +54,101 @@ class MyCourseCard extends StatelessWidget {
                   height: 96,
                   fit: BoxFit.cover,
                 );
+              } else {
+                return Image.asset(
+                  imageUrl,
+                  width: 120,
+                  height: 96,
+                  fit: BoxFit.cover,
+                );
               }
-              return Image.asset(
-                imageUrl,
-                width: 120,
-                height: 96,
-                fit: BoxFit.cover,
-              );
             }()),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: SizedBox(
-              height: 80,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    course.name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    '${course.modules.length} Lessons',
-                    style: const TextStyle(fontSize: 12),
-                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 4.0, right: 8.0),
+                          child: Text(
+                            course.name,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
 
-                  const SizedBox(height: 2),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: SizedBox(
+                          width: 80,
+                          child: Text(
+                            course.description,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
                   Row(
                     children: [
-                      // Price text should be flexible and ellipsize if needed
-                      Flexible(
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          // offerPrice is numeric in the model; format safely
-                          (() {
-                            try {
-                              final val = course.offerPrice.toDouble();
-                              return val == 0.0
-                                  ? 'Free'
-                                  : '\$${val.toStringAsFixed(2)}';
-                            } catch (_) {
-                              return course.offerPrice.toString();
-                            }
-                          })(),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                          '${course.modules.length} Modules',
                           style: const TextStyle(
-                            color: AppColors.textColorBlue,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
                       const Spacer(),
-                      const Spacer(),
 
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          minWidth: 72,
-                          maxWidth: 110,
-                        ),
-
-                        child: SizedBox(
-                          height: 36,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.yellow.shade700,
-                              foregroundColor: AppColors.textColorBlue,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            minWidth: 72,
+                            maxWidth: 110,
+                          ),
+                          child: SizedBox(
+                            height: 36,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Get.to(() => ModuleScreen(courseId: course.id));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.yellow.shade700,
+                                foregroundColor: AppColors.textColorBlue,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 6,
+                                ),
+                                textStyle: const TextStyle(fontSize: 12),
                               ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 6,
-                              ),
-                              textStyle: const TextStyle(fontSize: 12),
+                              child: const FittedBox(child: Text("Resume")),
                             ),
-                            child: const FittedBox(child: Text("Resume")),
                           ),
                         ),
                       ),

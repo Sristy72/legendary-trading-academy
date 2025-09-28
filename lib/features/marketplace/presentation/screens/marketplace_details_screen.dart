@@ -68,19 +68,6 @@ class _MarketplaceDetailsScreenState extends State<MarketplaceDetailsScreen> {
                               padding: const EdgeInsets.all(18),
                               child: Column(
                                 children: [
-                                  // Item Description
-                                  CustomText(
-                                    item.description,
-                                    style: const TextStyle(
-                                      color: AppColors.text,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 14),
-
-                                  // Item Image
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
                                     child: item.image.isNotEmpty

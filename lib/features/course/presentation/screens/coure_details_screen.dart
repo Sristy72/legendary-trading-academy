@@ -52,7 +52,7 @@ class CourseDetailsScreen extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    // Demo video placeholder - adapt when API provides video preview
+                    //! <--- Demo video placeholder - adapt when API provides video preview --->
                     CourseDemoCard(
                       image: 'assets/images/courses_sample.jpg',
                       onTap: () {},
@@ -103,7 +103,7 @@ class CourseDetailsScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: EnrollButton(
-        price: 120,
+        price: course.offerPrice.toDouble(),
         onTap: () {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Enrolled Successfully!")),

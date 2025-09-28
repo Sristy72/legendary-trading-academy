@@ -127,14 +127,33 @@ class CourseDetailsCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            '\$${course.price}',
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w900,
-              color: AppColors.textColorBlue,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                '\$${course.price}',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900,
+                  color: AppColors.hintText,
+                  decoration: TextDecoration.lineThrough,
+                  decorationColor: Colors.red,
+                  decorationStyle: TextDecorationStyle.solid,
+                  decorationThickness: 2.0,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                '\$${course.offerPrice}',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900,
+                  color: AppColors.textColorBlue,
+                ),
+              ),
+            ],
           ),
+
           ElevatedButton(
             onPressed: () {
               Get.to(() => ModuleScreen(courseId: course.id));
