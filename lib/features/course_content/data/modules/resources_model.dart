@@ -1,11 +1,17 @@
-class Resource {
+class ResourceItem {
+  final String id;
   final String? name;
   final String? url;
 
-  Resource({this.name, this.url});
+  ResourceItem({required this.id, this.name, this.url});
 
-  factory Resource.fromJson(Map<String, dynamic> json) =>
-      Resource(name: json["name"], url: json["url"]);
+  factory ResourceItem.fromJson(Map<String, dynamic> json) {
+    return ResourceItem(
+      id: (json['_id'] ?? json['id'] ?? '') as String,
+      name: json['name'] as String?,
+      url: json['url'] as String?,
+    );
+  }
 
-  Map<String, dynamic> toJson() => {"name": name, "url": url};
+  Map<String, dynamic> toJson() => {'_id': id, 'name': name, 'url': url};
 }

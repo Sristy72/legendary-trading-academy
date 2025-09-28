@@ -14,4 +14,5 @@ void setupRepository() {
   Get.lazyPut<CourseRepository>(
     () => CourseRepositoryImpl(apiClient: Get.find()),
   );
+  
 }

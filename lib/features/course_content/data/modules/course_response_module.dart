@@ -3,50 +3,66 @@ import 'coordinator_model.dart';
 
 class CourseResponse {
   final String id;
-  final String name;
-  final String description;
+  final String? name;
+  final String? description;
   final String? photo;
-  final int price;
-  final int offerPrice;
+  final double? price;
+  final double? offerPrice;
   final List<Coordinator> coordinator;
   final List<Module> modules;
   final List<dynamic> enrolled;
 
   CourseResponse({
     required this.id,
-    required this.name,
-    required this.description,
+    this.name,
+    this.description,
     this.photo,
-    required this.price,
-    required this.offerPrice,
-    required this.coordinator,
-    required this.modules,
-    required this.enrolled,
+    this.price,
+    this.offerPrice,
+    this.coordinator = const [],
+    this.modules = const [],
+    this.enrolled = const [],
   });
 
-  factory CourseResponse.fromJson(Map<String, dynamic> json) => CourseResponse(
-    id: json["_id"],
-    name: json["name"],
-    description: json["description"],
-    photo: json["photo"],
-    price: json["price"],
-    offerPrice: json["offerPrice"],
-    coordinator: List<Coordinator>.from(
-      json["coordinator"].map((x) => Coordinator.fromJson(x)),
-    ),
-    modules: List<Module>.from(json["modules"].map((x) => Module.fromJson(x))),
-    enrolled: List<dynamic>.from(json["enrolled"]),
-  );
+  factory CourseResponse.fromJson(Map<String, dynamic> json) {
+    return CourseResponse(
+      id: (json['_id'] ?? json['id'] ?? '') as String,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+      photo: json['photo'] as String?,
+      price: (json['price'] is num)
+          ? (json['price'] as num).toDouble()
+          : (json['price'] != null
+                ? double.tryParse('${json['price']}')
+                : null),
+      offerPrice: (json['offerPrice'] is num)
+          ? (json['offerPrice'] as num).toDouble()
+          : (json['offerPrice'] != null
+                ? double.tryParse('${json['offerPrice']}')
+                : null),
+      coordinator:
+          (json['coordinator'] as List<dynamic>?)
+              ?.map((e) => Coordinator.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          <Coordinator>[],
+      modules:
+          (json['modules'] as List<dynamic>?)
+              ?.map((e) => Module.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          <Module>[],
+      enrolled: (json['enrolled'] as List<dynamic>?) ?? <dynamic>[],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
-    "_id": id,
-    "name": name,
-    "description": description,
-    "photo": photo,
-    "price": price,
-    "offerPrice": offerPrice,
-    "coordinator": List<dynamic>.from(coordinator.map((x) => x.toJson())),
-    "modules": List<dynamic>.from(modules.map((x) => x.toJson())),
-    "enrolled": List<dynamic>.from(enrolled),
+    '_id': id,
+    'name': name,
+    'description': description,
+    'photo': photo,
+    'price': price,
+    'offerPrice': offerPrice,
+    'coordinator': coordinator.map((c) => c.toJson()).toList(),
+    'modules': modules.map((m) => m.toJson()).toList(),
+    'enrolled': enrolled,
   };
 }

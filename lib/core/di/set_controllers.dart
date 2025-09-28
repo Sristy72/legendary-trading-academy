@@ -13,8 +13,7 @@ void setupController() {
   // Course Content Controllers
   Get.lazyPut<ModuleController>(() => ModuleController(Get.find()));
   Get.lazyPut<ModulesDetailsController>(
+    fenix: true,
     () => ModulesDetailsController(Get.find()),
   );
-
-  
 }

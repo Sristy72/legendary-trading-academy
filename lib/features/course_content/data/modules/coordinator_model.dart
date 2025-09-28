@@ -1,60 +1,45 @@
 import 'avarter_module.dart';
-import 'treding_profile_model.dart';
-import 'user_rating_module.dart';
-import 'verification_module.dart';
 
 class Coordinator {
   final String id;
-  final String name;
-  final String email;
-  final String username;
-  final String phone;
-  final String role;
-  final Avatar avatar;
-  final VerificationInfo verificationInfo;
-  final UserRating userRating;
-  final TredingProfile tredingProfile;
-  final bool tredingProfileComplete;
+  final String? name;
+  final String? email;
+  final String? username;
+  final String? phone;
+  final String? role;
+  final Avatar? avatar;
 
   Coordinator({
     required this.id,
-    required this.name,
-    required this.email,
-    required this.username,
-    required this.phone,
-    required this.role,
-    required this.avatar,
-    required this.verificationInfo,
-    required this.userRating,
-    required this.tredingProfile,
-    required this.tredingProfileComplete,
+    this.name,
+    this.email,
+    this.username,
+    this.phone,
+    this.role,
+    this.avatar,
   });
 
-  factory Coordinator.fromJson(Map<String, dynamic> json) => Coordinator(
-    id: json["_id"],
-    name: json["name"],
-    email: json["email"],
-    username: json["username"],
-    phone: json["phone"],
-    role: json["role"],
-    avatar: Avatar.fromJson(json["avatar"]),
-    verificationInfo: VerificationInfo.fromJson(json["verificationInfo"]),
-    userRating: UserRating.fromJson(json["userRating"]),
-    tredingProfile: TredingProfile.fromJson(json["treding_profile"]),
-    tredingProfileComplete: json["treding_profile_Complete"],
-  );
+  factory Coordinator.fromJson(Map<String, dynamic> json) {
+    return Coordinator(
+      id: (json['_id'] ?? json['id'] ?? '') as String,
+      name: json['name'] as String?,
+      email: json['email'] as String?,
+      username: json['username'] as String?,
+      phone: json['phone'] as String?,
+      role: json['role'] as String?,
+      avatar: json['avatar'] != null
+          ? Avatar.fromJson(json['avatar'] as Map<String, dynamic>)
+          : null,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
-    "_id": id,
-    "name": name,
-    "email": email,
-    "username": username,
-    "phone": phone,
-    "role": role,
-    "avatar": avatar.toJson(),
-    "verificationInfo": verificationInfo.toJson(),
-    "userRating": userRating.toJson(),
-    "treding_profile": tredingProfile.toJson(),
-    "treding_profile_Complete": tredingProfileComplete,
+    '_id': id,
+    'name': name,
+    'email': email,
+    'username': username,
+    'phone': phone,
+    'role': role,
+    'avatar': avatar?.toJson(),
   };
 }
