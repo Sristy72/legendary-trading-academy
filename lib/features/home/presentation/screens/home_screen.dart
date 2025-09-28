@@ -10,9 +10,11 @@ import 'package:flutter_ladydenily/features/marketplace/presentation/screens/mar
 import 'package:flutter_ladydenily/features/notification/presentation/screens/notification_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
+import 'package:flutter_ladydenily/features/home/presentation/controllers/trainer_controller.dart';
+import 'package:flutter_ladydenily/features/home/presentation/widgets/trainer_api_card.dart';
+import 'package:flutter_ladydenily/features/home/presentation/widgets/trainer_placeholder_card.dart';
 import 'package:get/get.dart';
 import '../../../calender/presentation/screens/calender_screen.dart';
-import '../widgets/trainer_card.dart';
 import '../widgets/market_card.dart';
 import '../../../../dummy_data.dart';
 
@@ -77,6 +79,8 @@ class HomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final courseController = Get.find<CourseController>();
     final profileController = Get.find<ProfileController>();
+    final trainerController = Get.find<TrainerController>();
+
     // Fetch profile if not already loaded
     if (profileController.userInfo.value == null) {
       profileController.fetchProfile();
@@ -166,9 +170,13 @@ class HomeContent extends StatelessWidget {
             ),
 
             _buildSectionTitle('Top Trainer'),
-            _buildVerticalList(
-              dummyTrainers.map((t) => TrainerCard(trainer: t)).toList(),
-            ),
+            Obx(() {
+              if (trainerController.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              return _buildTopTrainersList(trainerController);
+            }),
 
             _buildSectionTitle(
               'Marketplace',
@@ -199,6 +207,24 @@ class HomeContent extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildTopTrainersList(TrainerController trainerController) {
+    final trainers = trainerController.topTrainers.take(3).toList();
+    final List<Widget> trainerWidgets = [];
+
+    // Add actual trainers
+    for (var trainer in trainers) {
+      trainerWidgets.add(TrainerApiCard(trainer: trainer));
+    }
+
+    // Add placeholder cards to fill up to 3 total cards
+    final remainingSlots = 3 - trainers.length;
+    for (int i = 0; i < remainingSlots; i++) {
+      trainerWidgets.add(const TrainerPlaceholderCard());
+    }
+
+    return _buildVerticalList(trainerWidgets);
   }
 
   Widget _buildSectionTitle(String title, {VoidCallback? onViewAllTap}) {

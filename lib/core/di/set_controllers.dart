@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import '../../features/auth/presentation/controller/auth_controller.dart';
 import 'package:flutter_ladydenily/features/course/presentation/controllers/course_controller.dart';
 import 'package:flutter_ladydenily/features/course/domain/course_repository.dart';
+import 'package:flutter_ladydenily/features/home/presentation/controllers/trainer_controller.dart';
+import 'package:flutter_ladydenily/features/home/domain/trainer_repository.dart';
 
 void setupController() {
   // Auth Controller
@@ -11,5 +13,8 @@ void setupController() {
   Get.lazyPut<ProfileController>(() => ProfileController(Get.find()));
   Get.lazyPut<CourseController>(
     () => CourseController(repository: Get.find<CourseRepository>()),
+  );
+  Get.lazyPut<TrainerController>(
+    () => TrainerController(repository: Get.find<TrainerRepository>()),
   );
 }
