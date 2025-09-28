@@ -70,7 +70,7 @@ class ModulesDetailsScreen extends StatelessWidget {
                 itemCount: controller.modules.length,
                 itemBuilder: (context, index) {
                   final module = controller.modules[index];
-                  return buildModuleCard(module, index, controller);
+                  return ModuleDetailsCardWidget(index: index, module: module, controller: controller);
                 },
               ),
             ),

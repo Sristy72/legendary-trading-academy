@@ -3,7 +3,10 @@ import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/widgets/tab_bar.dart';
 import 'package:get/get.dart';
-
+import '../../data/modules/assignment_module.dart';
+import '../../data/modules/class_module_module.dart';
+import '../../data/modules/resources_model.dart';
+import '../../data/modules/video_model.dart';
 import '../widgets/module_video_container.dart';
 import '../widgets/module_resource_item.dart';
 import '../widgets/module_assignment_item.dart';
@@ -11,25 +14,60 @@ import '../widgets/module_assignment_item.dart';
 class EachModulesDetailsScreen extends StatelessWidget {
   EachModulesDetailsScreen({Key? key}) : super(key: key);
 
-  // Use GetX reactive variable for selected tab index
   final RxInt _selectedIndex = 0.obs;
-
-  // Example lists; replace with real data when wiring to API
-  final List<int> _recordings = List.generate(9, (i) => i + 1);
-  final List<int> _resources = List.generate(5, (i) => i + 1);
-  final List<int> _assignments = List.generate(3, (i) => i + 1);
 
   @override
   Widget build(BuildContext context) {
-    const String topTitle = 'Module -1';
-    const String topDescription =
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+    // Accept either a Module object or a plain Map (module.toJson())
+    final arg = Get.arguments;
+    Module? module;
+    if (arg is Module) {
+      module = arg;
+    } else if (arg is Map<String, dynamic>) {
+      try {
+        module = Module.fromJson(arg);
+      } catch (_) {
+        module = null;
+      }
+    } else if (arg is Map) {
+      // defensive: sometimes JSON map is dynamic typed
+      try {
+        module = Module.fromJson(Map<String, dynamic>.from(arg));
+      } catch (_) {
+        module = null;
+      }
+    }
+
+    if (module == null) {
+      return AppScaffold(
+        appBar: AppBar(title: const Text('Module')),
+        body: const Center(
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'No module data provided. Please open a module from the Modules list.',
+            ),
+          ),
+        ),
+      );
+    }
+
+    final List<VideoItem> recordings = module.video ?? <VideoItem>[];
+    final List<ResourceItem> resources = module.resources ?? <ResourceItem>[];
+    final List<AssignmentItem> assignments =
+        module.assignment ?? <AssignmentItem>[];
+
+    final String topTitle = module.name != null
+        ? 'Module - ${module.name}'
+        : 'Module';
+    final String topDescription =
+        module.name ?? 'No description available';
 
     return AppScaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           topTitle,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             color: AppColors.appBarTitle,
@@ -39,13 +77,16 @@ class EachModulesDetailsScreen extends StatelessWidget {
       body: Column(
         children: [
           const SizedBox(height: 8),
-          // Module description (same for all tabs in this simplified view)
-          const Text(
-            topDescription,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w800,
-              color: Color(0xFF090F12),
+          // Module description (same for all tabs)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              topDescription,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w800,
+                color: Color(0xFF090F12),
+              ),
             ),
           ),
           const SizedBox(height: 12),
@@ -55,31 +96,32 @@ class EachModulesDetailsScreen extends StatelessWidget {
             final idx = _selectedIndex.value;
             String topCountText = '';
             if (idx == 0) {
-              topCountText = '${_recordings.length} Class Recordings';
+              topCountText = '${recordings.length} Class Recordings';
             } else if (idx == 1) {
-              topCountText = '${_resources.length} Resources';
+              topCountText = '${resources.length} Resources';
             } else {
-              topCountText = '${_assignments.length} Assignments';
+              topCountText = '${assignments.length} Assignments';
             }
-            return Row(
-              children: [
-                Container(
-                  child: Image(
-                    image: AssetImage("assets/icons/video-recorder.png"),
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                  Image.asset(
+                    "assets/icons/video-recorder.png",
                     width: 18,
                     height: 18,
                   ),
-                ),
-                const SizedBox(width: 6),
-                Text(
-                  topCountText,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff4E4E4E),
+                  const SizedBox(width: 6),
+                  Text(
+                    topCountText,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xff4E4E4E),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           }),
 
@@ -100,37 +142,46 @@ class EachModulesDetailsScreen extends StatelessWidget {
               if (idx == 0) {
                 // Recordings
                 return ListView.builder(
-                  // padding: const EdgeInsets.all(8),
-                  itemCount: _recordings.length,
-                  itemBuilder: (context, index) => ModuleVideoContainer(
-                    title: 'Recording ${index + 1}',
-                    durationText: '24 May 2025 | 2h ${10 + index}m',
-                    imagePath: 'assets/images/courses_sample.jpg',
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  itemCount: recordings.length,
+                  itemBuilder: (context, index) {
+                    final v = recordings[index];
+                    return ModuleVideoContainer(
+                      title: v.name ?? 'Recording ${index + 1}',
+                      durationText: v.no != null ? 'No: ${v.no}' : '',
+                      imagePath: 'assets/images/courses_sample.jpg',
+                    );
+                  },
                 );
               } else if (idx == 1) {
                 // Resources
                 return ListView.builder(
-                  // padding: const EdgeInsets.all(8),
-                  itemCount: 10,
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  itemCount: resources.length,
                   itemBuilder: (context, index) {
+                    final r = resources[index];
                     return ModuleResourceItem(
-                      title: 'Resource ${index + 1}',
-                      subtitle: 'PDF • ${(index + 1) * 2} MB',
-                      onTap: () {},
+                      title: r.name ?? 'Resource ${index + 1}',
+                      subtitle: r.url ?? '',
+                      onTap: () {
+                        // implement open resource if needed
+                      },
                     );
                   },
                 );
               } else {
                 // Assignments
                 return ListView.builder(
-                  // padding: const EdgeInsets.all(8),
-                  itemCount: 10,
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  itemCount: assignments.length,
                   itemBuilder: (context, index) {
+                    final a = assignments[index];
                     return ModuleAssignmentItem(
-                      title: 'Assignment ${index + 1}',
-                      dueDate: 'Due: ${30 + index} Sep 2025',
-                      onTap: () {},
+                      title: a.title ?? 'Assignment ${index + 1}',
+                      dueDate: a.start ?? '',
+                      onTap: () {
+                        // implement assignment open if needed
+                      },
                     );
                   },
                 );
