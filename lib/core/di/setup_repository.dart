@@ -16,6 +16,7 @@ void setupRepository() {
     () => ProfileRepositoryImpl(apiClient: Get.find()),
   );
   Get.lazyPut<CourseRepository>(
+    fenix: true,
     () => CourseRepositoryImpl(apiClient: Get.find()),
   );
   Get.lazyPut<TrainerRepository>(

@@ -6,6 +6,8 @@ import '../../../core/network/models/network_failure.dart';
 import '../../../core/network/models/network_success.dart';
 import '../domain/course_repository.dart';
 import '../models/course.dart';
+import 'package:flutter_ladydenily/core/network/network_result.dart';
+import 'package:flutter_ladydenily/features/course_content/data/modules/course_response_module.dart';
 
 class CourseRepositoryImpl implements CourseRepository {
   final ApiClient _apiClient;
@@ -40,9 +42,47 @@ class CourseRepositoryImpl implements CourseRepository {
               .map((e) => Course.fromJson(e as Map<String, dynamic>))
               .toList();
         }
-
         return <Course>[];
       },
+    );
+  }
+
+  // ---- Added to satisfy CourseRepository interface ----
+  @override
+  NetworkResult<List<CourseResponse>> getAllCourses() {
+    return _apiClient.get<List<CourseResponse>>(
+      ApiConstants.course.getAllCourses,
+      fromJsonT: (json) =>
+          (json as List).map((e) => CourseResponse.fromJson(e)).toList(),
+    );
+  }
+
+  // ---- Added methods for course_content (NetworkResult based) ----
+  // Note: these use the same ApiClient instance. They are added here
+  // alongside existing code as requested.
+
+  NetworkResult<List<CourseResponse>> getAllCoursesContent() {
+    return _apiClient.get<List<CourseResponse>>(
+      ApiConstants.course.getAllCourses,
+      fromJsonT: (json) =>
+          (json as List).map((e) => CourseResponse.fromJson(e)).toList(),
+    );
+  }
+
+  @override
+  NetworkResult<CourseResponse> getCourseDetails(String courseId) {
+    return _apiClient.get<CourseResponse>(
+      '${ApiConstants.course.getCourseDetails}/$courseId',
+      fromJsonT: (json) => CourseResponse.fromJson(json),
+    );
+  }
+
+  @override
+  NetworkResult<List<CourseResponse>> getCourseModules(String moduleId) {
+    return _apiClient.get<List<CourseResponse>>(
+      '${ApiConstants.course.getCourseModules}/$moduleId',
+      fromJsonT: (json) =>
+          (json as List).map((e) => CourseResponse.fromJson(e)).toList(),
     );
   }
 }
