@@ -66,11 +66,11 @@ class CourseDetailsCard extends StatelessWidget {
   }
 
   Widget _buildFallbackImage() {
-    return Image.asset(
-      'assets/images/courses_sample.jpg',
+    return Container(
       height: 180,
-      width: double.infinity,
-      fit: BoxFit.cover,
+      color: Colors.grey.shade200,
+      alignment: Alignment.center,
+      child: const Icon(Icons.image, size: 40, color: Colors.grey),
     );
   }
 

@@ -7,7 +7,6 @@ import 'package:flutter_ladydenily/features/course/presentation/screens/course_a
 import 'package:flutter_ladydenily/features/course/presentation/widgets/course_details_card.dart';
 import 'package:flutter_ladydenily/core/widgets/custom_bottom_navbar.dart';
 import 'package:flutter_ladydenily/features/home/presentation/widgets/my_course_card.dart';
-import 'package:flutter_ladydenily/features/home/presentation/widgets/my_courses_card.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/screens/marketplace_all_screen.dart';
 import 'package:flutter_ladydenily/features/notification/presentation/screens/notification_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
