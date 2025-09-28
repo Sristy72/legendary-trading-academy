@@ -10,7 +10,8 @@ import 'resources_details_screen.dart';
 import 'upload_assignment_screen.dart';
 
 class ModuleScreen extends StatelessWidget {
-  const ModuleScreen({Key? key}) : super(key: key);
+  final String courseId;
+  const ModuleScreen({super.key, required this.courseId});
 
   @override
   Widget build(BuildContext context) {

@@ -3,18 +3,18 @@ import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/course/presentation/screens/coure_details_screen.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_screen.dart';
 import 'package:get/get.dart';
-import '../../models/course_details.dart';
+import '../../models/course.dart';
 
 class CourseDetailsCard extends StatelessWidget {
-  final CourseDetails courseDetails;
+  final Course course;
 
-  const CourseDetailsCard({super.key, required this.courseDetails});
+  const CourseDetailsCard({super.key, required this.course});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(CourseDetailsScreen());
+        Get.to(() => const CourseDetailsScreen(), arguments: course);
       },
       child: Card(
         color: AppColors.cardBackgroundColor,
@@ -23,7 +23,6 @@ class CourseDetailsCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Course image with badge
             _buildImageWithBadge(),
             const SizedBox(height: 8),
             _buildCourseTitle(),
@@ -40,24 +39,38 @@ class CourseDetailsCard extends StatelessWidget {
   }
 
   Widget _buildImageWithBadge() {
+    final imageUrl = course.photo?.url;
+    final hasNetworkImage = imageUrl != null && imageUrl.isNotEmpty;
+
     return Stack(
       children: [
-        // Course image
         ClipRRect(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(16),
           ),
-          child: Image.asset(
-            courseDetails.image,
-            height: 180,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
+          child: hasNetworkImage
+              ? Image.network(
+                  imageUrl,
+                  height: 180,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      _buildFallbackImage(),
+                )
+              : _buildFallbackImage(),
         ),
-        // Badge positioned on top left
         Positioned(top: 12, left: 12, child: _Badge(text: "Freshman")),
       ],
+    );
+  }
+
+  Widget _buildFallbackImage() {
+    return Container(
+      height: 180,
+      color: Colors.grey.shade200,
+      alignment: Alignment.center,
+      child: const Icon(Icons.image, size: 40, color: Colors.grey),
     );
   }
 
@@ -65,8 +78,10 @@ class CourseDetailsCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Text(
-        courseDetails.title,
+        course.name,
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
@@ -75,11 +90,13 @@ class CourseDetailsCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Text(
-        courseDetails.subtitle,
+        course.description,
         style: const TextStyle(
           fontSize: 14,
           color: Color.fromARGB(255, 97, 97, 97),
         ),
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
@@ -89,15 +106,15 @@ class CourseDetailsCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
-          Icon(Icons.schedule, size: 16, color: Colors.grey[700]),
-          const SizedBox(width: 4),
-          Text(courseDetails.weeks, style: TextStyle(color: Colors.grey[700])),
-          const SizedBox(width: 16),
-          Icon(Icons.menu_book, size: 16, color: Colors.grey[700]),
-          const SizedBox(width: 4),
-          Text(
-            courseDetails.modules,
-            style: TextStyle(color: Colors.grey[700]),
+          _MetadataItem(
+            icon: Icons.folder_open_outlined,
+            text: '${course.modules.length} Modules',
+          ),
+          const SizedBox(width: 12),
+          _MetadataItem(
+            icon: Icons.play_circle_outline,
+            text:
+                '${course.modules.fold(0, (prev, module) => prev + module.video.length)} Videos',
           ),
         ],
       ),
@@ -106,19 +123,22 @@ class CourseDetailsCard extends StatelessWidget {
 
   Widget _buildPriceAndButton() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            courseDetails.price.isEmpty ? "" : courseDetails.price,
+            '\$${course.price}',
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 18,
               fontWeight: FontWeight.w900,
               color: AppColors.textColorBlue,
             ),
           ),
           ElevatedButton(
+            onPressed: () {
+              Get.to(() => ModuleScreen(courseId: course.id));
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.yellow.shade700,
               foregroundColor: AppColors.textColorBlue,
@@ -126,11 +146,7 @@ class CourseDetailsCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            onPressed: () {
-              /// [Note : Need to modifye this part]
-              Get.to(ModuleScreen());
-            },
-            child: Text(courseDetails.status),
+            child: const Text('Enroll Now'),
           ),
         ],
       ),
@@ -155,6 +171,24 @@ class _Badge extends StatelessWidget {
         text,
         style: const TextStyle(color: AppColors.textColorBlue, fontSize: 12),
       ),
+    );
+  }
+}
+
+class _MetadataItem extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  const _MetadataItem({required this.icon, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, size: 16, color: Colors.grey[700]),
+        const SizedBox(width: 4),
+        Text(text, style: TextStyle(color: Colors.grey[700])),
+      ],
     );
   }
 }

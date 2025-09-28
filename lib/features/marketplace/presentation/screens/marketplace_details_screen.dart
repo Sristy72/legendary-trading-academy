@@ -1,130 +1,208 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/core/common/images/images.dart';
-import 'package:flutter_ladydenily/core/common/widgets/appbar.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
-import 'package:flutter_ladydenily/features/others/widgets/stars.dart';
+import 'package:flutter_ladydenily/features/marketplace/presentation/controllers/marketplace_controller.dart';
+import 'package:get/get.dart';
 
-class MarketplaceDetailsScreen extends StatelessWidget {
+class MarketplaceDetailsScreen extends StatefulWidget {
   const MarketplaceDetailsScreen({super.key});
+
+  @override
+  State<MarketplaceDetailsScreen> createState() =>
+      _MarketplaceDetailsScreenState();
+}
+
+class _MarketplaceDetailsScreenState extends State<MarketplaceDetailsScreen> {
+  late MarketplaceController marketplaceController;
+  String? itemId;
+
+  @override
+  void initState() {
+    super.initState();
+    marketplaceController = Get.find<MarketplaceController>();
+    itemId = Get.arguments as String?;
+
+    if (itemId != null) {
+      marketplaceController.fetchMarketplaceItemById(itemId!);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Legendary Book',
-          style: TextStyle(
-            color: AppColors.appBarTitle,
-            fontWeight: FontWeight.bold,
+    return Obx(() {
+      // React to loading and selected item changes
+      final isLoading = marketplaceController.isLoadingDetails.value;
+      final item = marketplaceController.selectedItem.value;
+
+      // AppBar title comes from selected item when available
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            item?.title ?? 'Marketplace Item',
+            style: const TextStyle(
+              color: AppColors.appBarTitle,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-      ),
-
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(18),
-                child: Column(
-                  children: [
-                    CustomText(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nisl ligula, egestas ac magna vel, porta condimentum orci.',
-                      style: TextStyle(
-                        color: AppColors.text,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                      ),
-                    ),
-
-                    SizedBox(height: 14),
-
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Center(
-                        child: Image.asset(ImagesString.stockMarket),
-                      ),
-                    ),
-
-                    SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            color: AppColors.bestSellerBoxColor,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 4,
-                              horizontal: 8,
-                            ),
-                            child: CustomText(
-                              'Best Seller',
-                              style: TextStyle(
-                                color: AppColors.titleTextColor,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
+        body: SafeArea(
+          child: isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : (item == null
+                    ? const Center(
+                        child: Text(
+                          'Item not found!',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: AppColors.textColorBlue,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-
-                        Row(
+                      )
+                    : SingleChildScrollView(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Column(
                           children: [
-                            SizedBox(
-                              height: 22,
-                              child: StarRating(rating: 4.5, size: 22),
-                            ),
-                            SizedBox(
-                              height: 22,
-                              child: CustomText(
-                                '(4.5)',
-                                style: TextStyle(
-                                  color: AppColors.titleTextColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                ),
+                            Padding(
+                              padding: const EdgeInsets.all(18),
+                              child: Column(
+                                children: [
+                                  // Item Description
+                                  CustomText(
+                                    item.description,
+                                    style: const TextStyle(
+                                      color: AppColors.text,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 14),
+
+                                  // Item Image
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: item.image.isNotEmpty
+                                        ? Image.network(
+                                            item.image,
+                                            width: double.infinity,
+                                            height: 250,
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                                  return Container(
+                                                    width: double.infinity,
+                                                    height: 250,
+                                                    color: Colors.grey.shade200,
+                                                    child: Icon(
+                                                      Icons.image,
+                                                      color:
+                                                          Colors.grey.shade400,
+                                                      size: 80,
+                                                    ),
+                                                  );
+                                                },
+                                          )
+                                        : Container(
+                                            width: double.infinity,
+                                            height: 250,
+                                            color: Colors.grey.shade200,
+                                            child: Icon(
+                                              Icons.image,
+                                              color: Colors.grey.shade400,
+                                              size: 80,
+                                            ),
+                                          ),
+                                  ),
+
+                                  const SizedBox(height: 12),
+
+                                  // Type Badge and Title Row
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      if (item.displayType.isNotEmpty)
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                              4,
+                                            ),
+                                            color: _getTypeColor(item.type),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 4,
+                                              horizontal: 8,
+                                            ),
+                                            child: CustomText(
+                                              item.displayType,
+                                              style: const TextStyle(
+                                                color: AppColors.titleTextColor,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+
+                                      // Title
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: CustomText(
+                                            item.title,
+                                            style: const TextStyle(
+                                              color: AppColors.titleTextColor,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  const SizedBox(height: 12),
+
+                                  // Extended description if needed
+                                  CustomText(
+                                    item.description,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.text,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-
-                    SizedBox(height: 12),
-                    CustomText(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nisl ligula, egestas ac magna vel, porta condimentum orci. Nunc pharetra ante sit amet vehicula finibus. Nam laoreet convallis magna non pellentesque. Suspendisse a purus tempor, scelerisque nulla vitae, dignissim urna. Vestibulum tincidunt condimentum nisl, ut finibus nulla ultrices quis. Fusce volutpat faucibus erat, vel dictum libero ultrices ac. Nullam vel varius tortor, at lobortis quam. Suspendisse semper urna id est cras amet.',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.text,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              SizedBox(height: 100),
-
-              Container(
+                      )),
+        ),
+        // Fixed payment bar anchored to bottom
+        bottomNavigationBar: (isLoading || item == null)
+            ? null
+            : Container(
                 color: AppColors.paymentColor,
                 width: double.infinity,
-                child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 8,
+                ),
+                child: SafeArea(
+                  top: false,
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                          top: 12,
-                          left: 16,
-                          right: 16,
-                        ),
+                        padding: const EdgeInsets.only(left: 8, right: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CustomText(
+                            const CustomText(
                               'Total',
                               style: TextStyle(
                                 color: AppColors.titleTextColor,
@@ -133,8 +211,8 @@ class MarketplaceDetailsScreen extends StatelessWidget {
                               ),
                             ),
                             CustomText(
-                              '\$120.00',
-                              style: TextStyle(
+                              item.displayPrice,
+                              style: const TextStyle(
                                 color: AppColors.titleTextColor,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -144,10 +222,9 @@ class MarketplaceDetailsScreen extends StatelessWidget {
                         ),
                       ),
 
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
 
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
                             child: context.secondaryButton(
@@ -155,24 +232,34 @@ class MarketplaceDetailsScreen extends StatelessWidget {
                               text: 'Add to Cart',
                             ),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: context.primaryButton(
                               onPressed: () {},
-                              text: 'Shop Now',
+                              text: item.isFree ? 'Get Free' : 'Shop Now',
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 8),
                     ],
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+      );
+    });
+  }
+
+  Color _getTypeColor(String type) {
+    switch (type.toLowerCase()) {
+      case 'best seller':
+        return AppColors.bestSellerBoxColor;
+      case 'free':
+        return Colors.green.shade100;
+      case 'recommended':
+        return Colors.blue.shade100;
+      default:
+        return Colors.grey.shade100;
+    }
   }
 }
