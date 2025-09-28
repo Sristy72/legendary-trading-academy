@@ -10,30 +10,24 @@ class ModuleController extends BaseController {
 
   ModuleController(this._courseRepository);
 
-  // Observable data
   final RxList<CourseResponse> _courses = <CourseResponse>[].obs;
   final RxList<Module> _modules = <Module>[].obs;
   final Rx<CourseResponse?> _selectedCourse = Rx<CourseResponse?>(null);
   final RxInt _selectedIndex = 0.obs;
 
-  // Getters
+
   List<CourseResponse> get courses => _courses.toList();
   List<Module> get modules => _modules.toList();
   CourseResponse? get selectedCourse => _selectedCourse.value;
   int get selectedIndex => _selectedIndex.value;
 
-  // Expose reactive selected course for UI binding
   Rx<CourseResponse?> get rxSelectedCourse => _selectedCourse;
 
   @override
   void onInit() {
     super.onInit();
-    // Do not auto-load a fixed course here. The course id will come from
-    // previous page via Get.arguments and ModuleScreen will call
-    // loadCourseById. This keeps controller reusable.
   }
 
-  /// Public wrapper to load course details by id (used by UI)
   Future<void> loadCourseById(String courseId) async {
     await getCourseDetails(courseId);
   }
@@ -88,7 +82,6 @@ class ModuleController extends BaseController {
   Future<void> getCourseModules(String courseId) async {
     setLoading(true);
     setError("");
-    // The modules are part of the course details response. Reuse getCourseDetails
     final result = await _courseRepository.getCourseDetails(courseId);
 
     result.fold(

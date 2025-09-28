@@ -26,12 +26,12 @@ class CourseRepositoryImpl implements CourseRepository {
     );
   }
 
-  // @override
-  // NetworkResult<List<CourseResponse>> getCourseModules(String courseId) {
-  //   return _apiClient.get<List<CourseResponse>>(
-  //     '${ApiConstants.course.getCourseModules}/$courseId',
-  //     fromJsonT: (json) =>
-  //         (json as List).map((e) => CourseResponse.fromJson(e)).toList(),
-  //   );
-  // }
+  @override
+  NetworkResult<List<CourseResponse>> getCourseModules(String moduleId) {
+    return _apiClient.get<List<CourseResponse>>(
+      '${ApiConstants.course.getCourseModules}/$moduleId',
+      fromJsonT: (json) =>
+          (json as List).map((e) => CourseResponse.fromJson(e)).toList(),
+    );
+  }
 }

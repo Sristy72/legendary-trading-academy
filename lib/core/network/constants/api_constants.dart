@@ -78,5 +78,5 @@ class CourseEndpoints {
 
   final String getAllCourses = '$_base/all-courses';
   final String getCourseDetails = '$_base/courses';
-  // final String getCourseModules = '$_base/modules'; // Add endpoint for modules
+  final String getCourseModules = '$_base/modules';
 }

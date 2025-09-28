@@ -4,5 +4,5 @@ import '../data/modules/course_response_module.dart';
 abstract class CourseRepository {
   NetworkResult<List<CourseResponse>> getAllCourses();
   NetworkResult<CourseResponse> getCourseDetails(String courseId);
-  // NetworkResult<List<CourseResponse>> getCourseModules(String courseId);
+  NetworkResult<List<CourseResponse>> getCourseModules(String moduleId);
 }
