@@ -4,7 +4,6 @@ import '../../../../core/base/base_controller.dart';
 import '../../../course/domain/course_repository.dart';
 import '../../data/modles/course_response_module.dart';
 import '../../data/modles/class_module_module.dart';
-import '../../domain/course_repo.dart';
 
 class ModulesDetailsController extends BaseController {
   final CourseRepository _courseRepository;
