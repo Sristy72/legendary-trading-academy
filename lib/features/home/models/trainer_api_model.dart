@@ -100,12 +100,20 @@ class TrainerApiModel extends Equatable {
     };
   }
 
-  //* Averate Rating
+  //* Average Rating
   double get overallRating {
     final competence = userRating.competence.star.toDouble();
     final punctuality = userRating.punctuality.star.toDouble();
     final behavior = userRating.behavior.star.toDouble();
     return (competence + punctuality + behavior) / 3.0;
+  }
+
+    //* Success Rate according to average star rating
+  double get successRate {
+    final competence = userRating.competence.star.toDouble();
+    final punctuality = userRating.punctuality.star.toDouble();
+    final behavior = userRating.behavior.star.toDouble();
+    return ((competence + punctuality + behavior) / 3.0) / 5.0 * 100; 
   }
 
   String get displayAvatarUrl {

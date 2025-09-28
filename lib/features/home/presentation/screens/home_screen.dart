@@ -13,10 +13,10 @@ import 'package:flutter_ladydenily/features/profile/presentation/controller/prof
 import 'package:flutter_ladydenily/features/home/presentation/controllers/trainer_controller.dart';
 import 'package:flutter_ladydenily/features/home/presentation/widgets/trainer_api_card.dart';
 import 'package:flutter_ladydenily/features/home/presentation/widgets/trainer_placeholder_card.dart';
+import 'package:flutter_ladydenily/features/marketplace/presentation/controllers/marketplace_controller.dart';
+import 'package:flutter_ladydenily/features/marketplace/presentation/widgets/marketplace_api_card.dart';
 import 'package:get/get.dart';
 import '../../../calender/presentation/screens/calender_screen.dart';
-import '../widgets/market_card.dart';
-import '../../../../dummy_data.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -80,6 +80,7 @@ class HomeContent extends StatelessWidget {
     final courseController = Get.find<CourseController>();
     final profileController = Get.find<ProfileController>();
     final trainerController = Get.find<TrainerController>();
+    final marketplaceController = Get.find<MarketplaceController>();
 
     // Fetch profile if not already loaded
     if (profileController.userInfo.value == null) {
@@ -182,9 +183,24 @@ class HomeContent extends StatelessWidget {
               'Marketplace',
               onViewAllTap: () => _navgiateToAllMarketplace(context),
             ),
-            _buildHorizontalList(
-              dummyMarketplace.map((m) => MarketCard(item: m)).toList(),
-              height: 280,
+            Obx(
+              () => marketplaceController.isLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : _buildHorizontalList(
+                      marketplaceController.marketplaceItems
+                          .map(
+                            (m) => GestureDetector(
+                              onTap: () =>
+                                  Get.to(() => const MarketplaceAllScreen()),
+                              child: SizedBox(
+                                width: 200,
+                                child: MarketplaceApiCard(item: m),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                      height: 280,
+                    ),
             ),
 
             _buildSectionTitle('My Courses'),

@@ -7,6 +7,8 @@ import 'package:flutter_ladydenily/features/course/data/course_repository_impl.d
 import 'package:flutter_ladydenily/features/course/domain/course_repository.dart';
 import 'package:flutter_ladydenily/features/home/data/trainer_repository_impl.dart';
 import 'package:flutter_ladydenily/features/home/domain/trainer_repository.dart';
+import 'package:flutter_ladydenily/features/marketplace/data/marketplace_repository_impl.dart';
+import 'package:flutter_ladydenily/features/marketplace/domain/marketplace_repository.dart';
 
 void setupRepository() {
   Get.lazyPut<AuthRepository>(() => AuthRepositoryImpl(apiClient: Get.find()));
@@ -18,5 +20,8 @@ void setupRepository() {
   );
   Get.lazyPut<TrainerRepository>(
     () => TrainerRepositoryImpl(apiClient: Get.find()),
+  );
+  Get.lazyPut<MarketplaceRepository>(
+    () => MarketplaceRepositoryImpl(apiClient: Get.find()),
   );
 }

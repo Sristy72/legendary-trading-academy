@@ -27,7 +27,7 @@ class TrainerApiCard extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: Row(
           children: [
-            // Trainer Avatar
+            //* Trainer Avatar
             Container(
               width: 60,
               height: 60,
@@ -63,15 +63,28 @@ class TrainerApiCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Trainer Name
-                  Text(
-                    trainer.displayName,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.titleTextColor,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  Row(
+                    children: [
+                      Text(
+                        trainer.displayName,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.titleTextColor,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+
+                      if (trainer.verificationInfo.verified) ...[
+                        const SizedBox(width: 6),
+                        Icon(
+                          Icons.verified,
+                          size: 14,
+                          color: Colors.blue.shade600,
+                        ),
+                      ],
+                    ],
                   ),
 
                   const SizedBox(height: 4),
@@ -82,19 +95,20 @@ class TrainerApiCard extends StatelessWidget {
                       Text(
                         trainer.role.toUpperCase(),
                         style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey.shade600,
+                          fontSize: 14,
+                          color: AppColors.hintText,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      if (trainer.verificationInfo.verified) ...[
-                        const SizedBox(width: 6),
-                        Icon(
-                          Icons.verified,
-                          size: 14,
-                          color: Colors.blue.shade600,
+
+                      Text(
+                        '  •  ${trainer.successRate.toStringAsFixed(0)}% Success',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.hintText,
+                          fontWeight: FontWeight.w500,
                         ),
-                      ],
+                      ),
                     ],
                   ),
 
