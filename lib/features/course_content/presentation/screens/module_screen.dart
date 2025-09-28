@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/features/course_content/data/modules/assignment_module.dart';
+import 'package:flutter_ladydenily/features/course_content/data/modles/assignment_module.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_details_screen.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/recording_details_screen.dart';
 import 'package:flutter_ladydenily/features/quiz/presentation/screens/quiz_screen.dart';

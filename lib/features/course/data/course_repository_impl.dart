@@ -7,7 +7,7 @@ import '../../../core/network/models/network_success.dart';
 import '../domain/course_repository.dart';
 import '../models/course.dart';
 import 'package:flutter_ladydenily/core/network/network_result.dart';
-import 'package:flutter_ladydenily/features/course_content/data/modules/course_response_module.dart';
+import 'package:flutter_ladydenily/features/course_content/data/modles/course_response_module.dart';
 
 class CourseRepositoryImpl implements CourseRepository {
   final ApiClient _apiClient;

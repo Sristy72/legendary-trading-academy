@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../data/modules/class_module_module.dart';
+import '../../data/modles/class_module_module.dart';
 import '../controllers/module_details_controller.dart';
 import '../screens/each_modules_details_screen.dart';
 
