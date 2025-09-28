@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/features/course_content/data/modles/assignment_module.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_details_screen.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/recording_details_screen.dart';
 import 'package:flutter_ladydenily/features/quiz/presentation/screens/quiz_screen.dart';
@@ -60,9 +59,8 @@ class ModuleScreen extends StatelessWidget {
                           : '${controller.rxSelectedCourse.value!.modules.length} items',
                       onTap: () {
                         controller.selectItem(0);
-                        final courseId =
-                            controller.rxSelectedCourse.value?.id ??
-                            '68bd11bb31fb45d7d231ff17';
+                        final courseId = controller.rxSelectedCourse.value?.id;
+                        // '68bd11bb31fb45d7d231ff17';  is was the deafult id for testing
                         Get.to(
                           () => const ModulesDetailsScreen(),
                           arguments: courseId,
