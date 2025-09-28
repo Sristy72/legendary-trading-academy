@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/widgets/module_resource_item.dart';
 
-import 'module_video_container.dart';
 
 class ModuleAllResources extends StatelessWidget {
   final int index;

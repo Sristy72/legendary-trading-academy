@@ -7,7 +7,6 @@ import '../../data/modules/assignment_module.dart';
 import '../../data/modules/class_module_module.dart';
 import '../../data/modules/resources_model.dart';
 import '../../data/modules/video_model.dart';
-import '../widgets/module_video_container.dart';
 import '../widgets/module_resource_item.dart';
 import '../widgets/module_assignment_item.dart';
 
@@ -155,10 +154,62 @@ class EachModulesDetailsScreen extends StatelessWidget {
                   itemCount: recordings.length,
                   itemBuilder: (context, index) {
                     final v = recordings[index];
-                    return ModuleVideoContainer(
-                      title: v.name ?? 'Recording ${index + 1}',
-                      durationText: v.no != null ? 'No: ${v.no}' : '',
-                      imagePath: 'assets/images/courses_sample.jpg',
+                    // replaced ModuleVideoContainer with an inline layout that wraps the title to 2 lines
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 8.0,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 72,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: const Color(0xffF4F4F4),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset(
+                                'assets/images/courses_sample.jpg',
+                                width: 72,
+                                height: 50,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  v.name ?? 'Recording ${index + 1}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xff090F12),
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  v.no != null ? 'No: ${v.no}' : (v.url ?? ''),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff4E4E4E),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 );
