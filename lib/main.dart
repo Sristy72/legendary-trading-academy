@@ -9,6 +9,8 @@ import 'package:flutter_ladydenily/features/course_content/presentation/screens/
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/resources_details_screen.dart';
 import 'package:get/get.dart';
 
+import 'features/course_content/presentation/screens/upload_assignment_screen.dart';
+
 void main() async {
   await AppInitializer.initializeApp();
   runApp(MyApp());
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: AppTheme.light,
-      home: ResourcesScreen(),
+      home: ModuleScreen(),
     );
   }
 }

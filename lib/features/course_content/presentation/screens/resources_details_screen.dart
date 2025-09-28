@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/common/widgets/app_scaffold.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../widgets/module_all_resources.dart';

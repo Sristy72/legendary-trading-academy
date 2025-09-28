@@ -27,6 +27,7 @@ class ModuleAllResources extends StatelessWidget {
             child: ListView.builder(
               itemBuilder: (context, index) {
                 return ModuleResourceItem(
+                  backgroundColor: Colors.white,
                   title: 'Resource ${index + 1}',
                   subtitle: 'Description for resource ${index + 1}',
                 );

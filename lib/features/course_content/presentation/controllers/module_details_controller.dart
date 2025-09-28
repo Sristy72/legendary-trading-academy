@@ -29,56 +29,56 @@ class ModulesDetailsController extends BaseController {
       getCourseDetails(courseId);
     } else {
       // Load sample data if no course ID provided
-      _loadSampleData();
+      // _loadSampleData();
     }
   }
 
-  void _loadSampleData() {
-    final sampleModules = [
-      Module(
-        id: '1',
-        name: 'Module 1',
-        video: [],
-        resources: [],
-        assignment: [],
-      ),
-      Module(
-        id: '2',
-        name: 'Module 2',
-        video: [],
-        resources: [],
-        assignment: [],
-      ),
-      Module(
-        id: '3',
-        name: 'Module 3',
-        video: [],
-        resources: [],
-        assignment: [],
-      ),
-      Module(
-        id: '4',
-        name: 'Module 4',
-        video: [],
-        resources: [],
-        assignment: [],
-      ),
-      Module(
-        id: '5',
-        name: 'Module 5',
-        video: [],
-        resources: [],
-        assignment: [],
-      ),
-    ];
+  // void _loadSampleData() {
+  //   final sampleModules = [
+  //     Module(
+  //       id: '1',
+  //       name: 'Module 1',
+  //       video: [],
+  //       resources: [],
+  //       assignment: [],
+  //     ),
+  //     Module(
+  //       id: '2',
+  //       name: 'Module 2',
+  //       video: [],
+  //       resources: [],
+  //       assignment: [],
+  //     ),
+  //     Module(
+  //       id: '3',
+  //       name: 'Module 3',
+  //       video: [],
+  //       resources: [],
+  //       assignment: [],
+  //     ),
+  //     Module(
+  //       id: '4',
+  //       name: 'Module 4',
+  //       video: [],
+  //       resources: [],
+  //       assignment: [],
+  //     ),
+  //     Module(
+  //       id: '5',
+  //       name: 'Module 5',
+  //       video: [],
+  //       resources: [],
+  //       assignment: [],
+  //     ),
+  //   ];
 
-    _modules.value = sampleModules;
+  //   _modules.value = sampleModules;
 
-    // Initialize completion status
-    for (var module in sampleModules) {
-      _completionStatus[module.id] = false;
-    }
-  }
+  //   // Initialize completion status
+  //   for (var module in sampleModules) {
+  //     _completionStatus[module.id] = false;
+  //   }
+  // }
 
   Future<void> getCourseDetails(String courseId) async {
     setLoading(true);
@@ -92,7 +92,7 @@ class ModulesDetailsController extends BaseController {
         DPrint.log("Get course details failed: ${fail.message}");
         setLoading(false);
         // Load sample data as fallback
-        _loadSampleData();
+        // _loadSampleData();
       },
       (success) {
         _courseDetails.value = success.data;

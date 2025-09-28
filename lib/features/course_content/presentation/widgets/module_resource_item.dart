@@ -4,12 +4,14 @@ class ModuleResourceItem extends StatelessWidget {
   final String title;
   final String subtitle; // e.g. "PDF • 2 MB"
   final VoidCallback? onTap;
+  final Color? backgroundColor;
 
   const ModuleResourceItem({
     super.key,
     required this.title,
     required this.subtitle,
     this.onTap,
+    this.backgroundColor,
   });
 
   @override
@@ -22,7 +24,7 @@ class ModuleResourceItem extends StatelessWidget {
           height: 48,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: const Color(0xffE8ECF1),
+            color: backgroundColor ?? Color(0xffE8ECF1),
           ),
           child: Row(
             children: [

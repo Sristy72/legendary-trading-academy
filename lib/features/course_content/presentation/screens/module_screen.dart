@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/features/course_content/data/modules/assignment_module.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_details_screen.dart';
+import 'package:flutter_ladydenily/features/course_content/presentation/screens/recording_details_screen.dart';
 import 'package:flutter_ladydenily/features/quiz/presentation/screens/quiz_screen.dart';
 import 'package:get/get.dart';
 import '../widgets/items_widgets.dart';
 import '../controllers/module_controller.dart';
+import 'resources_details_screen.dart';
+import 'upload_assignment_screen.dart';
 
 class ModuleScreen extends StatelessWidget {
   const ModuleScreen({Key? key}) : super(key: key);
@@ -12,7 +16,6 @@ class ModuleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ModuleController controller = Get.find<ModuleController>();
 
-    // Try to load the course when this screen is built (id provided by previous page)
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final arg = Get.arguments;
       if (arg != null &&
@@ -74,7 +77,11 @@ class ModuleScreen extends StatelessWidget {
                       trailingText: controller.rxSelectedCourse.value == null
                           ? null
                           : '${controller.rxSelectedCourse.value!.modules.fold<int>(0, (p, m) => p + m.video.length)}',
-                      onTap: () => controller.selectItem(1),
+                      onTap: () {
+                        controller.selectItem(1);
+                        // module id should be passed here
+                        Get.to(() => const RecordingDetailsScreen());
+                      },
                     ),
                     const SizedBox(height: 12),
                     ItemWidget(
@@ -85,7 +92,11 @@ class ModuleScreen extends StatelessWidget {
                       trailingText: controller.rxSelectedCourse.value == null
                           ? null
                           : '${controller.rxSelectedCourse.value!.modules.fold<int>(0, (p, m) => p + m.resources.length)}',
-                      onTap: () => controller.selectItem(2),
+                      onTap: () {
+                        controller.selectItem(2);
+                        // module id should be passed here
+                        Get.to(() => const ResourcesScreen());
+                      },
                     ),
                     const SizedBox(height: 12),
                     ItemWidget(
@@ -104,7 +115,10 @@ class ModuleScreen extends StatelessWidget {
                       trailingText: controller.rxSelectedCourse.value == null
                           ? null
                           : '${controller.rxSelectedCourse.value!.modules.fold<int>(0, (p, m) => p + m.assignment.length)}',
-                      onTap: () => controller.selectItem(4),
+                      onTap: () {
+                        controller.selectItem(4);
+                        Get.to(() => (AssignmentPage()));
+                      },
                     ),
                     const SizedBox(height: 12),
                     ItemWidget(
