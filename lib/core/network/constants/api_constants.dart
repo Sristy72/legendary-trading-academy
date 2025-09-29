@@ -44,12 +44,15 @@ class AuthEndpoints {
   final String otpVerify = '$_base/verify-reset-otp';
 
   final String setNewPass = '$_base/reset-password';
+
+  final String changePassword = '$_base/change-password';
 }
 
 class UserEndpoints {
   static const String _base = '${ApiConstants.baseUrl}/user';
   final String updateProfile = '$_base/update-profile';
   final String getUserProfile = '$_base/profile';
+
 
   // final String create = '$_base/create';
 }

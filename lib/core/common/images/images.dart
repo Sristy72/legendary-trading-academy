@@ -8,4 +8,5 @@ class ImagesString{
   static const String googleLogo ='assets/images/google.png';
   static const String appleLogo ='assets/images/apple.png';
   static const String stockMarket ='assets/images/stock-market-forex-trading-graph 1.png';
+  static const String trade ='assets/images/trade.png';
 }
