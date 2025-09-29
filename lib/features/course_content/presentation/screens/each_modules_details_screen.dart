@@ -219,8 +219,8 @@ class EachModulesDetailsScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final r = resources[index];
                     return ModuleResourceItem(
+                      backgroundColor: Color(0xffE8ECF1),
                       title: r.name ?? 'Resource ${index + 1}',
-                      subtitle: r.url ?? '',
                       onTap: () {
                         // implement open resource if needed
                       },

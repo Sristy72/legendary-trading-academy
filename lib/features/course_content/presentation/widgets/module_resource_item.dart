@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 
 class ModuleResourceItem extends StatelessWidget {
   final String title;
-  final String subtitle; // e.g. "PDF • 2 MB"
   final VoidCallback? onTap;
   final Color? backgroundColor;
 
   const ModuleResourceItem({
     super.key,
     required this.title,
-    required this.subtitle,
     this.onTap,
     this.backgroundColor,
   });
@@ -24,7 +22,7 @@ class ModuleResourceItem extends StatelessWidget {
           height: 48,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: Color(0xffffffff),
+            color: backgroundColor ?? const Color(0xffF4F4F4),
           ),
           child: Row(
             children: [

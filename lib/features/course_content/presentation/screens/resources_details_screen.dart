@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../core/common/widgets/app_scaffold.dart';
-import '../../../../core/theme/app_colors.dart';
 import '../controllers/resource_details_controller.dart';
 import '../widgets/module_all_resources.dart';
 
@@ -14,14 +12,14 @@ class ResourcesScreen extends StatelessWidget {
       ResourcesController(repository: Get.find()),
     );
 
-    return AppScaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text(
           "Resources",
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: AppColors.appBarTitle,
+            color: Colors.black,
           ),
         ),
       ),
@@ -35,16 +33,17 @@ class ResourcesScreen extends StatelessWidget {
         }
 
         return ListView.separated(
+          padding: const EdgeInsets.all(16),
+          itemCount: controller.modules.length,
           itemBuilder: (context, index) {
             final module = controller.modules[index];
             return ModuleAllResources(
-              module: module,
-              index: index,
-            ); // Pass the index here
+              index: index, // Pass the module index
+              module: module, // Pass the module data
+            );
           },
-          itemCount: controller.modules.length,
           separatorBuilder: (context, index) {
-            return const SizedBox(height: 12);
+            return const SizedBox(height: 12); // Add 12px gap between modules
           },
         );
       }),
