@@ -10,7 +10,7 @@ class TrainerApiCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 96,
       margin: const EdgeInsets.symmetric(vertical: 6),
       decoration: BoxDecoration(
         color: AppColors.cardBackgroundColor,
@@ -42,13 +42,13 @@ class TrainerApiCard extends StatelessWidget {
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Image.asset(
-                            'assets/images/trainer1.png',
+                            'assets/images/avatar.png',
                             fit: BoxFit.cover,
                           );
                         },
                       )
                     : Image.asset(
-                        'assets/images/trainer1.png',
+                        'assets/images/avatar.png',
                         fit: BoxFit.cover,
                       ),
               ),
@@ -106,7 +106,7 @@ class TrainerApiCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           color: AppColors.hintText,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ],
@@ -128,11 +128,11 @@ class TrainerApiCard extends StatelessWidget {
                       }),
                       const SizedBox(width: 6),
                       Text(
-                        '${trainer.overallRating.toStringAsFixed(1)}',
+                        '${trainer.overallRating.toStringAsFixed(1)} / 5.0',
                         style: TextStyle(
                           fontSize: 12,
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.w500,
+                          color: AppColors.hintText,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ],

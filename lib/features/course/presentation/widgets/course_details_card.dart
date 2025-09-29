@@ -30,7 +30,7 @@ class CourseDetailsCard extends StatelessWidget {
             _buildCourseSubtitle(),
             const SizedBox(height: 8),
             _buildCourseMetadata(),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             _buildPriceAndButton(),
           ],
         ),
@@ -127,32 +127,7 @@ class CourseDetailsCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                '\$${course.price}',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.hintText,
-                  decoration: TextDecoration.lineThrough,
-                  decorationColor: Colors.red,
-                  decorationStyle: TextDecorationStyle.solid,
-                  decorationThickness: 2.0,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                '\$${course.offerPrice}',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.textColorBlue,
-                ),
-              ),
-            ],
-          ),
+          _buildPrice(),
 
           ElevatedButton(
             onPressed: () {
@@ -170,6 +145,47 @@ class CourseDetailsCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buildPrice() {
+    final hasOffer = course.offerPrice < course.price && course.offerPrice > 0;
+    if (hasOffer) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(
+            '\$${course.price}',
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+              color: AppColors.hintText,
+              decoration: TextDecoration.lineThrough,
+              decorationColor: Colors.red,
+              decorationStyle: TextDecorationStyle.solid,
+              decorationThickness: 2.0,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            '\$${course.offerPrice}',
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+              color: AppColors.textColorBlue,
+            ),
+          ),
+        ],
+      );
+    } else {
+      return Text(
+        '\$${course.price}',
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w900,
+          color: AppColors.textColorBlue,
+        ),
+      );
+    }
   }
 }
 

@@ -99,9 +99,11 @@ class HomeContent extends StatelessWidget {
                 width: 48,
                 decoration: const BoxDecoration(shape: BoxShape.circle),
                 clipBehavior: Clip.antiAlias,
-                child: profileController.userInfo.value?.avatar != null
+                child:
+                    profileController.userInfo.value?.avatar.url != null &&
+                        profileController.userInfo.value!.avatar.url.isNotEmpty
                     ? Image.network(
-                        profileController.userInfo.value!.avatar.url!,
+                        profileController.userInfo.value!.avatar.url,
                         fit: BoxFit.cover,
                       )
                     : Image.asset(
@@ -166,7 +168,7 @@ class HomeContent extends StatelessWidget {
                             (c) => GestureDetector(
                               onTap: () => _navigateToCourseDetail(context, c),
                               child: SizedBox(
-                                width: 300,
+                                width: 270,
                                 child: CourseDetailsCard(course: c),
                               ),
                             ),
