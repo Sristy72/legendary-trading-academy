@@ -11,8 +11,12 @@ import 'package:flutter_ladydenily/features/marketplace/data/marketplace_reposit
 import 'package:flutter_ladydenily/features/marketplace/domain/marketplace_repository.dart';
 
 void setupRepository() {
-  Get.lazyPut<AuthRepository>(() => AuthRepositoryImpl(apiClient: Get.find()));
+  Get.lazyPut<AuthRepository>(
+    fenix: true,
+    () => AuthRepositoryImpl(apiClient: Get.find()),
+  );
   Get.lazyPut<ProfileRepository>(
+    fenix: true,
     () => ProfileRepositoryImpl(apiClient: Get.find()),
   );
   Get.lazyPut<CourseRepository>(
@@ -20,13 +24,15 @@ void setupRepository() {
     () => CourseRepositoryImpl(apiClient: Get.find()),
   );
   Get.lazyPut<TrainerRepository>(
+    fenix: true,
     () => TrainerRepositoryImpl(apiClient: Get.find()),
   );
   Get.lazyPut<MarketplaceRepository>(
+    fenix: true,
     () => MarketplaceRepositoryImpl(apiClient: Get.find()),
   );
   Get.lazyPut<ProfileRepository>(
+    fenix: true,
     () => ProfileRepositoryImpl(apiClient: Get.find()),
   );
-  
 }

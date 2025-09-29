@@ -15,11 +15,20 @@ import 'package:flutter_ladydenily/features/marketplace/domain/marketplace_repos
 
 void setupController() {
   // Auth Controller
-  Get.lazyPut<AuthController>(() => AuthController(Get.find(), Get.find()));
-  Get.lazyPut<ProfileController>(() => ProfileController(Get.find()));
+  Get.lazyPut<AuthController>(
+    fenix: true,
+    () => AuthController(Get.find(), Get.find()),
+  );
+  Get.lazyPut<ProfileController>(
+    fenix: true,
+    () => ProfileController(Get.find()),
+  );
 
   // Course Content Controllers
-  Get.lazyPut<ModuleController>(() => ModuleController(Get.find()));
+  Get.lazyPut<ModuleController>(
+    fenix: true,
+    () => ModuleController(Get.find()),
+  );
   Get.lazyPut<ModulesDetailsController>(
     fenix: true,
     () => ModulesDetailsController(Get.find()),
