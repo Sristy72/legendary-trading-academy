@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class ModuleAssignmentItem extends StatelessWidget {
   final String title;
   final String dueDate; // e.g. "Due: 30 Sep 2025"
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
+  final Color? backgroundColor;
 
   const ModuleAssignmentItem({
     super.key,
     required this.title,
     required this.dueDate,
-    this.onTap,
+    required this.onTap,
+    this.backgroundColor,
   });
 
   @override
@@ -22,7 +24,7 @@ class ModuleAssignmentItem extends StatelessWidget {
           height: 48,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: const Color(0xffE8ECF1),
+            color: backgroundColor ?? const Color(0xffE8ECF1),
           ),
           child: Row(
             children: [
