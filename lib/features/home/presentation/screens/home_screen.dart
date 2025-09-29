@@ -88,6 +88,7 @@ class HomeContent extends StatelessWidget {
     if (profileController.userInfo.value == null) {
       profileController.fetchProfile();
     }
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -100,24 +101,26 @@ class HomeContent extends StatelessWidget {
                 width: 48,
                 decoration: const BoxDecoration(shape: BoxShape.circle),
                 clipBehavior: Clip.antiAlias,
-                child:
-                    profileController.userInfo.value?.avatar.url != null &&
-                        profileController.userInfo.value!.avatar.url.isNotEmpty
-                    ? Image.network(
-                        profileController.userInfo.value!.avatar.url,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          // Fallback to asset on network error
-                          return Image.asset(
-                            "assets/images/avatar.png",
-                            fit: BoxFit.cover,
-                          );
-                        },
-                      )
-                    : Image.asset(
-                        "assets/images/avatar.png",
-                        fit: BoxFit.cover,
-                      ),
+                child: Obx(() {
+                  final avatarUrl =
+                      profileController.userInfo.value?.avatar.url;
+                  return avatarUrl != null && avatarUrl.isNotEmpty
+                      ? Image.network(
+                          avatarUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            // Fallback to asset on network error
+                            return Image.asset(
+                              "assets/images/avatar.png",
+                              fit: BoxFit.cover,
+                            );
+                          },
+                        )
+                      : Image.asset(
+                          "assets/images/avatar.png",
+                          fit: BoxFit.cover,
+                        );
+                }),
               ),
             ),
             const SizedBox(width: 8),
