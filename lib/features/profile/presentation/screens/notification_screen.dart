@@ -104,19 +104,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ),
               ),
 
-              child: SwitchListTile(
-                contentPadding: EdgeInsets.zero,
-                title: const Text("Event/class reminders"),
-                value: eventReminders,
-                activeTrackColor: Color(0xFFEFC227),
-                inactiveTrackColor: Color(0xFFA8A8A8),
+                child: SwitchListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text("Event/class reminders"),
+                  value: eventReminders,
+                  activeTrackColor: Color(0xFFEFC227),
+                  inactiveTrackColor: Color(0xFFA8A8A8),
 
-                onChanged: (value) {
-                  setState(() {
-                    eventReminders = value;
-                  });
-                },
-              ),
+                  onChanged: (value) {
+                    setState(() {
+                      eventReminders = value;
+                    });
+                  },
+                ),
+
             ),
 
             // 3rd switch
@@ -169,3 +170,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 }
+
+
+
