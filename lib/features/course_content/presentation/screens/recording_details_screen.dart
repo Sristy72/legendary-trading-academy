@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/recording_details_controller.dart';
-import '../widgets/module_video_container.dart';
+import '../widgets/module_all_videos.dart';
 
 class RecordingDetailsScreen extends StatelessWidget {
   const RecordingDetailsScreen({super.key});
@@ -38,32 +38,9 @@ class RecordingDetailsScreen extends StatelessWidget {
           itemCount: controller.modules.length,
           itemBuilder: (context, index) {
             final module = controller.modules[index];
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Module ${index + 1}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: module.video.length,
-                  itemBuilder: (context, videoIndex) {
-                    final video = module.video[videoIndex];
-                    return ModuleVideoContainer(
-                      title: video.name ?? 'Video ${videoIndex + 1}',
-                      durationText: video.url ?? '',
-                      imagePath: 'assets/images/courses_sample.jpg',
-                    );
-                  },
-                ),
-                const SizedBox(height: 16),
-              ],
+            return ModuleAllVideos(
+              index: index, // Pass the module index
+              module: module, // Pass the module data
             );
           },
         );
