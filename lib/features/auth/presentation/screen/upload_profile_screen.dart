@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/trading_profile_setup_screen.dart';
 import 'package:flutter_ladydenily/features/home/presentation/screens/home_screen.dart';
@@ -145,9 +146,12 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
                           ? _profileController.isSkipLoading.value
                           : _authController.isSkipLoading.value,
                       height: 51,
+                      borderColor: AppColors.buttonColor,
                       width: (screenWidth / 2) - 32,
                       onPressed: () {
-                        widget.isFromProfile ? _profileController.isSkipLoading.value = true : _authController.isSkipLoading.value = true;
+                        widget.isFromProfile
+                            ? _profileController.isSkipLoading.value = true
+                            : _authController.isSkipLoading.value = true;
                         _skip();
                       },
                       text: "Skip",

@@ -106,6 +106,13 @@ class HomeContent extends StatelessWidget {
                     ? Image.network(
                         profileController.userInfo.value!.avatar.url,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          // Fallback to asset on network error
+                          return Image.asset(
+                            "assets/images/avatar.png",
+                            fit: BoxFit.cover,
+                          );
+                        },
                       )
                     : Image.asset(
                         "assets/images/avatar.png",
