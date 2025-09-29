@@ -12,7 +12,7 @@ class TrainerCard extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      width: screenWidth, // Full width
+      width: screenWidth,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.cardBackgroundColor,
@@ -27,29 +27,45 @@ class TrainerCard extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min, 
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  trainer.name, 
+                  trainer.name,
                   style: const TextStyle(
-                    fontWeight: FontWeight.bold, 
-                    fontSize: 16
-                    )
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
                   ),
+                ),
                 const SizedBox(height: 4),
-                Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ", 
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold, 
-                    fontSize: 12
-                    )
-                  ),
-                  const SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${trainer.courses} Courses', style: const TextStyle(fontSize: 14, color: AppColors.textColorBlue)),
-                    const Spacer(),
-                    const Text('Success Rate: 100%', style: TextStyle(fontSize: 14, color: AppColors.textColorBlue)),
+                    Text(
+                      '${trainer.courses} Courses',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.textColorBlue,
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        "•",
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: AppColors.textColorBlue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      'Success Rate: 100%',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.textColorBlue,
+                      ),
+                    ),
                   ],
                 ),
               ],

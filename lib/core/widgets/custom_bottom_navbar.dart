@@ -77,48 +77,50 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Container(
+      color: AppColors.navBackgroundColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         child: Container(
-          color: AppColors.navBackgroundColor,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(_titles.length, (index) {
-              final isSelected = selectedIndex == index;
-              return GestureDetector(
-                onTap: () => onItemTapped(index),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: isSelected
-                        ? AppColors.buttonColor
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(_icons[index], color: Colors.blue[900]),
-                      if (isSelected)
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text(
-                            _titles[index],
-                            style: TextStyle(
-                              color: Colors.blue[900],
-                              fontWeight: FontWeight.w600,
+          child: SafeArea(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: List.generate(_titles.length, (index) {
+                final isSelected = selectedIndex == index;
+                return GestureDetector(
+                  onTap: () => onItemTapped(index),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? AppColors.buttonColor
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(_icons[index], color: Colors.blue[900]),
+                        if (isSelected)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              _titles[index],
+                              style: TextStyle(
+                                color: Colors.blue[900],
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              );
-            }),
+                );
+              }),
+            ),
           ),
         ),
       ),

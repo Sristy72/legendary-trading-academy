@@ -10,6 +10,14 @@ class AppTheme {
     colorScheme: ColorScheme.light(primary: AppColors.primaryBlue),
 
     textTheme: GoogleFonts.robotoTextTheme(),
-    appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+    appBarTheme: AppBarTheme(
+      iconTheme: IconThemeData(color: AppColors.appBarTitle),
+      backgroundColor: Colors.white,
+      titleTextStyle: TextStyle(
+        fontSize: 24,
+        color: AppColors.appBarTitle,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }

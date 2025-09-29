@@ -13,7 +13,8 @@ import 'package:flutter_ladydenily/features/profile/presentation/controller/prof
 import 'package:flutter_ladydenily/features/profile/presentation/screens/change_password_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/notification_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/personal_info_screen.dart';
-
+import 'package:get/get.dart';
+import 'package:get/utils.dart';
 import '../widgets/profile_option_tile.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -36,6 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if (_profileController.isLoading.value) {
             return const Center(child: CircularProgressIndicator());
           }
+
 
           final userInfo = _profileController.userInfo.value;
 
@@ -88,6 +90,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 height: 16,
                               ),
                             ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  // Avatar + small overlay icon
+                  Stack(
+                    children: [
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundImage: AssetImage(user.image),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFEFC227),
+                            shape: BoxShape.circle,
+                          ),
+                          padding: const EdgeInsets.all(4),
+                          child: Image.asset(
+                            "assets/icons/avater floating.png",
+                            width: 16,
+                            height: 16,
                           ),
                         ],
                       ),
@@ -236,6 +263,100 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
+            // Profile option list
+            Expanded(
+              child: ListView(
+                children: [
+                  //Personal Info..
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/personal info.png",
+                    title: "Personal Information",
+                    onTap: () {
+                      Get.to(() => const PersonalInfoScreen());
+                    },
+                  ),
+                  //Change pass..
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/change pass.png",
+                    title: "Change Password",
+                    onTap: () {
+                      Get.to(() => const ChangePasswordScreen());
+                    },
+                  ),
+
+                  //Notification Settings..
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/notification.png",
+                    title: "Notification Settings",
+                    onTap: () {
+                      Get.to(() => const NotificationScreen());
+                    },
+                  ),
+
+                  //About app..
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/about app.png",
+                    title: "About App",
+
+                    // onTap: () => Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (_) => const AboutAppScreen(),
+                    //   ),
+                    // ),
+                    onTap: () {
+                      Get.to(() => const AboutAppScreen());
+                    },
+                  ),
+
+                  //Privacy Policy..
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/change pass.png",
+                    title: "Privacy Policy",
+                    onTap: () {
+                      Get.to(() => const PrivacyPolicyScreen());
+                    },
+                  ),
+
+                  //Term & Condition..
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/change pass.png",
+                    title: "Term & Condition",
+                    onTap: () {
+                      Get.to(() => const TermsAndConditionScreen());
+                    },
+                  ),
+
+                  //video copyright..
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/change pass.png",
+                    title: "video copyright",
+                    onTap: () {
+                      Get.to(() => const VideoCopyrightScreen());
+                    },
+                  ),
+
+                  //Refund Policy..
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/change pass.png",
+                    title: "Refund Policy",
+                    onTap: () {
+                      Get.to(() => const RefundPolicyScreen());
+                    },
+                  ),
+
+                  //Logout...
+                  ProfileOptionTile(
+                    iconPath: "assets/icons/logout.png",
+                    title: "Logout",
+                    iconColor: const Color(0xFFEF1A26),
+                    textColor: const Color(0xFFEF1A26),
+                    arrowColor: const Color(0xFFEF1A26),
+                    onTap: () {
+                      Get.to(() => const LoginScreen());
+                    },
+                  ),
+                ],
               ),
             ],
           );
