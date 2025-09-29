@@ -7,7 +7,6 @@ import '../models/auth_response_model.dart';
 import '../models/login_request_model.dart';
 import '../models/otp_request_model.dart';
 import '../models/otp_request_model_register.dart';
-
 import '../models/refresh_token_request_model.dart';
 import '../models/refresh_token_response_model.dart';
 import '../models/register_request_model.dart';

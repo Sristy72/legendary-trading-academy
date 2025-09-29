@@ -2,8 +2,7 @@ class ApiConstants {
   /// [Base Configuration]
   //  static const String baseDomain = 'https://backend-lady-denily-ysw0.onrender.com';
   // static const String baseDomain = 'http://10.10.5.33:8001'; //
-  // static const String baseDomain = 'http://10.10.5.88:8001'; // Abu jafon
-  static const String baseDomain = 'http://10.10.5.91:8001'; // Soykot
+  static const String baseDomain = 'http://10.10.5.3:8001'; // iftikhar
   static const String baseUrl = '$baseDomain/api/v1';
 
   /// [Headers]
@@ -30,6 +29,7 @@ class ApiConstants {
 
   static TeamEndpointcs get team => TeamEndpointcs();
   static LeagueEndpoints get league => LeagueEndpoints();
+  static CourseEndpoints get course => CourseEndpoints();
 }
 
 /// [Authentication Endpoints]
@@ -70,4 +70,13 @@ class LeagueEndpoints {
   static const String _base = '${ApiConstants.baseUrl}/league';
 
   final String getAllLeagues = '$_base/all-league';
+}
+
+/// [Course Endpoints] -- zafor
+class CourseEndpoints {
+  static const String _base = '${ApiConstants.baseUrl}/course';
+
+  final String getAllCourses = '$_base/all-courses';
+  final String getCourseDetails = '$_base/courses';
+  final String getCourseModules = '$_base/modules';
 }

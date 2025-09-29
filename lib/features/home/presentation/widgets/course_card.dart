@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
-import '../../models/course.dart';
+import '../../../course/models/course.dart';
 
 class CourseCard extends StatelessWidget {
   final Course course;
@@ -29,11 +29,26 @@ class CourseCard extends StatelessWidget {
                 topLeft: Radius.circular(8),
                 topRight: Radius.circular(8),
               ),
-              child: Image.asset(
-                course.image,
-                fit: BoxFit.cover,
-                width: double.infinity,
-              ),
+              child: (course.photo?.url ?? '').isNotEmpty
+                  ? Image.network(
+                      course.photo!.url!,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      errorBuilder: (context, error, stackTrace) => Container(
+                        color: Colors.grey.shade200,
+                        width: double.infinity,
+                        child: const Center(
+                          child: Icon(Icons.broken_image, color: Colors.grey),
+                        ),
+                      ),
+                    )
+                  : Container(
+                      color: Colors.grey.shade200,
+                      width: double.infinity,
+                      child: const Center(
+                        child: Icon(Icons.image, size: 48, color: Colors.grey),
+                      ),
+                    ),
             ),
           ),
           const SizedBox(height: 8),
@@ -43,17 +58,20 @@ class CourseCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  course.title,
+                  course.name,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Row(
                   children: [
                     Text(
-                      '${course.lessons} Lessons',
+                      '${course.modules.length} Lessons',
                       style: const TextStyle(fontSize: 12),
                     ),
                     Spacer(),
-                    Text(course.level, style: const TextStyle(fontSize: 12)),
+                    Text(
+                      '${course.version}',
+                      style: const TextStyle(fontSize: 12),
+                    ),
                     const SizedBox(height: 4),
                   ],
                 ),
@@ -61,7 +79,7 @@ class CourseCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      course.price,
+                      '\$${course.price}',
                       style: const TextStyle(
                         color: AppColors.textColorBlue,
                         fontSize: 24,
@@ -77,7 +95,7 @@ class CourseCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
+                          horizontal: 32,
                           vertical: 6,
                         ),
 

@@ -1,7 +1,7 @@
 import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
-import '../screen/home_screen.dart';
+import '../../../home/presentation/screens/home_screen.dart';
 import '../screen/login_screen.dart';
 
 class SplashController extends GetxController {
@@ -13,24 +13,23 @@ class SplashController extends GetxController {
   void onInit() {
     super.onInit();
     videoController =
-    VideoPlayerController.asset('assets/video/splash_video.mp4')
-      ..initialize().then((_) {
-        isVideoLoaded.value = true;
-        videoController.play();
-        videoController.setLooping(false);
+        VideoPlayerController.asset('assets/video/splash_video.mp4')
+          ..initialize().then((_) {
+            isVideoLoaded.value = true;
+            videoController.play();
+            videoController.setLooping(false);
 
-        // Play only for 4 seconds, then navigate
-        Future.delayed(const Duration(seconds: 3), () async {
-
-          final success = await _authController.refreshToken();
-          if (Get.isOverlaysOpen) return; // avoid multiple calls
-          if (success) {
-            Get.offAll(() => HomeScreen());
-          } else {
-            Get.offAll(() => LoginScreen());
-          }
-        });
-      });
+            // Play only for 4 seconds, then navigate
+            Future.delayed(const Duration(seconds: 3), () async {
+              final success = await _authController.refreshToken();
+              if (Get.isOverlaysOpen) return; // avoid multiple calls
+              if (success) {
+                Get.offAll(() => HomeScreen());
+              } else {
+                Get.offAll(() => LoginScreen());
+              }
+            });
+          });
   }
 
   @override

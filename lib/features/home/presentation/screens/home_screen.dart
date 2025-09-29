@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
+import 'package:flutter_ladydenily/features/course/models/course.dart';
+import 'package:flutter_ladydenily/features/course/presentation/controllers/course_controller.dart';
 import 'package:flutter_ladydenily/features/course/presentation/screens/coure_details_screen.dart';
 import 'package:flutter_ladydenily/features/course/presentation/screens/course_all_screen.dart';
-import 'package:flutter_ladydenily/features/home/models/course.dart';
+import 'package:flutter_ladydenily/features/course/presentation/widgets/course_details_card.dart';
 import 'package:flutter_ladydenily/core/widgets/custom_bottom_navbar.dart';
+import 'package:flutter_ladydenily/features/home/presentation/widgets/my_course_card.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/screens/marketplace_all_screen.dart';
 import 'package:flutter_ladydenily/features/notification/presentation/screens/notification_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
+import 'package:flutter_ladydenily/features/home/presentation/controllers/trainer_controller.dart';
+import 'package:flutter_ladydenily/features/home/presentation/widgets/trainer_api_card.dart';
+import 'package:flutter_ladydenily/features/home/presentation/widgets/trainer_placeholder_card.dart';
+import 'package:flutter_ladydenily/features/marketplace/presentation/controllers/marketplace_controller.dart';
+import 'package:flutter_ladydenily/features/marketplace/presentation/widgets/marketplace_api_card.dart';
 import 'package:get/get.dart';
 import '../../../calender/presentation/screens/calender_screen.dart';
-import '../widgets/course_card.dart';
-import '../widgets/trainer_card.dart';
-import '../widgets/market_card.dart';
-import '../../../../dummy_data.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -60,31 +65,31 @@ class HomeContent extends StatelessWidget {
   const HomeContent({super.key});
 
   void _navigateToCoursesDetails(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CourseAllScreen()),
-    );
+    Get.to(() => CourseAllScreen());
   }
 
   void _navigateToCourseDetail(BuildContext context, Course course) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CourseDetailsScreen()),
-    );
+    Get.to(() => CourseDetailsScreen(), arguments: course);
   }
 
   void _navgiateToAllMarketplace(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MarketplaceAllScreen()),
-    );
+    Get.to(() => const MarketplaceAllScreen());
   }
 
   @override
   Widget build(BuildContext context) {
+    final courseController = Get.find<CourseController>();
+    final profileController = Get.find<ProfileController>();
+    final trainerController = Get.find<TrainerController>();
+    final marketplaceController = Get.find<MarketplaceController>();
+
+    // Fetch profile if not already loaded
+    if (profileController.userInfo.value == null) {
+      profileController.fetchProfile();
+    }
     return Scaffold(
       appBar: AppBar(
-
+        automaticallyImplyLeading: false,
         title: Row(
           children: [
             GestureDetector(
@@ -103,15 +108,19 @@ class HomeContent extends StatelessWidget {
             const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'Hello, User Name',
-                  style: TextStyle(
-                    color: AppColors.titleTextColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
+              children: [
+                Obx(() {
+                  final user = profileController.userInfo.value;
+                  final name = user?.name ?? user?.username ?? 'User';
+                  return Text(
+                    'Hello, $name',
+                    style: const TextStyle(
+                      color: AppColors.titleTextColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                }),
+                const Text(
                   'New York, NY',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
@@ -143,30 +152,76 @@ class HomeContent extends StatelessWidget {
               'Courses',
               onViewAllTap: () => _navigateToCoursesDetails(context),
             ),
-            _buildHorizontalList(
-              dummyCourses
-                  .map((c) => _buildClickableCourseCard(c, context))
-                  .toList(),
+            Obx(
+              () => courseController.isLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : _buildHorizontalList(
+                      courseController.courses
+                          .map(
+                            (c) => GestureDetector(
+                              onTap: () => _navigateToCourseDetail(context, c),
+                              child: SizedBox(
+                                width: 300,
+                                child: CourseDetailsCard(course: c),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                      height: 340,
+                    ),
             ),
 
             _buildSectionTitle('Top Trainer'),
-            _buildVerticalList(
-              dummyTrainers.map((t) => TrainerCard(trainer: t)).toList(),
-            ),
+            Obx(() {
+              if (trainerController.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              return _buildTopTrainersList(trainerController);
+            }),
 
             _buildSectionTitle(
               'Marketplace',
               onViewAllTap: () => _navgiateToAllMarketplace(context),
             ),
-            _buildHorizontalList(
-              dummyMarketplace.map((m) => MarketCard(item: m)).toList(),
+            Obx(
+              () => marketplaceController.isLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : _buildHorizontalList(
+                      marketplaceController.marketplaceItems
+                          .map(
+                            (m) => GestureDetector(
+                              onTap: () =>
+                                  Get.to(() => const MarketplaceAllScreen()),
+                              child: SizedBox(
+                                width: 200,
+                                child: MarketplaceApiCard(item: m),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                      height: 280,
+                    ),
             ),
 
             _buildSectionTitle('My Courses'),
-            _buildHorizontalList(
-              dummyMyCourses
-                  .map((c) => _buildClickableCourseCard(c, context))
-                  .toList(),
+            Obx(
+              () => courseController.isLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : _buildVerticalList(
+                      courseController.courses
+                          .where(
+                            //! isNotEmpty to isEmpty <<<< MUST CHANGE LATER >>>>
+                            (c) => c.enrolled.isEmpty,
+                          )
+                          .map(
+                            (c) => GestureDetector(
+                              onTap: () => _navigateToCourseDetail(context, c),
+                              child: MyCourseCard(course: c),
+                            ),
+                          )
+                          .toList(),
+                    ),
             ),
           ],
         ),
@@ -174,11 +229,21 @@ class HomeContent extends StatelessWidget {
     );
   }
 
-  Widget _buildClickableCourseCard(Course course, BuildContext context) {
-    return GestureDetector(
-      onTap: () => _navigateToCourseDetail(context, course),
-      child: CourseCard(course: course),
-    );
+  Widget _buildTopTrainersList(TrainerController trainerController) {
+    final trainers = trainerController.topTrainers.take(3).toList();
+    final List<Widget> trainerWidgets = [];
+
+    for (var trainer in trainers) {
+      trainerWidgets.add(TrainerApiCard(trainer: trainer));
+    }
+
+    //* Add placeholder cards to fill up to 3 total cards
+    final remainingSlots = 3 - trainers.length;
+    for (int i = 0; i < remainingSlots; i++) {
+      trainerWidgets.add(const TrainerPlaceholderCard());
+    }
+
+    return _buildVerticalList(trainerWidgets);
   }
 
   Widget _buildSectionTitle(String title, {VoidCallback? onViewAllTap}) {
@@ -214,9 +279,9 @@ class HomeContent extends StatelessWidget {
     );
   }
 
-  Widget _buildHorizontalList(List<Widget> cards) {
+  Widget _buildHorizontalList(List<Widget> cards, {double height = 200}) {
     return SizedBox(
-      height: 200,
+      height: height,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: cards.length,

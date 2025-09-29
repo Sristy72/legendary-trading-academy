@@ -9,11 +9,11 @@ import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_prof
 import 'package:flutter_ladydenily/features/auth/presentation/screen/verify_code_screen.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/verify_otp_to_register.dart';
 import 'package:flutter_ladydenily/features/others/terms_and_disclaimer_dialog_screen.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
 import 'package:flutx_core/flutx_core.dart';
 import 'package:get/get.dart';
 import '../../../../core/base/base_controller.dart';
 import '../../../../core/network/services/auth_storage_service.dart';
-
 import '../../../home/presentation/screens/home_screen.dart';
 import '../../data/models/login_request_model.dart';
 import '../../data/models/otp_request_model.dart';
@@ -23,7 +23,6 @@ import '../../data/models/register_request_model.dart';
 import '../../data/models/reset_password_request_model.dart';
 import '../../data/models/set_new_password_request_model.dart';
 import '../../domain/repo/auth_repo.dart';
-
 import '../screen/login_screen.dart';
 
 class AuthController extends BaseController {
