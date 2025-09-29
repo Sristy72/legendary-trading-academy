@@ -18,6 +18,7 @@ import 'package:flutter_ladydenily/features/marketplace/presentation/controllers
 import 'package:flutter_ladydenily/features/marketplace/presentation/widgets/marketplace_api_card.dart';
 import 'package:get/get.dart';
 import '../../../calender/presentation/screens/calender_screen.dart';
+import '../../../search/presentation/screens/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -99,10 +100,17 @@ class HomeContent extends StatelessWidget {
                 width: 48,
                 decoration: const BoxDecoration(shape: BoxShape.circle),
                 clipBehavior: Clip.antiAlias,
-                child: Image.asset(
-                  "assets/images/profile.jpg",
-                  fit: BoxFit.cover,
-                ),
+                child:
+                    profileController.userInfo.value?.avatar.url != null &&
+                        profileController.userInfo.value!.avatar.url.isNotEmpty
+                    ? Image.network(
+                        profileController.userInfo.value!.avatar.url,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset(
+                        "assets/images/avatar.png",
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
             const SizedBox(width: 8),
@@ -114,14 +122,17 @@ class HomeContent extends StatelessWidget {
                   final name = user?.name ?? user?.username ?? 'User';
                   return Text(
                     'Hello, $name',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       color: AppColors.titleTextColor,
                       fontWeight: FontWeight.bold,
                     ),
                   );
                 }),
-                const Text(
-                  'New York, NY',
+                Text(
+                  profileController.userInfo.value?.address ??
+                      'Unknown Location',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -161,7 +172,7 @@ class HomeContent extends StatelessWidget {
                             (c) => GestureDetector(
                               onTap: () => _navigateToCourseDetail(context, c),
                               child: SizedBox(
-                                width: 300,
+                                width: 270,
                                 child: CourseDetailsCard(course: c),
                               ),
                             ),
@@ -305,26 +316,72 @@ class HomeContent extends StatelessWidget {
   }
 
   Widget _buildSearchBar() {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 4, top: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        color: AppColors.searchBackgroundColor,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(color: Colors.grey.withValues(alpha: 0.2), blurRadius: 4),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: TextField(
-          decoration: InputDecoration(
-            hintText: 'Search courses or trainers...',
-            border: InputBorder.none,
-            prefixIcon: Icon(Icons.search, color: AppColors.hintText),
-            suffixIcon: Icon(Icons.filter_list, color: AppColors.hintText),
+    return GestureDetector(
+      onTap: () => Get.to(() => const SearchScreen()),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 4, top: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        decoration: BoxDecoration(
+          color: AppColors.searchBackgroundColor,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(color: Colors.grey.withValues(alpha: 0.2), blurRadius: 4),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: AbsorbPointer(
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Search courses or trainers...',
+                border: InputBorder.none,
+                prefixIcon: Icon(Icons.search, color: AppColors.hintText),
+                suffixIcon: GestureDetector(
+                  onTap: () => _showFilterDialog(Get.context!),
+                  child: Icon(Icons.filter_list, color: AppColors.hintText),
+                ),
+              ),
+            ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _showFilterDialog(BuildContext context) {
+    Get.dialog(
+      AlertDialog(
+        title: const Text('Filter Search'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: const Text('Courses'),
+              leading: const Icon(Icons.book),
+              onTap: () {
+                Get.back();
+                Get.to(
+                  () => const SearchScreen(initialFilter: SearchFilter.courses),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Marketplace'),
+              leading: const Icon(Icons.shopping_cart),
+              onTap: () {
+                Get.back();
+                Get.to(
+                  () => const SearchScreen(
+                    initialFilter: SearchFilter.marketplace,
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(onPressed: () => Get.back(), child: const Text('Cancel')),
+        ],
       ),
     );
   }
