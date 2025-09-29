@@ -2,10 +2,8 @@
 
     <!-- Image & Camera Permissions -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <!-- For Android 13+ -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <!-- Backward compatibility for Android 12 and lower -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+<!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />-->
+    <!-- Image permission -->
 
     <!-- Internet Permissions -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProfileOptionTile extends StatelessWidget {
-  final String iconPath;
+  final String? iconPath;
   final String title;
   final VoidCallback onTap;
   final Color? iconColor;
@@ -9,14 +9,14 @@ class ProfileOptionTile extends StatelessWidget {
   final Color? arrowColor;
 
   const ProfileOptionTile({
-    Key? key,
-    required this.iconPath,
+    super.key,
+    this.iconPath,
     required this.title,
     required this.onTap,
     this.iconColor,
     this.textColor,
     this.arrowColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +25,16 @@ class ProfileOptionTile extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: Colors.grey.shade100,
       child: ListTile(
-        leading: Image.asset(
-          iconPath,
+        leading: iconPath != null
+            ? Image.asset(
+          iconPath!,
           width: 24,
           height: 24,
           color: iconColor ?? Colors.grey.shade700,
+        )
+            : SizedBox(
+          width: 24,
+          height: 24,
         ),
         title: Text(
           title,
