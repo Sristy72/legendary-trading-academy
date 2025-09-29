@@ -17,13 +17,11 @@ class MarketplaceApiCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildImageWithBadge(),
-          const SizedBox(height: 8),
+          const SizedBox(height: 2),
           _buildTitle(),
-          const SizedBox(height: 4),
           _buildDescription(),
-          const Spacer(),
           _buildPrice(),
-          const SizedBox(height: 8),
+          _buildPriceButton(),
         ],
       ),
     );
@@ -80,8 +78,8 @@ class MarketplaceApiCard extends StatelessWidget {
         item.title,
         style: const TextStyle(
           fontSize: 14,
-          fontWeight: FontWeight.bold,
-          color: AppColors.titleTextColor,
+          fontWeight: FontWeight.w900,
+          color: AppColors.blackColor,
         ),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
@@ -114,6 +112,30 @@ class MarketplaceApiCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _buildPriceButton() {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    width: double.infinity,
+    child: ElevatedButton(
+      onPressed: () {
+        // Handle button press
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primaryBlue,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      ),
+      child: const Text(
+        'Buy Now',
+        style: TextStyle(
+          color: AppColors.titleTextColor,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+  );
 }
 
 class _TypeBadge extends StatelessWidget {

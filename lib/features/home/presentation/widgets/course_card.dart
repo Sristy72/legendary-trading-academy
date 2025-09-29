@@ -37,8 +37,12 @@ class CourseCard extends StatelessWidget {
                       errorBuilder: (context, error, stackTrace) => Container(
                         color: Colors.grey.shade200,
                         width: double.infinity,
+                        height: double.infinity,
                         child: const Center(
-                          child: Icon(Icons.broken_image, color: Colors.grey),
+                          child: Icon(
+                            Icons.broken_image,
+                            color: AppColors.hintText,
+                          ),
                         ),
                       ),
                     )

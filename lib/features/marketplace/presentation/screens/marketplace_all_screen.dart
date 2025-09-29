@@ -47,18 +47,14 @@ class MarketplaceAllScreen extends StatelessWidget {
             itemCount: marketplaceController.marketplaceItems.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              mainAxisExtent: 250, //* each card height
+              mainAxisExtent:
+                  280, //* each card height increased to prevent overflow
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
             ),
             itemBuilder: (context, index) {
               final item = marketplaceController.marketplaceItems[index];
-              return InkWell(
-                onTap: () {
-                  Get.to(() => MarketplaceDetailsScreen(), arguments: item.id);
-                },
-                child: MarketplaceApiCard(item: item),
-              );
+              return MarketplaceApiCard(item: item);
             },
           ),
         );

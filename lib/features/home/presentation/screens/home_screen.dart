@@ -99,10 +99,15 @@ class HomeContent extends StatelessWidget {
                 width: 48,
                 decoration: const BoxDecoration(shape: BoxShape.circle),
                 clipBehavior: Clip.antiAlias,
-                child: Image.asset(
-                  "assets/images/profile.jpg",
-                  fit: BoxFit.cover,
-                ),
+                child: profileController.userInfo.value?.avatar != null
+                    ? Image.network(
+                        profileController.userInfo.value!.avatar.url!,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.asset(
+                        "assets/images/avatar.png",
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
             const SizedBox(width: 8),
