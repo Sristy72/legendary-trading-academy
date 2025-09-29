@@ -59,8 +59,13 @@ class ModuleScreen extends StatelessWidget {
                           : '${controller.rxSelectedCourse.value!.modules.length} items',
                       onTap: () {
                         controller.selectItem(0);
-                        final courseId = controller.rxSelectedCourse.value?.id;
-                        // '68bd11bb31fb45d7d231ff17';  is was the deafult id for testing
+
+                        // Ensure courseId is valid
+                        final courseId =
+                            controller.rxSelectedCourse.value?.id ??
+                            '68bd11bb31fb45d7d231ff17'; // Default courseId for testing
+
+                        // Navigate to ModulesDetailsScreen with courseId
                         Get.to(
                           () => const ModulesDetailsScreen(),
                           arguments: courseId,

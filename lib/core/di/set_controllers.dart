@@ -24,12 +24,15 @@ void setupController() {
   );
 
   Get.lazyPut<CourseController>(
+    fenix: true,
     () => CourseController(repository: Get.find<CourseRepository>()),
   );
   Get.lazyPut<TrainerController>(
+    fenix: true,
     () => TrainerController(repository: Get.find<TrainerRepository>()),
   );
   Get.lazyPut<MarketplaceController>(
+    fenix: true,
     () => MarketplaceController(repository: Get.find<MarketplaceRepository>()),
   );
 }

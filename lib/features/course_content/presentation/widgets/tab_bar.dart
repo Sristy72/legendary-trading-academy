@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
-import 'package:get/get.dart';
 
 class ModuleTabBar extends StatelessWidget {
   final Function(int) onTabChanged;
