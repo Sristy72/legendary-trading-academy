@@ -53,119 +53,130 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Search',
-          style: TextStyle(
-            color: AppColors.appBarTitle,
-            fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        // Dismiss keyboard when tapping outside the search field
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Search',
+            style: TextStyle(
+              color: AppColors.appBarTitle,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-      ),
-      body: Column(
-        children: [
-          //* <--- Search Bar --->
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _searchController,
-              onChanged: _onSearch,
-              decoration: InputDecoration(
-                hintText: 'Search courses, trainers, or marketplace items...',
-                prefixIcon: const Icon(Icons.search, color: AppColors.hintText),
-                suffixIcon: _searchController.text.isNotEmpty
-                    ? IconButton(
-                        icon: const Icon(
-                          Icons.clear,
-                          color: AppColors.hintText,
-                        ),
-                        onPressed: () {
-                          _searchController.clear();
-                          _controller.clearSearch();
-                        },
-                      )
-                    : null,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
+        body: Column(
+          children: [
+            //* <--- Search Bar --->
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                controller: _searchController,
+                onChanged: _onSearch,
+                decoration: InputDecoration(
+                  hintText: 'Search courses, trainers, or marketplace items...',
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: AppColors.hintText,
+                  ),
+                  suffixIcon: _searchController.text.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(
+                            Icons.clear,
+                            color: AppColors.hintText,
+                          ),
+                          onPressed: () {
+                            _searchController.clear();
+                            _controller.clearSearch();
+                            // Dismiss keyboard after clearing
+                            FocusScope.of(context).unfocus();
+                          },
+                        )
+                      : null,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  filled: true,
+                  fillColor: AppColors.searchBackgroundColor,
                 ),
-                filled: true,
-                fillColor: AppColors.searchBackgroundColor,
               ),
             ),
-          ),
 
-          // Filter Chips
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              children: SearchFilter.values.map((filter) {
-                return Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: FilterChip(
-                    label: Text(_getFilterLabel(filter)),
-                    selected: _selectedFilter == filter,
-                    onSelected: (selected) => _onFilterChanged(filter),
-                    selectedColor: AppColors.primaryBlue.withOpacity(0.2),
-                    checkmarkColor: AppColors.primaryBlue,
-                  ),
-                );
-              }).toList(),
+            // Filter Chips
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: SearchFilter.values.map((filter) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: FilterChip(
+                      label: Text(_getFilterLabel(filter)),
+                      selected: _selectedFilter == filter,
+                      onSelected: (selected) => _onFilterChanged(filter),
+                      selectedColor: AppColors.primaryBlue.withOpacity(0.2),
+                      checkmarkColor: AppColors.primaryBlue,
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
-          ),
 
-          const SizedBox(height: 16),
+            const SizedBox(height: 16),
 
-          // Search Results
-          Expanded(
-            child: Obx(() {
-              if (_controller.isLoading.value) {
-                return const Center(child: CircularProgressIndicator());
-              }
+            // Search Results
+            Expanded(
+              child: Obx(() {
+                if (_controller.isLoading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-              if (_controller.searchQuery.value.isEmpty) {
-                return const Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.search, size: 64, color: Colors.grey),
-                      SizedBox(height: 16),
-                      Text(
-                        'Start typing to search',
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                );
-              }
+                if (_controller.searchQuery.value.isEmpty) {
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.search, size: 64, color: Colors.grey),
+                        SizedBox(height: 16),
+                        Text(
+                          'Start typing to search',
+                          style: TextStyle(fontSize: 18, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  );
+                }
 
-              final hasResults = _controller.hasResults();
-              if (!hasResults) {
-                return const Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.search_off, size: 64, color: Colors.grey),
-                      SizedBox(height: 16),
-                      Text(
-                        'No results found',
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
-                      ),
-                      Text(
-                        'Try adjusting your search or filter',
-                        style: TextStyle(fontSize: 14, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                );
-              }
+                final hasResults = _controller.hasResults();
+                if (!hasResults) {
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.search_off, size: 64, color: Colors.grey),
+                        SizedBox(height: 16),
+                        Text(
+                          'No results found',
+                          style: TextStyle(fontSize: 18, color: Colors.grey),
+                        ),
+                        Text(
+                          'Try adjusting your search or filter',
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  );
+                }
 
-              return _buildSearchResults();
-            }),
-          ),
-        ],
+                return _buildSearchResults();
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }
