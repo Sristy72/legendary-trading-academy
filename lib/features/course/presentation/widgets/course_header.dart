@@ -1,10 +1,11 @@
 // lib/features/courses/widgets/course_header.dart
 
 import 'package:flutter/material.dart';
-import '../../models/course_details.dart';
+
+import '../../models/course.dart';
 
 class CourseHeader extends StatelessWidget {
-  final CourseDetails course;
+  final Course course;
 
   const CourseHeader({super.key, required this.course});
 
@@ -14,7 +15,7 @@ class CourseHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          course.title,
+          course.name,
           style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -23,7 +24,7 @@ class CourseHeader extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          course.subtitle,
+          course.description,
           style: const TextStyle(fontSize: 14, color: Colors.black87),
         ),
       ],

@@ -4,6 +4,7 @@ class ItemWidget extends StatelessWidget {
   final int index;
   final String title;
   final String ImagePath;
+  final String? trailingText;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -14,6 +15,7 @@ class ItemWidget extends StatelessWidget {
     required this.ImagePath,
     required this.isSelected,
     required this.onTap,
+    this.trailingText,
   });
 
   @override
@@ -59,6 +61,17 @@ class ItemWidget extends StatelessWidget {
                 color: Color(0XFF1A3E74),
               ),
             ),
+            if (trailingText != null) ...[
+              const SizedBox(width: 8),
+              Text(
+                trailingText!,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF4E4E4E),
+                ),
+              ),
+            ],
             const Spacer(),
             if (isSelected)
               Icon(Icons.arrow_forward_ios, size: 16, color: Colors.blue[800]),

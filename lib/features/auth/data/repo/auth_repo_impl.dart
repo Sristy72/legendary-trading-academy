@@ -7,14 +7,12 @@ import '../models/auth_response_model.dart';
 import '../models/login_request_model.dart';
 import '../models/otp_request_model.dart';
 import '../models/otp_request_model_register.dart';
-
 import '../models/refresh_token_request_model.dart';
 import '../models/refresh_token_response_model.dart';
 import '../models/register_request_model.dart';
 import '../models/register_response_model.dart';
 import '../models/reset_password_request_model.dart';
 import '../models/set_new_password_request_model.dart';
-import '../models/set_new_password_response_model.dart';
 import '../models/upload_profile_personal_info_response_model.dart';
 import '../models/user_model.dart';
 
