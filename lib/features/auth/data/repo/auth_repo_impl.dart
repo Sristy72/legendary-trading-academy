@@ -14,7 +14,6 @@ import '../models/register_request_model.dart';
 import '../models/register_response_model.dart';
 import '../models/reset_password_request_model.dart';
 import '../models/set_new_password_request_model.dart';
-import '../models/set_new_password_response_model.dart';
 import '../models/upload_profile_personal_info_response_model.dart';
 import '../models/user_model.dart';
 

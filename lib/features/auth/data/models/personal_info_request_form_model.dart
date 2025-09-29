@@ -1,5 +1,4 @@
 import 'package:flutter_ladydenily/features/auth/data/models/trading_profile.dart';
-import 'package:flutter_ladydenily/features/auth/data/models/trading_request_model.dart';
 import 'package:get/get_connect/http/src/multipart/form_data.dart';
 import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
 

@@ -1,7 +1,7 @@
 class FetchProfileResponseModdel {
   final Avatar avatar;
   final UserRating userRating;
-  final TrendingProfile trendingProfile;
+  final TradingProfile trendingProfile;
   final String id;
   final String name;
   final String email;
@@ -51,7 +51,7 @@ class FetchProfileResponseModdel {
     return FetchProfileResponseModdel(
       avatar: Avatar.fromJson(json['avatar']),
       userRating: UserRating.fromJson(json['userRating']),
-      trendingProfile: TrendingProfile.fromJson(json['treding_profile']),
+      trendingProfile: TradingProfile.fromJson(json['treding_profile']),
       id: json['_id'] ?? '',
       name: json['name'] ?? '',
       email: json['email'] ?? '',
@@ -178,22 +178,38 @@ class RatingDetail {
   }
 }
 
-class TrendingProfile {
-  final List<dynamic> preferredLearning;
+class TradingProfile {
+  final String tradingExperience;
+  final String assetsOfInterest;
+  final String mainGoal;
+  final String riskAppetite;
+  final List<String> preferredLearning;
 
-  TrendingProfile({
+  TradingProfile({
+    required this.tradingExperience,
+    required this.assetsOfInterest,
+    required this.mainGoal,
+    required this.riskAppetite,
     required this.preferredLearning,
   });
 
-  factory TrendingProfile.fromJson(Map<String, dynamic> json) {
-    return TrendingProfile(
-      preferredLearning: json['preffered_learning'] ?? [],
+  factory TradingProfile.fromJson(Map<String, dynamic> json) {
+    return TradingProfile(
+      tradingExperience: json["trading_exprience"] ?? "",
+      assetsOfInterest: json["assets_of_interest"] ?? "",
+      mainGoal: json["main_goal"] ?? "",
+      riskAppetite: json["risk_appetite"] ?? "",
+      preferredLearning: List<String>.from(json["preffered_learning"] ?? []),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'preffered_learning': preferredLearning,
+      "trading_exprience": tradingExperience,
+      "assets_of_interest": assetsOfInterest,
+      "main_goal": mainGoal,
+      "risk_appetite": riskAppetite,
+      "preffered_learning": preferredLearning,
     };
   }
 }

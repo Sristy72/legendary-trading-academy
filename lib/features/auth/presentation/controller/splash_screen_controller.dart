@@ -1,4 +1,6 @@
 import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/screens/personal_info_screen.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import '../screen/home_screen.dart';
@@ -12,8 +14,7 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    videoController =
-    VideoPlayerController.asset('assets/video/splash_video.mp4')
+    videoController = VideoPlayerController.asset('assets/video/splash_video.mp4')
       ..initialize().then((_) {
         isVideoLoaded.value = true;
         videoController.play();
@@ -25,7 +26,7 @@ class SplashController extends GetxController {
           final success = await _authController.refreshToken();
           if (Get.isOverlaysOpen) return; // avoid multiple calls
           if (success) {
-            Get.offAll(() => HomeScreen());
+            Get.offAll(() => ProfileScreen());
           } else {
             Get.offAll(() => LoginScreen());
           }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -12,6 +15,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final TextEditingController _currentPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+
+  final _profileController = Get.find<ProfileController>();
+
+  void _submit(){
+    _profileController.changePassword(_currentPasswordController.text, _newPasswordController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +92,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               context.primaryButton(
                 onPressed: () {
                   if (_newPasswordController.text == _confirmPasswordController.text) {
+                    _submit();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Password Updated!")),
                     );

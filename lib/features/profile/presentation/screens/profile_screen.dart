@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/screen/trading_profile_setup_screen.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_profile_screen.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_ladydenily/features/auth/presentation/screen/login_screen.dart';
@@ -22,13 +24,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final ProfileController _profileController = Get.find<ProfileController>();
+  final  _profileController = Get.find<ProfileController>();
 
-  @override
-  void initState() {
-    super.initState();
-    _profileController.fetchProfile();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,33 +61,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   children: [
-                    Stack(
-                      children: [
-                        CircleAvatar(
-                          radius: 40,
-                          backgroundImage: avatarUrl.isNotEmpty
-                              ? NetworkImage(avatarUrl)
-                              : const AssetImage(
-                            'assets/images/avatar_placeholder.png',
-                          ) as ImageProvider,
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            padding: const EdgeInsets.all(4),
-                            child: Image.asset(
-                              "assets/icons/avater floating.png",
-                              width: 16,
-                              height: 16,
+                    GestureDetector(
+                      onTap: (){Get.to(() => UploadProfileScreen(isFromProfile: true,));},
+                      child: Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 40,
+                            backgroundImage: avatarUrl.isNotEmpty
+                                ? NetworkImage(avatarUrl)
+                                : const AssetImage(
+                              'assets/images/avatar_placeholder.png',
+                            ) as ImageProvider,
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              padding: const EdgeInsets.all(4),
+                              child: Image.asset(
+                                "assets/icons/avater floating.png",
+                                width: 16,
+                                height: 16,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     const SizedBox(width: 16),
 
@@ -141,12 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       iconPath: "assets/icons/change pass.png",
                       title: "Change Password",
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ChangePasswordScreen(),
-                          ),
-                        );
+                        Get.to(ChangePasswordScreen());
                       },
                     ),
                     ProfileOptionTile(
@@ -161,6 +156,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         );
                       },
                     ),
+                    
+                    ProfileOptionTile(title: 'Trading Profile', onTap: (){Get.to(TradingProfileSetupScreen(isFromProfile: true,));}),
                     ProfileOptionTile(
                       iconPath: "assets/icons/about app.png",
                       title: "About App",
