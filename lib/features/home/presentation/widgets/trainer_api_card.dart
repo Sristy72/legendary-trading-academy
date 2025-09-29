@@ -27,7 +27,7 @@ class TrainerApiCard extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: Row(
           children: [
-            //* Trainer Avatar
+            //* <--- Trainer Avatar --->
             Container(
               width: 60,
               height: 60,
@@ -56,13 +56,12 @@ class TrainerApiCard extends StatelessWidget {
 
             const SizedBox(width: 12),
 
-            // Trainer Details
+            //* <--- Trainer Details --->
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Trainer Name
                   Row(
                     children: [
                       Text(
@@ -89,7 +88,7 @@ class TrainerApiCard extends StatelessWidget {
 
                   const SizedBox(height: 4),
 
-                  // Role and verification
+                  //* <--- Role and verification --->
                   Row(
                     children: [
                       Text(
@@ -114,7 +113,7 @@ class TrainerApiCard extends StatelessWidget {
 
                   const SizedBox(height: 4),
 
-                  // Rating
+                  //* <--- Rating --->
                   Row(
                     children: [
                       ...List.generate(5, (index) {

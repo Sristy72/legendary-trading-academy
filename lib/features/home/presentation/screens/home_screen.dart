@@ -121,14 +121,17 @@ class HomeContent extends StatelessWidget {
                   final name = user?.name ?? user?.username ?? 'User';
                   return Text(
                     'Hello, $name',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       color: AppColors.titleTextColor,
                       fontWeight: FontWeight.bold,
                     ),
                   );
                 }),
-                const Text(
-                  'New York, NY',
+                Text(
+                  profileController.userInfo.value?.address ??
+                      'Unknown Location',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
               ],
