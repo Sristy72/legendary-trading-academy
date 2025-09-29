@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../core/common/widgets/app_scaffold.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../controllers/resource_details_controller.dart';
 import '../widgets/module_all_resources.dart';
 
 class ResourcesScreen extends StatelessWidget {
@@ -8,6 +10,10 @@ class ResourcesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ResourcesController controller = Get.put(
+      ResourcesController(repository: Get.find()),
+    );
+
     return AppScaffold(
       appBar: AppBar(
         title: const Text(
@@ -19,16 +25,29 @@ class ResourcesScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView.separated(
-        itemBuilder: (context, index) {
-          return ModuleAllResources(index: index);
-        },
-        itemCount: 10,
-        separatorBuilder: (context, index) {
-          return const SizedBox(height: 12);
-        },
-      ),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (controller.modules.isEmpty) {
+          return const Center(child: Text('No resources found'));
+        }
+
+        return ListView.separated(
+          itemBuilder: (context, index) {
+            final module = controller.modules[index];
+            return ModuleAllResources(
+              module: module,
+              index: index,
+            ); // Pass the index here
+          },
+          itemCount: controller.modules.length,
+          separatorBuilder: (context, index) {
+            return const SizedBox(height: 12);
+          },
+        );
+      }),
     );
-    ;
   }
 }

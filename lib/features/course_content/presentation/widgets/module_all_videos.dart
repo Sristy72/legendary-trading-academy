@@ -18,7 +18,7 @@ class ModuleAllVideos extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 12, bottom: 2, left: 12),
-            child: Text("Module ${index+1}", textAlign: TextAlign.start),
+            child: Text("Module ${index + 1}", textAlign: TextAlign.start),
           ),
           Divider(color: Colors.grey[400], thickness: 1),
           Padding(

@@ -1,15 +1,13 @@
-import 'package:flutter/foundation.dart'; // Correct import for debugPrint
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-
 import '../../../../core/base/base_controller.dart';
 import '../../../course/domain/course_repository.dart';
-import '../../data/modles/video_model.dart';
 import '../../data/modles/class_module_module.dart';
 
-class RecordingDetailsController extends BaseController {
+class ResourcesController extends BaseController {
   final CourseRepository _repository;
 
-  RecordingDetailsController({required CourseRepository repository})
+  ResourcesController({required CourseRepository repository})
     : _repository = repository;
 
   final RxList<Module> _modules = <Module>[].obs;

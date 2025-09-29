@@ -70,9 +70,8 @@ class ModuleScreen extends StatelessWidget {
                         controller.selectItem(0);
 
                         // Ensure courseId is valid
-                        final courseId =
-                            controller.rxSelectedCourse.value?.id ??
-                            '68bd11bb31fb45d7d231ff17'; // Default courseId for testing
+                        final courseId = controller.rxSelectedCourse.value?.id;
+                        // '68bd11bb31fb45d7d231ff17'; // Default courseId for testing
 
                         // Navigate to ModulesDetailsScreen with courseId
                         Get.to(
@@ -93,7 +92,10 @@ class ModuleScreen extends StatelessWidget {
                       onTap: () {
                         controller.selectItem(1);
                         // module id should be passed here
-                        Get.to(() => const RecordingDetailsScreen());
+                        Get.to(
+                          () => RecordingDetailsScreen(),
+                          arguments: courseId,
+                        );
                       },
                     ),
                     const SizedBox(height: 12),
@@ -108,7 +110,7 @@ class ModuleScreen extends StatelessWidget {
                       onTap: () {
                         controller.selectItem(2);
                         // module id should be passed here
-                        Get.to(() => const ResourcesScreen());
+                        Get.to(() => ResourcesScreen(), arguments: courseId);
                       },
                     ),
                     const SizedBox(height: 12),

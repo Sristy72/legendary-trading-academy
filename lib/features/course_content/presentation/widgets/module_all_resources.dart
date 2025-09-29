@@ -1,42 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/features/course_content/presentation/widgets/module_resource_item.dart';
-
+import '../../data/modles/class_module_module.dart';
 
 class ModuleAllResources extends StatelessWidget {
-  final int index;
-  const ModuleAllResources({super.key, required this.index});
+  final Module module;
+  final int index; // Add index parameter if needed
+
+  const ModuleAllResources({
+    super.key,
+    required this.module,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xffE8ECF1),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 12, bottom: 2, left: 12),
-            child: Text("Module ${index + 1}", textAlign: TextAlign.start),
-          ),
-          Divider(color: Colors.grey[400], thickness: 1),
-          Padding(
-            padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return ModuleResourceItem(
-                  backgroundColor: Colors.white,
-                  title: 'Resource ${index + 1}',
-                  subtitle: 'Description for resource ${index + 1}',
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Module ${index + 1}:', // Use index here if needed
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: module.resources.length,
+              itemBuilder: (context, resourceIndex) {
+                final resource = module.resources[resourceIndex];
+                return ListTile(
+                  leading: const Icon(Icons.file_present),
+                  title: Text(resource.name ?? 'Resource ${resourceIndex + 1}'),
+                  subtitle: Text(resource.name ?? 'No description'),
                 );
               },
-              itemCount: 4,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
