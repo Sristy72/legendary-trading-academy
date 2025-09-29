@@ -65,9 +65,6 @@ class ModuleScreen extends StatelessWidget {
                       title: 'Modules',
                       ImagePath: "assets/images/periodic-table_2183917.png",
                       isSelected: controller.selectedIndex == 0,
-                      trailingText: controller.rxSelectedCourse.value == null
-                          ? null
-                          : '${controller.rxSelectedCourse.value!.modules.length} items',
                       onTap: () {
                         controller.selectItem(0);
 
@@ -88,9 +85,6 @@ class ModuleScreen extends StatelessWidget {
                       title: 'Recordings',
                       ImagePath: "assets/images/folder_12533516.png",
                       isSelected: controller.selectedIndex == 1,
-                      trailingText: controller.rxSelectedCourse.value == null
-                          ? null
-                          : '${controller.rxSelectedCourse.value!.modules.fold<int>(0, (p, m) => p + m.video.length)}',
                       onTap: () {
                         controller.selectItem(1);
                         // module id should be passed here
@@ -106,9 +100,6 @@ class ModuleScreen extends StatelessWidget {
                       title: 'Resources',
                       ImagePath: "assets/images/folder_15237642.png",
                       isSelected: controller.selectedIndex == 2,
-                      trailingText: controller.rxSelectedCourse.value == null
-                          ? null
-                          : '${controller.rxSelectedCourse.value!.modules.fold<int>(0, (p, m) => p + m.resources.length)}',
                       onTap: () {
                         controller.selectItem(2);
                         // module id should be passed here
@@ -129,9 +120,6 @@ class ModuleScreen extends StatelessWidget {
                       title: 'Assignment',
                       ImagePath: "assets/images/appraisal_15210198.png",
                       isSelected: controller.selectedIndex == 4,
-                      trailingText: controller.rxSelectedCourse.value == null
-                          ? null
-                          : '${controller.rxSelectedCourse.value!.modules.fold<int>(0, (p, m) => p + m.assignment.length)}',
                       onTap: () {
                         controller.selectItem(4);
                         Get.to(
