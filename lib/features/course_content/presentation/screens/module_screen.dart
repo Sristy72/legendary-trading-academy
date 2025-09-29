@@ -17,12 +17,21 @@ class ModuleScreen extends StatelessWidget {
     final ModuleController controller = Get.find<ModuleController>();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final arg = Get.arguments;
-      if (arg != null &&
-          arg is String &&
+      // Use constructor parameter first, then fall back to arguments
+      String? targetCourseId = courseId.isNotEmpty
+          ? courseId
+          : Get.arguments as String?;
+
+      print('[ModuleScreen] Constructor courseId: $courseId');
+      print('[ModuleScreen] Get.arguments: ${Get.arguments}');
+      print('[ModuleScreen] Target courseId: $targetCourseId');
+
+      if (targetCourseId != null &&
+          targetCourseId.isNotEmpty &&
           (controller.rxSelectedCourse.value == null ||
-              controller.rxSelectedCourse.value!.id != arg)) {
-        controller.loadCourseById(arg);
+              controller.rxSelectedCourse.value!.id != targetCourseId)) {
+        print('[ModuleScreen] Loading course data for ID: $targetCourseId');
+        controller.loadCourseById(targetCourseId);
       }
     });
 

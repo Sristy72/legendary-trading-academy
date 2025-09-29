@@ -133,7 +133,10 @@ class MyCourseCard extends StatelessWidget {
                             height: 36,
                             child: ElevatedButton(
                               onPressed: () {
-                                Get.to(() => ModuleScreen(courseId: course.id));
+                                Get.to(
+                                  () => ModuleScreen(courseId: course.id),
+                                  arguments: course.id,
+                                );
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.yellow.shade700,
