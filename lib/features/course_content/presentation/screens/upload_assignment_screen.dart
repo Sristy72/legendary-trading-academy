@@ -3,8 +3,9 @@ import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:get/get.dart';
 import '../controllers/assignment_controller.dart';
 
-class AssignmentPage extends StatelessWidget {
-  const AssignmentPage({super.key});
+class UploadAssignmentScreen extends StatelessWidget {
+  final String assignmentTitle;
+  const UploadAssignmentScreen({super.key, required this.assignmentTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class AssignmentPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('Assignment for class 1'),
+        title: Text(assignmentTitle),
       ),
       body: Column(
         children: [

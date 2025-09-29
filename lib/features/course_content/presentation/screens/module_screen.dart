@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/features/course/models/assignment_model.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_details_screen.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/recording_details_screen.dart';
 import 'package:flutter_ladydenily/features/quiz/presentation/screens/quiz_screen.dart';
 import 'package:get/get.dart';
 import '../widgets/items_widgets.dart';
 import '../controllers/module_controller.dart';
+import 'assignment_details_screen.dart';
 import 'resources_details_screen.dart';
 import 'upload_assignment_screen.dart';
 
@@ -132,7 +134,10 @@ class ModuleScreen extends StatelessWidget {
                           : '${controller.rxSelectedCourse.value!.modules.fold<int>(0, (p, m) => p + m.assignment.length)}',
                       onTap: () {
                         controller.selectItem(4);
-                        Get.to(() => (AssignmentPage()));
+                        Get.to(
+                          () => AssignmentDetailsScreen(),
+                          arguments: courseId,
+                        );
                       },
                     ),
                     const SizedBox(height: 12),
