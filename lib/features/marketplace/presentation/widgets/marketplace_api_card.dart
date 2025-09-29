@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
+import 'package:flutter_ladydenily/features/marketplace/presentation/screens/marketplace_details_screen.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../models/marketplace_item_api_model.dart';
 
 class MarketplaceApiCard extends StatelessWidget {
@@ -112,30 +115,30 @@ class MarketplaceApiCard extends StatelessWidget {
       ),
     );
   }
-}
 
-Widget _buildPriceButton() {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-    width: double.infinity,
-    child: ElevatedButton(
-      onPressed: () {
-        // Handle button press
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primaryBlue,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      ),
-      child: const Text(
-        'Buy Now',
-        style: TextStyle(
-          color: AppColors.titleTextColor,
-          fontWeight: FontWeight.bold,
+  Widget _buildPriceButton() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          Get.to(() => MarketplaceDetailsScreen(), arguments: item.id);
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primaryBlue,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        ),
+        child: const Text(
+          'Buy Now',
+          style: TextStyle(
+            color: AppColors.titleTextColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 class _TypeBadge extends StatelessWidget {

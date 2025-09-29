@@ -177,7 +177,7 @@ class _MarketplaceDetailsScreenState extends State<MarketplaceDetailsScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(
                   vertical: 12,
-                  horizontal: 8,
+                  horizontal: 12,
                 ),
                 child: SafeArea(
                   top: false,
@@ -215,6 +215,7 @@ class _MarketplaceDetailsScreenState extends State<MarketplaceDetailsScreen> {
                         children: [
                           Expanded(
                             child: context.secondaryButton(
+                              borderColor: AppColors.buttonColor,
                               onPressed: () {},
                               text: 'Add to Cart',
                             ),
@@ -222,6 +223,7 @@ class _MarketplaceDetailsScreenState extends State<MarketplaceDetailsScreen> {
                           const SizedBox(width: 10),
                           Expanded(
                             child: context.primaryButton(
+                              textColor: AppColors.appBarTitle,
                               onPressed: () {},
                               text: item.isFree ? 'Get Free' : 'Shop Now',
                             ),
