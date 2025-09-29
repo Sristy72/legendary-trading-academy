@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/images/images.dart';
-import 'package:flutter_ladydenily/core/common/widgets/appbar.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';

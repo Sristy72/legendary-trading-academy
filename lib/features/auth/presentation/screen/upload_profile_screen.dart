@@ -3,15 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/trading_profile_setup_screen.dart';
-import 'package:flutter_ladydenily/features/home/presentation/screens/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadProfileScreen extends StatefulWidget {
-  const UploadProfileScreen({
-    super.key,
-  });
-
+  const UploadProfileScreen({super.key});
 
   @override
   State<UploadProfileScreen> createState() => _UploadProfileScreenState();
@@ -119,18 +115,17 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Obx(
-                        () =>
-                        context.secondaryButton(
-                          isLoading: _authController.isSkipLoading.value,
-                          height: 51,
-                          width: (screenWidth / 2) - 32,
-                          onPressed: () {
-                            _authController.isSkipLoading.value = true;
-                            Get.to(() => TradingProfileSetupScreen());
-                          },
-                          text: "Skip",
-                          borderRadius: 8,
-                        ),
+                    () => context.secondaryButton(
+                      isLoading: _authController.isSkipLoading.value,
+                      height: 51,
+                      width: (screenWidth / 2) - 32,
+                      onPressed: () {
+                        _authController.isSkipLoading.value = true;
+                        Get.to(() => TradingProfileSetupScreen());
+                      },
+                      text: "Skip",
+                      borderRadius: 8,
+                    ),
                   ),
                   const SizedBox(width: 8),
 

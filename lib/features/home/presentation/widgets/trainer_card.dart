@@ -52,7 +52,7 @@ class TrainerCard extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 8),
                       child: Text(
                         "•",
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           color: AppColors.textColorBlue,
                           fontWeight: FontWeight.bold,

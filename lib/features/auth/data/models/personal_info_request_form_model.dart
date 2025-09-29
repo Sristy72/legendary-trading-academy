@@ -1,9 +1,6 @@
 import 'package:flutter_ladydenily/features/auth/data/models/trading_profile.dart';
-import 'package:flutter_ladydenily/features/auth/data/models/trading_request_model.dart';
 import 'package:get/get_connect/http/src/multipart/form_data.dart';
 import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
-
-import 'different_user_model.dart';
 
 class PersonalInfoRequestFormModel {
   final String name;
@@ -15,7 +12,7 @@ class PersonalInfoRequestFormModel {
   final TradingProfile? tradingProfile;
   final MultipartFile? file; // in case you upload an image/file
 
-  PersonalInfoRequestFormModel ({
+  PersonalInfoRequestFormModel({
     required this.name,
     required this.age,
     required this.gender,
@@ -32,7 +29,7 @@ class PersonalInfoRequestFormModel {
       "gender": gender,
       "nationality": nationality,
       "address": address,
-      if(tradingProfile != null) "treding_profile": tradingProfile,
+      if (tradingProfile != null) "treding_profile": tradingProfile,
       if (file != null) "file": file,
     });
   }

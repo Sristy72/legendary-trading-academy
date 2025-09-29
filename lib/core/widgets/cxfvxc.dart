@@ -6,11 +6,11 @@ class CongratulationsDialog extends StatelessWidget {
   final VoidCallback onContinue;
 
   const CongratulationsDialog({
-    Key? key,
+    super.key,
     required this.courseName,
     required this.imagePath,
     required this.onContinue,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +23,7 @@ class CongratulationsDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             // Image (replace with correct asset path or network image)
-            Image.asset(
-              imagePath,
-              width: 160,
-              fit: BoxFit.contain,
-            ),
+            Image.asset(imagePath, width: 160, fit: BoxFit.contain),
             const SizedBox(height: 16),
 
             // Title
@@ -79,7 +75,10 @@ class CongratulationsDialog extends StatelessWidget {
                 ),
                 child: const Text(
                   'Continue',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

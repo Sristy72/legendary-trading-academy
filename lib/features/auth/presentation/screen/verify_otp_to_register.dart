@@ -85,7 +85,6 @@
 //   }
 // }
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:get/get.dart';
@@ -103,14 +102,14 @@ class OtpVerificationToCompleteRegister extends StatefulWidget {
       _OtpVerificationToCompleteRegisterState();
 }
 
-class _OtpVerificationToCompleteRegisterState extends State<OtpVerificationToCompleteRegister> {
+class _OtpVerificationToCompleteRegisterState
+    extends State<OtpVerificationToCompleteRegister> {
   final _authController = Get.find<AuthController>();
   final TextEditingController otpController = TextEditingController();
 
   void _submit() {
     _authController.verifyOTPRegister(widget.email, otpController.text);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -149,14 +148,13 @@ class _OtpVerificationToCompleteRegisterState extends State<OtpVerificationToCom
               //   }
               //   return const SizedBox.shrink(); // return empty widget
               // }),
-
               PinCode(otpController: otpController),
 
               SizedBox(height: 24),
 
               SizedBox(height: 12),
               Obx(
-                    () =>  context.primaryButton(
+                () => context.primaryButton(
                   isLoading: _authController.isLoading.value,
                   onPressed: () {
                     _submit();

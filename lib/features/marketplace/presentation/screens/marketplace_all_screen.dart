@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/screens/marketplace_details_screen.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../../../dummy_data.dart';
 import '../../../home/presentation/widgets/market_card.dart';
 

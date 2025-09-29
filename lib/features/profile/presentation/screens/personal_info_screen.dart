@@ -25,10 +25,15 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Personal Information",
-      style: TextStyle(color: Color(0xFF1A3E74),fontWeight: FontWeight.w700, fontSize: 24
-      ),
-      )
+      appBar: AppBar(
+        title: const Text(
+          "Personal Information",
+          style: TextStyle(
+            color: Color(0xFF1A3E74),
+            fontWeight: FontWeight.w700,
+            fontSize: 24,
+          ),
+        ),
       ),
       body: SafeArea(
         child: Padding(
@@ -51,7 +56,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-        
+
                 const Text("Last Name"),
                 const SizedBox(height: 6),
                 TextField(
@@ -66,7 +71,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-        
+
                 const Text("Age"),
                 const SizedBox(height: 6),
                 TextField(
@@ -82,11 +87,11 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-        
+
                 const Text("Gender"),
                 const SizedBox(height: 6),
                 DropdownButtonFormField<String>(
-                  value: gender,
+                  initialValue: gender,
                   items: const [
                     DropdownMenuItem(value: "Male", child: Text("Male")),
                     DropdownMenuItem(value: "Female", child: Text("Female")),
@@ -107,11 +112,11 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-        
+
                 const Text("Nationality"),
                 const SizedBox(height: 6),
                 DropdownButtonFormField<String>(
-                  value: nationality,
+                  initialValue: nationality,
                   items: const [
                     DropdownMenuItem(
                       value: "United States",
@@ -138,7 +143,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                   ),
                 ),
                 const SizedBox(height: 181),
-        
+
                 // Custom Button use
                 context.primaryButton(
                   onPressed: () {

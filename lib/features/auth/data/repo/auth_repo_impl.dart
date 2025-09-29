@@ -14,7 +14,6 @@ import '../models/register_request_model.dart';
 import '../models/register_response_model.dart';
 import '../models/reset_password_request_model.dart';
 import '../models/set_new_password_request_model.dart';
-import '../models/set_new_password_response_model.dart';
 import '../models/upload_profile_personal_info_response_model.dart';
 import '../models/user_model.dart';
 
@@ -43,9 +42,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  NetworkResult<void> resetPassword(
-    ResetPasswordRequestModel request,
-  ) {
+  NetworkResult<void> resetPassword(ResetPasswordRequestModel request) {
     return _apiClient.post(
       ApiConstants.auth.resetPass,
       data: request.toJson(),
@@ -53,19 +50,14 @@ class AuthRepositoryImpl implements AuthRepository {
     );
   }
 
-
-
   @override
-  NetworkResult<void> resetOtpVerify(
-      OtpVerificationRequestModel request,
-      ) {
+  NetworkResult<void> resetOtpVerify(OtpVerificationRequestModel request) {
     return _apiClient.post(
       ApiConstants.auth.otpVerify,
       data: request.toJson(),
       fromJsonT: (json) => [],
     );
   }
-
 
   @override
   NetworkResult<void> otpVerifyRegister(OtpRequestModelRegister request) {
@@ -82,10 +74,9 @@ class AuthRepositoryImpl implements AuthRepository {
       ApiConstants.user.updateProfile,
       formData: request,
       fromJsonT: (json) => UserResponse.fromJson(json),
-      isFormData: true
+      isFormData: true,
     );
   }
-
 
   @override
   NetworkResult<UserResponse> uploadPhoto(FormData request) {
@@ -93,7 +84,7 @@ class AuthRepositoryImpl implements AuthRepository {
       ApiConstants.user.updateProfile,
       formData: request,
       fromJsonT: (json) => UserResponse.fromJson(json),
-      isFormData: true
+      isFormData: true,
     );
   }
 
@@ -103,14 +94,12 @@ class AuthRepositoryImpl implements AuthRepository {
       ApiConstants.user.updateProfile,
       formData: request,
       fromJsonT: (json) => UserResponse.fromJson(json),
-      isFormData: true
+      isFormData: true,
     );
   }
 
   @override
-  NetworkResult<void> setNewPassword(
-    SetNewPasswordRequestModel request,
-  ) {
+  NetworkResult<void> setNewPassword(SetNewPasswordRequestModel request) {
     return _apiClient.post(
       ApiConstants.auth.setNewPass,
       data: request.toJson(),

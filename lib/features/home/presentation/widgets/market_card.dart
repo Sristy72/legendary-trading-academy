@@ -65,7 +65,7 @@ class MarketCard extends StatelessWidget {
                         color: AppColors.textColorBlue,
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {},

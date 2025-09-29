@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../../../../core/widgets/pin_code.dart';
 import '../../../../core/widgets/texts.dart';
 
-class VerifyCodeScreen extends StatefulWidget{
+class VerifyCodeScreen extends StatefulWidget {
   const VerifyCodeScreen({super.key, required this.email});
   final String email;
 
@@ -20,7 +20,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
 
   final _authController = Get.find<AuthController>();
 
-  _submit(){
+  void _submit() {
     _authController.verifyOTP(widget.email, _otpVerify.text);
   }
 
@@ -48,14 +48,16 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                   //     align: TextAlign.center,
                   //   ),
                   // ),
-
                   const SizedBox(height: 12),
 
                   // Subtitle
                   CustomText(
                     'Please check your Email for a message with your code. Your code is 6 numbers long.',
                     //align: TextAlign.center,
-                    style: theme.textTheme.bodyMedium?.copyWith(color: Color(0xFF4E4E4E), fontSize: 15),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: Color(0xFF4E4E4E),
+                      fontSize: 15,
+                    ),
                   ),
 
                   const SizedBox(height: 32),
@@ -65,14 +67,24 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
 
                   const SizedBox(height: 16),
 
-                  Center(child: Text('Resend code in 43s', style: TextStyle(color: AppColors.titleTextColor, fontSize: 18),)),
+                  Center(
+                    child: Text(
+                      'Resend code in 43s',
+                      style: TextStyle(
+                        color: AppColors.titleTextColor,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 30),
 
                   // Continue Button
                   Obx(
                     () => context.primaryButton(
-                       isLoading: _authController.isLoading.value,
-                      onPressed: () {_submit();},
+                      isLoading: _authController.isLoading.value,
+                      onPressed: () {
+                        _submit();
+                      },
                       text: "Verify",
                     ),
                   ),
@@ -86,4 +98,3 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
     );
   }
 }
-

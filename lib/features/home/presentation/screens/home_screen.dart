@@ -84,6 +84,7 @@ class HomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         title: Row(
           children: [
             GestureDetector(

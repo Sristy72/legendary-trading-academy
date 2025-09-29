@@ -9,14 +9,14 @@ class ProfileOptionTile extends StatelessWidget {
   final Color? arrowColor;
 
   const ProfileOptionTile({
-    Key? key,
+    super.key,
     required this.iconPath,
     required this.title,
     required this.onTap,
     this.iconColor,
     this.textColor,
     this.arrowColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +33,7 @@ class ProfileOptionTile extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: TextStyle(
-            fontSize: 16,
-            color: textColor ?? Colors.black,
-          ),
+          style: TextStyle(fontSize: 16, color: textColor ?? Colors.black),
         ),
         trailing: Icon(
           Icons.arrow_forward_ios,

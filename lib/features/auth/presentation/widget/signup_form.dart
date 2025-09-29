@@ -3,13 +3,9 @@ import 'package:flutter_ladydenily/core/common/texts/texts.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
-import 'package:flutter_ladydenily/features/auth/presentation/screen/personal_information_screen.dart';
-import 'package:flutter_ladydenily/features/auth/presentation/screen/verify_code_screen.dart';
-import 'package:flutter_ladydenily/features/auth/presentation/screen/verify_otp_to_register.dart';
 
 import 'package:flutx_core/core/validation/validators.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
@@ -27,15 +23,18 @@ class _SignupFormState extends State<SignupForm> {
   final FocusNode _passwordFocus = FocusNode();
   final FocusNode _nameFocus = FocusNode();
 
-  final TextEditingController _nameController =
-  TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   final ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
 
-  void _submit(){
-    _authController.register(_nameController.text.toString(), _emailController.text, _passwordController.text);
+  void _submit() {
+    _authController.register(
+      _nameController.text.toString(),
+      _emailController.text,
+      _passwordController.text,
+    );
   }
 
   @override
@@ -107,10 +106,9 @@ class _SignupFormState extends State<SignupForm> {
 
             SizedBox(height: 16),
 
-
             ///Sign in
             Obx(
-              () =>  context.primaryButton(
+              () => context.primaryButton(
                 isLoading: _authController.isLoading.value,
                 onPressed: () {
                   _submit();
