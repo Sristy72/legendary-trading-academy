@@ -20,14 +20,11 @@ class ModuleAllVideos extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 12, bottom: 2, left: 12),
-            child: Text(
-              "Module ${index + 1}: ${module.name}",
-              textAlign: TextAlign.start,
-            ),
+            child: Text("Module ${index + 1}", textAlign: TextAlign.start),
           ),
           Divider(color: Colors.grey[400], thickness: 1),
           Padding(
-            padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
+            padding: const EdgeInsets.only(left: 12.0, right: 12.0),
             child: ListView.builder(
               itemBuilder: (context, videoIndex) {
                 final video = module.video[videoIndex];

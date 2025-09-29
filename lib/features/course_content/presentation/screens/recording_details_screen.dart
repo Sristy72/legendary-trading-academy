@@ -33,7 +33,7 @@ class RecordingDetailsScreen extends StatelessWidget {
           return const Center(child: Text('No recordings found'));
         }
 
-        return ListView.builder(
+        return ListView.separated(
           padding: const EdgeInsets.all(16),
           itemCount: controller.modules.length,
           itemBuilder: (context, index) {
@@ -42,6 +42,9 @@ class RecordingDetailsScreen extends StatelessWidget {
               index: index, // Pass the module index
               module: module, // Pass the module data
             );
+          },
+          separatorBuilder: (context, index) {
+            return const SizedBox(height: 12); // Add 12px gap between modules
           },
         );
       }),

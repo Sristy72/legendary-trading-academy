@@ -36,30 +36,36 @@ class ModuleVideoContainer extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff090F12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 1, // Limit to 1 line
+                    overflow:
+                        TextOverflow.ellipsis, // Add ellipses for overflow
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xff090F12),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  durationText,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xff4E4E4E),
+                  const SizedBox(height: 4),
+                  Text(
+                    durationText,
+                    maxLines: 1, // Limit to 1 line
+                    overflow:
+                        TextOverflow.ellipsis, // Add ellipses for overflow
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xff4E4E4E),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
