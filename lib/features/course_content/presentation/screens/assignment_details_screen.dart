@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/features/course_content/data/modles/class_module_module.dart';
-import 'package:flutter_ladydenily/features/course_content/presentation/controllers/assignment_controller.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/widgets/module_all_assignment.dart';
 import 'package:get/get.dart';
 import '../controllers/assignment_details_controller.dart';
-import '../controllers/resource_details_controller.dart';
-import '../widgets/module_all_resources.dart';
+
 
 class AssignmentDetailsScreen extends StatelessWidget {
   const AssignmentDetailsScreen({super.key});
@@ -43,11 +40,11 @@ class AssignmentDetailsScreen extends StatelessWidget {
             final module = controller.modules[index];
             return ModuleAllAssignment(
               index: index,
-              module: module, // Pass the module data
+              module: module, 
             );
           },
           separatorBuilder: (context, index) {
-            return const SizedBox(height: 12); // Add 12px gap between modules
+            return const SizedBox(height: 12); 
           },
         );
       }),

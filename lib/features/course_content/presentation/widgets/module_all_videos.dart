@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../data/modles/class_module_module.dart';
-import 'module_video_container.dart';
+import '../../data/models/class_module_module.dart';
+import '../../data/models/module_video_container.dart';
 
 class ModuleAllVideos extends StatelessWidget {
   final int index;

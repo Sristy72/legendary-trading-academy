@@ -3,10 +3,10 @@ import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/widgets/tab_bar.dart';
 import 'package:get/get.dart';
-import '../../data/modles/assignment_module.dart';
-import '../../data/modles/class_module_module.dart';
-import '../../data/modles/resources_model.dart';
-import '../../data/modles/video_model.dart';
+import '../../data/models/assignment_module.dart';
+import '../../data/models/class_module_module.dart';
+import '../../data/models/resources_model.dart';
+import '../../data/models/video_model.dart';
 import '../widgets/module_resource_item.dart';
 import '../widgets/module_assignment_item.dart';
 
@@ -154,7 +154,6 @@ class EachModulesDetailsScreen extends StatelessWidget {
                   itemCount: recordings.length,
                   itemBuilder: (context, index) {
                     final v = recordings[index];
-                    // replaced ModuleVideoContainer with an inline layout that wraps the title to 2 lines
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 12.0,
@@ -222,7 +221,7 @@ class EachModulesDetailsScreen extends StatelessWidget {
                       backgroundColor: Color(0xffE8ECF1),
                       title: r.name ?? 'Resource ${index + 1}',
                       onTap: () {
-                        // implement open resource if needed
+                        // TODO: implement resource open later
                       },
                     );
                   },
@@ -236,7 +235,7 @@ class EachModulesDetailsScreen extends StatelessWidget {
                       title: a.title ?? 'Assignment ${index + 1}',
                       dueDate: a.start ?? '',
                       onTap: () {
-                        // implement assignment open if needed
+                        // TODO: implement assignment open later
                       },
                     );
                   },

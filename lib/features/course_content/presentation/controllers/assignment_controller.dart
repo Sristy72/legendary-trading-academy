@@ -2,7 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:get/state_manager.dart';
 
 class AssignmentController extends GetxController {
-  final status = 'Pending'.obs; // or Submitted
+  final status = 'Pending'.obs; 
   final fileName = ''.obs;
   final filePath = ''.obs;
 
@@ -22,7 +22,7 @@ class AssignmentController extends GetxController {
       // } else {
       //   // Handle upload failure
       // }
-      status.value = 'Uploaded'; // Simulate successful upload
+      status.value = 'Uploaded'; 
     }
   }
 
@@ -31,7 +31,6 @@ class AssignmentController extends GetxController {
     if (result != null && result.files.isNotEmpty) {
       final file = result.files.single;
       setFile(file.name, file.path ?? '');
-      // Simulate immediate upload success; when API is ready, replace with upload call
       await Future.delayed(const Duration(milliseconds: 300));
       await submit();
     }

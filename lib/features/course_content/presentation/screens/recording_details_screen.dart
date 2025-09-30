@@ -39,12 +39,12 @@ class RecordingDetailsScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             final module = controller.modules[index];
             return ModuleAllVideos(
-              index: index, // Pass the module index
-              module: module, // Pass the module data
+              index: index, 
+              module: module, 
             );
           },
           separatorBuilder: (context, index) {
-            return const SizedBox(height: 12); // Add 12px gap between modules
+            return const SizedBox(height: 12); 
           },
         );
       }),

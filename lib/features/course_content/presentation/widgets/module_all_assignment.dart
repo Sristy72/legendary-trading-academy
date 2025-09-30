@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/upload_assignment_screen.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/widgets/module_assignment_item.dart';
 import 'package:get/get.dart';
-import '../../data/modles/class_module_module.dart';
+import '../../data/models/class_module_module.dart';
 
 class ModuleAllAssignment extends StatelessWidget {
   final Module module;
