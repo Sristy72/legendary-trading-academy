@@ -1,17 +1,19 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
+import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/trading_profile_setup_screen.dart';
 import 'package:flutter_ladydenily/features/home/presentation/screens/home_screen.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadProfileScreen extends StatefulWidget {
-  const UploadProfileScreen({
-    super.key,
-  });
+  const UploadProfileScreen({super.key, required this.isFromProfile});
 
+  final bool isFromProfile;
 
   @override
   State<UploadProfileScreen> createState() => _UploadProfileScreenState();
@@ -21,6 +23,7 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
   File? _pickedImage; // store picked image
   final ImagePicker _picker = ImagePicker();
   final _authController = Get.find<AuthController>();
+  final _profileController = Get.find<ProfileController>();
 
   Future<void> _pickImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(
@@ -34,8 +37,26 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
     }
   }
 
-  void _submit() {
-    _authController.uploadPhoto(_pickedImage!);
+  void _submit() async {
+    // === Navigation logic depends on source ===
+    if (widget.isFromProfile) {
+      // If opened from profile, go back to ProfileScreen
+      _profileController.uploadPhoto(
+        _pickedImage!,
+      ); // just pop back to ProfileScreen
+    } else {
+      await _authController.uploadPhoto(_pickedImage!);
+    }
+  }
+
+  void _skip() {
+    if (widget.isFromProfile) {
+      // If opened from profile, just go back
+      Get.back();
+    } else {
+      // Otherwise go to next onboarding step
+      Get.to(() => const TradingProfileSetupScreen());
+    }
   }
 
   @override
@@ -58,6 +79,7 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
         child: Column(
           children: [
             Text("To create your new account, provide one of your photos."),
+
             Expanded(
               child: Center(
                 child: Column(
@@ -119,24 +141,30 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Obx(
-                        () =>
-                        context.secondaryButton(
-                          isLoading: _authController.isSkipLoading.value,
-                          height: 51,
-                          width: (screenWidth / 2) - 32,
-                          onPressed: () {
-                            _authController.isSkipLoading.value = true;
-                            Get.to(() => TradingProfileSetupScreen());
-                          },
-                          text: "Skip",
-                          borderRadius: 8,
-                        ),
+                    () => context.secondaryButton(
+                      isLoading: widget.isFromProfile
+                          ? _profileController.isSkipLoading.value
+                          : _authController.isSkipLoading.value,
+                      height: 51,
+                      borderColor: AppColors.buttonColor,
+                      width: (screenWidth / 2) - 32,
+                      onPressed: () {
+                        widget.isFromProfile
+                            ? _profileController.isSkipLoading.value = true
+                            : _authController.isSkipLoading.value = true;
+                        _skip();
+                      },
+                      text: "Skip",
+                      borderRadius: 8,
+                    ),
                   ),
                   const SizedBox(width: 8),
 
                   Obx(
                     () => context.primaryButton(
-                      isLoading: _authController.isLoading.value,
+                      isLoading: widget.isFromProfile
+                          ? _profileController.isLoading.value
+                          : _authController.isLoading.value,
                       width: (screenWidth / 2) - 32,
                       height: 51,
                       onPressed: () {

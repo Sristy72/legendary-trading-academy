@@ -12,29 +12,38 @@ class CourseDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Get.to(() => const CourseDetailsScreen(), arguments: course);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmallCard = constraints.maxWidth < 200;
+        final horizontalPadding = isSmallCard ? 8.0 : 12.0;
+
+        return InkWell(
+          onTap: () {
+            Get.to(() => const CourseDetailsScreen(), arguments: course);
+          },
+          child: Card(
+            color: AppColors.cardBackgroundColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            elevation: 2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildImageWithBadge(),
+                const SizedBox(height: 8),
+                _buildCourseTitle(horizontalPadding),
+                const SizedBox(height: 4),
+                _buildCourseSubtitle(horizontalPadding),
+                const SizedBox(height: 8),
+                _buildCourseMetadata(horizontalPadding),
+                const SizedBox(height: 8),
+                _buildPriceAndButton(horizontalPadding, isSmallCard),
+              ],
+            ),
+          ),
+        );
       },
-      child: Card(
-        color: AppColors.cardBackgroundColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        elevation: 2,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildImageWithBadge(),
-            const SizedBox(height: 8),
-            _buildCourseTitle(),
-            const SizedBox(height: 4),
-            _buildCourseSubtitle(),
-            const SizedBox(height: 8),
-            _buildCourseMetadata(),
-            const SizedBox(height: 12),
-            _buildPriceAndButton(),
-          ],
-        ),
-      ),
     );
   }
 
@@ -74,9 +83,9 @@ class CourseDetailsCard extends StatelessWidget {
     );
   }
 
-  Widget _buildCourseTitle() {
+  Widget _buildCourseTitle(double horizontalPadding) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: Text(
         course.name,
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -86,9 +95,9 @@ class CourseDetailsCard extends StatelessWidget {
     );
   }
 
-  Widget _buildCourseSubtitle() {
+  Widget _buildCourseSubtitle(double horizontalPadding) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: Text(
         course.description,
         style: const TextStyle(
@@ -101,16 +110,17 @@ class CourseDetailsCard extends StatelessWidget {
     );
   }
 
-  Widget _buildCourseMetadata() {
+  Widget _buildCourseMetadata(double horizontalPadding) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Row(
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 4,
         children: [
           _MetadataItem(
             icon: Icons.folder_open_outlined,
             text: '${course.modules.length} Modules',
           ),
-          const SizedBox(width: 12),
           _MetadataItem(
             icon: Icons.play_circle_outline,
             text:
@@ -121,55 +131,99 @@ class CourseDetailsCard extends StatelessWidget {
     );
   }
 
-  Widget _buildPriceAndButton() {
+  Widget _buildPriceAndButton(double horizontalPadding, bool isSmallCard) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                '\$${course.price}',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.hintText,
-                  decoration: TextDecoration.lineThrough,
-                  decorationColor: Colors.red,
-                  decorationStyle: TextDecorationStyle.solid,
-                  decorationThickness: 2.0,
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+      child: isSmallCard
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildPrice(),
+                const SizedBox(height: 8),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(() => ModuleScreen(courseId: course.id));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.yellow.shade700,
+                      foregroundColor: AppColors.textColorBlue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                    ),
+                    child: const Text(
+                      'Enroll Now',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                '\$${course.offerPrice}',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w900,
-                  color: AppColors.textColorBlue,
+              ],
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(child: _buildPrice()),
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () {
+                    Get.to(() => ModuleScreen(courseId: course.id));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.yellow.shade700,
+                    foregroundColor: AppColors.textColorBlue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text('Enroll Now'),
                 ),
-              ),
-            ],
-          ),
-
-          ElevatedButton(
-            onPressed: () {
-              Get.to(() => ModuleScreen(courseId: course.id));
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.yellow.shade700,
-              foregroundColor: AppColors.textColorBlue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
+              ],
             ),
-            child: const Text('Enroll Now'),
+    );
+  }
+
+  Widget _buildPrice() {
+    final hasOffer = course.offerPrice < course.price && course.offerPrice > 0;
+    if (hasOffer) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(
+            '\$${course.price}',
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+              color: AppColors.hintText,
+              decoration: TextDecoration.lineThrough,
+              decorationColor: Colors.red,
+              decorationStyle: TextDecorationStyle.solid,
+              decorationThickness: 2.0,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            '\$${course.offerPrice}',
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+              color: AppColors.textColorBlue,
+            ),
           ),
         ],
-      ),
-    );
+      );
+    } else {
+      return Text(
+        '\$${course.price}',
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w900,
+          color: AppColors.textColorBlue,
+        ),
+      );
+    }
   }
 }
 
@@ -203,10 +257,17 @@ class _MetadataItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, size: 16, color: Colors.grey[700]),
-        const SizedBox(width: 4),
-        Text(text, style: TextStyle(color: Colors.grey[700])),
+        Icon(icon, size: 14, color: Colors.grey[700]),
+        const SizedBox(width: 3),
+        Flexible(
+          child: Text(
+            text,
+            style: TextStyle(color: Colors.grey[700], fontSize: 12),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ],
     );
   }
