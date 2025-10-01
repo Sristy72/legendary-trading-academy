@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/texts/texts.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
-import 'package:flutter_ladydenily/features/auth/presentation/screen/personal_information_screen.dart';
+import 'package:flutter_ladydenily/features/auth/presentation/screen/forgot_password_screen.dart';
 import 'package:flutx_core/core/validation/validators.dart';
 import 'package:get/get.dart';
-import 'package:get/utils.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../../../../core/theme/app_colors.dart';
+import '../controller/auth_controller.dart';
 
 class TLoginForm extends StatefulWidget {
   const TLoginForm({super.key});
+
+
   @override
   State<TLoginForm> createState() => _TLoginFormState();
 }
@@ -19,17 +20,19 @@ class TLoginForm extends StatefulWidget {
 class _TLoginFormState extends State<TLoginForm> {
   final _formKey = GlobalKey<FormState>();
 
-  final FocusNode _emailFocus = FocusNode();
-  final FocusNode _passwordFocus = FocusNode();
+  final _authController = Get.find<AuthController>();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final FocusNode _emailFocus = FocusNode();
+  final FocusNode _passwordFocus = FocusNode();
+
 
   final ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
 
   void _submit() {
     // if (!_formKey.currentState!.validate()) return;
-    Get.to(PersonalInformationScreen());
+    _authController.login(_emailController.text, _passwordController.text);
   }
 
   @override
@@ -72,7 +75,7 @@ class _TLoginFormState extends State<TLoginForm> {
                   style: TextStyle(color: AppColors.text),
                   decoration: context.primaryInputDecoration.copyWith(
                     hintText: TTexts.password,
-                    prefixIcon: Icon(Iconsax.lock, color: Color(0xFF666666)),
+                    prefixIcon: Icon(Icons.lock_outline, color: Color(0xFF666666),),
                   ),
 
                   validator: Validators.password,
@@ -88,7 +91,9 @@ class _TLoginFormState extends State<TLoginForm> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => ForgotPasswordScreen());
+                  },
                   child: Text(
                     TTexts.forgetPassword,
                     style: TextStyle(color: Color(0xFF1A3E74), fontSize: 14),
@@ -101,9 +106,7 @@ class _TLoginFormState extends State<TLoginForm> {
 
             ///Sign in
             context.primaryButton(
-              onPressed: () {
-                _submit();
-              },
+              onPressed: _submit,
               text: 'Login',
             ),
             SizedBox(height: 32),

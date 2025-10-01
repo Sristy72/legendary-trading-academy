@@ -15,3 +15,5 @@ class NotificationModel {
     required this.isNew,
   });
 }
+
+

@@ -2,12 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/widgets/appbar.dart';
 import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
-
+import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
+import 'package:get/get.dart';
 import '../../../../core/widgets/pin_code.dart';
 import '../../../../core/widgets/texts.dart';
 
-class VerifyCodeScreen extends StatelessWidget{
-  const VerifyCodeScreen({super.key});
+class VerifyCodeScreen extends StatefulWidget{
+  const VerifyCodeScreen({super.key, required this.email});
+  final String email;
+
+  @override
+  State<VerifyCodeScreen> createState() => _VerifyCodeScreenState();
+}
+
+class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
+  final TextEditingController _otpVerify = TextEditingController();
+
+  final _authController = Get.find<AuthController>();
+
+  _submit(){
+    _authController.verifyOTP(widget.email, _otpVerify.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +61,7 @@ class VerifyCodeScreen extends StatelessWidget{
                   const SizedBox(height: 32),
 
                   // Pin Code Field
-                  PinCode(),
+                  PinCode(otpController: _otpVerify),
 
                   const SizedBox(height: 16),
 
@@ -54,10 +69,12 @@ class VerifyCodeScreen extends StatelessWidget{
                   const SizedBox(height: 30),
 
                   // Continue Button
-                  context.primaryButton(
-                    // isLoading: _authController.isLoading,
-                    onPressed: () {},
-                    text: "Verify",
+                  Obx(
+                    () => context.primaryButton(
+                       isLoading: _authController.isLoading.value,
+                      onPressed: () {_submit();},
+                      text: "Verify",
+                    ),
                   ),
                   const Spacer(),
                 ],

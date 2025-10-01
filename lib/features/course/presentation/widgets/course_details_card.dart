@@ -3,138 +3,227 @@ import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/course/presentation/screens/coure_details_screen.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_screen.dart';
 import 'package:get/get.dart';
-import '../../models/course_details.dart';
+import '../../models/course.dart';
 
 class CourseDetailsCard extends StatelessWidget {
-  final CourseDetails courseDetails;
+  final Course course;
 
-  const CourseDetailsCard({super.key, required this.courseDetails});
+  const CourseDetailsCard({super.key, required this.course});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Get.to(CourseDetailsScreen());
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isSmallCard = constraints.maxWidth < 200;
+        final horizontalPadding = isSmallCard ? 8.0 : 12.0;
+
+        return InkWell(
+          onTap: () {
+            Get.to(() => const CourseDetailsScreen(), arguments: course);
+          },
+          child: Card(
+            color: AppColors.cardBackgroundColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            elevation: 2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildImageWithBadge(),
+                const SizedBox(height: 8),
+                _buildCourseTitle(horizontalPadding),
+                const SizedBox(height: 4),
+                _buildCourseSubtitle(horizontalPadding),
+                const SizedBox(height: 8),
+                _buildCourseMetadata(horizontalPadding),
+                const SizedBox(height: 8),
+                _buildPriceAndButton(horizontalPadding, isSmallCard),
+              ],
+            ),
+          ),
+        );
       },
-      child: Card(
-        color: AppColors.cardBackgroundColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        elevation: 2,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Course image with badge
-            _buildImageWithBadge(),
-            const SizedBox(height: 8),
-            _buildCourseTitle(),
-            const SizedBox(height: 4),
-            _buildCourseSubtitle(),
-            const SizedBox(height: 8),
-            _buildCourseMetadata(),
-            const SizedBox(height: 12),
-            _buildPriceAndButton(),
-          ],
-        ),
-      ),
     );
   }
 
   Widget _buildImageWithBadge() {
+    final imageUrl = course.photo?.url;
+    final hasNetworkImage = imageUrl != null && imageUrl.isNotEmpty;
+
     return Stack(
       children: [
-        // Course image
         ClipRRect(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(16),
           ),
-          child: Image.asset(
-            courseDetails.image,
-            height: 180,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
+          child: hasNetworkImage
+              ? Image.network(
+                  imageUrl,
+                  height: 180,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      _buildFallbackImage(),
+                )
+              : _buildFallbackImage(),
         ),
-        // Badge positioned on top left
         Positioned(top: 12, left: 12, child: _Badge(text: "Freshman")),
       ],
     );
   }
 
-  Widget _buildCourseTitle() {
+  Widget _buildFallbackImage() {
+    return Container(
+      height: 180,
+      color: Colors.grey.shade200,
+      alignment: Alignment.center,
+      child: const Icon(Icons.image, size: 40, color: Colors.grey),
+    );
+  }
+
+  Widget _buildCourseTitle(double horizontalPadding) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: Text(
-        courseDetails.title,
+        course.name,
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
 
-  Widget _buildCourseSubtitle() {
+  Widget _buildCourseSubtitle(double horizontalPadding) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: Text(
-        courseDetails.subtitle,
+        course.description,
         style: const TextStyle(
           fontSize: 14,
           color: Color.fromARGB(255, 97, 97, 97),
         ),
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
 
-  Widget _buildCourseMetadata() {
+  Widget _buildCourseMetadata(double horizontalPadding) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Row(
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 4,
         children: [
-          Icon(Icons.schedule, size: 16, color: Colors.grey[700]),
-          const SizedBox(width: 4),
-          Text(courseDetails.weeks, style: TextStyle(color: Colors.grey[700])),
-          const SizedBox(width: 16),
-          Icon(Icons.menu_book, size: 16, color: Colors.grey[700]),
-          const SizedBox(width: 4),
-          Text(
-            courseDetails.modules,
-            style: TextStyle(color: Colors.grey[700]),
+          _MetadataItem(
+            icon: Icons.folder_open_outlined,
+            text: '${course.modules.length} Modules',
+          ),
+          _MetadataItem(
+            icon: Icons.play_circle_outline,
+            text:
+                '${course.modules.fold(0, (prev, module) => prev + module.video.length)} Videos',
           ),
         ],
       ),
     );
   }
 
-  Widget _buildPriceAndButton() {
+  Widget _buildPriceAndButton(double horizontalPadding, bool isSmallCard) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+      child: isSmallCard
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildPrice(),
+                const SizedBox(height: 8),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(() => ModuleScreen(courseId: course.id));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.yellow.shade700,
+                      foregroundColor: AppColors.textColorBlue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                    ),
+                    child: const Text(
+                      'Enroll Now',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(child: _buildPrice()),
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () {
+                    Get.to(() => ModuleScreen(courseId: course.id));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.yellow.shade700,
+                    foregroundColor: AppColors.textColorBlue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text('Enroll Now'),
+                ),
+              ],
+            ),
+    );
+  }
+
+  Widget _buildPrice() {
+    final hasOffer = course.offerPrice < course.price && course.offerPrice > 0;
+    if (hasOffer) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            courseDetails.price.isEmpty ? "" : courseDetails.price,
+            '\$${course.price}',
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+              color: AppColors.hintText,
+              decoration: TextDecoration.lineThrough,
+              decorationColor: Colors.red,
+              decorationStyle: TextDecorationStyle.solid,
+              decorationThickness: 2.0,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            '\$${course.offerPrice}',
+            style: const TextStyle(
+              fontSize: 18,
               fontWeight: FontWeight.w900,
               color: AppColors.textColorBlue,
             ),
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.yellow.shade700,
-              foregroundColor: AppColors.textColorBlue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            onPressed: () {
-              /// [Note : Need to modifye this part]
-              Get.to(ModuleScreen());
-            },
-            child: Text(courseDetails.status),
-          ),
         ],
-      ),
-    );
+      );
+    } else {
+      return Text(
+        '\$${course.price}',
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w900,
+          color: AppColors.textColorBlue,
+        ),
+      );
+    }
   }
 }
 
@@ -155,6 +244,31 @@ class _Badge extends StatelessWidget {
         text,
         style: const TextStyle(color: AppColors.textColorBlue, fontSize: 12),
       ),
+    );
+  }
+}
+
+class _MetadataItem extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  const _MetadataItem({required this.icon, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 14, color: Colors.grey[700]),
+        const SizedBox(width: 3),
+        Flexible(
+          child: Text(
+            text,
+            style: TextStyle(color: Colors.grey[700], fontSize: 12),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
     );
   }
 }

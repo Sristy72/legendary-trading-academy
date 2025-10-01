@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
+import 'package:flutx_core/flutx_core.dart';
 
 class EnrollButton extends StatelessWidget {
   final double price;
@@ -15,8 +16,8 @@ class EnrollButton extends StatelessWidget {
 
     return SafeArea(
       child: Container(
-        color: Colors.yellow[100],
-        height: 95,
+        color: AppColors.navBackgroundColor,
+        height: 104, 
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,11 +41,12 @@ class EnrollButton extends StatelessWidget {
                 ),
               ],
             ),
+            Gap.h8,
             SizedBox(
               width: screenWidth - 32,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.yellow.shade700,
+                  backgroundColor: AppColors.buttonColor,
                   foregroundColor: AppColors.textColorBlue,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24,
@@ -55,7 +57,10 @@ class EnrollButton extends StatelessWidget {
                   ),
                 ),
                 onPressed: onTap,
-                child: const Text("Enroll Now", style: TextStyle(fontSize: 16)),
+                child: const Text(
+                  "Enroll Now",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
               ),
             ),
           ],
