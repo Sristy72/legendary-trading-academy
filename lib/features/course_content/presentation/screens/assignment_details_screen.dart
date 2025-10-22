@@ -3,7 +3,6 @@ import 'package:flutter_ladydenily/features/course_content/presentation/widgets/
 import 'package:get/get.dart';
 import '../controllers/assignment_details_controller.dart';
 
-
 class AssignmentDetailsScreen extends StatelessWidget {
   const AssignmentDetailsScreen({super.key});
 
@@ -38,13 +37,10 @@ class AssignmentDetailsScreen extends StatelessWidget {
           itemCount: controller.modules.length,
           itemBuilder: (context, index) {
             final module = controller.modules[index];
-            return ModuleAllAssignment(
-              index: index,
-              module: module, 
-            );
+            return ModuleAllAssignment(index: index, module: module);
           },
           separatorBuilder: (context, index) {
-            return const SizedBox(height: 12); 
+            return const SizedBox(height: 12);
           },
         );
       }),

@@ -137,7 +137,7 @@ class AuthController extends BaseController {
       },
       (success) {
         DPrint.log('Personal info: ${success.message}');
-        Get.to(() => UploadProfileScreen(isFromProfile: false,));
+        Get.to(() => UploadProfileScreen(isFromProfile: false));
         isLoading(false);
         setError(success.message);
       },
@@ -162,7 +162,7 @@ class AuthController extends BaseController {
       },
       (success) {
         DPrint.log('Upload photo: ${success.message}');
-        Get.to(() => TradingProfileSetupScreen(isFromProfile: false,));
+        Get.to(() => TradingProfileSetupScreen(isFromProfile: false));
         setError(success.message);
         _multiFormDataManager.clear();
         isLoading(false);

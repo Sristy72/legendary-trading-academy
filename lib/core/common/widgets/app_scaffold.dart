@@ -14,7 +14,8 @@ class AppScaffold extends StatelessWidget {
     this.drawer,
     required this.body,
     this.removePadding = false,
-    this.floatingActionButton, this.appBar,
+    this.floatingActionButton,
+    this.appBar,
   });
 
   @override

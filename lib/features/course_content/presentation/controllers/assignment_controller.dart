@@ -2,7 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:get/state_manager.dart';
 
 class AssignmentController extends GetxController {
-  final status = 'Pending'.obs; 
+  final status = 'Pending'.obs;
   final fileName = ''.obs;
   final filePath = ''.obs;
 
@@ -22,7 +22,7 @@ class AssignmentController extends GetxController {
       // } else {
       //   // Handle upload failure
       // }
-      status.value = 'Uploaded'; 
+      status.value = 'Uploaded';
     }
   }
 

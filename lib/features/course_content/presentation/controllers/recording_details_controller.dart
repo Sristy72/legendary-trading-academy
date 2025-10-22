@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart'; 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../../../core/base/base_controller.dart';
 import '../../../course/domain/course_repository.dart';

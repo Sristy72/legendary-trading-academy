@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../../domain/marketplace_repository.dart';
 import '../../models/marketplace_item_api_model.dart';
 
@@ -90,5 +91,58 @@ class MarketplaceController extends GetxController {
   // Helper method to refresh marketplace items
   Future<void> refreshMarketplaceItems() async {
     await fetchMarketplaceItems();
+  }
+
+  /// Create payment and return payment details map with invoice URL and transaction ID.
+  /// On success the UI caller can navigate to the invoice URL.
+  Future<Map<String, String>?> createPaymentForItem({
+    required String userId,
+    required num price,
+    required String productId,
+    String type = 'product',
+  }) async {
+    try {
+      final res = await repository.createPayment(
+        userId: userId,
+        price: price,
+        productId: productId,
+        type: type,
+      );
+      Map<String, String>? paymentDetails;
+      res.fold(
+        (failure) {
+          print(
+            '[MarketplaceController] createPayment failed: ${failure.message}',
+          );
+        },
+        (success) {
+          final map = success.data;
+          final invoiceUrl =
+              map['invoiceUrl'] as String? ?? map['invoice_url'] as String?;
+          final transactionId =
+              map['transactionId'] as String? ??
+              map['transaction_id'] as String? ??
+              map['id'] as String?;
+
+          print(
+            '[MarketplaceController] createPayment success invoiceUrl: $invoiceUrl',
+          );
+          print(
+            '[MarketplaceController] createPayment transactionId: $transactionId',
+          );
+
+          if (invoiceUrl != null) {
+            paymentDetails = {
+              'invoiceUrl': invoiceUrl,
+              if (transactionId != null) 'transactionId': transactionId,
+            };
+          }
+        },
+      );
+      return paymentDetails;
+    } catch (e) {
+      print('[MarketplaceController] createPayment exception: $e');
+      return null;
+    }
   }
 }

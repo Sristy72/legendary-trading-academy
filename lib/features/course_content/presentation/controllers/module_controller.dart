@@ -15,7 +15,6 @@ class ModuleController extends BaseController {
   final Rx<CourseResponse?> _selectedCourse = Rx<CourseResponse?>(null);
   final RxInt _selectedIndex = 0.obs;
 
-
   List<CourseResponse> get courses => _courses.toList();
   List<Module> get modules => _modules.toList();
   CourseResponse? get selectedCourse => _selectedCourse.value;

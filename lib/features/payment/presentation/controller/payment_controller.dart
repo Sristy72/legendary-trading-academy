@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
 import '../screens/payment_screen.dart';
-class PaymentController extends GetxController {
 
+class PaymentController extends GetxController {
   void processPayment() {
     Get.to(() => const PaymentScreen());
   }

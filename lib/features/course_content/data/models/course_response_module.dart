@@ -1,5 +1,3 @@
-
-
 import 'class_module_module.dart';
 import 'coordinator_model.dart';
 

@@ -77,8 +77,9 @@ class RegisterResponseModel {
       isStripeOnboarded: json["isStripeOnboarded"] ?? false,
       avatar: Avatar.fromJson(json["avatar"] ?? {}),
       address: json["address"],
-      verificationInfo:
-      VerificationInfo.fromJson(json["verificationInfo"] ?? {}),
+      verificationInfo: VerificationInfo.fromJson(
+        json["verificationInfo"] ?? {},
+      ),
       passwordResetToken: json["password_reset_token"] ?? '',
       fine: json["fine"] ?? 0,
       refreshToken: json["refreshToken"] ?? '',

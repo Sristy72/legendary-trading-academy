@@ -3,7 +3,6 @@ class RegisterRequestModel {
   final String email;
   final String password;
 
-
   RegisterRequestModel({
     required this.name,
     required this.email,
@@ -12,10 +11,6 @@ class RegisterRequestModel {
 
   /// Convert Dart object → JSON (for API request)
   Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'email': email,
-      'password': password,
-    };
+    return {'name': name, 'email': email, 'password': password};
   }
 }

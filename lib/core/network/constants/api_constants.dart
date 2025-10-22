@@ -53,7 +53,6 @@ class UserEndpoints {
   final String updateProfile = '$_base/update-profile';
   final String getUserProfile = '$_base/profile';
 
-
   // final String create = '$_base/create';
 }
 

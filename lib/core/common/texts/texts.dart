@@ -1,7 +1,4 @@
-class TTexts{
-
-
-
+class TTexts {
   // -- Authentication Form Text
   static const String email = "Email";
   static const String password = "Password";
@@ -13,5 +10,4 @@ class TTexts{
   static const String forgetPassword = "Forget Password?";
   static const String newPassword = "New Password";
   static const String repeatNewPassword = "Repeat New Password";
-
 }

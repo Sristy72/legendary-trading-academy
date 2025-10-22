@@ -25,11 +25,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   final _authController = Get.find<AuthController>();
 
-
   final TextEditingController _emailController = TextEditingController();
 
-
-  void _submit(){
+  void _submit() {
     _authController.resetPass(_emailController.text);
   }
 
@@ -37,20 +35,26 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     return AppScaffold(
       appBar: CustomAppBar(title: 'Forgot Password'),
-      
+
       body: Column(
         children: [
-          CustomText('Select which contact details should we use to reset your password', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),),
+          CustomText(
+            'Select which contact details should we use to reset your password',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+          ),
 
-          SizedBox(height: 16,),
+          SizedBox(height: 16),
 
           TextFormField(
             controller: _emailController,
             focusNode: _emailFocus,
             keyboardType: TextInputType.emailAddress,
             decoration: context.primaryInputDecoration.copyWith(
-                hintText: TTexts.email,
-                prefixIcon: Icon(Icons.email_outlined, color: AppColors.emailIconColor,)
+              hintText: TTexts.email,
+              prefixIcon: Icon(
+                Icons.email_outlined,
+                color: AppColors.emailIconColor,
+              ),
             ),
             validator: Validators.email,
             onFieldSubmitted: (_) =>
@@ -58,10 +62,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             autofillHints: const [AutofillHints.email],
           ),
 
-          SizedBox(height: 20,),
+          SizedBox(height: 20),
 
           Obx(
-                () =>  context.primaryButton(
+            () => context.primaryButton(
               isLoading: _authController.isLoading.value,
               onPressed: () {
                 _submit();

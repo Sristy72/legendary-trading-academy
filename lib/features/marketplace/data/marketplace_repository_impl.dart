@@ -3,6 +3,7 @@ import 'package:flutter_ladydenily/core/network/api_client.dart';
 import 'package:flutter_ladydenily/core/network/constants/api_constants.dart';
 import 'package:flutter_ladydenily/core/network/models/network_failure.dart';
 import 'package:flutter_ladydenily/core/network/models/network_success.dart';
+
 import '../domain/marketplace_repository.dart';
 import '../models/marketplace_item_api_model.dart';
 
@@ -77,6 +78,40 @@ class MarketplaceRepositoryImpl implements MarketplaceRepository {
         }
 
         return items;
+      },
+    );
+  }
+
+  @override
+  Future<Either<NetworkFailure, NetworkSuccess<Map<String, dynamic>>>>
+  createPayment({
+    required String userId,
+    required num price,
+    required String productId,
+    required String type,
+  }) async {
+    final endpoint = '${ApiConstants.baseUrl}/payment/create-payment';
+    print(
+      '[MarketplaceRepositoryImpl] creating payment for productId: $productId, price: $price',
+    );
+
+    return _apiClient.post<Map<String, dynamic>>(
+      endpoint,
+      data: {
+        'userId': userId,
+        'price': price,
+        'productId': productId,
+        'type': type,
+      },
+      fromJsonT: (json) {
+        // Expecting { invoiceUrl, transactionId, message }
+        if (json == null) return <String, dynamic>{};
+        if (json is Map<String, dynamic>) return json;
+        try {
+          return Map<String, dynamic>.from(json);
+        } catch (e) {
+          return <String, dynamic>{};
+        }
       },
     );
   }

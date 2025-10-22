@@ -5,7 +5,6 @@ class AgreementController extends GetxController {
   var isChecked = false.obs;
 }
 
-
 class AgreementDialog extends StatelessWidget {
   final AgreementController controller;
 
@@ -26,33 +25,38 @@ class AgreementDialog extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                      'By enrolling in this course, you acknowledge and agree to the following:'),
+                    'By enrolling in this course, you acknowledge and agree to the following:',
+                  ),
                   const Padding(
                     padding: EdgeInsets.all(18.0),
                     child: Text(
                       "• This course is for educational purposes only.\n"
-                          "• Completion of the course does not guarantee any job placement, or professional qualification unless explicitly stated.\n"
-                          "• You are responsible for how you apply the knowledge gained.\n"
-                          "• No refunds will be issued once you access course materials (if applicable).\n",
+                      "• Completion of the course does not guarantee any job placement, or professional qualification unless explicitly stated.\n"
+                      "• You are responsible for how you apply the knowledge gained.\n"
+                      "• No refunds will be issued once you access course materials (if applicable).\n",
                       style: TextStyle(fontSize: 14),
                     ),
                   ),
-                  Obx(() => Row(
-                    children: [
-                      Checkbox(
-                        value: controller.isChecked.value,
-                        onChanged: (value) {
-                          controller.isChecked.value = value ?? false;
-                        },
-                      ),
-                      const Wrap(
-                          children: [Text(
-                            "I have read and agree to the terms and conditions above.",
-                            style: TextStyle(fontSize: 14),
-                          ),]
-                      ),
-                    ],
-                  )),
+                  Obx(
+                    () => Row(
+                      children: [
+                        Checkbox(
+                          value: controller.isChecked.value,
+                          onChanged: (value) {
+                            controller.isChecked.value = value ?? false;
+                          },
+                        ),
+                        const Wrap(
+                          children: [
+                            Text(
+                              "I have read and agree to the terms and conditions above.",
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -62,28 +66,30 @@ class AgreementDialog extends StatelessWidget {
           Positioned(
             top: -15,
             right: -15,
-            child: Obx(() => Container(
-              width: 58,
-              height: 58,
-              decoration: BoxDecoration(
-                color: const Color(0xFF1A3E74),
-                borderRadius: const BorderRadius.only(
+            child: Obx(
+              () => Container(
+                width: 58,
+                height: 58,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1A3E74),
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                     bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20)
+                    bottomRight: Radius.circular(20),
+                  ),
+                ),
+                child: IconButton(
+                  icon: const Padding(
+                    padding: EdgeInsets.only(top: 5, right: 5),
+                    child: Icon(Icons.close, color: Colors.white),
+                  ),
+                  onPressed: controller.isChecked.value
+                      ? () => Get.back()
+                      : null,
                 ),
               ),
-              child: IconButton(
-                icon: const Padding(
-                  padding: EdgeInsets.only(top: 5, right: 5),
-                  child: Icon(Icons.close, color: Colors.white),
-                ),
-                onPressed: controller.isChecked.value
-                    ? () => Get.back()
-                    : null,
-              ),
-            )),
+            ),
           ),
         ],
       ),

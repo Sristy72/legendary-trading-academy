@@ -23,8 +23,9 @@ class PinCode extends StatelessWidget {
       ),
 
       cursorColor: Colors.black,
-      enableActiveFill: true, ///important for background fill
+      enableActiveFill: true,
 
+      ///important for background fill
       pinTheme: PinTheme(
         shape: PinCodeFieldShape.box,
         borderRadius: BorderRadius.circular(10),

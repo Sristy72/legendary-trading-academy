@@ -2,17 +2,11 @@ class ChangePasswordRequest {
   final String oldPassword;
   final String newPassword;
 
-  ChangePasswordRequest({
-    required this.oldPassword,
-    required this.newPassword,
-  });
+  ChangePasswordRequest({required this.oldPassword, required this.newPassword});
 
   // Convert to JSON
   Map<String, dynamic> toJson() {
-    return {
-      'oldPassword': oldPassword,
-      'newPassword': newPassword,
-    };
+    return {'oldPassword': oldPassword, 'newPassword': newPassword};
   }
 
   // Optional: Create from JSON

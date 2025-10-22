@@ -30,7 +30,6 @@ class ModulesDetailsController extends BaseController {
     }
   }
 
-
   Future<void> getCourseDetails(String courseId) async {
     setLoading(true);
     setError("");

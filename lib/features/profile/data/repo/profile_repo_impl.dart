@@ -7,28 +7,28 @@ import '../../domain/repo/profile_repo.dart';
 import '../models/change_password_request_model.dart';
 import '../models/get_profile_response_model.dart';
 
-
 class ProfileRepositoryImpl implements ProfileRepository {
   final ApiClient _apiClient;
 
   ProfileRepositoryImpl({required ApiClient apiClient})
-      : _apiClient = apiClient;
+    : _apiClient = apiClient;
 
   @override
   NetworkResult<FetchProfileResponseModdel> fetchProfile() {
     return _apiClient.get(
-        ApiConstants.user.getUserProfile,
-        fromJsonT: (json) =>
-            FetchProfileResponseModdel.fromJson(json as Map<String, dynamic>));
+      ApiConstants.user.getUserProfile,
+      fromJsonT: (json) =>
+          FetchProfileResponseModdel.fromJson(json as Map<String, dynamic>),
+    );
   }
 
   @override
   NetworkResult<UserResponse> updatePersonalInfo(FormData request) {
     return _apiClient.patch(
-        ApiConstants.user.updateProfile,
-        formData: request,
-        fromJsonT: (json) => UserResponse.fromJson(json),
-        isFormData: true
+      ApiConstants.user.updateProfile,
+      formData: request,
+      fromJsonT: (json) => UserResponse.fromJson(json),
+      isFormData: true,
     );
   }
 
@@ -44,20 +44,20 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   NetworkResult<UserResponse> uploadPhoto(FormData request) {
     return _apiClient.patch(
-        ApiConstants.user.updateProfile,
-        formData: request,
-        fromJsonT: (json) => UserResponse.fromJson(json),
-        isFormData: true
+      ApiConstants.user.updateProfile,
+      formData: request,
+      fromJsonT: (json) => UserResponse.fromJson(json),
+      isFormData: true,
     );
   }
 
   @override
   NetworkResult<UserResponse> tradingInfo(FormData request) {
     return _apiClient.patch(
-        ApiConstants.user.updateProfile,
-        formData: request,
-        fromJsonT: (json) => UserResponse.fromJson(json),
-        isFormData: true
+      ApiConstants.user.updateProfile,
+      formData: request,
+      fromJsonT: (json) => UserResponse.fromJson(json),
+      isFormData: true,
     );
   }
 }
