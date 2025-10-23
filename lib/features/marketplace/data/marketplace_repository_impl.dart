@@ -164,4 +164,32 @@ class MarketplaceRepositoryImpl implements MarketplaceRepository {
       },
     );
   }
+
+  @override
+  Future<Either<NetworkFailure, NetworkSuccess<Map<String, dynamic>>>>
+  confirmPayment({
+    required String invoiceId,
+  }) async {
+    final endpoint = '${ApiConstants.baseUrl}/payment/confirm-payment';
+    print(
+      '[MarketplaceRepositoryImpl] confirming payment for invoiceId: $invoiceId',
+    );
+
+    return _apiClient.post<Map<String, dynamic>>(
+      endpoint,
+      data: {
+        'invoiceId': invoiceId,
+      },
+      fromJsonT: (json) {
+        // Since we don't need to grab the response, just return empty map
+        if (json == null) return <String, dynamic>{};
+        if (json is Map<String, dynamic>) return json;
+        try {
+          return Map<String, dynamic>.from(json);
+        } catch (e) {
+          return <String, dynamic>{};
+        }
+      },
+    );
+  }
 }

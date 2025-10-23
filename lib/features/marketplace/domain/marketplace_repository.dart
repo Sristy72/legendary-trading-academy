@@ -19,4 +19,10 @@ abstract class MarketplaceRepository {
     required String productId,
     required String type,
   });
+
+  /// Confirm payment completion with invoice ID
+  Future<Either<NetworkFailure, NetworkSuccess<Map<String, dynamic>>>>
+  confirmPayment({
+    required String invoiceId,
+  });
 }

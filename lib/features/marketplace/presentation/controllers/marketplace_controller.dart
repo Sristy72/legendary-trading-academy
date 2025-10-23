@@ -145,4 +145,27 @@ class MarketplaceController extends GetxController {
       return null;
     }
   }
+
+  /// Confirm payment completion
+  Future<bool> confirmPayment({required String invoiceId}) async {
+    try {
+      print('[MarketplaceController] confirming payment for invoiceId: $invoiceId');
+      
+      final result = await repository.confirmPayment(invoiceId: invoiceId);
+      
+      return result.fold(
+        (failure) {
+          print('[MarketplaceController] confirmPayment failed: ${failure.message}');
+          return false;
+        },
+        (success) {
+          print('[MarketplaceController] confirmPayment success');
+          return true;
+        },
+      );
+    } catch (e) {
+      print('[MarketplaceController] confirmPayment exception: $e');
+      return false;
+    }
+  }
 }

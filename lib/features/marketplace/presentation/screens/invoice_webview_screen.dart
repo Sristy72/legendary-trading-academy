@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../home/presentation/screens/home_screen.dart';
+import '../controllers/marketplace_controller.dart';
 
 class InvoiceWebViewScreen extends StatefulWidget {
   final String invoiceUrl;
@@ -143,6 +144,33 @@ class _InvoiceWebViewScreenState extends State<InvoiceWebViewScreen> {
       }
     } catch (e) {
       print('[InvoiceWebView] Error checking page content: $e');
+    }
+  }
+
+  Future<void> _confirmPaymentOnServer() async {
+    if (_extractedInvoiceId == null) {
+      print('[InvoiceWebView] Cannot confirm payment - no invoice ID extracted');
+      return;
+    }
+
+    try {
+      print('[InvoiceWebView] Confirming payment on server for invoice: $_extractedInvoiceId');
+      
+      // Get the marketplace controller
+      final marketplaceController = Get.find<MarketplaceController>();
+      
+      // Call the confirm payment API
+      final success = await marketplaceController.confirmPayment(
+        invoiceId: _extractedInvoiceId!,
+      );
+      
+      if (success) {
+        print('[InvoiceWebView] Payment confirmation successful');
+      } else {
+        print('[InvoiceWebView] Payment confirmation failed');
+      }
+    } catch (e) {
+      print('[InvoiceWebView] Error confirming payment: $e');
     }
   }
 
@@ -354,7 +382,9 @@ class _InvoiceWebViewScreenState extends State<InvoiceWebViewScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
+              // Confirm payment on server before staying
+              await _confirmPaymentOnServer();
               Get.back(); // Close dialog
             },
             child: const Text(
@@ -363,7 +393,9 @@ class _InvoiceWebViewScreenState extends State<InvoiceWebViewScreen> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+              // Confirm payment on server before going home
+              await _confirmPaymentOnServer();
               Get.back(); // Close dialog
               Get.offAll(() => const HomeScreen()); // Go to home
             },
