@@ -16,6 +16,7 @@ import 'package:flutter_ladydenily/features/home/presentation/widgets/trainer_ap
 import 'package:flutter_ladydenily/features/home/presentation/widgets/trainer_placeholder_card.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/controllers/marketplace_controller.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/widgets/marketplace_api_card.dart';
+import 'package:flutter_ladydenily/features/community/presentation/screens/community_screen.dart';
 import 'package:get/get.dart';
 import '../../../calender/presentation/screens/calender_screen.dart';
 import '../../../search/presentation/screens/search_screen.dart';
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _pages = [
       const HomeContent(),
-      const Center(child: Text("👥 Community Page")),
+      const CommunityScreen(),
       CourseAllScreen(),
       ProfileScreen(),
     ];

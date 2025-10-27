@@ -12,6 +12,8 @@ import 'package:flutter_ladydenily/features/home/presentation/controllers/traine
 import 'package:flutter_ladydenily/features/home/domain/trainer_repository.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/controllers/marketplace_controller.dart';
 import 'package:flutter_ladydenily/features/marketplace/domain/marketplace_repository.dart';
+import 'package:flutter_ladydenily/features/community/presentation/controllers/community_controller.dart';
+import 'package:flutter_ladydenily/features/community/domain/community_repository.dart';
 
 void setupController() {
   // Auth Controller
@@ -45,6 +47,10 @@ void setupController() {
   Get.lazyPut<MarketplaceController>(
     fenix: true,
     () => MarketplaceController(repository: Get.find<MarketplaceRepository>()),
+  );
+  Get.lazyPut<CommunityController>(
+    fenix: true,
+    () => CommunityController(repository: Get.find<CommunityRepository>()),
   );
   Get.lazyPut<search.SearchController>(() => search.SearchController());
 }
