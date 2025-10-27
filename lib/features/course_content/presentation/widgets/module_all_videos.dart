@@ -28,10 +28,12 @@ class ModuleAllVideos extends StatelessWidget {
             child: ListView.builder(
               itemBuilder: (context, videoIndex) {
                 final video = module.video[videoIndex];
+                debugPrint('Building video $videoIndex: name=${video.name}, url=${video.url}');
                 return ModuleVideoContainer(
                   title: video.name ?? 'Video ${videoIndex + 1}',
-                  durationText: video.url ?? '',
+                  durationText: 'Video ${videoIndex + 1}',
                   imagePath: 'assets/images/courses_sample.jpg',
+                  videoUrl: video.url,
                 );
               },
               itemCount: module.video.length,
