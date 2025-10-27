@@ -16,7 +16,7 @@ class CommunityListItem extends StatelessWidget {
             Icon(Icons.photo, size: 16, color: AppColors.buttonColor),
             const SizedBox(width: 4),
             Text(
-              item.lastMessage,
+              item.displayLastMessage,
               style: TextStyle(color: Colors.grey[600], fontSize: 14),
             ),
           ],
@@ -28,7 +28,7 @@ class CommunityListItem extends StatelessWidget {
             const SizedBox(width: 4),
             Flexible(
               child: Text(
-                item.lastMessage,
+                item.displayLastMessage,
                 style: TextStyle(color: Colors.grey[600], fontSize: 14),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -44,7 +44,7 @@ class CommunityListItem extends StatelessWidget {
             if (item.messageType == MessageType.text) const SizedBox(width: 4),
             Flexible(
               child: Text(
-                item.lastMessage,
+                item.displayLastMessage,
                 style: TextStyle(color: Colors.grey[600], fontSize: 14),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -68,11 +68,11 @@ class CommunityListItem extends StatelessWidget {
               height: 48,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: _getAvatarColor(item.name),
+                color: _getAvatarColor(item.displayName),
               ),
               child: Center(
                 child: Text(
-                  _getInitials(item.name),
+                  _getInitials(item.displayName),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -89,7 +89,7 @@ class CommunityListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.name,
+                    item.displayName,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -112,7 +112,7 @@ class CommunityListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  item.timestamp,
+                  item.displayTimestamp,
                   style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                 ),
                 const SizedBox(height: 4),
