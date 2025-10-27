@@ -22,7 +22,7 @@ class SplashController extends GetxController {
             videoController.setLooping(false);
 
             // Play only for 4 seconds, then navigate
-            Future.delayed(const Duration(seconds: 3), () async {
+            Future.delayed(const Duration(seconds:2), () async {
               final success = await _authController.refreshToken();
               if (Get.isOverlaysOpen) return; // avoid multiple calls
               if (success) {
