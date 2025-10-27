@@ -220,7 +220,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       arrowColor: const Color(0xFFEF1A26),
                       onTap: () {
                         Get.to(() => const VideoPlayerScreen(
-                          videoUrl: 'https://samplelib.com/lib/preview/mp4/sample-5s.mp4',
+                          videoUrl: 'https://filmvideos.s3.us-east-2.amazonaws.com/outputs/uploads/raw/1760499411073-file_example_MOV_1920_2_2MB/1760499411073-file_example_MOV_1920_2_2MB.m3u8',
                         ));
                       },
 
