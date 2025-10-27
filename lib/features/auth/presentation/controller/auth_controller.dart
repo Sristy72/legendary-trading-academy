@@ -111,14 +111,6 @@ class AuthController extends BaseController {
     setLoading(true);
     setError('');
 
-    // final request = PersonalInfoRequestFormModel(
-    //   name: name,
-    //   age: age,
-    //   gender: gender,
-    //   nationality: nationality,
-    //   address: address,
-    // );
-
     _multiFormDataManager.addTextData("name", name);
     _multiFormDataManager.addTextData("age", age.toString());
     _multiFormDataManager.addTextData("gender", gender);

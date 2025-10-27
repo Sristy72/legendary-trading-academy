@@ -17,13 +17,13 @@ class PinCode extends StatelessWidget {
 
       obscureText: true,
       textStyle: const TextStyle(
-        color: Colors.black, // dot (text) color
+        color: Colors.black,
         fontSize: 18,
         fontWeight: FontWeight.w600,
       ),
 
       cursorColor: Colors.black,
-      enableActiveFill: true, ///important for background fill
+      enableActiveFill: true,
 
       pinTheme: PinTheme(
         shape: PinCodeFieldShape.box,
@@ -31,12 +31,10 @@ class PinCode extends StatelessWidget {
         fieldHeight: 56,
         fieldWidth: 50,
 
-        ///remove borders
         inactiveColor: Colors.transparent,
         activeColor: Colors.transparent,
         selectedColor: Colors.transparent,
 
-        /// grey background
         inactiveFillColor: Color(0xFFE8ECF1),
         activeFillColor: Color(0xFFE8ECF1),
         selectedFillColor: Color(0xFFE8ECF1),
