@@ -41,7 +41,10 @@ class VideoPlayerScreen extends StatelessWidget {
       ),
       body: OrientationBuilder(
         builder: (context, orientation) {
-          controller.handleOrientation(orientation);
+          // Schedule orientation handling after the current build is complete
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            controller.handleOrientation(orientation);
+          });
           return SafeArea(
             child: Obx(() {
               if (!controller.isInitialized.value) {
