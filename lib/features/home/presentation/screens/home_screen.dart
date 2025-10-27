@@ -18,6 +18,7 @@ import 'package:flutter_ladydenily/features/marketplace/presentation/controllers
 import 'package:flutter_ladydenily/features/marketplace/presentation/widgets/marketplace_api_card.dart';
 import 'package:flutter_ladydenily/features/community/presentation/screens/community_screen.dart';
 import 'package:flutter_ladydenily/features/home/presentation/screens/trainer_all_screen.dart';
+import 'package:flutter_ladydenily/features/ai_analysis/presentation/screens/ai_analysis_screen.dart';
 import 'package:get/get.dart';
 import '../../../calender/presentation/screens/calender_screen.dart';
 import '../../../search/presentation/screens/search_screen.dart';
@@ -156,6 +157,11 @@ class HomeContent extends StatelessWidget {
           ],
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.auto_awesome),
+            onPressed: () => Get.to(() => const AiAnalysisScreen()),
+            tooltip: 'AI Analysis',
+          ),
           IconButton(
             icon: const Icon(Icons.calendar_today_outlined),
             onPressed: () => Get.to(CalendarScreen()),
