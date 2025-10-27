@@ -19,29 +19,43 @@ class CourseRepositoryImpl implements CourseRepository {
     return _apiClient.get<List<Course>>(
       '${ApiConstants.baseUrl}/course/all-courses',
       fromJsonT: (json) {
-        if (json == null) return <Course>[];
+        print('[CourseRepo] Parsing JSON: ${json.runtimeType}');
+        
+        if (json == null) {
+          print('[CourseRepo] JSON is null, returning empty list');
+          return <Course>[];
+        }
 
+        // Primary case: json is {"course": [...], "meta": {...}}
         if (json is Map<String, dynamic> && json['course'] is List) {
           final list = json['course'] as List;
+          print('[CourseRepo] Found course array with ${list.length} items');
           return list
               .map((e) => Course.fromJson(e as Map<String, dynamic>))
               .toList();
         }
 
+        // Fallback: json is directly a List
         if (json is List) {
+          print('[CourseRepo] JSON is direct list with ${json.length} items');
           return json
               .map((e) => Course.fromJson(e as Map<String, dynamic>))
               .toList();
         }
 
+        // Legacy case: nested data.course structure
         if (json is Map<String, dynamic> &&
             json['data'] is Map &&
             (json['data'] as Map)['course'] is List) {
           final list = (json['data'] as Map)['course'] as List;
+          print('[CourseRepo] Found nested data.course with ${list.length} items');
           return list
               .map((e) => Course.fromJson(e as Map<String, dynamic>))
               .toList();
         }
+        
+        print('[CourseRepo] No matching pattern, returning empty list');
+        print('[CourseRepo] JSON keys: ${json is Map<String, dynamic> ? json.keys : "not a map"}');
         return <Course>[];
       },
     );
