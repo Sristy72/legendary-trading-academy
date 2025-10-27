@@ -16,4 +16,18 @@ abstract class CourseRepository {
   NetworkResult<List<CourseResponse>> getAllCourses();
   NetworkResult<CourseResponse> getCourseDetails(String courseId);
   NetworkResult<List<CourseResponse>> getCourseModules(String moduleId);
+
+  /// Create payment for a course. Returns NetworkSuccess with
+  /// a Map containing keys: invoiceUrl, transactionId, message
+  Future<Either<NetworkFailure, NetworkSuccess<Map<String, dynamic>>>>
+  createPayment({
+    required String userId,
+    required num price,
+    required String courseId,
+    required String type,
+  });
+
+  /// Confirm payment completion with invoice ID
+  Future<Either<NetworkFailure, NetworkSuccess<Map<String, dynamic>>>>
+  confirmPayment({required String invoiceId});
 }

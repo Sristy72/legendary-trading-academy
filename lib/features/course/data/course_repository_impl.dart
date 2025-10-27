@@ -20,7 +20,7 @@ class CourseRepositoryImpl implements CourseRepository {
       '${ApiConstants.baseUrl}/course/all-courses',
       fromJsonT: (json) {
         print('[CourseRepo] Parsing JSON: ${json.runtimeType}');
-        
+
         if (json == null) {
           print('[CourseRepo] JSON is null, returning empty list');
           return <Course>[];
@@ -48,14 +48,18 @@ class CourseRepositoryImpl implements CourseRepository {
             json['data'] is Map &&
             (json['data'] as Map)['course'] is List) {
           final list = (json['data'] as Map)['course'] as List;
-          print('[CourseRepo] Found nested data.course with ${list.length} items');
+          print(
+            '[CourseRepo] Found nested data.course with ${list.length} items',
+          );
           return list
               .map((e) => Course.fromJson(e as Map<String, dynamic>))
               .toList();
         }
-        
+
         print('[CourseRepo] No matching pattern, returning empty list');
-        print('[CourseRepo] JSON keys: ${json is Map<String, dynamic> ? json.keys : "not a map"}');
+        print(
+          '[CourseRepo] JSON keys: ${json is Map<String, dynamic> ? json.keys : "not a map"}',
+        );
         return <Course>[];
       },
     );
@@ -97,6 +101,63 @@ class CourseRepositoryImpl implements CourseRepository {
       '${ApiConstants.course.getCourseModules}/$moduleId',
       fromJsonT: (json) =>
           (json as List).map((e) => CourseResponse.fromJson(e)).toList(),
+    );
+  }
+
+  @override
+  Future<Either<NetworkFailure, NetworkSuccess<Map<String, dynamic>>>>
+  createPayment({
+    required String userId,
+    required num price,
+    required String courseId,
+    required String type,
+  }) async {
+    final endpoint = '${ApiConstants.baseUrl}/payment/create-payment';
+    print(
+      '[CourseRepositoryImpl] creating payment for courseId: $courseId, price: $price',
+    );
+
+    return _apiClient.post<Map<String, dynamic>>(
+      endpoint,
+      data: {
+        'userId': userId,
+        'price': price,
+        'courseId': courseId,
+        'type': type,
+      },
+      fromJsonT: (json) {
+        // Expecting { invoiceUrl, transactionId, message }
+        if (json == null) return <String, dynamic>{};
+        if (json is Map<String, dynamic>) return json;
+        try {
+          return Map<String, dynamic>.from(json);
+        } catch (e) {
+          return <String, dynamic>{};
+        }
+      },
+    );
+  }
+
+  @override
+  Future<Either<NetworkFailure, NetworkSuccess<Map<String, dynamic>>>>
+  confirmPayment({required String invoiceId}) async {
+    final endpoint = '${ApiConstants.baseUrl}/payment/confirm-payment';
+    print(
+      '[CourseRepositoryImpl] confirming payment for invoiceId: $invoiceId',
+    );
+
+    return _apiClient.post<Map<String, dynamic>>(
+      endpoint,
+      data: {'invoiceId': invoiceId},
+      fromJsonT: (json) {
+        if (json == null) return <String, dynamic>{};
+        if (json is Map<String, dynamic>) return json;
+        try {
+          return Map<String, dynamic>.from(json);
+        } catch (e) {
+          return <String, dynamic>{};
+        }
+      },
     );
   }
 }

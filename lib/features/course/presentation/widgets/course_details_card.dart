@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/course/presentation/screens/coure_details_screen.dart';
-import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_screen.dart';
+import 'package:flutter_ladydenily/features/course/presentation/controllers/course_controller.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
+import 'package:flutter_ladydenily/features/marketplace/presentation/screens/invoice_webview_screen.dart';
 import 'package:get/get.dart';
 import '../../models/course.dart';
 
@@ -143,8 +145,8 @@ class CourseDetailsCard extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Get.to(() => ModuleScreen(courseId: course.id));
+                    onPressed: () async {
+                      await _handleEnrollNow();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.yellow.shade700,
@@ -168,8 +170,8 @@ class CourseDetailsCard extends StatelessWidget {
                 Flexible(child: _buildPrice()),
                 const SizedBox(width: 8),
                 ElevatedButton(
-                  onPressed: () {
-                    Get.to(() => ModuleScreen(courseId: course.id));
+                  onPressed: () async {
+                    await _handleEnrollNow();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.yellow.shade700,
@@ -183,6 +185,66 @@ class CourseDetailsCard extends StatelessWidget {
               ],
             ),
     );
+  }
+
+  Future<void> _handleEnrollNow() async {
+    try {
+      // Get course controller
+      final courseController = Get.find<CourseController>();
+
+      // Get user ID from profile controller
+      String userId = '';
+      try {
+        final profileController = Get.find<ProfileController>();
+        userId = profileController.userInfo.value?.id ?? '';
+      } catch (_) {
+        userId = '';
+      }
+
+      if (userId.isEmpty) {
+        Get.snackbar('Error', 'Please login to enroll in courses');
+        return;
+      }
+
+      // Show loading
+      Get.dialog(
+        const Center(child: CircularProgressIndicator()),
+        barrierDismissible: false,
+      );
+
+      // Create payment
+      final paymentDetails = await courseController.createPaymentForCourse(
+        userId: userId,
+        price: course.offerPrice > 0 ? course.offerPrice : course.price,
+        courseId: course.id,
+        type: 'course',
+      );
+
+      // Dismiss loading
+      Get.back();
+
+      if (paymentDetails != null && paymentDetails['invoiceUrl'] != null) {
+        final invoiceUrl = paymentDetails['invoiceUrl']!;
+        final transactionId = paymentDetails['transactionId'];
+
+        // Open webview with invoiceUrl and transactionId
+        Get.to(
+          () => InvoiceWebViewScreen(
+            invoiceUrl: invoiceUrl,
+            transactionId: transactionId,
+          ),
+        );
+      } else {
+        // Show error feedback
+        Get.snackbar('Payment Error', 'Unable to create invoice.');
+      }
+    } catch (e) {
+      // Dismiss loading if still showing
+      if (Get.isDialogOpen ?? false) {
+        Get.back();
+      }
+      Get.snackbar('Error', 'Failed to process enrollment: $e');
+    }
   }
 
   Widget _buildPrice() {
