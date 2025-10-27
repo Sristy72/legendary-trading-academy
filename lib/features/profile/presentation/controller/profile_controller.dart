@@ -3,13 +3,11 @@ import 'dart:io';
 
 import 'package:flutter_ladydenily/core/utils/debug_print.dart';
 import 'package:flutter_ladydenily/features/profile/data/models/change_password_request_model.dart';
-//import 'package:flutter_ladydenily/features/profile/data/models/get_profile_response_model.dart' hide TradingProfile;
 import 'package:flutter_ladydenily/features/profile/domain/repo/profile_repo.dart';
 
 import 'package:get/get.dart';
 import '../../../../core/base/base_controller.dart';
 import '../../../../core/network/services/multiple_form_data_manager.dart';
-import '../../../auth/data/models/auth_response_model.dart' hide TradingProfile;
 import '../../data/models/get_profile_response_model.dart';
 
 class ProfileController extends BaseController {
@@ -21,15 +19,16 @@ class ProfileController extends BaseController {
 
   ProfileController(this._profileRepository);
 
-  final Rxn<FetchProfileResponseModdel> userInfo = Rxn<
-      FetchProfileResponseModdel>();
+  final Rxn<FetchProfileResponseModel> userInfo = Rxn<
+      FetchProfileResponseModel>();
   @override
   void onInit() {
     super.onInit();
     fetchProfile();         //Fetch when controller is created
   }
 
-  // Login
+
+
   Future<void> fetchProfile() async {
     setLoading(true);
     setError("");
