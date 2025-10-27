@@ -16,6 +16,7 @@ import 'package:flutter_ladydenily/features/home/presentation/widgets/trainer_ap
 import 'package:flutter_ladydenily/features/home/presentation/widgets/trainer_placeholder_card.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/controllers/marketplace_controller.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/widgets/marketplace_api_card.dart';
+import 'package:flutter_ladydenily/features/home/presentation/screens/trainer_all_screen.dart';
 import 'package:get/get.dart';
 import '../../../calender/presentation/screens/calender_screen.dart';
 import '../../../search/presentation/screens/search_screen.dart';
@@ -75,6 +76,10 @@ class HomeContent extends StatelessWidget {
 
   void _navgiateToAllMarketplace(BuildContext context) {
     Get.to(() => const MarketplaceAllScreen());
+  }
+
+  void _navigateToAllTrainers(BuildContext context) {
+    Get.to(() => const TrainerAllScreen());
   }
 
   @override
@@ -192,7 +197,10 @@ class HomeContent extends StatelessWidget {
                     ),
             ),
 
-            _buildSectionTitle('Top Trainer'),
+            _buildSectionTitle(
+              'Top Trainer',
+              onViewAllTap: () => _navigateToAllTrainers(context),
+            ),
             Obx(() {
               if (trainerController.isLoading.value) {
                 return const Center(child: CircularProgressIndicator());
