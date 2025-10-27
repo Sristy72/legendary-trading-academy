@@ -1,103 +1,47 @@
+import 'package:dartz/dartz.dart';
+import 'package:flutter_ladydenily/core/network/api_client.dart';
+import 'package:flutter_ladydenily/core/network/constants/api_constants.dart';
+import 'package:flutter_ladydenily/core/network/models/network_failure.dart';
+import 'package:flutter_ladydenily/core/network/models/network_success.dart';
 import 'package:flutter_ladydenily/features/community/domain/community_repository.dart';
 import 'package:flutter_ladydenily/features/community/models/community_item.dart';
 
 class CommunityRepositoryImpl implements CommunityRepository {
-  @override
-  Future<List<CommunityItem>> fetchCommunityList() async {
-    // Mock data matching the screenshot
-    await Future.delayed(const Duration(milliseconds: 500));
+  final ApiClient _apiClient;
 
-    return [
-      CommunityItem(
-        id: '1',
-        name: 'SkyscraperCity',
-        logo: 'assets/images/avatar.png',
-        lastMessage: 'Photo',
-        timestamp: '20/03/2025',
-        hasUnread: false,
-        messageType: MessageType.photo,
-      ),
-      CommunityItem(
-        id: '2',
-        name: 'SkyscraperCity',
-        logo: 'assets/images/avatar.png',
-        lastMessage: 'Hello! Guys',
-        timestamp: '5:27 am',
-        hasUnread: true,
-        messageType: MessageType.text,
-      ),
-      CommunityItem(
-        id: '3',
-        name: 'Mercedes-Benz Forum',
-        logo: 'assets/images/avatar.png',
-        lastMessage: 'Hello! Guys',
-        timestamp: 'Yesterday',
-        hasUnread: false,
-        messageType: MessageType.text,
-      ),
-      CommunityItem(
-        id: '4',
-        name: 'Subaru Outback Forums',
-        logo: 'assets/images/avatar.png',
-        lastMessage: 'Photo',
-        timestamp: '20/03/2025',
-        hasUnread: false,
-        messageType: MessageType.photo,
-      ),
-      CommunityItem(
-        id: '5',
-        name: 'Toyota Nation Forum',
-        logo: 'assets/images/avatar.png',
-        lastMessage: 'Document.pdf (1 page)',
-        timestamp: '5:27 am',
-        hasUnread: false,
-        messageType: MessageType.document,
-      ),
-      CommunityItem(
-        id: '6',
-        name: 'Cadillac Owners Forum',
-        logo: 'assets/images/avatar.png',
-        lastMessage: 'Hello! Guys',
-        timestamp: '5:27 am',
-        hasUnread: false,
-        messageType: MessageType.text,
-      ),
-      CommunityItem(
-        id: '7',
-        name: 'Subaru Outback Forums',
-        logo: 'assets/images/avatar.png',
-        lastMessage: '👍👍',
-        timestamp: '5:27 am',
-        hasUnread: false,
-        messageType: MessageType.emoji,
-      ),
-      CommunityItem(
-        id: '8',
-        name: 'Subaru Forester Owners Forum',
-        logo: 'assets/images/avatar.png',
-        lastMessage: 'Hello! Guys',
-        timestamp: '5:27 am',
-        hasUnread: true,
-        messageType: MessageType.text,
-      ),
-      CommunityItem(
-        id: '9',
-        name: 'Cadillac Owners Forum',
-        logo: 'assets/images/avatar.png',
-        lastMessage: 'Hello! Guys',
-        timestamp: 'Yesterday',
-        hasUnread: false,
-        messageType: MessageType.text,
-      ),
-      CommunityItem(
-        id: '10',
-        name: 'Toyota Nation Forum',
-        logo: 'assets/images/avatar.png',
-        lastMessage: 'Document.pdf (1 page)',
-        timestamp: '5:27 am',
-        hasUnread: false,
-        messageType: MessageType.document,
-      ),
-    ];
+  CommunityRepositoryImpl({required ApiClient apiClient})
+    : _apiClient = apiClient;
+
+  @override
+  Future<Either<NetworkFailure, NetworkSuccess<List<CommunityItem>>>>
+  fetchCommunityList() async {
+    print('[CommunityRepositoryImpl] fetching community chat list');
+
+    return _apiClient.get<List<CommunityItem>>(
+      '${ApiConstants.baseUrl}/chat/list',
+      fromJsonT: (json) {
+        print(
+          '[CommunityRepositoryImpl] fromJsonT received: ${json.runtimeType}',
+        );
+
+        if (json == null) {
+          print('[CommunityRepositoryImpl] JSON is null, returning empty list');
+          return <CommunityItem>[];
+        }
+
+        // json should be a List directly
+        if (json is List) {
+          print('[CommunityRepositoryImpl] Parsing ${json.length} chat items');
+          return json
+              .map((e) => CommunityItem.fromJson(e as Map<String, dynamic>))
+              .toList();
+        }
+
+        print(
+          '[CommunityRepositoryImpl] Unexpected JSON structure, returning empty list',
+        );
+        return <CommunityItem>[];
+      },
+    );
   }
 }

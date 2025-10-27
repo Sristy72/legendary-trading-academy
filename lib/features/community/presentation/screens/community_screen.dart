@@ -70,7 +70,7 @@ class CommunityScreen extends StatelessWidget {
                       item: item,
                       onTap: () {
                         // TODO: Navigate to community detail screen
-                        print('Tapped on ${item.name}');
+                        print('Tapped on ${item.displayName}');
                       },
                     );
                   },

@@ -1,6 +1,6 @@
-import 'package:get/get.dart';
 import 'package:flutter_ladydenily/features/community/domain/community_repository.dart';
 import 'package:flutter_ladydenily/features/community/models/community_item.dart';
+import 'package:get/get.dart';
 
 class CommunityController extends GetxController {
   final CommunityRepository repository;
@@ -21,11 +21,28 @@ class CommunityController extends GetxController {
   Future<void> fetchCommunityList() async {
     try {
       isLoading.value = true;
+      print('[CommunityController] calling repository.fetchCommunityList()');
       final result = await repository.fetchCommunityList();
-      communityList.assignAll(result);
-      filteredCommunityList.assignAll(result);
+
+      result.fold(
+        (failure) {
+          print('[CommunityController] failure: ${failure.message}');
+          communityList.clear();
+          filteredCommunityList.clear();
+        },
+        (success) {
+          print(
+            '[CommunityController] success.data length: ${success.data.length}',
+          );
+          communityList.assignAll(success.data);
+          filteredCommunityList.assignAll(success.data);
+          print('>>>>>>> API COMMUNITY LIST loaded: ${communityList.length}');
+        },
+      );
     } catch (e) {
       print('Error fetching community list: $e');
+      communityList.clear();
+      filteredCommunityList.clear();
     } finally {
       isLoading.value = false;
     }
@@ -39,7 +56,8 @@ class CommunityController extends GetxController {
       filteredCommunityList.assignAll(
         communityList
             .where(
-              (item) => item.name.toLowerCase().contains(query.toLowerCase()),
+              (item) =>
+                  item.displayName.toLowerCase().contains(query.toLowerCase()),
             )
             .toList(),
       );
