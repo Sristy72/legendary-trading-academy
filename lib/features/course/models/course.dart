@@ -34,7 +34,11 @@ class Course extends Equatable {
     id: json['_id'] ?? '',
     name: json['name'] ?? '',
     description: json['description'] ?? '',
-    photo: json['photo'] != null ? Photo.fromJson(json['photo']) : null,
+    photo: json['photo'] != null && json['photo'] is Map<String, dynamic>
+        ? Photo.fromJson(json['photo'])
+        : json['photo'] != null && json['photo'] is String
+            ? Photo(publicId: '', url: json['photo'])
+            : null,
     price: json['price'] ?? 0,
     offerPrice: json['offerPrice'] ?? 0,
     coordinator: (json['coordinator'] as List? ?? [])
