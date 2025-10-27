@@ -14,12 +14,11 @@ class ProfileRepositoryImpl implements ProfileRepository {
     : _apiClient = apiClient;
 
   @override
-  NetworkResult<FetchProfileResponseModdel> fetchProfile() {
+  NetworkResult<FetchProfileResponseModel> fetchProfile() {
     return _apiClient.get(
-      ApiConstants.user.getUserProfile,
-      fromJsonT: (json) =>
-          FetchProfileResponseModdel.fromJson(json as Map<String, dynamic>),
-    );
+        ApiConstants.user.getUserProfile,
+        fromJsonT: (json) =>
+            FetchProfileResponseModel.fromJson(json as Map<String, dynamic>));
   }
 
   @override
