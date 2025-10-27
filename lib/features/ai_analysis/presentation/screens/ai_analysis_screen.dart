@@ -167,20 +167,21 @@ Note: This is AI-generated analysis and should not be considered as financial ad
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.blue.shade50,
+                color: Colors.yellow.shade700.withOpacity(0.15),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.blue.shade200),
+                border: Border.all(color: Colors.yellow.shade700.withOpacity(0.3)),
               ),
               child: Row(
                 children: [
-                  Icon(Icons.info_outline, color: Colors.blue.shade700),
+                  Icon(Icons.info_outline, color: Colors.yellow.shade700),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       'Upload a trading chart or financial data image for AI-powered analysis',
                       style: TextStyle(
-                        color: Colors.blue.shade900,
+                        color: AppColors.textColorBlue,
                         fontSize: 14,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
@@ -238,8 +239,8 @@ Note: This is AI-generated analysis and should not be considered as financial ad
                     icon: const Icon(Icons.photo_library),
                     label: const Text('Gallery'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue.shade600,
-                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.yellow.shade700,
+                      foregroundColor: AppColors.textColorBlue,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -254,8 +255,8 @@ Note: This is AI-generated analysis and should not be considered as financial ad
                     icon: const Icon(Icons.camera_alt),
                     label: const Text('Camera'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green.shade600,
-                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.yellow.shade700,
+                      foregroundColor: AppColors.textColorBlue,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -303,24 +304,6 @@ Note: This is AI-generated analysis and should not be considered as financial ad
                   ),
                 ),
               ),
-
-            // Clear button
-            if (_selectedImage != null && !_isAnalyzing) ...[
-              const SizedBox(height: 8),
-              TextButton.icon(
-                onPressed: () {
-                  setState(() {
-                    _selectedImage = null;
-                    _predictionResult = null;
-                  });
-                },
-                icon: const Icon(Icons.clear),
-                label: const Text('Clear Image'),
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.red,
-                ),
-              ),
-            ],
 
             // Prediction result
             if (_predictionResult != null) ...[
@@ -372,6 +355,25 @@ Note: This is AI-generated analysis and should not be considered as financial ad
                   ],
                 ),
               ),
+              
+              // Clear button after prediction
+              if (_selectedImage != null && !_isAnalyzing)
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: TextButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        _selectedImage = null;
+                        _predictionResult = null;
+                      });
+                    },
+                    icon: const Icon(Icons.clear),
+                    label: const Text('Clear Image'),
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.red,
+                    ),
+                  ),
+                ),
             ],
 
             const SizedBox(height: 24),
