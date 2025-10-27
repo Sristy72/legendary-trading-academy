@@ -51,11 +51,16 @@ class VideoControls extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Time info
-                  Obx(() => Text(
-                    "${_formatDuration(videoCtrl.value.position)} / ${_formatDuration(videoCtrl.value.duration)}",
-                    style: const TextStyle(color: Colors.white, fontSize: 12),
-                  )),
+                  // Time info - Use ValueListenableBuilder for VideoPlayerController
+                  ValueListenableBuilder(
+                    valueListenable: videoCtrl,
+                    builder: (context, VideoPlayerValue value, child) {
+                      return Text(
+                        "${_formatDuration(value.position)} / ${_formatDuration(value.duration)}",
+                        style: const TextStyle(color: Colors.white, fontSize: 12),
+                      );
+                    },
+                  ),
 
                   Row(
                     mainAxisSize: MainAxisSize.min,
