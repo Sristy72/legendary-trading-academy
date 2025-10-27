@@ -7,7 +7,7 @@ import '../../data/models/get_profile_response_model.dart';
 
 
 abstract class ProfileRepository {
-  NetworkResult<FetchProfileResponseModdel> fetchProfile();
+  NetworkResult<FetchProfileResponseModel> fetchProfile();
 
   //profile update
 NetworkResult<UserResponse> updatePersonalInfo(FormData request);

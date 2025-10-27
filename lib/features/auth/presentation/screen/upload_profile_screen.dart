@@ -147,7 +147,9 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
                       height: 51,
                       width: (screenWidth / 2) - 32,
                       onPressed: () {
-                        widget.isFromProfile ? _profileController.isSkipLoading.value = true : _authController.isSkipLoading.value = true;
+                        widget.isFromProfile ?
+                        _profileController.isSkipLoading.value = true :
+                        _authController.isSkipLoading.value = true;
                         _skip();
                       },
                       text: "Skip",
