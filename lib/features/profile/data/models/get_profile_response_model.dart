@@ -1,4 +1,4 @@
-class FetchProfileResponseModdel {
+class FetchProfileResponseModel {
   final Avatar avatar;
   final UserRating userRating;
   final TradingProfile trendingProfile;
@@ -22,7 +22,7 @@ class FetchProfileResponseModdel {
   final DateTime updatedAt;
   final int v;
 
-  FetchProfileResponseModdel({
+  FetchProfileResponseModel({
     required this.avatar,
     required this.userRating,
     required this.trendingProfile,
@@ -47,8 +47,8 @@ class FetchProfileResponseModdel {
     required this.v,
   });
 
-  factory FetchProfileResponseModdel.fromJson(Map<String, dynamic> json) {
-    return FetchProfileResponseModdel(
+  factory FetchProfileResponseModel.fromJson(Map<String, dynamic> json) {
+    return FetchProfileResponseModel(
       avatar: Avatar.fromJson(json['avatar']),
       userRating: UserRating.fromJson(json['userRating']),
       trendingProfile: TradingProfile.fromJson(json['treding_profile']),
