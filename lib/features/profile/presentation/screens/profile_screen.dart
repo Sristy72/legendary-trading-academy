@@ -212,20 +212,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                     ),
 
-                    ProfileOptionTile(
-                      iconPath: "assets/icons/term.png",
-                      title: "Videos",
-                      iconColor: const Color(0xFFEF1AA1),
-                      textColor: const Color(0xFFEF1AA1),
-                      arrowColor: const Color(0xFFEF1A26),
-                      onTap: () {
-                        Get.to(() => const VideoPlayerScreen(
-                          videoUrl: 'https://filmvideos.s3.us-east-2.amazonaws.com/outputs/uploads/raw/1760499411073-file_example_MOV_1920_2_2MB/1760499411073-file_example_MOV_1920_2_2MB.m3u8',
-                        ));
-                      },
-
-                    ),
-
                   ],
                 ),
               ),
