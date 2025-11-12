@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:flutter_ladydenily/features/video/presentation/screens/video_player_screen.dart';
+import 'package:flutter_ladydenily/features/video/presentation/controllers/%20video_controller.dart';
+
 import '../../data/models/class_module_module.dart';
 import '../../data/models/module_video_container.dart';
 
 class ModuleAllVideos extends StatelessWidget {
   final int index;
   final Module module; // Accept module data
+  /// Full modules list (used when opening the player screen)
+  final List<dynamic>? modules;
 
-  const ModuleAllVideos({super.key, required this.index, required this.module});
+  /// Optional index of the initially selected module
+  final int? initialModuleIndex;
+
+  const ModuleAllVideos({
+    super.key,
+    required this.index,
+    required this.module,
+    this.modules,
+    this.initialModuleIndex,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +43,34 @@ class ModuleAllVideos extends StatelessWidget {
             child: ListView.builder(
               itemBuilder: (context, videoIndex) {
                 final video = module.video[videoIndex];
-                return ModuleVideoContainer(
-                  title: video.name ?? 'Video ${videoIndex + 1}',
-                  durationText: video.url ?? '',
-                  imagePath: 'assets/images/courses_sample.jpg',
+                final String? videoUrl = video.url;
+
+                return GestureDetector(
+                  onTap: () {
+                    if (videoUrl == null || videoUrl.isEmpty) return;
+
+                    // Try to find existing video controller (already on VideoPlayerScreen)
+                    try {
+                      final existingController =
+                          Get.find<VideoPlayerGetxController>();
+                      // Load new video source in existing controller
+                      existingController.loadNewSource(videoUrl);
+                    } catch (e) {
+                      // Controller not found, navigate to new screen
+                      Get.to(
+                        () => VideoPlayerScreen(
+                          videoUrl: videoUrl,
+                          modules: modules ?? [module],
+                          initialModuleIndex: initialModuleIndex ?? index,
+                        ),
+                      );
+                    }
+                  },
+                  child: ModuleVideoContainer(
+                    title: video.name ?? 'Video ${videoIndex + 1}',
+                    durationText: video.url ?? '',
+                    imagePath: 'assets/images/courses_sample.jpg',
+                  ),
                 );
               },
               itemCount: module.video.length,

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import '../controllers/ video_controller.dart';
 
-
 class VideoControls extends StatelessWidget {
   final VideoPlayerGetxController controller;
   const VideoControls({super.key, required this.controller});
@@ -25,8 +24,17 @@ class VideoControls extends StatelessWidget {
       right: 0,
       child: Container(
         width: double.infinity,
-        color: Colors.black.withOpacity(0.5),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.black.withOpacity(0.0),
+              Colors.black.withOpacity(0.7),
+            ],
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -43,52 +51,64 @@ class VideoControls extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
 
             // ✅ Bottom control buttons
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Time info - Use ValueListenableBuilder for VideoPlayerController
-                  ValueListenableBuilder(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Time info - Use ValueListenableBuilder for VideoPlayerController
+                Expanded(
+                  child: ValueListenableBuilder(
                     valueListenable: videoCtrl,
                     builder: (context, VideoPlayerValue value, child) {
-                      return Text(
-                        "${_formatDuration(value.position)} / ${_formatDuration(value.duration)}",
-                        style: const TextStyle(color: Colors.white, fontSize: 12),
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          "${_formatDuration(value.position)} / ${_formatDuration(value.duration)}",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       );
                     },
                   ),
+                ),
 
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Obx(() => IconButton(
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Obx(
+                      () => IconButton(
                         icon: Icon(
                           controller.isPlaying.value
                               ? Icons.pause
                               : Icons.play_arrow,
                           color: Colors.white,
-                          size: 24,
+                          size: 28,
                         ),
                         onPressed: controller.togglePlayPause,
-                      )),
-                      IconButton(
-                        onPressed: controller.toggleFullScreen,
-                        icon: Obx(() => Icon(
+                        splashRadius: 24,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: controller.toggleFullScreen,
+                      icon: Obx(
+                        () => Icon(
                           controller.isFullScreen.value
                               ? Icons.fullscreen_exit
                               : Icons.fullscreen,
                           color: Colors.white,
-                          size: 24,
-                        )),
+                          size: 28,
+                        ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                      splashRadius: 24,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
