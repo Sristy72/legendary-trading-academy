@@ -1,3 +1,5 @@
+import 'package:flutter_ladydenily/features/ai_analysis/data/ai_analysis_repository_impl.dart';
+import 'package:flutter_ladydenily/features/ai_analysis/domain/ai_analysis_repository.dart';
 import 'package:flutter_ladydenily/features/community/data/community_repository_impl.dart';
 import 'package:flutter_ladydenily/features/community/domain/community_repository.dart';
 import 'package:flutter_ladydenily/features/course/data/course_repository_impl.dart';
@@ -41,5 +43,9 @@ void setupRepository() {
   Get.lazyPut<CommunityRepository>(
     fenix: true,
     () => CommunityRepositoryImpl(apiClient: Get.find()),
+  );
+  Get.lazyPut<AiAnalysisRepository>(
+    fenix: true,
+    () => AiAnalysisRepositoryImpl(apiClient: Get.find()),
   );
 }
