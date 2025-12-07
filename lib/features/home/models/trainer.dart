@@ -3,9 +3,5 @@ class Trainer {
   final int courses;
   final String image;
 
-  Trainer({
-    required this.name,
-    required this.courses,
-    required this.image,
-  });
+  Trainer({required this.name, required this.courses, required this.image});
 }

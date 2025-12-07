@@ -108,7 +108,9 @@ class User {
         stripeAccountId: json['stripeAccountId'] as String?,
         isStripeOnboarded: json['isStripeOnboarded'] as bool?,
         passwordResetToken: json['password_reset_token'] as String?,
-        fine: json['fine'] is int ? json['fine'] as int : int.tryParse('${json['fine']}'),
+        fine: json['fine'] is int
+            ? json['fine'] as int
+            : int.tryParse('${json['fine']}'),
         refreshToken: json['refreshToken'] as String?,
         uniqueId: json['uniqueId'] as String?,
         createdAt: json['createdAt'] as String?,
@@ -145,10 +147,7 @@ class Avatar {
     }
   }
 
-  Map<String, dynamic> toJson() => {
-    "public_id": publicId,
-    "url": url,
-  };
+  Map<String, dynamic> toJson() => {"public_id": publicId, "url": url};
 }
 
 class VerificationInfo {
@@ -169,10 +168,7 @@ class VerificationInfo {
     }
   }
 
-  Map<String, dynamic> toJson() => {
-    "verified": verified,
-    "token": token,
-  };
+  Map<String, dynamic> toJson() => {"verified": verified, "token": token};
 }
 
 class UserRating {
@@ -185,9 +181,15 @@ class UserRating {
   factory UserRating.fromJson(Map<String, dynamic> json) {
     try {
       return UserRating(
-        competence: json['competence'] != null ? Rating.fromJson(json['competence']) : null,
-        punctuality: json['punctuality'] != null ? Rating.fromJson(json['punctuality']) : null,
-        behavior: json['behavior'] != null ? Rating.fromJson(json['behavior']) : null,
+        competence: json['competence'] != null
+            ? Rating.fromJson(json['competence'])
+            : null,
+        punctuality: json['punctuality'] != null
+            ? Rating.fromJson(json['punctuality'])
+            : null,
+        behavior: json['behavior'] != null
+            ? Rating.fromJson(json['behavior'])
+            : null,
       );
     } catch (e) {
       print("UserRating parsing error: $e");
@@ -205,7 +207,9 @@ class Rating {
   factory Rating.fromJson(Map<String, dynamic> json) {
     try {
       return Rating(
-        star: json['star'] is int ? json['star'] : int.tryParse('${json['star']}') ?? 0,
+        star: json['star'] is int
+            ? json['star']
+            : int.tryParse('${json['star']}') ?? 0,
         comment: json['comment']?.toString() ?? '',
       );
     } catch (e) {
@@ -233,7 +237,9 @@ class TradingProfile {
   factory TradingProfile.fromJson(Map<String, dynamic> json) {
     try {
       return TradingProfile(
-        tradingExperience: json['trading_exprience'] as String? ?? json['tradingExperience'] as String?,
+        tradingExperience:
+            json['trading_exprience'] as String? ??
+            json['tradingExperience'] as String?,
         assetsOfInterest: json['assets_of_interest'] as String?,
         mainGoal: json['main_goal'] as String?,
         riskAppetite: json['risk_appetite'] as String?,

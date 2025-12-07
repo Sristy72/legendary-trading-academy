@@ -4,11 +4,7 @@ class CourseDemoCard extends StatelessWidget {
   final String image;
   final VoidCallback onTap;
 
-  const CourseDemoCard({
-    super.key,
-    required this.image,
-    required this.onTap,
-  });
+  const CourseDemoCard({super.key, required this.image, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +16,7 @@ class CourseDemoCard extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             // Background image
-            Image.asset(
-              image,
-              fit: BoxFit.cover, 
-            ),
+            Image.asset(image, fit: BoxFit.cover),
 
             // Semi-transparent top bar
             Positioned(
@@ -32,7 +25,10 @@ class CourseDemoCard extends StatelessWidget {
               right: 0,
 
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: .4),
                   borderRadius: const BorderRadius.only(

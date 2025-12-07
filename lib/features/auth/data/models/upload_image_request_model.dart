@@ -12,27 +12,27 @@ class UploadImageRequestModel {
   final TradingProfile? tradingProfile;
   final MultipartFile file; // in case you upload an image/file
 
-  UploadImageRequestModel ({
-     this.name,
-     this.age,
-     this.phone,
-     this.gender,
-     this.nationality,
-     this.address,
-     this.tradingProfile,
-     required this.file,
+  UploadImageRequestModel({
+    this.name,
+    this.age,
+    this.phone,
+    this.gender,
+    this.nationality,
+    this.address,
+    this.tradingProfile,
+    required this.file,
   });
 
   Future<FormData> toFormData() async {
     return FormData({
-     if(name != null) "name": name,
-     if(age != null) "age": age.toString(),
-     if(phone != null) "phone": phone,
-     if(gender != null) "gender": gender,
-     if(nationality != null) "nationality": nationality,
-     if(address != null) "address": address,
-      if(tradingProfile != null)"treding_profile": tradingProfile,
-     "file": file,
+      if (name != null) "name": name,
+      if (age != null) "age": age.toString(),
+      if (phone != null) "phone": phone,
+      if (gender != null) "gender": gender,
+      if (nationality != null) "nationality": nationality,
+      if (address != null) "address": address,
+      if (tradingProfile != null) "treding_profile": tradingProfile,
+      "file": file,
     });
   }
 }

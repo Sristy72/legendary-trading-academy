@@ -1,17 +1,21 @@
-import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
+import 'package:flutter_ladydenily/features/ai_analysis/domain/ai_analysis_repository.dart';
+import 'package:flutter_ladydenily/features/ai_analysis/presentation/controllers/ai_analysis_controller.dart';
+import 'package:flutter_ladydenily/features/community/domain/community_repository.dart';
+import 'package:flutter_ladydenily/features/community/presentation/controllers/community_controller.dart';
+import 'package:flutter_ladydenily/features/course/domain/course_repository.dart';
+import 'package:flutter_ladydenily/features/course/presentation/controllers/course_controller.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/controllers/module_controller.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/controllers/module_details_controller.dart';
+import 'package:flutter_ladydenily/features/home/domain/trainer_repository.dart';
+import 'package:flutter_ladydenily/features/home/presentation/controllers/trainer_controller.dart';
+import 'package:flutter_ladydenily/features/marketplace/domain/marketplace_repository.dart';
+import 'package:flutter_ladydenily/features/marketplace/presentation/controllers/marketplace_controller.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
 import 'package:flutter_ladydenily/features/search/presentation/controllers/search_controller.dart'
     as search;
 import 'package:get/get.dart';
 
 import '../../features/auth/presentation/controller/auth_controller.dart';
-import 'package:flutter_ladydenily/features/course/presentation/controllers/course_controller.dart';
-import 'package:flutter_ladydenily/features/course/domain/course_repository.dart';
-import 'package:flutter_ladydenily/features/home/presentation/controllers/trainer_controller.dart';
-import 'package:flutter_ladydenily/features/home/domain/trainer_repository.dart';
-import 'package:flutter_ladydenily/features/marketplace/presentation/controllers/marketplace_controller.dart';
-import 'package:flutter_ladydenily/features/marketplace/domain/marketplace_repository.dart';
 
 void setupController() {
   // Auth Controller
@@ -45,6 +49,14 @@ void setupController() {
   Get.lazyPut<MarketplaceController>(
     fenix: true,
     () => MarketplaceController(repository: Get.find<MarketplaceRepository>()),
+  );
+  Get.lazyPut<CommunityController>(
+    fenix: true,
+    () => CommunityController(repository: Get.find<CommunityRepository>()),
+  );
+  Get.lazyPut<AiAnalysisController>(
+    fenix: true,
+    () => AiAnalysisController(repository: Get.find<AiAnalysisRepository>()),
   );
   Get.lazyPut<search.SearchController>(() => search.SearchController());
 }

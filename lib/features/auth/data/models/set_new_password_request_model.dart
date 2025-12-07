@@ -11,10 +11,6 @@ class SetNewPasswordRequestModel {
 
   // Convert to JSON
   Map<String, dynamic> toJson() {
-    return {
-      'email': email,
-      'password': password,
-      'otp': otp,
-    };
+    return {'email': email, 'password': password, 'otp': otp};
   }
 }

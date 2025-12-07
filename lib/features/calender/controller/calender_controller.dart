@@ -33,7 +33,7 @@ class CalendarController extends GetxController {
     final last = nextMonth.subtract(const Duration(days: 1));
     return List.generate(
       last.day,
-          (i) => DateTime(first.year, first.month, i + 1),
+      (i) => DateTime(first.year, first.month, i + 1),
     );
   }
 
@@ -110,7 +110,7 @@ class CalendarController extends GetxController {
 
   void _scrollToSelected() {
     final controllerRef = dayScroll.value;
-    final index = selectedDate.value.day-1.2;
+    final index = selectedDate.value.day - 1.2;
     final itemExtent = 64.0 + 7.0;
     final offset = (index * itemExtent) - 16;
     if (controllerRef.hasClients) {

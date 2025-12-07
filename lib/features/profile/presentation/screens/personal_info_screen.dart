@@ -131,50 +131,54 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
 
                 const Text("Gender"),
                 const SizedBox(height: 6),
-                Obx(() => DropdownButtonFormField<String>(
-                  value: gender.value,
-                  items: const [
-                    DropdownMenuItem(value: "Male", child: Text("Male")),
-                    DropdownMenuItem(value: "Female", child: Text("Female")),
-                    DropdownMenuItem(value: "Other", child: Text("Other")),
-                  ],
-                  onChanged: (value) {
-                    gender.value = value!;
-                  },
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey.shade200,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide.none,
+                Obx(
+                  () => DropdownButtonFormField<String>(
+                    value: gender.value,
+                    items: const [
+                      DropdownMenuItem(value: "Male", child: Text("Male")),
+                      DropdownMenuItem(value: "Female", child: Text("Female")),
+                      DropdownMenuItem(value: "Other", child: Text("Other")),
+                    ],
+                    onChanged: (value) {
+                      gender.value = value!;
+                    },
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey.shade200,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                   ),
-                )),
+                ),
                 const SizedBox(height: 12),
 
                 const Text("Nationality"),
                 const SizedBox(height: 6),
                 GestureDetector(
                   onTap: _showCountryPicker,
-                  child: Obx(() => AbsorbPointer(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: nationality.value,
-                        filled: true,
-                        fillColor: Colors.grey.shade200,
-                        suffixIcon: const Icon(Icons.arrow_drop_down),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
+                  child: Obx(
+                    () => AbsorbPointer(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: nationality.value,
+                          filled: true,
+                          fillColor: Colors.grey.shade200,
+                          suffixIcon: const Icon(Icons.arrow_drop_down),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide.none,
+                          ),
                         ),
                       ),
                     ),
-                  )),
+                  ),
                 ),
                 const SizedBox(height: 181),
 
                 Obx(
-                      () => context.primaryButton(
+                  () => context.primaryButton(
                     isLoading: _profileController.isLoading.value,
                     onPressed: () {
                       _submit();

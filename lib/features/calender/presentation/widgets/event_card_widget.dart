@@ -14,7 +14,7 @@ class EventCardWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.cardBGColor,//0xFFEFF4FB
+        color: AppColors.cardBGColor, //0xFFEFF4FB
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -30,14 +30,29 @@ class EventCardWidget extends StatelessWidget {
               children: [
                 Text(
                   event.title,
-                  style: const TextStyle(fontWeight: FontWeight.w700,fontSize: 16,color: Color(0xff090F12)),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
+                    color: Color(0xff090F12),
+                  ),
                 ),
                 const SizedBox(height: 4),
-                Text(event.time, style: const TextStyle(color: Color(0xff1A3E74),fontSize: 16,fontWeight: FontWeight.w600)),
+                Text(
+                  event.time,
+                  style: const TextStyle(
+                    color: Color(0xff1A3E74),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 const SizedBox(height: 2),
                 Text(
                   event.coach,
-                  style: const TextStyle(color: Color(0xff1A3E74),fontSize: 14,fontWeight: FontWeight.w400),
+                  style: const TextStyle(
+                    color: Color(0xff1A3E74),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ],
             ),

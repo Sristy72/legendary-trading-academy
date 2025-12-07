@@ -2,31 +2,27 @@ import 'package:get/get.dart';
 import 'package:flutx_core/flutx_core.dart';
 import '../../../../core/base/base_controller.dart';
 import '../../../course/domain/course_repository.dart';
-import '../../data/modles/course_response_module.dart';
-import '../../data/modles/class_module_module.dart';
+import '../../data/models/course_response_module.dart';
+import '../../data/models/class_module_module.dart';
 
 class ModulesDetailsController extends BaseController {
   final CourseRepository _courseRepository;
 
   ModulesDetailsController(this._courseRepository);
 
-  // Observable data
   final RxList<Module> _modules = <Module>[].obs;
   final Rx<CourseResponse?> _selectedCourse = Rx<CourseResponse?>(null);
   final RxMap<String, bool> _completionStatus = <String, bool>{}.obs;
 
-  // Getters
   List<Module> get modules => _modules.toList();
   CourseResponse? get selectedCourse => _selectedCourse.value;
 
-  // Expose reactive values for UI binding
   RxList<Module> get rxModules => _modules;
   Rx<CourseResponse?> get rxSelectedCourse => _selectedCourse;
 
   @override
   void onInit() {
     super.onInit();
-    // Check if course ID is passed via Get.arguments
     final courseId = Get.arguments as String?;
     if (courseId != null && courseId.isNotEmpty) {
       getCourseDetails(courseId);
@@ -59,7 +55,6 @@ class ModulesDetailsController extends BaseController {
         _selectedCourse.value = success.data;
         _modules.value = success.data.modules;
 
-        // Initialize completion status for all modules
         for (final module in success.data.modules) {
           _completionStatus.putIfAbsent(module.id, () => false);
         }

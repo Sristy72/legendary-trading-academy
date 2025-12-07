@@ -12,10 +12,7 @@ import 'package:get/get.dart';
 import '../../../../core/common/texts/texts.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
-  const PersonalInformationScreen({
-    super.key,
-  });
-
+  const PersonalInformationScreen({super.key});
 
   @override
   State<PersonalInformationScreen> createState() =>
@@ -40,9 +37,14 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   String gender = "Male";
 
   void _submit() {
-    _authController.personalInfo(_personalNameController.text, age, gender, _nationalityController.text, _addressController.text);
+    _authController.personalInfo(
+      _personalNameController.text,
+      age,
+      gender,
+      _nationalityController.text,
+      _addressController.text,
+    );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -274,8 +276,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
             //   ),
             // ),
             SafeArea(
-              child: Obx( () => context.primaryButton(
-                isLoading: _authController.isLoading.value,
+              child: Obx(
+                () => context.primaryButton(
+                  isLoading: _authController.isLoading.value,
                   onPressed: _submit,
                   text: 'Continue',
                 ),

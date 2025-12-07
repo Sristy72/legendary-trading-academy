@@ -41,7 +41,7 @@ extension ButtonStyleExtensions on BuildContext {
                     text,
                     style: AppTextStyles.text16w400().copyWith(
                       color: textColor,
-                        fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
           ),
