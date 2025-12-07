@@ -3,6 +3,8 @@ import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/controllers/marketplace_controller.dart';
+import 'package:flutter_ladydenily/features/marketplace/presentation/screens/invoice_webview_screen.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
 import 'package:get/get.dart';
 
 class MarketplaceDetailsScreen extends StatefulWidget {
@@ -224,7 +226,46 @@ class _MarketplaceDetailsScreenState extends State<MarketplaceDetailsScreen> {
                           Expanded(
                             child: context.primaryButton(
                               textColor: AppColors.appBarTitle,
-                              onPressed: () {},
+                              onPressed: () async {
+                                // If free, you might do a different flow
+                                if (item.isFree) {
+                                  // handle free item (not implemented)
+                                  return;
+                                }
+
+                                // Create payment via controller
+                                // Get current user id from profile controller if available
+                                String userId = '';
+                                try {
+                                  final profileController = Get.find<ProfileController>();
+                                  userId = profileController.userInfo.value?.id ?? '';
+                                } catch (_) {
+                                  userId = '';
+                                }
+
+                                final priceNum = double.tryParse(item.price) ?? 0.0;
+
+                                final paymentDetails = await marketplaceController.createPaymentForItem(
+                                  userId: userId,
+                                  price: priceNum,
+                                  productId: item.id,
+                                  type: 'product',
+                                );
+
+                                if (paymentDetails != null && paymentDetails['invoiceUrl'] != null) {
+                                  final invoiceUrl = paymentDetails['invoiceUrl']!;
+                                  final transactionId = paymentDetails['transactionId'];
+                                  
+                                  // Open webview with invoiceUrl and transactionId
+                                  Get.to(() => InvoiceWebViewScreen(
+                                    invoiceUrl: invoiceUrl,
+                                    transactionId: transactionId,
+                                  ));
+                                } else {
+                                  // Show error feedback
+                                  Get.snackbar('Payment Error', 'Unable to create invoice.');
+                                }
+                              },
                               text: item.isFree ? 'Get Free' : 'Shop Now',
                             ),
                           ),

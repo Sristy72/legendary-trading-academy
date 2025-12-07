@@ -44,7 +44,6 @@ class _TradingProfileSetupScreenState extends State<TradingProfileSetupScreen> {
     }
   }
 
-
   void _submit() async {
     if (widget.isFromProfile == true) {
       //  Save trading profile using ProfileController

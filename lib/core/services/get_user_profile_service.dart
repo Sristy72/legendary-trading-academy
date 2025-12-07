@@ -11,13 +11,10 @@ class GetUserProfileService extends BaseController {
   final Rxn<UserModel> _userInfo = Rxn<UserModel>();
   UserModel? get userInfo => _userInfo.value;
 
-
   Future<void> getUserProfile() async {
     final result = await _authRepository.getUserProfile();
 
-    result.fold((fail) {
-
-    }, (succees) {
+    result.fold((fail) {}, (succees) {
       _userInfo.value = succees.data;
     });
   }

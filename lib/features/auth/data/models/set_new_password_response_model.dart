@@ -2,10 +2,7 @@ class SetNewPasswordResponseModel {
   final bool success;
   final String message;
 
-  SetNewPasswordResponseModel({
-    required this.success,
-    required this.message,
-  });
+  SetNewPasswordResponseModel({required this.success, required this.message});
 
   factory SetNewPasswordResponseModel.fromJson(Map<String, dynamic> json) {
     return SetNewPasswordResponseModel(
@@ -14,4 +11,3 @@ class SetNewPasswordResponseModel {
     );
   }
 }
-

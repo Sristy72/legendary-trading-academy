@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:flutx_core/flutx_core.dart';
 import '../../../../core/base/base_controller.dart';
 import '../../../course/domain/course_repository.dart';
-import '../../data/modles/course_response_module.dart';
-import '../../data/modles/class_module_module.dart';
+import '../../data/models/course_response_module.dart';
+import '../../data/models/class_module_module.dart';
 
 class ModuleController extends BaseController {
   final CourseRepository _courseRepository;
@@ -14,7 +14,6 @@ class ModuleController extends BaseController {
   final RxList<Module> _modules = <Module>[].obs;
   final Rx<CourseResponse?> _selectedCourse = Rx<CourseResponse?>(null);
   final RxInt _selectedIndex = 0.obs;
-
 
   List<CourseResponse> get courses => _courses.toList();
   List<Module> get modules => _modules.toList();

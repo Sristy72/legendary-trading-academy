@@ -16,8 +16,11 @@ class StarRating extends StatelessWidget {
           Icon(
             // Decide which icon to show
             rating >= i
-                ? Icons.star // full star
-                : (rating >= i - 0.5 ? Icons.star_half : Icons.star_border), // half or empty
+                ? Icons
+                      .star // full star
+                : (rating >= i - 0.5
+                      ? Icons.star_half
+                      : Icons.star_border), // half or empty
             color: AppColors.starRatingColor,
             size: size,
           ),

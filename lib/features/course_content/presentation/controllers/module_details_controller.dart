@@ -2,20 +2,18 @@ import 'package:get/get.dart';
 import 'package:flutx_core/flutx_core.dart';
 import '../../../../core/base/base_controller.dart';
 import '../../../course/domain/course_repository.dart';
-import '../../data/modles/class_module_module.dart';
-import '../../data/modles/course_response_module.dart';
+import '../../data/models/class_module_module.dart';
+import '../../data/models/course_response_module.dart';
 
 class ModulesDetailsController extends BaseController {
   final CourseRepository _courseRepository;
 
   ModulesDetailsController(this._courseRepository);
 
-  // Observable data
   final RxList<Module> _modules = <Module>[].obs;
   final Rx<CourseResponse?> _courseDetails = Rx<CourseResponse?>(null);
   final RxMap<String, bool> _completionStatus = <String, bool>{}.obs;
 
-  // Getters
   List<Module> get modules => _modules.toList();
   CourseResponse? get courseDetails => _courseDetails.value;
   Map<String, bool> get completionStatus => _completionStatus;
@@ -31,7 +29,6 @@ class ModulesDetailsController extends BaseController {
       setLoading(false);
     }
   }
-
 
   Future<void> getCourseDetails(String courseId) async {
     setLoading(true);
@@ -49,7 +46,6 @@ class ModulesDetailsController extends BaseController {
         _courseDetails.value = success.data;
         _modules.value = success.data.modules;
 
-        // Initialize completion status for all modules
         for (var module in success.data.modules) {
           _completionStatus[module.id] = false;
         }

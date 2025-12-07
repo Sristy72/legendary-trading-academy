@@ -32,27 +32,52 @@ class MyCourseCard extends StatelessWidget {
                   : course.photo is String
                   ? course.photo as String
                   : (course.photo as dynamic).url ?? '';
-              if (imageUrl.isEmpty) {
-                return SizedBox(
-                  width: 120,
-                  height: 96,
-                  child: Container(
-                    color: Colors.grey.shade200,
-                    alignment: Alignment.center,
-                    child: const Icon(
-                      Icons.image,
-                      size: 40,
-                      color: Colors.grey,
-                    ),
+              
+              // Fallback widget for when image fails to load
+              Widget fallbackWidget = SizedBox(
+                width: 120,
+                height: 96,
+                child: Container(
+                  color: Colors.grey.shade200,
+                  alignment: Alignment.center,
+                  child: const Icon(
+                    Icons.school,
+                    size: 40,
+                    color: Colors.grey,
                   ),
-                );
+                ),
+              );
+
+              if (imageUrl.isEmpty) {
+                return fallbackWidget;
               }
+              
               if (imageUrl.startsWith('http')) {
                 return Image.network(
                   imageUrl,
                   width: 120,
                   height: 96,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return fallbackWidget;
+                  },
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return SizedBox(
+                      width: 120,
+                      height: 96,
+                      child: Container(
+                        color: Colors.grey.shade200,
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      ),
+                    );
+                  },
                 );
               } else {
                 return Image.asset(
@@ -60,6 +85,9 @@ class MyCourseCard extends StatelessWidget {
                   width: 120,
                   height: 96,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return fallbackWidget;
+                  },
                 );
               }
             }()),

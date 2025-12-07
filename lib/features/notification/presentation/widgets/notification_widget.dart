@@ -70,11 +70,7 @@ class NotificationWidget extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.only(top: 8, bottom: 8),
-          child: Divider(
-            height: 1,
-            color: Color(0xFFE0E0E0),
-            thickness: 1,
-          ),
+          child: Divider(height: 1, color: Color(0xFFE0E0E0), thickness: 1),
         ),
       ],
     );

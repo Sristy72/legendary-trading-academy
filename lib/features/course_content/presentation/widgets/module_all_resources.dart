@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/widgets/module_resource_item.dart';
-import '../../data/modles/class_module_module.dart';
+import '../../data/models/class_module_module.dart';
 
 class ModuleAllResources extends StatelessWidget {
   final Module module;

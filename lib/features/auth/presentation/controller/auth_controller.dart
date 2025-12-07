@@ -111,14 +111,6 @@ class AuthController extends BaseController {
     setLoading(true);
     setError('');
 
-    // final request = PersonalInfoRequestFormModel(
-    //   name: name,
-    //   age: age,
-    //   gender: gender,
-    //   nationality: nationality,
-    //   address: address,
-    // );
-
     _multiFormDataManager.addTextData("name", name);
     _multiFormDataManager.addTextData("age", age.toString());
     _multiFormDataManager.addTextData("gender", gender);
@@ -137,7 +129,7 @@ class AuthController extends BaseController {
       },
       (success) {
         DPrint.log('Personal info: ${success.message}');
-        Get.to(() => UploadProfileScreen(isFromProfile: false,));
+        Get.to(() => UploadProfileScreen(isFromProfile: false));
         isLoading(false);
         setError(success.message);
       },
@@ -162,7 +154,7 @@ class AuthController extends BaseController {
       },
       (success) {
         DPrint.log('Upload photo: ${success.message}');
-        Get.to(() => TradingProfileSetupScreen(isFromProfile: false,));
+        Get.to(() => TradingProfileSetupScreen(isFromProfile: false));
         setError(success.message);
         _multiFormDataManager.clear();
         isLoading(false);

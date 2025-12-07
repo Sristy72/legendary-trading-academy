@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
+import 'package:flutter_ladydenily/core/widgets/custom_bottom_navbar.dart';
+import 'package:flutter_ladydenily/features/ai_analysis/presentation/screens/ai_analysis_screen.dart';
+import 'package:flutter_ladydenily/features/community/presentation/screens/community_screen.dart';
 import 'package:flutter_ladydenily/features/course/models/course.dart';
 import 'package:flutter_ladydenily/features/course/presentation/controllers/course_controller.dart';
 import 'package:flutter_ladydenily/features/course/presentation/screens/coure_details_screen.dart';
 import 'package:flutter_ladydenily/features/course/presentation/screens/course_all_screen.dart';
 import 'package:flutter_ladydenily/features/course/presentation/widgets/course_details_card.dart';
-import 'package:flutter_ladydenily/core/widgets/custom_bottom_navbar.dart';
-import 'package:flutter_ladydenily/features/home/presentation/widgets/my_course_card.dart';
-import 'package:flutter_ladydenily/features/marketplace/presentation/screens/marketplace_all_screen.dart';
-import 'package:flutter_ladydenily/features/notification/presentation/screens/notification_screen.dart';
-import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
-import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
 import 'package:flutter_ladydenily/features/home/presentation/controllers/trainer_controller.dart';
+import 'package:flutter_ladydenily/features/home/presentation/screens/trainer_all_screen.dart';
+import 'package:flutter_ladydenily/features/home/presentation/widgets/my_course_card.dart';
 import 'package:flutter_ladydenily/features/home/presentation/widgets/trainer_api_card.dart';
 import 'package:flutter_ladydenily/features/home/presentation/widgets/trainer_placeholder_card.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/controllers/marketplace_controller.dart';
+import 'package:flutter_ladydenily/features/marketplace/presentation/screens/marketplace_all_screen.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/widgets/marketplace_api_card.dart';
+import 'package:flutter_ladydenily/features/notification/presentation/screens/notification_screen.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
 import 'package:get/get.dart';
+
 import '../../../calender/presentation/screens/calender_screen.dart';
 import '../../../search/presentation/screens/search_screen.dart';
 
@@ -37,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _pages = [
       const HomeContent(),
-      const Center(child: Text("👥 Community Page")),
+      const CommunityScreen(),
       CourseAllScreen(),
       ProfileScreen(),
     ];
@@ -75,6 +79,10 @@ class HomeContent extends StatelessWidget {
 
   void _navgiateToAllMarketplace(BuildContext context) {
     Get.to(() => const MarketplaceAllScreen());
+  }
+
+  void _navigateToAllTrainers(BuildContext context) {
+    Get.to(() => const TrainerAllScreen());
   }
 
   @override
@@ -124,32 +132,41 @@ class HomeContent extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Obx(() {
-                  final user = profileController.userInfo.value;
-                  final name = user?.name ?? user?.username ?? 'User';
-                  return Text(
-                    'Hello, $name',
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Obx(() {
+                    final user = profileController.userInfo.value;
+                    final name = user?.name ?? user?.username ?? 'User';
+                    return Text(
+                      'Hello, $name',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: AppColors.titleTextColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }),
+                  Text(
+                    profileController.userInfo.value?.address ??
+                        'Unknown Location',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: AppColors.titleTextColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                }),
-                Text(
-                  profileController.userInfo.value?.address ??
-                      'Unknown Location',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                ),
-              ],
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.auto_awesome),
+            onPressed: () => Get.to(() => const AiAnalysisScreen()),
+            tooltip: 'AI Analysis',
+          ),
           IconButton(
             icon: const Icon(Icons.calendar_today_outlined),
             onPressed: () => Get.to(CalendarScreen()),
@@ -192,7 +209,10 @@ class HomeContent extends StatelessWidget {
                     ),
             ),
 
-            _buildSectionTitle('Top Trainer'),
+            _buildSectionTitle(
+              'Top Trainer',
+              onViewAllTap: () => _navigateToAllTrainers(context),
+            ),
             Obx(() {
               if (trainerController.isLoading.value) {
                 return const Center(child: CircularProgressIndicator());
@@ -229,20 +249,16 @@ class HomeContent extends StatelessWidget {
             Obx(
               () => courseController.isLoading.value
                   ? const Center(child: CircularProgressIndicator())
-                  : _buildVerticalList(
-                      courseController.courses
-                          .where(
-                            //! isNotEmpty to isEmpty <<<< MUST CHANGE LATER >>>>
-                            (c) => c.enrolled.isEmpty,
-                          )
-                          .map(
-                            (c) => GestureDetector(
-                              onTap: () => _navigateToCourseDetail(context, c),
-                              child: MyCourseCard(course: c),
-                            ),
-                          )
-                          .toList(),
-                    ),
+                  : courseController.myCourses.isEmpty
+                      ? const Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Center(child: Text("You haven't enrolled in any courses yet.")),
+                        )
+                      : _buildVerticalList(
+                          courseController.myCourses
+                              .map((c) => MyCourseCard(course: c))
+                              .toList(),
+                        ),
             ),
           ],
         ),

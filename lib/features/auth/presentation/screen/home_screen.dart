@@ -10,12 +10,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: ElevatedButton(onPressed: (){Get.find<AuthController>().logout();}, child: Text('Logout'))),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Get.find<AuthController>().logout();
+          },
+          child: Text('Logout'),
+        ),
+      ),
     );
   }
 }
