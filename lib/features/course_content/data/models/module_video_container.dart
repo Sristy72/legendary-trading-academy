@@ -8,6 +8,7 @@ class ModuleVideoContainer extends StatelessWidget {
   final String durationText;
   final String imagePath;
   final String? videoUrl;
+  final VoidCallback? onTap;
 
   const ModuleVideoContainer({
     super.key,
@@ -15,29 +16,15 @@ class ModuleVideoContainer extends StatelessWidget {
     this.durationText = '24 May 2025 | 2h 30m 33s',
     this.imagePath = 'assets/images/courses_sample.jpg',
     this.videoUrl,
+    this.onTap,
   });
 
-  bool _isYouTubeUrl(String url) {
-    return url.contains('youtube.com') || url.contains('youtu.be');
-  }
+
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        debugPrint('ModuleVideoContainer tapped - Title: $title, VideoUrl: $videoUrl');
-        if (videoUrl != null && videoUrl!.isNotEmpty) {
-          if (_isYouTubeUrl(videoUrl!)) {
-            debugPrint('YouTube URL detected, navigating to YouTubePlayerScreen');
-            Get.to(() => YouTubePlayerScreen(youtubeUrl: videoUrl!));
-          } else {
-            debugPrint('Direct video URL, navigating to VideoPlayerScreen');
-            Get.to(() => VideoPlayerScreen(videoUrl: videoUrl!));
-          }
-        } else {
-          debugPrint('VideoUrl is null or empty, cannot play video');
-        }
-      },
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.only(top: 12),
         child: SizedBox(

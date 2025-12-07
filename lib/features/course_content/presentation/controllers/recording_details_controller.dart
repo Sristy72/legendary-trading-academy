@@ -13,6 +13,18 @@ class RecordingDetailsController extends BaseController {
   final RxList<Module> _modules = <Module>[].obs;
 
   List<Module> get modules => _modules;
+  
+  final RxnString currentVideoUrl = RxnString();
+  final RxString currentVideoTitle = ''.obs;
+  final RxString currentVideoDate = ''.obs;
+  final RxBool isFullScreen = false.obs;
+  
+  void playVideo(String url, String title, String date) {
+    currentVideoUrl.value = url;
+    currentVideoTitle.value = title;
+    currentVideoDate.value = date;
+    isFullScreen.value = false; // Reset on new video
+  }
 
   @override
   void onInit() {
