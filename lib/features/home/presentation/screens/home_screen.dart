@@ -249,20 +249,21 @@ class HomeContent extends StatelessWidget {
             Obx(
               () => courseController.isLoading.value
                   ? const Center(child: CircularProgressIndicator())
-                  : _buildVerticalList(
-                      courseController.courses
-                          .where(
-                            //! isNotEmpty to isEmpty <<<< MUST CHANGE LATER >>>>
-                            (c) => c.enrolled.isEmpty,
-                          )
-                          .map(
-                            (c) => GestureDetector(
-                              onTap: () => _navigateToCourseDetail(context, c),
-                              child: MyCourseCard(course: c),
-                            ),
-                          )
-                          .toList(),
-                    ),
+                  : courseController.myCourses.isEmpty
+                      ? const Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Center(child: Text("You haven't enrolled in any courses yet.")),
+                        )
+                      : _buildVerticalList(
+                          courseController.myCourses
+                              .map(
+                                (c) => GestureDetector(
+                                  onTap: () => _navigateToCourseDetail(context, c),
+                                  child: MyCourseCard(course: c),
+                                ),
+                              )
+                              .toList(),
+                        ),
             ),
           ],
         ),

@@ -12,6 +12,9 @@ abstract class CourseRepository {
   Future<Either<NetworkFailure, NetworkSuccess<List<Course>>>>
   fetchAllCourses();
 
+  /// Fetch courses purchased by the user
+  Future<Either<NetworkFailure, NetworkSuccess<List<Course>>>> fetchMyCourses();
+
   // course_content related APIs (returns NetworkResult wrappers)
   NetworkResult<List<CourseResponse>> getAllCourses();
   NetworkResult<CourseResponse> getCourseDetails(String courseId);
