@@ -28,9 +28,13 @@ class SurveyController extends GetxController {
     String? prevRiskAppetite,
     List<String>? prevLearningModes,
   }) {
-    DPrint.log("trading Experience $prevTradingExperience , $prevAssetOfInterest");
-    if (prevTradingExperience != null) tradingExperience.value = prevTradingExperience;
-    if (prevAssetOfInterest != null) assetOfInterest.value = prevAssetOfInterest;
+    DPrint.log(
+      "trading Experience $prevTradingExperience , $prevAssetOfInterest",
+    );
+    if (prevTradingExperience != null)
+      tradingExperience.value = prevTradingExperience;
+    if (prevAssetOfInterest != null)
+      assetOfInterest.value = prevAssetOfInterest;
     if (prevMainGoal != null) mainGoal.value = prevMainGoal;
     if (prevRiskAppetite != null) riskAppetite.value = prevRiskAppetite;
     if (prevLearningModes != null) learningModes.value = prevLearningModes;

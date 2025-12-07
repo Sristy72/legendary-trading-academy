@@ -1,4 +1,3 @@
-
 class Avatar {
   final String publicId;
   final String url;
@@ -6,17 +5,11 @@ class Avatar {
   Avatar({required this.publicId, required this.url});
 
   factory Avatar.fromJson(Map<String, dynamic> json) {
-    return Avatar(
-      publicId: json["public_id"] ?? "",
-      url: json["url"] ?? "",
-    );
+    return Avatar(publicId: json["public_id"] ?? "", url: json["url"] ?? "");
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      "public_id": publicId,
-      "url": url,
-    };
+    return {"public_id": publicId, "url": url};
   }
 }
 
@@ -43,12 +36,7 @@ class Address {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      "street": street,
-      "city": city,
-      "state": state,
-      "zipCode": zipCode,
-    };
+    return {"street": street, "city": city, "state": state, "zipCode": zipCode};
   }
 }
 
@@ -56,10 +44,7 @@ class VerificationInfo {
   final bool verified;
   final String token;
 
-  VerificationInfo({
-    required this.verified,
-    required this.token,
-  });
+  VerificationInfo({required this.verified, required this.token});
 
   factory VerificationInfo.fromJson(Map<String, dynamic> json) {
     return VerificationInfo(
@@ -69,10 +54,7 @@ class VerificationInfo {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      "verified": verified,
-      "token": token,
-    };
+    return {"verified": verified, "token": token};
   }
 }
 
@@ -118,10 +100,6 @@ class RatingDetail {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      "star": star,
-      "comment": comment,
-    };
+    return {"star": star, "comment": comment};
   }
 }
-

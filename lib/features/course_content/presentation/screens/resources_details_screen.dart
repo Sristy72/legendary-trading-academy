@@ -37,13 +37,10 @@ class ResourcesScreen extends StatelessWidget {
           itemCount: controller.modules.length,
           itemBuilder: (context, index) {
             final module = controller.modules[index];
-            return ModuleAllResources(
-              index: index, // Pass the module index
-              module: module, // Pass the module data
-            );
+            return ModuleAllResources(index: index, module: module);
           },
           separatorBuilder: (context, index) {
-            return const SizedBox(height: 12); // Add 12px gap between modules
+            return const SizedBox(height: 12);
           },
         );
       }),

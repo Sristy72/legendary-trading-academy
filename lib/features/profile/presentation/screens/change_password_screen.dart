@@ -19,8 +19,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   final _profileController = Get.find<ProfileController>();
 
-  void _submit(){
-    _profileController.changePassword(_currentPasswordController.text, _newPasswordController.text);
+  void _submit() {
+    _profileController.changePassword(
+      _currentPasswordController.text,
+      _newPasswordController.text,
+    );
   }
 
   @override
@@ -92,7 +95,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               // Save Button
               context.primaryButton(
                 onPressed: () {
-                  if (_newPasswordController.text == _confirmPasswordController.text) {
+                  if (_newPasswordController.text ==
+                      _confirmPasswordController.text) {
                     _submit();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Password Updated!")),

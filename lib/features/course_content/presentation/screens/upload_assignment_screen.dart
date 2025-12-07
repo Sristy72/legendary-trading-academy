@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:get/get.dart';
+
 import '../controllers/assignment_controller.dart';
 
 class UploadAssignmentScreen extends StatelessWidget {
@@ -122,28 +123,34 @@ class UploadAssignmentScreen extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.all(12),
-            height: 79,
             width: double.infinity,
             decoration: BoxDecoration(
               color: AppColors.buttonColor.withOpacity(0.1),
             ),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.buttonColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+            child: Column(
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.buttonColor,
+                    minimumSize: const Size.fromHeight(45),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: controller.submit,
+                  child: const Text(
+                    'Submit Assignment',
+                    style: TextStyle(
+                      color: Color(0xff1A3E74),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
-              ),
-              onPressed: controller.submit,
-              child: const Text(
-                'Submit Assignment',
-                style: TextStyle(
-                  color: Color(0xff1A3E74),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+                const SizedBox(height: 20),
+              ],
             ),
+            
           ),
         ],
       ),

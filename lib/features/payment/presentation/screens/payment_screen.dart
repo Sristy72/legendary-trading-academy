@@ -183,7 +183,10 @@ class PaymentScreen extends GetView<PaymentController> {
                   ),
                 ),
                 const SizedBox(height: 12),
-                const PaymentCard(cardType: 'Visa', cardNumber: '651*******643791'),
+                const PaymentCard(
+                  cardType: 'Visa',
+                  cardNumber: '651*******643791',
+                ),
                 const SizedBox(height: 8),
                 const PaymentCard(
                   cardType: 'Mastercard',
@@ -221,7 +224,7 @@ class PaymentScreen extends GetView<PaymentController> {
                           size: 12,
                           color: Colors.white,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -239,7 +242,7 @@ class PaymentScreen extends GetView<PaymentController> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},//=> controller.completePayment(),
+                    onPressed: () {}, //=> controller.completePayment(),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFEFC227),
                       shape: RoundedRectangleBorder(

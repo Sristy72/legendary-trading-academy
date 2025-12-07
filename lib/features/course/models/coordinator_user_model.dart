@@ -8,8 +8,8 @@ class CoordinatorUser extends Equatable {
   final Avatar avatar;
   final VerificationInfo verificationInfo;
   final UserRating userRating;
-  final TradingProfile? tradingProfile; 
-  final dynamic age; 
+  final TradingProfile? tradingProfile;
+  final dynamic age;
   final dynamic gender;
   final dynamic nationality;
   final bool tradingProfileComplete;
