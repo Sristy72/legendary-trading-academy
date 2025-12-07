@@ -33,49 +33,36 @@ class _InvoiceWebViewScreenState extends State<InvoiceWebViewScreen> {
     super.initState();
     _extractInvoiceIdFromUrl();
 
-    // Delay controller creation until after first frame to avoid platform
-    // channel race conditions on some Android devices / engine states.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      try {
-        final ctrl = WebViewController()
-          ..setJavaScriptMode(JavaScriptMode.unrestricted)
-          ..setNavigationDelegate(
-            NavigationDelegate(
-              onPageStarted: (String url) {
-                print('[InvoiceWebView] Page started loading: $url');
-              },
-              onPageFinished: (String url) {
-                print('[InvoiceWebView] Page finished loading: $url');
-                print('[InvoiceWebView] About to check for payment completion...');
-                _checkForPaymentCompletion(url);
-                print('[InvoiceWebView] Finished checking for payment completion');
-              },
-              onNavigationRequest: (NavigationRequest request) {
-                print('[InvoiceWebView] Navigation request: ${request.url}');
-                print('[InvoiceWebView] About to check navigation URL for payment completion...');
-                _checkForPaymentCompletion(request.url);
-                print('[InvoiceWebView] Finished checking navigation URL');
-                return NavigationDecision.navigate;
-              },
-            ),
-          )
-          ..loadRequest(Uri.parse(widget.invoiceUrl));
+    // Initialize controller synchronously to ensure PlatformView is created correctly on first build
+    // This fixes the iOS 'recreating_view' crash.
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageStarted: (String url) {
+            print('[InvoiceWebView] Page started loading: $url');
+          },
+          onPageFinished: (String url) {
+            print('[InvoiceWebView] Page finished loading: $url');
+            print('[InvoiceWebView] About to check for payment completion...');
+            _checkForPaymentCompletion(url);
+            print('[InvoiceWebView] Finished checking for payment completion');
+          },
+          onNavigationRequest: (NavigationRequest request) {
+            print('[InvoiceWebView] Navigation request: ${request.url}');
+            print('[InvoiceWebView] About to check navigation URL for payment completion...');
+            _checkForPaymentCompletion(request.url);
+            print('[InvoiceWebView] Finished checking navigation URL');
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.invoiceUrl));
 
-        setState(() {
-          _controller = ctrl;
-          _isReady = true;
-        });
-        
-        // Start periodic URL checking after controller is ready
-        _startPeriodicUrlCheck();
-      } catch (e) {
-        // If controller init fails, keep screen functional and show error
-        setState(() {
-          _controller = null;
-          _isReady = false;
-        });
-      }
-    });
+    _isReady = true;
+    
+    // Start periodic URL checking
+    _startPeriodicUrlCheck();
   }
 
   void _startPeriodicUrlCheck() {
@@ -243,18 +230,21 @@ class _InvoiceWebViewScreenState extends State<InvoiceWebViewScreen> {
     // Also check if the URL has changed significantly from the original invoice URL
     // This could indicate a redirect after payment completion
     if (!url.contains('checkout') && !url.startsWith(widget.invoiceUrl)) {
+      // FIX: Ignore internal browser URLs like about:blank or about:srcdoc which happen on iOS
+      if (url.startsWith('about:')) {
+        print('[InvoiceWebView] Ignoring internal browser URL: $url');
+        return;
+      }
+
       print(
         '[InvoiceWebView] URL changed significantly, might indicate completion: $url',
       );
-      print('[InvoiceWebView] Consider this as a potential payment completion signal');
       
-      // For testing purposes, if URL changes significantly and doesn't contain checkout,
-      // let's assume it's a success (you can modify this logic based on actual Xendit behavior)
-      if (!url.startsWith('https://checkout-staging.xendit.co/') && 
-          !url.contains('xendit.co')) {
-        print('[InvoiceWebView] URL redirected away from Xendit, assuming payment completion');
-        _handlePaymentCompletion(true);
-      }
+      // IMPORTANT: Do NOT assume redirects to third-party domains (like cardinalcommerce.com,
+      // geostag.cardinalcommerce.com, etc.) are payment completions. These are part of the
+      // 3D Secure authentication flow. Only rely on explicit success/failure URL patterns
+      // or page content checks.
+      print('[InvoiceWebView] Third-party redirect detected (likely 3DS auth), continuing...');
     }
   }
 
