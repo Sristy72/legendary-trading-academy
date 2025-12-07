@@ -256,12 +256,7 @@ class HomeContent extends StatelessWidget {
                         )
                       : _buildVerticalList(
                           courseController.myCourses
-                              .map(
-                                (c) => GestureDetector(
-                                  onTap: () => _navigateToCourseDetail(context, c),
-                                  child: MyCourseCard(course: c),
-                                ),
-                              )
+                              .map((c) => MyCourseCard(course: c))
                               .toList(),
                         ),
             ),
