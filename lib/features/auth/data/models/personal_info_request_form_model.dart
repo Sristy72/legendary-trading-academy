@@ -14,7 +14,7 @@ class PersonalInfoRequestFormModel {
   final TradingProfile? tradingProfile;
   final MultipartFile? file; // in case you upload an image/file
 
-  PersonalInfoRequestFormModel ({
+  PersonalInfoRequestFormModel({
     required this.name,
     required this.age,
     required this.gender,
@@ -31,7 +31,7 @@ class PersonalInfoRequestFormModel {
       "gender": gender,
       "nationality": nationality,
       "address": address,
-      if(tradingProfile != null) "treding_profile": tradingProfile,
+      if (tradingProfile != null) "treding_profile": tradingProfile,
       if (file != null) "file": file,
     });
   }

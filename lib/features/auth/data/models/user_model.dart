@@ -55,7 +55,9 @@ class UserModel {
     return UserModel(
       avatar: Avatar.fromJson(json["avatar"] ?? {}),
       address: Address.fromJson(json["address"] ?? {}),
-      verificationInfo: VerificationInfo.fromJson(json["verificationInfo"] ?? {}),
+      verificationInfo: VerificationInfo.fromJson(
+        json["verificationInfo"] ?? {},
+      ),
       userRating: UserRating.fromJson(json["userRating"] ?? {}),
       tradingProfile: TradingProfile.fromJson(json["treding_profile"] ?? {}),
       id: json["_id"] ?? "",

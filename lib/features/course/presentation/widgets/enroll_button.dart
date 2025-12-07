@@ -17,7 +17,7 @@ class EnrollButton extends StatelessWidget {
     return SafeArea(
       child: Container(
         color: AppColors.navBackgroundColor,
-        height: 104, 
+        height: 104,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

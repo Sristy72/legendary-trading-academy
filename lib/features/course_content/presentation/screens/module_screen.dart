@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/features/course/models/assignment_model.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_details_screen.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/recording_details_screen.dart';
 import 'package:flutter_ladydenily/features/quiz/presentation/screens/quiz_screen.dart';
@@ -8,7 +7,6 @@ import '../widgets/items_widgets.dart';
 import '../controllers/module_controller.dart';
 import 'assignment_details_screen.dart';
 import 'resources_details_screen.dart';
-import 'upload_assignment_screen.dart';
 
 class ModuleScreen extends StatelessWidget {
   final String courseId;
@@ -19,20 +17,19 @@ class ModuleScreen extends StatelessWidget {
     final ModuleController controller = Get.find<ModuleController>();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Use constructor parameter first, then fall back to arguments
       String? targetCourseId = courseId.isNotEmpty
           ? courseId
           : Get.arguments as String?;
 
-      print('[ModuleScreen] Constructor courseId: $courseId');
-      print('[ModuleScreen] Get.arguments: ${Get.arguments}');
-      print('[ModuleScreen] Target courseId: $targetCourseId');
+      // print('[ModuleScreen] Constructor courseId: $courseId');
+      // print('[ModuleScreen] Get.arguments: ${Get.arguments}');
+      // print('[ModuleScreen] Target courseId: $targetCourseId');
 
       if (targetCourseId != null &&
           targetCourseId.isNotEmpty &&
           (controller.rxSelectedCourse.value == null ||
               controller.rxSelectedCourse.value!.id != targetCourseId)) {
-        print('[ModuleScreen] Loading course data for ID: $targetCourseId');
+        // print('[ModuleScreen] Loading course data for ID: $targetCourseId');
         controller.loadCourseById(targetCourseId);
       }
     });
@@ -72,7 +69,6 @@ class ModuleScreen extends StatelessWidget {
                         final courseId = controller.rxSelectedCourse.value?.id;
                         // '68bd11bb31fb45d7d231ff17'; // Default courseId for testing
 
-                        // Navigate to ModulesDetailsScreen with courseId
                         Get.to(
                           () => const ModulesDetailsScreen(),
                           arguments: courseId,
@@ -87,7 +83,6 @@ class ModuleScreen extends StatelessWidget {
                       isSelected: controller.selectedIndex == 1,
                       onTap: () {
                         controller.selectItem(1);
-                        // module id should be passed here
                         Get.to(
                           () => RecordingDetailsScreen(),
                           arguments: courseId,

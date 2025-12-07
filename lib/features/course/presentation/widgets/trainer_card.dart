@@ -21,7 +21,7 @@ class TrainerCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 12),
       color: AppColors.cardBackgroundColor,
       child: ListTile(
-        leading: CircleAvatar(backgroundImage:  AssetImage(image)),
+        leading: CircleAvatar(backgroundImage: AssetImage(image)),
         title: Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Text(stats),
       ),

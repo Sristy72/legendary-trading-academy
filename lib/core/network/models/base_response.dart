@@ -20,13 +20,16 @@ class BaseResponse<T> {
     T Function(dynamic) fromJsonT,
   ) {
     return BaseResponse<T>(
-      success: json['success'] ?? json['status'] ?? false, // Handle both 'success' and 'status'
+      success:
+          json['success'] ??
+          json['status'] ??
+          false, // Handle both 'success' and 'status'
       message: json['message'] ?? '',
       data: json['data'] != null ? fromJsonT(json['data']) : null,
       errorSources: json['errorSources'] != null
           ? (json['errorSources'] as List)
-              .map((e) => ErrorSource.fromJson(e))
-              .toList()
+                .map((e) => ErrorSource.fromJson(e))
+                .toList()
           : null,
     );
   }

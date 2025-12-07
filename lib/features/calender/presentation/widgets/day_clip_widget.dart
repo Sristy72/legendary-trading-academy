@@ -14,7 +14,6 @@ class DayChipWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final text = TextStyle(
       color: selected ? Color(0XFF1A3E74) : Color(0xffEFC227),
       fontSize: 20,
@@ -25,7 +24,7 @@ class DayChipWidget extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(10),
       child: Container(
-        width: MediaQuery.of(context).size.width/7,
+        width: MediaQuery.of(context).size.width / 7,
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           color: selected ? const Color(0xFFFFD54F) : Colors.white,

@@ -8,7 +8,6 @@ class PaymentCard extends StatelessWidget {
     super.key,
     required this.cardType,
     required this.cardNumber,
-
   });
 
   @override

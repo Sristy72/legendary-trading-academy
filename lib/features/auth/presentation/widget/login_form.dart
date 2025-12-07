@@ -12,7 +12,6 @@ import '../controller/auth_controller.dart';
 class TLoginForm extends StatefulWidget {
   const TLoginForm({super.key});
 
-
   @override
   State<TLoginForm> createState() => _TLoginFormState();
 }
@@ -26,7 +25,6 @@ class _TLoginFormState extends State<TLoginForm> {
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
-
 
   final ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
 
@@ -75,7 +73,10 @@ class _TLoginFormState extends State<TLoginForm> {
                   style: TextStyle(color: AppColors.text),
                   decoration: context.primaryInputDecoration.copyWith(
                     hintText: TTexts.password,
-                    prefixIcon: Icon(Icons.lock_outline, color: Color(0xFF666666),),
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: Color(0xFF666666),
+                    ),
                   ),
 
                   validator: Validators.password,
@@ -105,10 +106,7 @@ class _TLoginFormState extends State<TLoginForm> {
             SizedBox(height: 16),
 
             ///Sign in
-            context.primaryButton(
-              onPressed: _submit,
-              text: 'Login',
-            ),
+            context.primaryButton(onPressed: _submit, text: 'Login'),
             SizedBox(height: 32),
           ],
         ),

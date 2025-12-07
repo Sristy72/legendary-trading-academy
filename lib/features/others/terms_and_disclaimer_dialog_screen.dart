@@ -9,20 +9,26 @@ class TermsAndDisclaimerDialogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            children: [
-              DisclaimerDialog(
-                onAgree: onAgree,
-                title: ' Terms and Disclaimers',
-                subTitle: 'By submitting this application, I acknowledge and agree that:',
-                showCheckButton: true,
-                style: TextStyle(color: AppColors.blackColor, fontSize: 16, fontWeight: FontWeight.w600,),
-                bottomText: 'By continuing with my application, I confirm that I have read, understood, and voluntarily agree to all the terms above.\n',
+      child: SafeArea(
+        child: Column(
+          children: [
+            DisclaimerDialog(
+              onAgree: onAgree,
+              title: ' Terms and Disclaimers',
+              subTitle:
+                  'By submitting this application, I acknowledge and agree that:',
+              showCheckButton: true,
+              style: TextStyle(
+                color: AppColors.blackColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
               ),
-            ],
-          ),
+              bottomText:
+                  'By continuing with my application, I confirm that I have read, understood, and voluntarily agree to all the terms above.\n',
+            ),
+          ],
         ),
-      );
+      ),
+    );
   }
 }

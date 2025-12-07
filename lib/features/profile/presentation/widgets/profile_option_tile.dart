@@ -27,21 +27,15 @@ class ProfileOptionTile extends StatelessWidget {
       child: ListTile(
         leading: iconPath != null
             ? Image.asset(
-          iconPath!,
-          width: 24,
-          height: 24,
-          color: iconColor ?? Colors.grey.shade700,
-        )
-            : SizedBox(
-          width: 24,
-          height: 24,
-        ),
+                iconPath!,
+                width: 24,
+                height: 24,
+                color: iconColor ?? Colors.grey.shade700,
+              )
+            : SizedBox(width: 24, height: 24),
         title: Text(
           title,
-          style: TextStyle(
-            fontSize: 16,
-            color: textColor ?? Colors.black,
-          ),
+          style: TextStyle(fontSize: 16, color: textColor ?? Colors.black),
         ),
         trailing: Icon(
           Icons.arrow_forward_ios,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/trading_profile_setup_screen.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_profile_screen.dart';
 import 'package:get/get.dart';
-
 import 'package:flutter_ladydenily/features/auth/presentation/screen/login_screen.dart';
 import 'package:flutter_ladydenily/features/others/about_app_screen.dart';
 import 'package:flutter_ladydenily/features/others/privacy_policy_screen.dart';
@@ -13,6 +12,7 @@ import 'package:flutter_ladydenily/features/profile/presentation/controller/prof
 import 'package:flutter_ladydenily/features/profile/presentation/screens/change_password_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/notification_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/screens/personal_info_screen.dart';
+import '../../../video/presentation/screens/video_player_screen.dart';
 import '../widgets/profile_option_tile.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -211,6 +211,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Get.offAll(() => const LoginScreen());
                       },
                     ),
+
                   ],
                 ),
               ),

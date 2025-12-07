@@ -15,9 +15,7 @@ class TitleTextWithVerifiedIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-
-      Row(
+    return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Flexible(

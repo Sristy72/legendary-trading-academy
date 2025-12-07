@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../../../core/base/base_controller.dart';
 import '../../../course/domain/course_repository.dart';
-import '../../data/modles/class_module_module.dart';
+import '../../data/models/class_module_module.dart';
 
 class ResourcesController extends BaseController {
   final CourseRepository _repository;
