@@ -6,6 +6,8 @@ class MarketItem {
   MarketItem({
     required this.title,
     required this.price,
-    required this.image, required String description, required String tag,
+    required this.image,
+    required String description,
+    required String tag,
   });
 }

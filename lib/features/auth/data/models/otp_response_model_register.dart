@@ -3,11 +3,7 @@ class OtpResponseModel {
   final String message;
   final dynamic data; // safer for future changes
 
-  OtpResponseModel({
-    required this.success,
-    required this.message,
-    this.data,
-  });
+  OtpResponseModel({required this.success, required this.message, this.data});
 
   factory OtpResponseModel.fromJson(Map<String, dynamic> json) {
     return OtpResponseModel(

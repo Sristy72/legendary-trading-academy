@@ -1,4 +1,4 @@
-class FetchProfileResponseModdel {
+class FetchProfileResponseModel {
   final Avatar avatar;
   final UserRating userRating;
   final TradingProfile trendingProfile;
@@ -22,7 +22,7 @@ class FetchProfileResponseModdel {
   final DateTime updatedAt;
   final int v;
 
-  FetchProfileResponseModdel({
+  FetchProfileResponseModel({
     required this.avatar,
     required this.userRating,
     required this.trendingProfile,
@@ -47,8 +47,8 @@ class FetchProfileResponseModdel {
     required this.v,
   });
 
-  factory FetchProfileResponseModdel.fromJson(Map<String, dynamic> json) {
-    return FetchProfileResponseModdel(
+  factory FetchProfileResponseModel.fromJson(Map<String, dynamic> json) {
+    return FetchProfileResponseModel(
       avatar: Avatar.fromJson(json['avatar']),
       userRating: UserRating.fromJson(json['userRating']),
       trendingProfile: TradingProfile.fromJson(json['treding_profile']),
@@ -106,23 +106,14 @@ class Avatar {
   final String publicId;
   final String url;
 
-  Avatar({
-    required this.publicId,
-    required this.url,
-  });
+  Avatar({required this.publicId, required this.url});
 
   factory Avatar.fromJson(Map<String, dynamic> json) {
-    return Avatar(
-      publicId: json['public_id'] ?? '',
-      url: json['url'] ?? '',
-    );
+    return Avatar(publicId: json['public_id'] ?? '', url: json['url'] ?? '');
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'public_id': publicId,
-      'url': url,
-    };
+    return {'public_id': publicId, 'url': url};
   }
 }
 
@@ -158,10 +149,7 @@ class RatingDetail {
   final int star;
   final String comment;
 
-  RatingDetail({
-    required this.star,
-    required this.comment,
-  });
+  RatingDetail({required this.star, required this.comment});
 
   factory RatingDetail.fromJson(Map<String, dynamic> json) {
     return RatingDetail(
@@ -171,10 +159,7 @@ class RatingDetail {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'star': star,
-      'comment': comment,
-    };
+    return {'star': star, 'comment': comment};
   }
 }
 

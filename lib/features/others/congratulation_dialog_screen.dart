@@ -7,6 +7,10 @@ class CongratulationDialogScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CongratulationsDialog(courseName: '', imagePath: '', onContinue: () {  },);
+    return CongratulationsDialog(
+      courseName: '',
+      imagePath: '',
+      onContinue: () {},
+    );
   }
 }

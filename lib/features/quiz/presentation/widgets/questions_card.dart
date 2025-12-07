@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../models/quiz_question_model.dart';
 import 'custom_radio.dart';
 
-
 class QuestionCard extends StatelessWidget {
   final int index;
   final QuizQuestion question;
@@ -66,10 +65,7 @@ class QuestionCard extends StatelessWidget {
                     CustomRadio(checked: isSelected, color: radioColor),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: Text(
-                        t,
-                        style: TextStyle(color: textColor),
-                      ),
+                      child: Text(t, style: TextStyle(color: textColor)),
                     ),
                   ],
                 ),

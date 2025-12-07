@@ -16,11 +16,13 @@ class CalendarScreen extends GetView<CalendarController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calendar',style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: AppColors.appBarTitle
-        ),
+        title: const Text(
+          'Calendar',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: AppColors.appBarTitle,
+          ),
         ),
       ),
       body: Obx(() {
@@ -38,7 +40,7 @@ class CalendarScreen extends GetView<CalendarController> {
             ),
             const SizedBox(height: 8),
             SizedBox(
-              height: 90 ,
+              height: 90,
               child: ListView.separated(
                 controller: controller.dayScroll.value,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -47,7 +49,10 @@ class CalendarScreen extends GetView<CalendarController> {
                 separatorBuilder: (_, __) => const SizedBox(width: 8),
                 itemBuilder: (context, index) {
                   final date = days[index];
-                  final selected = _isSameDay(date, controller.selectedDate.value);
+                  final selected = _isSameDay(
+                    date,
+                    controller.selectedDate.value,
+                  );
 
                   return DayChipWidget(
                     date: date,
@@ -75,10 +80,7 @@ class CalendarScreen extends GetView<CalendarController> {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 48),
         alignment: Alignment.center,
-        child: const Text(
-          'No events',
-          style: TextStyle(color: Colors.black54),
-        ),
+        child: const Text('No events', style: TextStyle(color: Colors.black54)),
       );
     }
 

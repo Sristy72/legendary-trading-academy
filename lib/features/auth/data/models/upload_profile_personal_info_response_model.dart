@@ -91,10 +91,7 @@ class Avatar {
   Avatar({required this.publicId, required this.url});
 
   factory Avatar.fromJson(Map<String, dynamic> json) {
-    return Avatar(
-      publicId: json["public_id"] ?? "",
-      url: json["url"] ?? "",
-    );
+    return Avatar(publicId: json["public_id"] ?? "", url: json["url"] ?? "");
   }
 }
 
@@ -139,10 +136,7 @@ class Rating {
   Rating({required this.star, required this.comment});
 
   factory Rating.fromJson(Map<String, dynamic> json) {
-    return Rating(
-      star: json["star"] ?? 0,
-      comment: json["comment"] ?? "",
-    );
+    return Rating(star: json["star"] ?? 0, comment: json["comment"] ?? "");
   }
 }
 

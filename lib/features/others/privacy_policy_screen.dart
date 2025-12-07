@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/widgets/custom_text.dart';
 import '../../core/common/widgets/app_scaffold.dart';
 
-
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: AppBar(title: Text('Privacy Policy'),
-      ),
+      appBar: AppBar(title: Text('Privacy Policy')),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

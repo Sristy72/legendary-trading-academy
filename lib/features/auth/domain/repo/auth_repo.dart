@@ -24,8 +24,9 @@ abstract class AuthRepository {
   NetworkResult<void> resetPassword(ResetPasswordRequestModel request);
   NetworkResult<void> resetOtpVerify(OtpVerificationRequestModel request);
   NetworkResult<void> setNewPassword(SetNewPasswordRequestModel request);
-  NetworkResult<RefreshTokenResponseModel> refreshToken(RefreshTokenRequestModel request);
-
+  NetworkResult<RefreshTokenResponseModel> refreshToken(
+    RefreshTokenRequestModel request,
+  );
 
   NetworkResult<UserModel> getUserProfile();
 }
