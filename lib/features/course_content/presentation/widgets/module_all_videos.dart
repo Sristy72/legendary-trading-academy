@@ -5,8 +5,14 @@ import '../../data/models/module_video_container.dart';
 class ModuleAllVideos extends StatelessWidget {
   final int index;
   final Module module; // Accept module data
+  final Function(String url, String title, String date)? onVideoTap;
 
-  const ModuleAllVideos({super.key, required this.index, required this.module});
+  const ModuleAllVideos({
+    super.key, 
+    required this.index, 
+    required this.module,
+    this.onVideoTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +37,14 @@ class ModuleAllVideos extends StatelessWidget {
                 debugPrint('Building video $videoIndex: name=${video.name}, url=${video.url}');
                 return ModuleVideoContainer(
                   title: video.name ?? 'Video ${videoIndex + 1}',
-                  durationText: 'Video ${videoIndex + 1}',
+                  durationText: 'Video ${videoIndex + 1}', // TODO: Fix date/duration
                   imagePath: 'assets/images/courses_sample.jpg',
                   videoUrl: video.url,
+                  onTap: () {
+                     if (onVideoTap != null && video.url != null) {
+                        onVideoTap!(video.url!, video.name ?? 'Video', 'Video ${videoIndex + 1}');
+                     }
+                  },
                 );
               },
               itemCount: module.video.length,
