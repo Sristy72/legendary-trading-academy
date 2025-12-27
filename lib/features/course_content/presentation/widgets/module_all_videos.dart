@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:flutter_ladydenily/features/video/presentation/screens/video_player_screen.dart';
-import 'package:flutter_ladydenily/features/video/presentation/controllers/%20video_controller.dart';
 
 import '../../data/models/class_module_module.dart';
 import '../../data/models/module_video_container.dart';
@@ -9,18 +6,13 @@ import '../../data/models/module_video_container.dart';
 class ModuleAllVideos extends StatelessWidget {
   final int index;
   final Module module; // Accept module data
-  /// Full modules list (used when opening the player screen)
-  final List<dynamic>? modules;
-
-  /// Optional index of the initially selected module
-  final int? initialModuleIndex;
+  final Function(String url, String title, String date)? onVideoTap;
 
   const ModuleAllVideos({
-    super.key,
-    required this.index,
+    super.key, 
+    required this.index, 
     required this.module,
-    this.modules,
-    this.initialModuleIndex,
+    this.onVideoTap,
   });
 
   @override
@@ -43,34 +35,17 @@ class ModuleAllVideos extends StatelessWidget {
             child: ListView.builder(
               itemBuilder: (context, videoIndex) {
                 final video = module.video[videoIndex];
-                final String? videoUrl = video.url;
-
-                return GestureDetector(
+                debugPrint('Building video $videoIndex: name=${video.name}, url=${video.url}');
+                return ModuleVideoContainer(
+                  title: video.name ?? 'Video ${videoIndex + 1}',
+                  durationText: 'Video ${videoIndex + 1}', // TODO: Fix date/duration
+                  imagePath: 'assets/images/courses_sample.jpg',
+                  videoUrl: video.url,
                   onTap: () {
-                    if (videoUrl == null || videoUrl.isEmpty) return;
-
-                    // Try to find existing video controller (already on VideoPlayerScreen)
-                    try {
-                      final existingController =
-                          Get.find<VideoPlayerGetxController>();
-                      // Load new video source in existing controller
-                      existingController.loadNewSource(videoUrl);
-                    } catch (e) {
-                      // Controller not found, navigate to new screen
-                      Get.to(
-                        () => VideoPlayerScreen(
-                          videoUrl: videoUrl,
-                          modules: modules ?? [module],
-                          initialModuleIndex: initialModuleIndex ?? index,
-                        ),
-                      );
-                    }
+                     if (onVideoTap != null && video.url != null) {
+                        onVideoTap!(video.url!, video.name ?? 'Video', 'Video ${videoIndex + 1}');
+                     }
                   },
-                  child: ModuleVideoContainer(
-                    title: video.name ?? 'Video ${videoIndex + 1}',
-                    durationText: video.url ?? '',
-                    imagePath: 'assets/images/courses_sample.jpg',
-                  ),
                 );
               },
               itemCount: module.video.length,

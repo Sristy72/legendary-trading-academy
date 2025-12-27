@@ -7,12 +7,14 @@ class CourseController extends GetxController {
   CourseController({required this.repository});
 
   final courses = <Course>[].obs;
+  final myCourses = <Course>[].obs;
   final isLoading = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     fetchCourses();
+    fetchMyCourses();
   }
 
   Future<void> fetchCourses() async {
@@ -38,6 +40,30 @@ class CourseController extends GetxController {
       );
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  Future<void> fetchMyCourses() async {
+    try {
+      // We don't want to block the entire UI with a full screen loader if possible,
+      // or we can use the same isLoading if we want simple behavior.
+      // For now, let's just log and update the list.
+      print('[CourseController] calling repository.fetchMyCourses()');
+      final result = await repository.fetchMyCourses();
+      
+      result.fold(
+        (failure) {
+          print('[CourseController] fetchMyCourses failed: ${failure.message}');
+          myCourses.clear();
+        },
+        (success) {
+          final payload = success.data;
+          myCourses.assignAll(payload);
+          print('>>>>>>> API MY COURSES loaded: ${myCourses.length}');
+        },
+      );
+    } catch (e) {
+      print('[CourseController] fetchMyCourses exception: $e');
     }
   }
 

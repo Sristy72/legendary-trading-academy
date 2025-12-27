@@ -212,37 +212,51 @@ class VideoPlayerGetxController extends GetxController
   void showSettings(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.blueGrey[900],
+      backgroundColor: const Color(0xFF1A386D), // Approx blue from image
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       builder: (_) {
-        return Obx(
-          () => Column(
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+               // Handle
+               Center(
+                 child: Container(
+                   width: 40,
+                   height: 4,
+                   decoration: BoxDecoration(
+                     color: Colors.grey[400],
+                     borderRadius: BorderRadius.circular(2),
+                   ),
+                 ),
+               ),
+              const SizedBox(height: 16),
               ListTile(
-                title: const Text(
-                  "Playback Speed",
-                  style: TextStyle(color: Colors.white),
-                ),
-                trailing: Text(
-                  "${playbackSpeed.value}x",
-                  style: const TextStyle(color: Colors.white),
-                ),
-                onTap: () => _showSpeedOptions(context),
+                leading: const Icon(Icons.speed, color: Colors.white),
+                title: const Text("Playback Speed",
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                trailing: Obx(() => Text("${playbackSpeed.value}x",
+                    style: const TextStyle(color: Colors.white70))),
+                onTap: () {
+                   Navigator.pop(context);
+                   _showSpeedOptions(context);
+                },
               ),
               ListTile(
-                title: const Text(
-                  "Quality",
-                  style: TextStyle(color: Colors.white),
-                ),
-                trailing: Text(
-                  selectedQuality.value,
-                  style: const TextStyle(color: Colors.white),
-                ),
-                onTap: () => _showQualityOptions(context),
+                leading: const Icon(Icons.hd, color: Colors.white),
+                title: const Text("Quality",
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+                trailing: Obx(() => Text(selectedQuality.value,
+                    style: const TextStyle(color: Colors.white70))),
+                onTap: () {
+                   Navigator.pop(context);
+                   _showQualityOptions(context);
+                },
               ),
+              const SizedBox(height: 16),
             ],
           ),
         );
@@ -254,30 +268,57 @@ class VideoPlayerGetxController extends GetxController
     final speeds = [0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0];
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.blueGrey[900],
-      builder: (_) => ListView(
-        shrinkWrap: true,
-        children: speeds
-            .map(
-              (s) => Obx(
-                () => RadioListTile<double>(
+      backgroundColor: const Color(0xFF1A386D),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (_) => Container(
+         padding: const EdgeInsets.symmetric(vertical: 8),
+         child: Column(
+           mainAxisSize: MainAxisSize.min,
+           children: [
+             // Header with back button
+             Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+               child: Row(
+                 children: [
+                   IconButton(
+                     icon: const Icon(Icons.arrow_back, color: Colors.white),
+                     onPressed: () {
+                        Navigator.pop(context);
+                        showSettings(context); // Go back to main settings
+                     },
+                   ),
+                   const Text("Playback Speed", 
+                      style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                 ],
+               ),
+             ),
+             const Divider(color: Colors.white24),
+             Flexible(
+               child: ListView(
+                shrinkWrap: true,
+                children: speeds
+                    .map((s) => Obx(() => RadioListTile<double>(
                   value: s,
                   groupValue: playbackSpeed.value,
-                  onChanged: (val) async {
+                  onChanged: (val) {
                     if (val != null) {
-                      Navigator.pop(context);
-                      await changePlaybackSpeed(val);
+                      Navigator.pop(context); // Close sheet
+                      changePlaybackSpeed(val);
                     }
                   },
-                  title: Text(
-                    "${s}x",
-                    style: const TextStyle(color: Colors.white),
-                  ),
+                  title: Text("${s}x", // Remove .0 for integers? design shows 1 not 1.0 but 0.25 is fine
+                      style: const TextStyle(color: Colors.white)),
                   activeColor: Colors.white,
-                ),
-              ),
-            )
-            .toList(),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                  controlAffinity: ListTileControlAffinity.trailing, // Checkbox on right
+                )))
+                    .toList(),
+               ),
+             ),
+           ],
+         ),
       ),
     );
   }
@@ -286,13 +327,38 @@ class VideoPlayerGetxController extends GetxController
     final qualities = ["Auto", "1080p", "720p"];
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.blueGrey[900],
-      builder: (_) => ListView(
-        shrinkWrap: true,
-        children: qualities
-            .map(
-              (q) => Obx(
-                () => RadioListTile<String>(
+      backgroundColor: const Color(0xFF1A386D),
+       shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (_) => Container(
+         padding: const EdgeInsets.symmetric(vertical: 8),
+         child: Column(
+           mainAxisSize: MainAxisSize.min,
+           children: [
+              // Header with back button
+             Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+               child: Row(
+                 children: [
+                   IconButton(
+                     icon: const Icon(Icons.arrow_back, color: Colors.white),
+                     onPressed: () {
+                        Navigator.pop(context);
+                        showSettings(context); // Go back to main settings
+                     },
+                   ),
+                   const Text("Quality", 
+                      style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                 ],
+               ),
+             ),
+             const Divider(color: Colors.white24),
+             Flexible(
+               child: ListView(
+                shrinkWrap: true,
+                children: qualities
+                    .map((q) => Obx(() => RadioListTile<String>(
                   value: q,
                   groupValue: selectedQuality.value,
                   onChanged: (val) {
@@ -301,12 +367,17 @@ class VideoPlayerGetxController extends GetxController
                       changeQuality(val);
                     }
                   },
-                  title: Text(q, style: const TextStyle(color: Colors.white)),
+                  title:
+                  Text(q, style: const TextStyle(color: Colors.white)),
                   activeColor: Colors.white,
-                ),
-              ),
-            )
-            .toList(),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                  controlAffinity: ListTileControlAffinity.trailing,
+                )))
+                    .toList(),
+               ),
+             ),
+           ],
+         ),
       ),
     );
   }

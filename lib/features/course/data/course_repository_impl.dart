@@ -64,6 +64,35 @@ class CourseRepositoryImpl implements CourseRepository {
       },
     );
   }
+  
+  @override
+  Future<Either<NetworkFailure, NetworkSuccess<List<Course>>>> fetchMyCourses() {
+    return _apiClient.get<List<Course>>(
+      '${ApiConstants.baseUrl}/course/my-courses',
+      fromJsonT: (json) {
+        print('[CourseRepo] Parsing My Courses JSON: ${json.runtimeType}');
+
+        if (json == null) {
+          return <Course>[];
+        }
+
+        // Handle various response structures similar to fetchAllCourses
+        List list = [];
+        if (json is List) {
+           list = json;
+        } else if (json is Map<String, dynamic> && json['course'] is List) {
+           list = json['course'] as List;
+        } else if (json is Map<String, dynamic> && json['data'] is List) {
+           list = json['data'] as List;
+        }
+        
+        print('[CourseRepo] Found ${list.length} my courses');
+        return list
+              .map((e) => Course.fromJson(e as Map<String, dynamic>))
+              .toList();
+      },
+    );
+  }
 
   // ---- Added to satisfy CourseRepository interface ----
   @override
