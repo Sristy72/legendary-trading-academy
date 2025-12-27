@@ -98,14 +98,8 @@ class _UploadProfileScreenState extends State<UploadProfileScreen> {
                         backgroundColor: Colors.grey[300],
                         backgroundImage: _pickedImage != null
                             ? FileImage(_pickedImage!)
-                            : null,
-                        child: _pickedImage == null
-                            ? const Icon(
-                                Icons.person,
-                                size: 100,
-                                color: Colors.grey,
-                              )
-                            : null,
+                            : const AssetImage('assets/images/avatar.png')
+                                  as ImageProvider,
                       ),
                     ),
                     const SizedBox(height: 20),

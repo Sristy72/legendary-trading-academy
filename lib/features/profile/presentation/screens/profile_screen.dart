@@ -68,9 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             radius: 40,
                             backgroundImage: avatarUrl.isNotEmpty
                                 ? NetworkImage(avatarUrl)
-                                : const AssetImage(
-                                        'assets/images/avatar_placeholder.png',
-                                      )
+                                : const AssetImage('assets/images/avatar.png')
                                       as ImageProvider,
                           ),
                           Positioned(
@@ -210,7 +208,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Get.offAll(() => const LoginScreen());
                       },
                     ),
-
                   ],
                 ),
               ),
