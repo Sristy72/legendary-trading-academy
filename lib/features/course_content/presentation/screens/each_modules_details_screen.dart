@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
+import 'package:flutter_ladydenily/features/course_content/presentation/screens/upload_assignment_screen.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/widgets/tab_bar.dart';
 import 'package:get/get.dart';
 import '../../data/models/assignment_module.dart';
@@ -9,11 +10,23 @@ import '../../data/models/resources_model.dart';
 import '../../data/models/video_model.dart';
 import '../widgets/module_resource_item.dart';
 import '../widgets/module_assignment_item.dart';
+import '../widgets/inline_video_player.dart';
 
 class EachModulesDetailsScreen extends StatelessWidget {
-  EachModulesDetailsScreen({Key? key}) : super(key: key);
+  EachModulesDetailsScreen({super.key});
 
   final RxInt _selectedIndex = 0.obs;
+  final RxnString currentVideoUrl = RxnString();
+  final RxString currentVideoTitle = ''.obs;
+  final RxString currentVideoDate = ''.obs;
+  final RxBool isFullScreen = false.obs;
+
+  void playVideo(String url, String title, String date) {
+    currentVideoUrl.value = url;
+    currentVideoTitle.value = title;
+    currentVideoDate.value = date;
+    isFullScreen.value = false; // Reset on new video
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +46,9 @@ class EachModulesDetailsScreen extends StatelessWidget {
       } catch (_) {
         module = null;
       }
-      if (idx is int)
+      if (idx is int) {
         moduleIndex = idx;
-      else if (idx is String)
+      } else if (idx is String)
         moduleIndex = int.tryParse(idx);
     } else if (arg is Module) {
       module = arg;
@@ -87,163 +100,269 @@ class EachModulesDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
-            child: Text(
-              topDescription,
-              textAlign: TextAlign.start,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w800,
-                color: Color(0xFF090F12),
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) async {
+          if (didPop) return;
+          if (isFullScreen.value) {
+            isFullScreen.value = false;
+          } else {
+            Get.back();
+          }
+        },
+        child: Obx(() {
+          final isFullScreenMode = isFullScreen.value;
 
-          Obx(() {
-            final idx = _selectedIndex.value;
-            String topCountText = '';
-            if (idx == 0) {
-              topCountText = '${recordings.length} Class Recordings';
-            } else if (idx == 1) {
-              topCountText = '${resources.length} Resources';
-            } else {
-              topCountText = '${assignments.length} Assignments';
-            }
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                children: [
-                  Image.asset(
-                    "assets/icons/video-recorder.png",
-                    width: 18,
-                    height: 18,
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Show video player if a video is selected in Recordings tab
+              if (_selectedIndex.value == 0) ...[
+                Obx(() {
+                  final videoUrl = currentVideoUrl.value;
+                  if (videoUrl != null && videoUrl.isNotEmpty) {
+                    Widget player = InlineVideoPlayer(
+                      videoUrl: videoUrl,
+                      isFullScreen: isFullScreenMode,
+                      onFullScreenToggle: (isFull) {
+                        isFullScreen.value = isFull;
+                      },
+                      key: const ValueKey('inline-player'),
+                    );
+
+                    return Flexible(
+                      fit: isFullScreenMode ? FlexFit.tight : FlexFit.loose,
+                      child: player,
+                    );
+                  }
+                  return const SizedBox.shrink();
+                }),
+              ],
+
+              // Hide other content when in fullscreen
+              if (!isFullScreenMode) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 12,
                   ),
-                  const SizedBox(width: 6),
-                  Text(
-                    topCountText,
+                  child: Text(
+                    topDescription,
+                    textAlign: TextAlign.start,
                     style: const TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xff4E4E4E),
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF090F12),
                     ),
                   ),
-                ],
-              ),
-            );
-          }),
+                ),
+                const SizedBox(height: 12),
 
-          Obx(
-            () => ModuleTabBar(
-              selectedIndex: _selectedIndex.value,
-              onTabChanged: (index) => _selectedIndex.value = index,
-            ),
-          ),
-
-          const SizedBox(height: 12),
-
-          Expanded(
-            child: Obx(() {
-              final idx = _selectedIndex.value;
-              if (idx == 0) {
-                return ListView.builder(
-                  itemCount: recordings.length,
-                  itemBuilder: (context, index) {
-                    final v = recordings[index];
+                // Show video details if playing
+                if (_selectedIndex.value == 0) ...[
+                  Obx(() {
+                    if (currentVideoTitle.value.isEmpty)
+                      return const SizedBox.shrink();
                     return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 8.0,
-                      ),
-                      child: Row(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            width: 72,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: const Color(0xffF4F4F4),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.asset(
-                                'assets/images/courses_sample.jpg',
-                                width: 72,
-                                height: 50,
-                                fit: BoxFit.cover,
-                              ),
+                          Text(
+                            currentVideoTitle.value,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  v.name ?? 'Recording ${index + 1}',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xff090F12),
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  v.no != null ? 'No: ${v.no}' : (v.url ?? ''),
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xff4E4E4E),
-                                  ),
-                                ),
-                              ],
+                          const SizedBox(height: 4),
+                          Text(
+                            currentVideoDate.value,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
                             ),
                           ),
+                          const SizedBox(height: 12),
                         ],
                       ),
                     );
-                  },
-                );
-              } else if (idx == 1) {
-                return ListView.builder(
-                  itemCount: resources.length,
-                  itemBuilder: (context, index) {
-                    final r = resources[index];
-                    return ModuleResourceItem(
-                      backgroundColor: Color(0xffE8ECF1),
-                      title: r.name ?? 'Resource ${index + 1}',
-                      onTap: () {
-                        // TODO: implement resource open later
-                      },
-                    );
-                  },
-                );
-              } else {
-                return ListView.builder(
-                  itemCount: assignments.length,
-                  itemBuilder: (context, index) {
-                    final a = assignments[index];
-                    return ModuleAssignmentItem(
-                      title: a.title ?? 'Assignment ${index + 1}',
-                      dueDate: a.start ?? '',
-                      onTap: () {
-                        // TODO: implement assignment open later
-                      },
-                    );
-                  },
-                );
-              }
-            }),
-          ),
-        ],
+                  }),
+                ],
+
+                Obx(() {
+                  final idx = _selectedIndex.value;
+                  String topCountText = '';
+                  if (idx == 0) {
+                    topCountText = '${recordings.length} Class Recordings';
+                  } else if (idx == 1) {
+                    topCountText = '${resources.length} Resources';
+                  } else {
+                    topCountText = '${assignments.length} Assignments';
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "assets/icons/video-recorder.png",
+                          width: 18,
+                          height: 18,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          topCountText,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xff4E4E4E),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+
+                Obx(
+                  () => ModuleTabBar(
+                    selectedIndex: _selectedIndex.value,
+                    onTabChanged: (index) => _selectedIndex.value = index,
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                Expanded(
+                  child: Obx(() {
+                    final idx = _selectedIndex.value;
+                    if (idx == 0) {
+                      return ListView.builder(
+                        itemCount: recordings.length,
+                        itemBuilder: (context, index) {
+                          final v = recordings[index];
+                          return GestureDetector(
+                            onTap: () {
+                              if (v.url != null && v.url!.isNotEmpty) {
+                                playVideo(
+                                  v.url!,
+                                  v.name ?? 'Recording ${index + 1}',
+                                  v.no != null ? 'No: ${v.no}' : '',
+                                );
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12.0,
+                                vertical: 8.0,
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 72,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: const Color(0xffF4F4F4),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/courses_sample.jpg',
+                                            width: 72,
+                                            height: 50,
+                                            fit: BoxFit.cover,
+                                          ),
+                                          const Icon(
+                                            Icons.play_circle_outline,
+                                            color: Colors.white,
+                                            size: 30,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          v.name ?? 'Recording ${index + 1}',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0xff090F12),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          v.no != null
+                                              ? 'No: ${v.no}'
+                                              : (v.url ?? ''),
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xff4E4E4E),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    } else if (idx == 1) {
+                      return ListView.builder(
+                        itemCount: resources.length,
+                        itemBuilder: (context, index) {
+                          final r = resources[index];
+                          return ModuleResourceItem(
+                            backgroundColor: Color(0xffE8ECF1),
+                            title: r.name ?? 'Resource ${index + 1}',
+                            onTap: () {
+                              // TODO: implement resource open later
+                            },
+                          );
+                        },
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: assignments.length,
+                        itemBuilder: (context, index) {
+                          final a = assignments[index];
+                          return ModuleAssignmentItem(
+                            title: a.title ?? 'Assignment ${index + 1}',
+                            dueDate: a.start ?? '',
+                            onTap: () {
+                              Get.to(
+                                () => UploadAssignmentScreen(
+                                  assignmentTitle:
+                                      a.title ?? 'No assignment available',
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      );
+                    }
+                  }),
+                ),
+              ],
+            ],
+          );
+        }),
       ),
     );
   }

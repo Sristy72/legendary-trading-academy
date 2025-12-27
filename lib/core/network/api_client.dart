@@ -419,7 +419,7 @@ class ApiClient {
 
   /// Updated error handling to return NetworkFailure instead of ApiResult
   NetworkFailure _handleDioError(DioException error) {
-    if (kDebugMode) DPrint.log("** Dio Error: ${error}");
+    if (kDebugMode) DPrint.log("** Dio Error: $error");
 
     // Check if we have a response with error details
     if (error.response != null) {

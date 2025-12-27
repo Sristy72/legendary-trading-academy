@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../../video/presentation/screens/video_player_screen.dart';
-import '../../../video/presentation/screens/youtube_player_screen.dart';
 
 class ModuleVideoContainer extends StatelessWidget {
   final String title;

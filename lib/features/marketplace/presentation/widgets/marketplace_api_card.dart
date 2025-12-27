@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/screens/marketplace_details_screen.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../models/marketplace_item_api_model.dart';
 
 class MarketplaceApiCard extends StatelessWidget {

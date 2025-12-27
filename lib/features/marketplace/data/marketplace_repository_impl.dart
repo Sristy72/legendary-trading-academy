@@ -159,7 +159,7 @@ class MarketplaceRepositoryImpl implements MarketplaceRepository {
           print(
             '[MarketplaceRepositoryImpl] error parsing single marketplace item: $e',
           );
-          throw e;
+          rethrow;
         }
       },
     );

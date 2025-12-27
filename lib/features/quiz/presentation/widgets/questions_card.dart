@@ -71,7 +71,7 @@ class QuestionCard extends StatelessWidget {
                 ),
               ),
             );
-          }).toList(),
+          }),
         ],
       ),
     );

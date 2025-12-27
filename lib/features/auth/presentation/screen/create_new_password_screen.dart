@@ -7,7 +7,6 @@ import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
 import 'package:flutx_core/core/validation/validators.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../core/common/texts/texts.dart';
 import '../../../../core/theme/app_colors.dart';

@@ -2,7 +2,6 @@ import 'package:flutter_ladydenily/features/auth/data/models/trading_profile.dar
 import 'package:get/get_connect/http/src/multipart/form_data.dart';
 import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
 
-import 'different_user_model.dart';
 
 class PersonalInfoRequestFormModel {
   final String name;

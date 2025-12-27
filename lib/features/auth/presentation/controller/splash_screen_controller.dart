@@ -1,6 +1,4 @@
 import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
-import 'package:flutter_ladydenily/features/profile/presentation/screens/personal_info_screen.dart';
-import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import '../../../home/presentation/screens/home_screen.dart';

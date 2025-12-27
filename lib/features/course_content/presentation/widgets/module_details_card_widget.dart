@@ -10,11 +10,11 @@ class ModuleDetailsCardWidget extends StatelessWidget {
   final ModulesDetailsController controller;
 
   const ModuleDetailsCardWidget({
-    Key? key,
+    super.key,
     required this.index,
     required this.module,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

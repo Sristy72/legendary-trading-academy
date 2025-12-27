@@ -32,8 +32,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
             Theme(
               data: Theme.of(context).copyWith(
                 switchTheme: SwitchThemeData(
-                  thumbIcon: MaterialStateProperty.resolveWith<Icon?>((states) {
-                    if (states.contains(MaterialState.selected)) {
+                  thumbIcon: WidgetStateProperty.resolveWith<Icon?>((states) {
+                    if (states.contains(WidgetState.selected)) {
                       return const Icon(
                         Icons.circle,
                         size: 30,
@@ -47,10 +47,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     ); // Inactive thumb size
                   }),
 
-                  trackOutlineColor: MaterialStateProperty.resolveWith<Color?>((
+                  trackOutlineColor: WidgetStateProperty.resolveWith<Color?>((
                     states,
                   ) {
-                    if (states.contains(MaterialState.selected)) {
+                    if (states.contains(WidgetState.selected)) {
                       return Color(0xFFEFC227); // when active
                     }
                     return Color(0xFFA8A8A8); // when inactive
@@ -78,8 +78,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
             Theme(
               data: Theme.of(context).copyWith(
                 switchTheme: SwitchThemeData(
-                  thumbIcon: MaterialStateProperty.resolveWith<Icon?>((states) {
-                    if (states.contains(MaterialState.selected)) {
+                  thumbIcon: WidgetStateProperty.resolveWith<Icon?>((states) {
+                    if (states.contains(WidgetState.selected)) {
                       return const Icon(
                         Icons.circle,
                         size: 30,
@@ -93,10 +93,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     ); // Inactive thumb size
                   }),
 
-                  trackOutlineColor: MaterialStateProperty.resolveWith<Color?>((
+                  trackOutlineColor: WidgetStateProperty.resolveWith<Color?>((
                     states,
                   ) {
-                    if (states.contains(MaterialState.selected)) {
+                    if (states.contains(WidgetState.selected)) {
                       return Color(0xFFEFC227); // when active
                     }
                     return Color(0xFFA8A8A8); // when inactive
@@ -123,8 +123,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
             Theme(
               data: Theme.of(context).copyWith(
                 switchTheme: SwitchThemeData(
-                  thumbIcon: MaterialStateProperty.resolveWith<Icon?>((states) {
-                    if (states.contains(MaterialState.selected)) {
+                  thumbIcon: WidgetStateProperty.resolveWith<Icon?>((states) {
+                    if (states.contains(WidgetState.selected)) {
                       return const Icon(
                         Icons.circle,
                         size: 30,
@@ -138,10 +138,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     ); // Inactive thumb size
                   }),
 
-                  trackOutlineColor: MaterialStateProperty.resolveWith<Color?>((
+                  trackOutlineColor: WidgetStateProperty.resolveWith<Color?>((
                     states,
                   ) {
-                    if (states.contains(MaterialState.selected)) {
+                    if (states.contains(WidgetState.selected)) {
                       return Color(0xFFEFC227); // when active
                     }
                     return Color(0xFFA8A8A8); // when inactive

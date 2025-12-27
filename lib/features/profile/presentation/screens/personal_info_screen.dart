@@ -37,7 +37,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
     final user = _profileController.userInfo.value;
 
     if (user != null) {
-      _fullNameController.text = user.name ?? '';
+      _fullNameController.text = user.name;
       _ageController.text = user.age?.toString() ?? '';
 
       gender.value = (user.gender ?? 'Male').toLowerCase() == 'female'
@@ -133,7 +133,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                 const SizedBox(height: 6),
                 Obx(
                   () => DropdownButtonFormField<String>(
-                    value: gender.value,
+                    initialValue: gender.value,
                     items: const [
                       DropdownMenuItem(value: "Male", child: Text("Male")),
                       DropdownMenuItem(value: "Female", child: Text("Female")),

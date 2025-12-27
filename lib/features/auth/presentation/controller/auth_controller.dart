@@ -9,7 +9,6 @@ import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_prof
 import 'package:flutter_ladydenily/features/auth/presentation/screen/verify_code_screen.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/verify_otp_to_register.dart';
 import 'package:flutter_ladydenily/features/others/terms_and_disclaimer_dialog_screen.dart';
-import 'package:flutter_ladydenily/features/profile/presentation/screens/profile_screen.dart';
 import 'package:flutx_core/flutx_core.dart';
 import 'package:get/get.dart';
 import '../../../../core/base/base_controller.dart';
@@ -28,7 +27,6 @@ import '../screen/login_screen.dart';
 class AuthController extends BaseController {
   final AuthRepository _authRepository;
   final AuthStorageService _authStorageService;
-  bool _isSuccess = false;
   var isSkipLoading = false.obs;
   var isContinueLoading = false.obs;
 
@@ -58,7 +56,6 @@ class AuthController extends BaseController {
         setLoading(false);
       },
       (success) async {
-        final user = success.data.user;
         await _authStorageService.storeAuthData(
           accessToken: success.data.accessToken!,
           refreshToken: success.data.refreshToken!,
@@ -338,7 +335,7 @@ class AuthController extends BaseController {
       (fail) {
         DPrint.log("Refresh token failed: ${fail.message}");
         setLoading(false);
-        return _isSuccess = false;
+        return false;
       },
       (success) async {
         DPrint.log("Refresh token success: ${success.message}");
@@ -346,7 +343,7 @@ class AuthController extends BaseController {
         await _authStorageService.storeRefreshToken(success.data.refreshToken);
         // _authStorageService.clearAuthData();
         setLoading(false);
-        return _isSuccess = true;
+        return true;
       },
     );
     return navi;

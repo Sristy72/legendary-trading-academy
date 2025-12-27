@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
-import 'package:flutter_ladydenily/features/marketplace/presentation/screens/marketplace_details_screen.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/controllers/marketplace_controller.dart';
 import 'package:flutter_ladydenily/features/marketplace/presentation/widgets/marketplace_api_card.dart';
 import 'package:get/get.dart';

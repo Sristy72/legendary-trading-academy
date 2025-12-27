@@ -20,7 +20,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
 
   final _authController = Get.find<AuthController>();
 
-  _submit() {
+  void _submit() {
     _authController.verifyOTP(widget.email, _otpVerify.text);
   }
 

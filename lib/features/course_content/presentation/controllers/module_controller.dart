@@ -22,10 +22,6 @@ class ModuleController extends BaseController {
 
   Rx<CourseResponse?> get rxSelectedCourse => _selectedCourse;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   Future<void> loadCourseById(String courseId) async {
     await getCourseDetails(courseId);

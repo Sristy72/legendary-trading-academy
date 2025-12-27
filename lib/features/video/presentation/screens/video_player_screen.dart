@@ -210,8 +210,6 @@ class VideoPlayerScreen extends StatelessWidget {
                           child: ModuleAllVideos(
                             index: index,
                             module: module,
-                            modules: modules,
-                            initialModuleIndex: initialModuleIndex ?? index,
                           ),
                         );
                       },

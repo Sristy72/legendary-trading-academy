@@ -4,10 +4,8 @@ import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/trading_profile_setup_screen.dart';
-import 'package:flutter_ladydenily/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadProfileScreen extends StatefulWidget {

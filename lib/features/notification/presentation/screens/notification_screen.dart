@@ -144,7 +144,7 @@ class NotificationScreen extends StatelessWidget {
                         isNew: notification.isNew,
                       ),
                     )
-                    .toList(),
+                    ,
               ],
 
               // Earlier Notifications Section
@@ -170,7 +170,7 @@ class NotificationScreen extends StatelessWidget {
                         isNew: notification.isNew,
                       ),
                     )
-                    .toList(),
+                    ,
               ],
             ],
           ),

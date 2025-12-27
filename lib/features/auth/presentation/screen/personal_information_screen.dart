@@ -4,8 +4,6 @@ import 'package:flutter_ladydenily/core/extensions/button_extensions.dart';
 import 'package:flutter_ladydenily/core/extensions/input_decoration_extensions.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/controller/auth_controller.dart';
-import 'package:flutter_ladydenily/features/auth/presentation/screen/upload_profile_screen.dart';
-import 'package:flutter_ladydenily/features/others/terms_and_disclaimer_dialog_screen.dart';
 import 'package:flutx_core/flutx_core.dart';
 import 'package:get/get.dart';
 
@@ -167,7 +165,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     SizedBox(height: 8),
 
                     DropdownButtonFormField<String>(
-                      value: gender,
+                      initialValue: gender,
                       items: const [
                         DropdownMenuItem(value: "Male", child: Text("Male")),
                         DropdownMenuItem(
