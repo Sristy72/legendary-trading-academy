@@ -1,6 +1,7 @@
 import 'package:flutter_ladydenily/features/community/domain/community_repository.dart';
 import 'package:flutter_ladydenily/features/community/models/community_item.dart';
 import 'package:get/get.dart';
+import 'dart:async';
 
 class CommunityController extends GetxController {
   final CommunityRepository repository;
@@ -11,40 +12,72 @@ class CommunityController extends GetxController {
   final filteredCommunityList = <CommunityItem>[].obs;
   final isLoading = false.obs;
   final searchQuery = ''.obs;
+  Timer? _timer;
 
   @override
   void onInit() {
     super.onInit();
     fetchCommunityList();
+    startPolling();
   }
 
-  Future<void> fetchCommunityList() async {
+  @override
+  void onClose() {
+    stopPolling();
+    super.onClose();
+  }
+
+  void startPolling() {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (searchQuery.isEmpty) { // Only poll if not searching, or user preference
+        fetchCommunityList(isSilent: true);
+      }
+    });
+  }
+
+  void stopPolling() {
+    _timer?.cancel();
+    _timer = null;
+  }
+
+  Future<void> fetchCommunityList({bool isSilent = false}) async {
     try {
-      isLoading.value = true;
-      print('[CommunityController] calling repository.fetchCommunityList()');
+      if (!isSilent) isLoading.value = true;
+      // print('[CommunityController] calling repository.fetchCommunityList()'); // Reduced log noise
       final result = await repository.fetchCommunityList();
 
       result.fold(
         (failure) {
-          print('[CommunityController] failure: ${failure.message}');
-          communityList.clear();
-          filteredCommunityList.clear();
+          if (!isSilent) print('[CommunityController] failure: ${failure.message}');
+          // On silent failure, we might keep old data to avoid flicker/empty screen
+          if (!isSilent) {
+             communityList.clear();
+             filteredCommunityList.clear();
+          }
         },
         (success) {
-          print(
-            '[CommunityController] success.data length: ${success.data.length}',
-          );
+          // Only update if data changed? Obx handles equality check often, but lists are mutable.
+          // For now, assigning all is fine.
+          
           communityList.assignAll(success.data);
-          filteredCommunityList.assignAll(success.data);
-          print('>>>>>>> API COMMUNITY LIST loaded: ${communityList.length}');
+          
+          if (searchQuery.value.isEmpty) {
+            filteredCommunityList.assignAll(success.data);
+          } else {
+            // If searching, re-filter the new list
+            searchCommunity(searchQuery.value);
+          }
         },
       );
     } catch (e) {
       print('Error fetching community list: $e');
-      communityList.clear();
-      filteredCommunityList.clear();
+      if (!isSilent) {
+        communityList.clear();
+        filteredCommunityList.clear();
+      }
     } finally {
-      isLoading.value = false;
+      if (!isSilent) isLoading.value = false;
     }
   }
 
