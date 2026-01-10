@@ -200,6 +200,8 @@ class ApiClient {
       if (isFormData) {
         options.headers ??= {};
         options.headers!.addAll(ApiConstants.multipartHeaders);
+        // Explicitly remove Content-Type to allow Dio to set boundary
+        options.headers!.remove('Content-Type');
       }
 
       if (kDebugMode) {
