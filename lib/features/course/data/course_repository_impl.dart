@@ -1,4 +1,7 @@
+
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'dart:io';
 import 'package:flutter_ladydenily/core/network/api_client.dart';
 
 import '../../../core/network/constants/api_constants.dart';
@@ -114,6 +117,36 @@ class CourseRepositoryImpl implements CourseRepository {
       fromJsonT: (json) =>
           (json as List).map((e) => CourseResponse.fromJson(e)).toList(),
     );
+  }
+
+  @override
+  Future<Either<NetworkFailure, NetworkSuccess<void>>> submitAssignment({
+    required String moduleId,
+    required String assignmentId,
+    required File file,
+  }) async {
+    try {
+      final fileName = file.path.split('/').last;
+      
+      final formData = FormData.fromMap({
+        'moduleId': moduleId,
+        'assignmentId': assignmentId,
+        'file': await MultipartFile.fromFile(
+          file.path,
+          filename: fileName,
+        ),
+      });
+
+      return _apiClient.postFormData<void>(
+        ApiConstants.course.submitAssignment,
+        formData: formData,
+        fromJsonT: (json) {
+           return null;
+        },
+      );
+    } catch (e) {
+      return Left(UnknownFailure(message: e.toString()));
+    }
   }
 
   @override
