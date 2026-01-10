@@ -4,6 +4,8 @@ import 'package:flutter_ladydenily/core/theme/app_theme.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/splash_screen.dart';
 import 'package:get/get.dart';
 
+final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
+
 void main() async {
   await AppInitializer.initializeApp();
   runApp(MyApp());
@@ -16,6 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorObservers: [routeObserver],
       title: 'Flutter Demo',
       theme: AppTheme.light,
       home: SplashScreen(),
