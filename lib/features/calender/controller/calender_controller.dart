@@ -1,23 +1,20 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_ladydenily/core/network/api_client.dart';
+import 'package:flutter_ladydenily/features/calender/data/calender_repository_impl.dart';
+import 'package:flutter_ladydenily/features/calender/models/event_model.dart';
 import 'package:get/get.dart';
-
-class CalendarEvent {
-  final String title;
-  final String time;
-  final String coach;
-  final String avatarUrl;
-  CalendarEvent({
-    required this.title,
-    required this.time,
-    required this.coach,
-    required this.avatarUrl,
-  });
-}
+import 'package:intl/intl.dart';
 
 class CalendarController extends GetxController {
+  final _repository = CalenderRepositoryImpl(apiClient: ApiClient());
+
   final selectedDate = DateTime.now().obs;
   final currentMonth = DateTime.now().obs;
   final dayScroll = ScrollController().obs;
+  
+  // Using simplified list since API returns list for a date
+  final events = <EventModel>[].obs; 
+  final isLoading = false.obs;
 
   List<DateTime> get daysInMonth {
     final first = DateTime(
@@ -37,12 +34,11 @@ class CalendarController extends GetxController {
     );
   }
 
-  final events = <DateTime, List<CalendarEvent>>{}.obs;
-
   @override
   void onInit() {
     super.onInit();
-    _seedMock();
+    // Fetch initial events
+    fetchEvents(selectedDate.value);
   }
 
   @override
@@ -51,40 +47,24 @@ class CalendarController extends GetxController {
     _scrollToSelected();
   }
 
-  void _seedMock() {
-    final today = DateTime.now();
-    final key = DateTime(today.year, today.month, today.day);
-    events[key] = [
-      CalendarEvent(
-        title: 'Freshman Class Live Q&A',
-        time: 'Monday, 4:00 PM',
-        coach: 'Coach Dianne Russell',
-        avatarUrl: 'https://i.pravatar.cc/100?img=67',
-      ),
-      CalendarEvent(
-        title: 'CPI Release',
-        time: 'Monday, 4:00 PM',
-        coach: 'Coach Dianne Russell',
-        avatarUrl: 'https://i.pravatar.cc/100?img=12',
-      ),
-      CalendarEvent(
-        title: 'Gold Trade Setup',
-        time: 'Monday, 4:00 PM',
-        coach: 'Coach Dianne Russell',
-        avatarUrl: 'https://i.pravatar.cc/100?img=5',
-      ),
-      CalendarEvent(
-        title: 'OFW Hub Webinar',
-        time: 'Monday, 4:00 PM',
-        coach: 'Coach Dianne Russell',
-        avatarUrl: 'https://i.pravatar.cc/100?img=49',
-      ),
-    ];
-  }
-
-  List<CalendarEvent> eventsFor(DateTime date) {
-    final key = DateTime(date.year, date.month, date.day);
-    return events[key] ?? [];
+  Future<void> fetchEvents(DateTime date) async {
+    isLoading.value = true;
+    final formattedDate = DateFormat('yyyy-MM-dd').format(date);
+    
+    final result = await _repository.getEvents(formattedDate);
+    
+    result.fold(
+      (failure) {
+        isLoading.value = false;
+        // Handle error quietly or show empty
+        print('Error fetching events: ${failure.message}');
+        events.clear();
+      },
+      (success) {
+        isLoading.value = false;
+        events.assignAll(success.data);
+      },
+    );
   }
 
   void goPrevMonth() {
@@ -105,20 +85,26 @@ class CalendarController extends GetxController {
 
   void selectDate(DateTime date) {
     selectedDate.value = date;
+    fetchEvents(date); // Fetch on selection
     _scrollToSelected();
   }
 
   void _scrollToSelected() {
-    final controllerRef = dayScroll.value;
-    final index = selectedDate.value.day - 1.2;
-    final itemExtent = 64.0 + 7.0;
-    final offset = (index * itemExtent) - 16;
-    if (controllerRef.hasClients) {
+    try {
+      if (!dayScroll.value.hasClients) return;
+      
+      final controllerRef = dayScroll.value;
+      final index = selectedDate.value.day - 1.2;
+      final itemExtent = 64.0 + 7.0;
+      final offset = (index * itemExtent) - 16;
+      
       controllerRef.animateTo(
         offset.clamp(0, controllerRef.position.maxScrollExtent),
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOut,
       );
+    } catch (e) {
+      print('Scroll error: $e');
     }
   }
 }
