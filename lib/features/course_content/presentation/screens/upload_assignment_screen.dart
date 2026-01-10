@@ -2,15 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:get/get.dart';
 
-import '../controllers/assignment_controller.dart';
+import '../controllers/upload_assignment_controller.dart';
 
 class UploadAssignmentScreen extends StatelessWidget {
   final String assignmentTitle;
-  const UploadAssignmentScreen({super.key, required this.assignmentTitle});
+  final String moduleId;
+  final String assignmentId;
+
+  const UploadAssignmentScreen({
+    super.key, 
+    required this.assignmentTitle,
+    required this.moduleId,
+    required this.assignmentId,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final AssignmentController controller = Get.put(AssignmentController());
+    // Putting logic here requires passing IDs, using tag or creating unique instance
+    final controller = Get.put(
+      UploadAssignmentController(moduleId: moduleId, assignmentId: assignmentId),
+      tag: assignmentId, // Use tag to allow multiple assignment streams
+    );
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -40,7 +53,7 @@ class UploadAssignmentScreen extends StatelessWidget {
                           children: [
                             const Expanded(
                               child: Text(
-                                'Lorem ipsum dolor sit amet',
+                                'Assignment Details', // Simplified header
                                 style: TextStyle(fontWeight: FontWeight.w700),
                               ),
                             ),
@@ -72,7 +85,7 @@ class UploadAssignmentScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 6),
                         const Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nibh ligula, egestas ac magna vel, porta condimentum orci. Nunc pharetra ante sit amet vehicula finibus.',
+                          'Select your file below to submit this assignment.',
                           style: TextStyle(color: Colors.black87),
                         ),
                       ],
@@ -127,29 +140,34 @@ class UploadAssignmentScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.buttonColor.withOpacity(0.1),
             ),
-            child: Column(
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.buttonColor,
-                    minimumSize: const Size.fromHeight(45),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  onPressed: controller.submit,
-                  child: const Text(
-                    'Submit Assignment',
-                    style: TextStyle(
-                      color: Color(0xff1A3E74),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-              ],
-            ),
+            child: Obx(() {
+               if (controller.isSubmitting.value) {
+                 return const Center(child: CircularProgressIndicator(color: AppColors.buttonColor));
+               }
+               return Column(
+                 children: [
+                   ElevatedButton(
+                     style: ElevatedButton.styleFrom(
+                       backgroundColor: AppColors.buttonColor,
+                       minimumSize: const Size.fromHeight(45),
+                       shape: RoundedRectangleBorder(
+                         borderRadius: BorderRadius.circular(8),
+                       ),
+                     ),
+                     onPressed: controller.submit,
+                     child: const Text(
+                       'Submit Assignment',
+                       style: TextStyle(
+                         color: Color(0xff1A3E74),
+                         fontSize: 16,
+                         fontWeight: FontWeight.w600,
+                       ),
+                     ),
+                   ),
+                   const SizedBox(height: 20),
+                 ],
+               );
+            }),
             
           ),
         ],
