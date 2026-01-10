@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'dart:io';
 import 'package:flutter_ladydenily/core/network/models/network_failure.dart';
 import 'package:flutter_ladydenily/core/network/models/network_success.dart';
 import '../models/course.dart';
@@ -33,4 +34,9 @@ abstract class CourseRepository {
   /// Confirm payment completion with invoice ID
   Future<Either<NetworkFailure, NetworkSuccess<Map<String, dynamic>>>>
   confirmPayment({required String invoiceId});
+  Future<Either<NetworkFailure, NetworkSuccess<void>>> submitAssignment({
+    required String moduleId,
+    required String assignmentId,
+    required File file,
+  });
 }
