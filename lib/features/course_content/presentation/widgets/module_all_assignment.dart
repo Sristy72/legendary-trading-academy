@@ -43,6 +43,8 @@ class ModuleAllAssignment extends StatelessWidget {
                     () => UploadAssignmentScreen(
                       assignmentTitle:
                           assignment.title ?? 'No assignment available',
+                      moduleId: module.id,
+                      assignmentId: assignment.id,
                     ),
                   ),
                   backgroundColor: const Color(0xffffffff),
