@@ -2,21 +2,64 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/community/presentation/controllers/community_controller.dart';
 import 'package:flutter_ladydenily/features/community/presentation/widgets/community_list_item.dart';
+import 'package:flutter_ladydenily/features/community/presentation/screens/chat_details_screen.dart';
+import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
+import 'package:flutter_ladydenily/main.dart'; // Import for routeObserver
 import 'package:get/get.dart';
 
-class CommunityScreen extends StatelessWidget {
+class CommunityScreen extends StatefulWidget {
   const CommunityScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final controller = Get.find<CommunityController>();
+  State<CommunityScreen> createState() => _CommunityScreenState();
+}
 
+class _CommunityScreenState extends State<CommunityScreen> with RouteAware {
+  late CommunityController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = Get.find<CommunityController>();
+    // Assume we start visible
+    controller.startPolling();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final modalRoute = ModalRoute.of(context);
+    if (modalRoute is PageRoute) {
+      routeObserver.subscribe(this, modalRoute);
+    }
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    controller.stopPolling();
+    super.dispose();
+  }
+
+  @override
+  void didPushNext() {
+    // Covered by another route
+    controller.stopPolling();
+  }
+
+  @override
+  void didPopNext() {
+    // Returned to top
+    controller.startPolling();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
-            // Search Bar
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
@@ -39,8 +82,6 @@ class CommunityScreen extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Community List
             Expanded(
               child: Obx(() {
                 if (controller.isLoading.value) {
@@ -69,8 +110,23 @@ class CommunityScreen extends StatelessWidget {
                     return CommunityListItem(
                       item: item,
                       onTap: () {
-                        // TODO: Navigate to community detail screen
-                        print('Tapped on ${item.displayName}');
+                        try {
+                          final profileController = Get.find<ProfileController>();
+                          final currentUserId = profileController.userInfo.value?.id ?? '';
+                          
+                          if (currentUserId.isEmpty) {
+                            Get.snackbar('Error', 'Please wait for profile to load');
+                            profileController.fetchProfile();
+                            return;
+                          }
+
+                          Get.to(() => ChatDetailsScreen(
+                            communityItem: item,
+                            currentUserId: currentUserId,
+                          ));
+                        } catch (e) {
+                          Get.snackbar('Error', 'Could not open chat: ${e.toString()}');
+                        }
                       },
                     );
                   },
