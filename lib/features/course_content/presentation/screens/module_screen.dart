@@ -13,6 +13,70 @@ class ModuleScreen extends StatelessWidget {
   final String courseId;
   const ModuleScreen({super.key, required this.courseId});
 
+  void _showCertificateDialog() {
+    Get.dialog(
+      Dialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.card_membership,
+                size: 60,
+                color: Colors.amber[700],
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Certificate Coming Soon',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xff1A3E74),
+                ),
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                'Your certificate will be available after completing this course.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                ),
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(Get.overlayContext!).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff1A3E74),
+                  minimumSize: const Size.fromHeight(45),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  'Got it',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: true,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final ModuleController controller = Get.find<ModuleController>();
@@ -145,7 +209,10 @@ class ModuleScreen extends StatelessWidget {
                       title: 'Certificate',
                       ImagePath: "assets/images/legal-document_1890467.png",
                       isSelected: controller.selectedIndex == 6,
-                      onTap: () => controller.selectItem(6),
+                      onTap: () {
+                        controller.selectItem(6);
+                        _showCertificateDialog();
+                      },
                     ),
                   ],
                 ),
