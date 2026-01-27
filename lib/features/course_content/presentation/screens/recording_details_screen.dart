@@ -18,6 +18,7 @@ class RecordingDetailsScreen extends StatelessWidget {
     return AppScaffold(
       removePadding: true,
       appBar: AppBar(
+        
         title: const Text(
           "Recordings",
           style: TextStyle(
@@ -27,34 +28,22 @@ class RecordingDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: PopScope(
-        canPop: false,
-        onPopInvoked: (didPop) async {
-          if (didPop) return;
-          if (controller.isFullScreen.value) {
-            // Exit fullscreen
-            controller.isFullScreen.value = false;
-            // Also need to reset SystemChrome, but we don't have direct access here easily
-            // unless we toggle via controller... wait.
-            // When we set controller.isFullScreen = false, RecordingDetailsScreen rebuilds to Portrait.
-            // But VideoPlayerGetxController inside InlineVideoPlayer needs to know to reset SystemChrome.
-            // Actually, simply setting controller.isFullScreen=false changes layout, 
-            // but the InlineVideoPlayer might still be in Landscape preferred mode.
-            // Ideally we should call toggleFullScreen on the VIDEO controller.
-            
-            // However, we don't have easy access to video controller instance.
-            // BUT InlineVideoPlayer listens to widget.isFullScreen? No.
-            // VideoPlayerGetxController is the one setting SystemChrome.
-            
-            // Alternative:
-            // Just return true to pop if not fullscreen.
-          } else {
-             Get.back();
-          }
-        },
-        child: Obx(() {
-          // Check fullscreen state from controller
-          final isFullScreen = controller.isFullScreen.value;
+      body: Obx(() {
+        // Check fullscreen state from controller
+        final isFullScreen = controller.isFullScreen.value;
+
+        return PopScope(
+          canPop: !isFullScreen,
+          onPopInvoked: (didPop) async {
+            if (didPop) return;
+            if (isFullScreen) {
+              // Exit fullscreen instead of going back
+              controller.isFullScreen.value = false;
+            }
+          },
+          child: Obx(() {
+            // Check fullscreen state from controller
+            final isFullScreen = controller.isFullScreen.value;
 
           return Column(
             children: [
@@ -138,7 +127,8 @@ class RecordingDetailsScreen extends StatelessWidget {
             ],
           );
         }),
-      ),
+        );
+      }),
     );
   }
 }
