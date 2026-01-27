@@ -28,17 +28,17 @@ class MyCoursesAllScreen extends GetView<CourseController> {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
         }
-        if (controller.courses.isEmpty) {
+        if (controller.myCourses.isEmpty) {
           return const Center(child: Text('No courses found'));
         }
         return ListView.separated(
           padding: const EdgeInsets.all(16),
           itemBuilder: (context, index) {
-            final course = controller.courses[index];
+            final course = controller.myCourses[index];
             return MyCourseCard(course: course);
           },
           separatorBuilder: (_, __) => const SizedBox(height: 16),
-          itemCount: controller.courses.length,
+          itemCount: controller.myCourses.length,
         );
       }),
     );
