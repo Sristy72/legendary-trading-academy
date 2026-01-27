@@ -9,6 +9,7 @@ import 'package:flutter_ladydenily/features/course/presentation/screens/coure_de
 import 'package:flutter_ladydenily/features/course/presentation/screens/course_all_screen.dart';
 import 'package:flutter_ladydenily/features/course/presentation/widgets/course_details_card.dart';
 import 'package:flutter_ladydenily/features/home/presentation/controllers/trainer_controller.dart';
+import 'package:flutter_ladydenily/features/home/presentation/screens/my_courses_all_screen.dart';
 import 'package:flutter_ladydenily/features/home/presentation/screens/trainer_all_screen.dart';
 import 'package:flutter_ladydenily/features/home/presentation/widgets/my_course_card.dart';
 import 'package:flutter_ladydenily/features/home/presentation/widgets/trainer_api_card.dart';
@@ -298,7 +299,10 @@ class HomeContent extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: onViewAllTap,
+            onTap: (){
+              Get.to(() => const MyCoursesAllScreen());
+              
+            },
             borderRadius: BorderRadius.circular(4),
             child: Padding(
               padding: const EdgeInsets.all(4.0),
