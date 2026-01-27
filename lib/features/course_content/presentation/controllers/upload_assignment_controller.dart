@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ladydenily/core/network/api_client.dart';
-import 'package:flutter_ladydenily/features/course/data/course_repository_impl.dart';
 import 'package:flutter_ladydenily/features/course/domain/course_repository.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +24,7 @@ class UploadAssignmentController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _repository = CourseRepositoryImpl(apiClient: ApiClient());
+    _repository = Get.find<CourseRepository>();
   }
 
   Future<void> pickAndUpload() async {
