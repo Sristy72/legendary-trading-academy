@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/features/community/presentation/screens/community_screen.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/module_details_screen.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/recording_details_screen.dart';
-import 'package:flutter_ladydenily/features/quiz/presentation/screens/quiz_screen.dart';
 import 'package:get/get.dart';
-import '../widgets/items_widgets.dart';
+
 import '../controllers/module_controller.dart';
+import '../widgets/items_widgets.dart';
 import 'assignment_details_screen.dart';
 import 'resources_details_screen.dart';
 
@@ -107,7 +108,11 @@ class ModuleScreen extends StatelessWidget {
                       title: 'Community',
                       ImagePath: "assets/images/community_12575799.png",
                       isSelected: controller.selectedIndex == 3,
-                      onTap: () => controller.selectItem(3),
+                      onTap: () {
+                        controller.selectItem(3);
+                        // module id should be passed here
+                        Get.to(() => CommunityScreen(), arguments: courseId);
+                      },
                     ),
                     const SizedBox(height: 12),
                     ItemWidget(
@@ -124,17 +129,17 @@ class ModuleScreen extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 12),
-                    ItemWidget(
-                      index: 5,
-                      title: 'Quiz',
-                      ImagePath: "assets/images/quiz_8586995.png",
-                      isSelected: controller.selectedIndex == 5,
-                      onTap: () {
-                        controller.selectItem(5);
-                        Get.to(() => QuizScreen());
-                      },
-                    ),
-                    const SizedBox(height: 12),
+                    // ItemWidget(
+                    //   index: 5,
+                    //   title: 'Quiz',
+                    //   ImagePath: "assets/images/quiz_8586995.png",
+                    //   isSelected: controller.selectedIndex == 5,
+                    //   onTap: () {
+                    //     controller.selectItem(5);
+                    //     Get.to(() => QuizScreen());
+                    //   },
+                    // ),
+                    // const SizedBox(height: 12),
                     ItemWidget(
                       index: 6,
                       title: 'Certificate',

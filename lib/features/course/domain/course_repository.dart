@@ -1,12 +1,14 @@
-import 'package:dartz/dartz.dart';
 import 'dart:io';
+
+import 'package:dartz/dartz.dart';
 import 'package:flutter_ladydenily/core/network/models/network_failure.dart';
 import 'package:flutter_ladydenily/core/network/models/network_success.dart';
-import '../models/course.dart';
-
 // added imports for course_content APIs
 import 'package:flutter_ladydenily/core/network/network_result.dart';
+
 import '../../course_content/data/models/course_response_module.dart';
+import '../data/models/assignment_submission_response.dart';
+import '../models/course.dart';
 
 abstract class CourseRepository {
   // existing course feature API
@@ -34,7 +36,8 @@ abstract class CourseRepository {
   /// Confirm payment completion with invoice ID
   Future<Either<NetworkFailure, NetworkSuccess<Map<String, dynamic>>>>
   confirmPayment({required String invoiceId});
-  Future<Either<NetworkFailure, NetworkSuccess<void>>> submitAssignment({
+  Future<Either<NetworkFailure, NetworkSuccess<AssignmentSubmissionResponse>>>
+  submitAssignment({
     required String moduleId,
     required String assignmentId,
     required File file,

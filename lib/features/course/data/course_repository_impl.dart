@@ -1,16 +1,17 @@
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'dart:io';
 import 'package:flutter_ladydenily/core/network/api_client.dart';
+import 'package:flutter_ladydenily/core/network/network_result.dart';
+import 'package:flutter_ladydenily/features/course_content/data/models/course_response_module.dart';
 
 import '../../../core/network/constants/api_constants.dart';
 import '../../../core/network/models/network_failure.dart';
 import '../../../core/network/models/network_success.dart';
 import '../domain/course_repository.dart';
 import '../models/course.dart';
-import 'package:flutter_ladydenily/core/network/network_result.dart';
-import 'package:flutter_ladydenily/features/course_content/data/models/course_response_module.dart';
+import 'models/assignment_submission_response.dart';
 
 class CourseRepositoryImpl implements CourseRepository {
   final ApiClient _apiClient;
@@ -67,9 +68,10 @@ class CourseRepositoryImpl implements CourseRepository {
       },
     );
   }
-  
+
   @override
-  Future<Either<NetworkFailure, NetworkSuccess<List<Course>>>> fetchMyCourses() {
+  Future<Either<NetworkFailure, NetworkSuccess<List<Course>>>>
+  fetchMyCourses() {
     return _apiClient.get<List<Course>>(
       '${ApiConstants.baseUrl}/course/my-courses',
       fromJsonT: (json) {
@@ -82,17 +84,17 @@ class CourseRepositoryImpl implements CourseRepository {
         // Handle various response structures similar to fetchAllCourses
         List list = [];
         if (json is List) {
-           list = json;
+          list = json;
         } else if (json is Map<String, dynamic> && json['course'] is List) {
-           list = json['course'] as List;
+          list = json['course'] as List;
         } else if (json is Map<String, dynamic> && json['data'] is List) {
-           list = json['data'] as List;
+          list = json['data'] as List;
         }
-        
+
         print('[CourseRepo] Found ${list.length} my courses');
         return list
-              .map((e) => Course.fromJson(e as Map<String, dynamic>))
-              .toList();
+            .map((e) => Course.fromJson(e as Map<String, dynamic>))
+            .toList();
       },
     );
   }
@@ -120,28 +122,28 @@ class CourseRepositoryImpl implements CourseRepository {
   }
 
   @override
-  Future<Either<NetworkFailure, NetworkSuccess<void>>> submitAssignment({
+  Future<Either<NetworkFailure, NetworkSuccess<AssignmentSubmissionResponse>>>
+  submitAssignment({
     required String moduleId,
     required String assignmentId,
     required File file,
   }) async {
     try {
       final fileName = file.path.split('/').last;
-      
+
       final formData = FormData.fromMap({
         'moduleId': moduleId,
         'assignmentId': assignmentId,
-        'file': await MultipartFile.fromFile(
-          file.path,
-          filename: fileName,
-        ),
+        'file': await MultipartFile.fromFile(file.path, filename: fileName),
       });
 
-      return _apiClient.postFormData<void>(
+      return _apiClient.postFormData<AssignmentSubmissionResponse>(
         ApiConstants.course.submitAssignment,
         formData: formData,
         fromJsonT: (json) {
-           return null;
+          return AssignmentSubmissionResponse.fromJson(
+            json as Map<String, dynamic>,
+          );
         },
       );
     } catch (e) {
