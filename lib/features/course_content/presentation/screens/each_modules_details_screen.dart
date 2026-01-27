@@ -350,6 +350,8 @@ class EachModulesDetailsScreen extends StatelessWidget {
                                 () => UploadAssignmentScreen(
                                   assignmentTitle:
                                       a.title ?? 'No assignment available',
+                                  moduleId: module!.id,
+                                  assignmentId: a.id,
                                 ),
                               );
                             },
