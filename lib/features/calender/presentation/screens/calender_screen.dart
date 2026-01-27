@@ -74,9 +74,12 @@ class CalendarScreen extends GetView<CalendarController> {
   }
 
   Widget _buildEventsList(CalendarController controller) {
-    final items = controller.eventsFor(controller.selectedDate.value);
+    // controller.events is now Observale List of EventModel
+    if (controller.isLoading.value) {
+       return const Center(child: CircularProgressIndicator(color: AppColors.buttonColor));
+    }
 
-    if (items.isEmpty) {
+    if (controller.events.isEmpty) {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 48),
         alignment: Alignment.center,
@@ -85,7 +88,7 @@ class CalendarScreen extends GetView<CalendarController> {
     }
 
     return Column(
-      children: items.map((e) => EventCardWidget(event: e)).toList(),
+      children: controller.events.map((e) => EventCardWidget(event: e)).toList(),
     );
   }
 

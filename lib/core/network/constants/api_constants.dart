@@ -30,7 +30,11 @@ class ApiConstants {
 
   static TeamEndpointcs get team => TeamEndpointcs();
   static LeagueEndpoints get league => LeagueEndpoints();
+  // static LeagueEndpoints get league => LeagueEndpoints();
   static CourseEndpoints get course => CourseEndpoints();
+  // static CourseEndpoints get course => CourseEndpoints();
+  static CommunityEndpoints get community => CommunityEndpoints();
+  static EventEndpoints get event => EventEndpoints();
 }
 
 /// [Authentication Endpoints]
@@ -82,4 +86,18 @@ class CourseEndpoints {
   final String getAllCourses = '$_base/all-courses';
   final String getCourseDetails = '$_base/courses';
   final String getCourseModules = '$_base/modules';
+  final String submitAssignment = '$_base/submit-assignment';
+}
+
+class CommunityEndpoints {
+  static const String _base = '${ApiConstants.baseUrl}/chat';
+
+  final String getMessages = '$_base/messages';
+  final String sendMessage = '$_base/send-message';
+}
+
+class EventEndpoints {
+  static const String _base = '${ApiConstants.baseUrl}/event';
+
+  final String getEvents = '$_base/get';
 }

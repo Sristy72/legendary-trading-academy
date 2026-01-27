@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
 import 'package:get/get.dart';
+
 import '../controllers/recording_details_controller.dart';
-import '../widgets/module_all_videos.dart';
 import '../widgets/inline_video_player.dart';
+import '../widgets/module_all_videos.dart';
 
 class RecordingDetailsScreen extends StatelessWidget {
   const RecordingDetailsScreen({super.key});
@@ -13,7 +15,8 @@ class RecordingDetailsScreen extends StatelessWidget {
       RecordingDetailsController(repository: Get.find()),
     );
 
-    return Scaffold(
+    return AppScaffold(
+      removePadding: true,
       appBar: AppBar(
         title: const Text(
           "Recordings",
