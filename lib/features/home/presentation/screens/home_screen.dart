@@ -257,6 +257,7 @@ class HomeContent extends StatelessWidget {
                         )
                       : _buildVerticalList(
                           courseController.myCourses
+                              .take(2)
                               .map((c) => MyCourseCard(course: c))
                               .toList(),
                         ),
