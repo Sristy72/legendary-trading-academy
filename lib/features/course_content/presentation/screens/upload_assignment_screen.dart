@@ -24,6 +24,24 @@ class UploadAssignmentScreen extends StatelessWidget {
       tag: assignmentId, // Use tag to allow multiple assignment streams
     );
 
+    // Check submission status on screen load
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // If status is already 'Uploaded', show the snackbar
+      if (controller.status.value == 'Uploaded') {
+        Get.snackbar(
+          '✅ Already Submitted',
+          'You have already submitted this assignment',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: const Color(0xFF4CAF50),
+          colorText: Colors.white,
+          borderRadius: 8,
+          margin: const EdgeInsets.all(16),
+          duration: const Duration(seconds: 3),
+          icon: const Icon(Icons.check_circle, color: Colors.white),
+        );
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -154,7 +172,51 @@ class UploadAssignmentScreen extends StatelessWidget {
                          borderRadius: BorderRadius.circular(8),
                        ),
                      ),
-                     onPressed: controller.submit,
+                     onPressed: () {
+                       if (controller.status.value == 'Uploaded') {
+                         Get.snackbar(
+                           '✅ Already Submitted',
+                           'You have already submitted this assignment',
+                           snackPosition: SnackPosition.BOTTOM,
+                           backgroundColor: const Color(0xFF4CAF50),
+                           colorText: Colors.white,
+                           borderRadius: 8,
+                           margin: const EdgeInsets.all(16),
+                           duration: const Duration(seconds: 3),
+                           icon: const Icon(Icons.check_circle, color: Colors.white),
+                         );
+                       } else {
+                         Get.snackbar(
+                           '📤 Submitting',
+                           'Your assignment is being submitted...',
+                           snackPosition: SnackPosition.BOTTOM,
+                           backgroundColor: const Color(0xFF1976D2),
+                           colorText: Colors.white,
+                           borderRadius: 8,
+                           margin: const EdgeInsets.all(16),
+                           duration: const Duration(seconds: 2),
+                           icon: const Icon(Icons.upload_file, color: Colors.white),
+                         );
+                         controller.submit().then((_) {
+                           // Check if already submitted error occurred
+                           Future.delayed(const Duration(milliseconds: 500), () {
+                             if (controller.status.value == 'Uploaded') {
+                               Get.snackbar(
+                                 '✅ Already Submitted',
+                                 'You have already submitted this assignment',
+                                 snackPosition: SnackPosition.BOTTOM,
+                                 backgroundColor: const Color(0xFF4CAF50),
+                                 colorText: Colors.white,
+                                 borderRadius: 8,
+                                 margin: const EdgeInsets.all(16),
+                                 duration: const Duration(seconds: 3),
+                                 icon: const Icon(Icons.check_circle, color: Colors.white),
+                               );
+                             }
+                           });
+                         });
+                       }
+                     },
                      child: const Text(
                        'Submit Assignment',
                        style: TextStyle(
