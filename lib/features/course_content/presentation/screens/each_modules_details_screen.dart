@@ -100,18 +100,19 @@ class EachModulesDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: PopScope(
-        canPop: false,
-        onPopInvoked: (didPop) async {
-          if (didPop) return;
-          if (isFullScreen.value) {
-            isFullScreen.value = false;
-          } else {
-            Get.back();
-          }
-        },
-        child: Obx(() {
-          final isFullScreenMode = isFullScreen.value;
+      body: Obx(() {
+        final isFullScreenMode = isFullScreen.value;
+
+        return PopScope(
+          canPop: !isFullScreenMode,
+          onPopInvoked: (didPop) async {
+            if (didPop) return;
+            if (isFullScreenMode) {
+              isFullScreen.value = false;
+            }
+          },
+          child: Obx(() {
+            final isFullScreenMode = isFullScreen.value;
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -364,8 +365,9 @@ class EachModulesDetailsScreen extends StatelessWidget {
               ],
             ],
           );
-        }),
-      ),
+          }),
+        );
+      }),
     );
   }
 }
