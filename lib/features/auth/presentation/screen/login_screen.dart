@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
 import 'package:flutter_ladydenily/core/widgets/texts.dart';
 import 'package:flutter_ladydenily/features/auth/presentation/screen/signup_screen.dart';
@@ -7,7 +6,6 @@ import 'package:get/get.dart';
 
 import '../../../../core/common/images/images.dart';
 import '../../../../core/common/widgets/signin_signup_header.dart';
-import '../../../../core/widgets/social_button.dart';
 import '../widget/login_form.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -38,12 +36,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ///Form
                 TLoginForm(),
 
-                SizedBox(height: 22),
+                // SizedBox(height: 22),
 
-                ///Footer
-                TSocialButton(),
+                // ///Footer
+                // TSocialButton(),
 
-                SizedBox(height: 50),
+                // SizedBox(height: 50),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
