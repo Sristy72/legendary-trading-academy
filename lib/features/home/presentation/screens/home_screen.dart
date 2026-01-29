@@ -86,6 +86,10 @@ class HomeContent extends StatelessWidget {
     Get.to(() => const TrainerAllScreen());
   }
 
+  void _navigateToMyCoursesAll(BuildContext context) {
+    Get.to(() => const MyCoursesAllScreen());
+  }
+
   @override
   Widget build(BuildContext context) {
     final courseController = Get.find<CourseController>();
@@ -246,7 +250,10 @@ class HomeContent extends StatelessWidget {
                     ),
             ),
 
-            _buildSectionTitle('My Courses'),
+            _buildSectionTitle(
+              'My Courses',
+              onViewAllTap: () => _navigateToMyCoursesAll(context),
+            ),
             Obx(
               () => courseController.isLoading.value
                   ? const Center(child: CircularProgressIndicator())
@@ -300,10 +307,7 @@ class HomeContent extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: (){
-              Get.to(() => const MyCoursesAllScreen());
-              
-            },
+            onTap: onViewAllTap,
             borderRadius: BorderRadius.circular(4),
             child: Padding(
               padding: const EdgeInsets.all(4.0),
