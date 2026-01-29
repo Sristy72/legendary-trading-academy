@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/community/presentation/controllers/community_controller.dart';
-import 'package:flutter_ladydenily/features/community/presentation/widgets/community_list_item.dart';
 import 'package:flutter_ladydenily/features/community/presentation/screens/chat_details_screen.dart';
+import 'package:flutter_ladydenily/features/community/presentation/widgets/community_list_item.dart';
 import 'package:flutter_ladydenily/features/profile/presentation/controller/profile_controller.dart';
-import 'package:flutter_ladydenily/main.dart'; // Import for routeObserver
 import 'package:get/get.dart';
 
 class CommunityScreen extends StatefulWidget {
@@ -14,43 +13,67 @@ class CommunityScreen extends StatefulWidget {
   State<CommunityScreen> createState() => _CommunityScreenState();
 }
 
-class _CommunityScreenState extends State<CommunityScreen> with RouteAware {
+class _CommunityScreenState extends State<CommunityScreen> with WidgetsBindingObserver {
   late CommunityController controller;
+  bool _isScreenActive = false;
 
   @override
   void initState() {
     super.initState();
     controller = Get.find<CommunityController>();
-    // Assume we start visible
+    WidgetsBinding.instance.addObserver(this);
+    // Mark as active when first created
+    _isScreenActive = true;
     controller.startPolling();
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final modalRoute = ModalRoute.of(context);
-    if (modalRoute is PageRoute) {
-      routeObserver.subscribe(this, modalRoute);
-    }
-  }
-
-  @override
   void dispose() {
-    routeObserver.unsubscribe(this);
+    WidgetsBinding.instance.removeObserver(this);
+    _isScreenActive = false;
     controller.stopPolling();
     super.dispose();
   }
 
   @override
-  void didPushNext() {
-    // Covered by another route
-    controller.stopPolling();
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    // Stop polling when app goes to background
+    if (state == AppLifecycleState.paused || state == AppLifecycleState.inactive) {
+      controller.stopPolling();
+    } else if (state == AppLifecycleState.resumed) {
+      // Only resume if screen is still mounted and active
+      if (_isScreenActive && mounted) {
+        controller.startPolling();
+      }
+    }
   }
 
+  // Called when widget becomes visible in the widget tree
   @override
-  void didPopNext() {
-    // Returned to top
-    controller.startPolling();
+  void didUpdateWidget(CommunityScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (mounted && _isScreenActive) {
+      controller.startPolling();
+    }
+  }
+
+  // Pause polling when navigating away
+  @override
+  void deactivate() {
+    _isScreenActive = false;
+    controller.stopPolling();
+    super.deactivate();
+  }
+
+  // Resume polling when coming back
+  @override
+  void activate() {
+    super.activate();
+    _isScreenActive = true;
+    if (mounted) {
+      controller.startPolling();
+    }
   }
 
   @override

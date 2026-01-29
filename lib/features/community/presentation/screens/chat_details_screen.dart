@@ -5,11 +5,10 @@ import 'package:flutter_ladydenily/features/community/presentation/controllers/c
 import 'package:flutter_ladydenily/features/community/presentation/widgets/chat_bubbles.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:flutter_ladydenily/main.dart';
 
 class ChatDetailsScreen extends StatefulWidget {
   final CommunityItem communityItem;
-  final String currentUserId; // Needed to filter participantId if logic requires
+  final String currentUserId;
 
   const ChatDetailsScreen({
     super.key,
@@ -21,19 +20,18 @@ class ChatDetailsScreen extends StatefulWidget {
   State<ChatDetailsScreen> createState() => _ChatDetailsScreenState();
 }
 
-class _ChatDetailsScreenState extends State<ChatDetailsScreen> with RouteAware {
+class _ChatDetailsScreenState extends State<ChatDetailsScreen> with WidgetsBindingObserver {
   late final ChatController controller;
   late final String participantId;
+  bool _isScreenActive = false;
 
   @override
   void initState() {
     super.initState();
     controller = Get.put(ChatController());
+    WidgetsBinding.instance.addObserver(this);
     
-    // Determine participantId (The other person in the chat)
-    // Logic: If participants list has > 1 item, find the one that is NOT me.
-    // If it has 1 item, assume it's the other person (or it's a group? user said "messenger like")
-    // For now, taking the first one that isn't currentUserId, or just the first one if retrieval fails
+    // Determine participantId
     if (widget.communityItem.participants.isNotEmpty) {
       participantId = widget.communityItem.participants.firstWhere(
         (id) => id != widget.currentUserId,
@@ -43,35 +41,44 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> with RouteAware {
       participantId = "unknown"; 
     }
 
+    _isScreenActive = true;
     controller.loadMessages(widget.communityItem.id);
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final modalRoute = ModalRoute.of(context);
-    if (modalRoute is PageRoute) {
-      routeObserver.subscribe(this, modalRoute);
-    }
-  }
-
-  @override
   void dispose() {
-    routeObserver.unsubscribe(this);
+    WidgetsBinding.instance.removeObserver(this);
+    _isScreenActive = false;
     controller.stopPolling();
     super.dispose();
   }
 
   @override
-  void didPushNext() {
-    // Covered by another route
-    controller.stopPolling();
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused || state == AppLifecycleState.inactive) {
+      controller.stopPolling();
+    } else if (state == AppLifecycleState.resumed) {
+      if (_isScreenActive && mounted) {
+        controller.startPolling(widget.communityItem.id);
+      }
+    }
   }
 
   @override
-  void didPopNext() {
-    // Returned to top
-    controller.startPolling(widget.communityItem.id);
+  void deactivate() {
+    _isScreenActive = false;
+    controller.stopPolling();
+    super.deactivate();
+  }
+
+  @override
+  void activate() {
+    super.activate();
+    _isScreenActive = true;
+    if (mounted) {
+      controller.startPolling(widget.communityItem.id);
+    }
   }
 
   @override
