@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/widgets/module_resource_item.dart';
+import 'package:flutter_ladydenily/features/course_content/presentation/widgets/pdf_viewer_bottom_sheet.dart';
+
 import '../../data/models/class_module_module.dart';
 
-class ModuleAllResources extends StatelessWidget {
+class ModuleAllResources extends StatefulWidget {
   final Module module;
   final int index;
 
@@ -12,6 +14,11 @@ class ModuleAllResources extends StatelessWidget {
     required this.index,
   });
 
+  @override
+  State<ModuleAllResources> createState() => _ModuleAllResourcesState();
+}
+
+class _ModuleAllResourcesState extends State<ModuleAllResources> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -23,7 +30,7 @@ class ModuleAllResources extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 12, top: 8),
             child: Text(
-              'Module ${index + 1}',
+              'Module ${widget.index + 1}',
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
@@ -33,17 +40,49 @@ class ModuleAllResources extends StatelessWidget {
             child: ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: module.resources.length,
+              itemCount: widget.module.resources.length,
               itemBuilder: (context, resourceIndex) {
-                final resource = module.resources[resourceIndex];
+                final resource = widget.module.resources[resourceIndex];
                 return ModuleResourceItem(
                   title: resource.name ?? 'No resource available',
+                  onTap: () => _showPdfViewer(
+                    context,
+                    resource.name ?? 'Resource',
+                    resource.url ?? '',
+                  ),
                 );
               },
             ),
           ),
         ],
       ),
+    );
+  }
+
+  void _showPdfViewer(BuildContext context, String resourceName, String pdfUrl) {
+    if (pdfUrl.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('PDF URL not available'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return PdfViewerBottomSheet(
+          resourceName: resourceName,
+          pdfUrl: pdfUrl,
+          onClose: () {
+            Navigator.of(context).pop();
+          },
+        );
+      },
     );
   }
 }

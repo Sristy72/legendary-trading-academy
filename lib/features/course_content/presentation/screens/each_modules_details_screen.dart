@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/common/widgets/app_scaffold.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/screens/upload_assignment_screen.dart';
+import 'package:flutter_ladydenily/features/course_content/presentation/widgets/pdf_viewer_bottom_sheet.dart';
 import 'package:flutter_ladydenily/features/course_content/presentation/widgets/tab_bar.dart';
 import 'package:get/get.dart';
+
 import '../../data/models/assignment_module.dart';
 import '../../data/models/class_module_module.dart';
 import '../../data/models/resources_model.dart';
 import '../../data/models/video_model.dart';
-import '../widgets/module_resource_item.dart';
-import '../widgets/module_assignment_item.dart';
 import '../widgets/inline_video_player.dart';
+import '../widgets/module_assignment_item.dart';
+import '../widgets/module_resource_item.dart';
 
 class EachModulesDetailsScreen extends StatelessWidget {
   EachModulesDetailsScreen({super.key});
@@ -26,6 +28,33 @@ class EachModulesDetailsScreen extends StatelessWidget {
     currentVideoTitle.value = title;
     currentVideoDate.value = date;
     isFullScreen.value = false; // Reset on new video
+  }
+
+  void _showPdfViewer(BuildContext context, String resourceName, String pdfUrl) {
+    if (pdfUrl.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('PDF URL not available'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return PdfViewerBottomSheet(
+          resourceName: resourceName,
+          pdfUrl: pdfUrl,
+          onClose: () {
+            Navigator.of(context).pop();
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -333,7 +362,11 @@ class EachModulesDetailsScreen extends StatelessWidget {
                             backgroundColor: Color(0xffE8ECF1),
                             title: r.name ?? 'Resource ${index + 1}',
                             onTap: () {
-                              // TODO: implement resource open later
+                              _showPdfViewer(
+                                context,
+                                r.name ?? 'Resource',
+                                r.url ?? '',
+                              );
                             },
                           );
                         },
