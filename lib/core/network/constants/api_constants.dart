@@ -3,7 +3,7 @@ class ApiConstants {
   //  static const String baseDomain = 'https://backend-lady-denily-ysw0.onrender.com';
   // static const String baseDomain = 'http://10.10.5.33:8001'; //
   // static const String baseDomain = 'http://10.10.5.59:8001'; // iftikhar
-  static const String baseDomain = 'http://10.10.5.59:8001'; // soykot
+  static const String baseDomain = 'http://10.10.5.67:8001'; // soykot
   static const String baseUrl = '$baseDomain/api/v1';
 
   /// [Headers]
