@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ladydenily/core/theme/app_colors.dart';
-import 'package:flutter_ladydenily/features/home/models/trainer_api_model.dart';
-import 'package:flutter_ladydenily/features/home/presentation/widgets/my_course_card.dart';
-import 'package:get/get.dart';
 import 'package:flutter_ladydenily/features/course/presentation/controllers/course_controller.dart';
+import 'package:flutter_ladydenily/features/home/models/trainer_api_model.dart';
+import 'package:flutter_ladydenily/features/home/presentation/widgets/course_enroll_card.dart';
+import 'package:get/get.dart';
 
 class TrainerDetailsScreen extends StatelessWidget {
   final TrainerApiModel trainer;
@@ -177,7 +177,7 @@ class TrainerDetailsScreen extends StatelessWidget {
                   else
                     ...trainerCourses.map((course) => Padding(
                       padding: const EdgeInsets.only(bottom: 16.0),
-                      child: MyCourseCard(course: course), // Reusing Course Card
+                      child: CourseEnrollCard(course: course),
                     )),
                     
                    // Add extra padding at bottom
